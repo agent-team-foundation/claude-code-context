@@ -16,6 +16,10 @@ Relevant leaves:
 - **[permission-model.md](permission-model.md)** — Safety, sandboxing, and approval behavior.
 - **[permission-decision-pipeline.md](permission-decision-pipeline.md)** — The layered rule, mode, classifier, worker, and dialog flow behind each tool approval.
 - **[permission-rule-loading-and-persistence.md](permission-rule-loading-and-persistence.md)** — How permission rules are loaded, normalized, stripped for auto mode, restored, and persisted.
+- **[shell-execution-and-backgrounding.md](shell-execution-and-backgrounding.md)** — How shell tools stream, background, reuse tasks, and stay responsive in assistant mode.
+- **[shell-rule-grammar-and-matching.md](shell-rule-grammar-and-matching.md)** — The shared exact/prefix/wildcard rule grammar and the Bash/PowerShell normalization rules around it.
+- **[path-and-filesystem-safety.md](path-and-filesystem-safety.md)** — Working-directory boundaries, protected files, internal harness paths, and shell path validators.
+- **[sandbox-selection-and-bypass-guards.md](sandbox-selection-and-bypass-guards.md)** — How sandbox selection, excluded commands, policy-gated overrides, and Windows refusal paths interact.
 - **[delegation-modes.md](delegation-modes.md)** — Plan mode, worktree mode, and delegated execution patterns.
 - **[tool-execution-state-machine.md](tool-execution-state-machine.md)** — How tools move from selection to execution, denial, retry, and result integration.
 - **[tool-batching-and-streaming-execution.md](tool-batching-and-streaming-execution.md)** — How concurrent-safe tools, streaming execution, progress, and synthetic repairs work.
