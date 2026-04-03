@@ -12,6 +12,7 @@ Relevant leaves:
 
 - **[multi-agent-topology.md](multi-agent-topology.md)** — Agent roles, teams, and coordination patterns.
 - **[worker-execution-boundaries.md](worker-execution-boundaries.md)** — Context isolation, executor modes, identity, and permission boundaries for worker agents.
+- **[team-formation-and-spawn-contract.md](team-formation-and-spawn-contract.md)** — Team creation, teammate membership, shared task-list binding, spawn-time identity rules, and teardown cleanup.
 - **[in-process-teammate-lifecycle.md](in-process-teammate-lifecycle.md)** — The long-lived same-process teammate loop, idle semantics, task-list claiming, and kill versus shutdown behavior.
 - **[teammate-mailbox-and-permission-bridge.md](teammate-mailbox-and-permission-bridge.md)** — Shared mailbox protocol, structured teammate control messages, and the leader-permission bridge for workers.
 - **[teammate-backend-and-context-bootstrap.md](teammate-backend-and-context-bootstrap.md)** — Backend detection, teammate-mode snapshotting, team-context recovery, and spawn inheritance rules.
