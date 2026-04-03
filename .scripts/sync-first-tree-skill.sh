@@ -29,13 +29,13 @@ for required_path in \
 done
 
 mkdir -p \
-  "$ROOT_DIR/skills/first-tree-cli-framework" \
+  "$ROOT_DIR/.skills/first-tree-cli-framework" \
   "$ROOT_DIR/.claude/skills/first-tree-cli-framework" \
   "$ROOT_DIR/.agents/skills/first-tree-cli-framework"
 
 rsync -a --delete \
   "$CLONE_DIR/skills/first-tree-cli-framework/" \
-  "$ROOT_DIR/skills/first-tree-cli-framework/"
+  "$ROOT_DIR/.skills/first-tree-cli-framework/"
 
 rsync -a --delete \
   "$CLONE_DIR/.claude/skills/first-tree-cli-framework/" \
