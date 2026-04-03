@@ -11,6 +11,7 @@ The core runtime is surfaced through multiple clients and transports.
 Relevant leaves:
 
 - **[client-surfaces.md](client-surfaces.md)** — What each surface must preserve from the core runtime.
+- **[surface-adapter-contract.md](surface-adapter-contract.md)** — How each client wraps the same runtime without forking semantics.
 - **[sdk-control-protocol.md](sdk-control-protocol.md)** — The structured control channel used by SDK and automation-facing clients.
 - **[hooks-and-event-surface.md](hooks-and-event-surface.md)** — Hook registration, event delivery, and client-visible lifecycle signals.
 - **[remote-and-managed-client-envelopes.md](remote-and-managed-client-envelopes.md)** — Remote-capable clients, managed wrappers, and environment-selection envelopes.
