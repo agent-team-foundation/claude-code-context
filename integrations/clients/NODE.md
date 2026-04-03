@@ -11,3 +11,4 @@ The core runtime is surfaced through multiple clients and transports.
 Relevant leaves:
 
 - **[client-surfaces.md](client-surfaces.md)** — What each surface must preserve from the core runtime.
+- **[sdk-control-protocol.md](sdk-control-protocol.md)** — The structured control channel used by SDK and automation-facing clients.

@@ -11,6 +11,7 @@ This domain captures the tool contract that powers agentic work and the permissi
 Relevant leaves:
 
 - **[tool-families.md](tool-families.md)** — The major classes of tools that must exist.
+- **[control-plane-tools.md](control-plane-tools.md)** — Tools that mutate runtime state, teams, tasks, or execution modes.
 - **[permission-model.md](permission-model.md)** — Safety, sandboxing, and approval behavior.
 - **[delegation-modes.md](delegation-modes.md)** — Plan mode, worktree mode, and delegated execution patterns.
 - **[tool-execution-state-machine.md](tool-execution-state-machine.md)** — How tools move from selection to execution, denial, retry, and result integration.
