@@ -22,12 +22,17 @@ Equivalent behavior should preserve:
 
 Equivalent behavior should preserve:
 
-- permission, sandbox-permission, team-permission-update, and mode-set control payloads being intercepted before generic teammate rendering rather than leaking into ordinary mailbox text
+- attachment-mode mailbox generation filtering a fixed structured-protocol subset before it even builds a generic teammate-mailbox attachment
+- that attachment-side protocol subset including permission requests and responses, sandbox-permission requests and responses, shutdown requests, shutdown approvals, team-permission updates, mode-set requests, and plan-approval requests and responses
+- that attachment-side protocol subset being intentionally narrower than “all structured JSON,” so shutdown rejections, task assignments, idle notifications, and teammate-termination notices still reach the UI layer and are handled by later filters or summary logic
+- transcript-mode mailbox delivery using a different path: inbox polling can perform side effects for plan-approval and shutdown payloads and still pass those same messages through as wrapped teammate envelopes for transcript-aware rendering
 - transcript teammate rendering prefiltering shutdown-approved payloads and synthetic teammate-terminated payloads before building visible rows
 - transcript teammate rendering returning no surface at all when that prefilter leaves zero remaining envelopes
 - idle-notification payloads being hidden entirely from visible teammate rows instead of surfacing as ordinary chat text
 - attachment-style mailbox rendering prefiltering shutdown-approved, idle-notification, and teammate-terminated payloads before it counts or displays messages, so compact mailbox surfaces never imply hidden rows exist
 - transcript and attachment paths intentionally differing here: attachment filtering happens before per-message rendering, while transcript rendering hides idle notifications later in the render cascade
+- leader-view attachment gathering deduplicating file-backed unread messages against same-turn in-memory inbox entries so one teammate update cannot surface twice during mailbox-poller races
+- file-backed mailbox rows being marked read only after the non-protocol attachment payload has been assembled, preventing message loss when later processing fails
 
 ## Transcript render precedence
 
@@ -63,11 +68,13 @@ Equivalent behavior should preserve:
 
 Equivalent behavior should preserve:
 
+- attachment-based mailbox rendering operating on the surviving post-dedup, post-filter message set rather than on raw unread mailbox contents
 - attachment-based teammate mailbox rendering attempting rich rendering only for plan-approval messages
 - task-assignment payloads inside attachments collapsing into a single compact bullet row instead of the larger transcript card
 - all other attachment-path teammate content flowing through one shared summary formatter before plain-text display
 - task-assignment compact rows preferring the payload's assigner field but falling back to the wrapper sender when needed
 - plain attachment rows reusing the same colored-header plus optional summary-preview structure as transcript fallback rows
+- task-completed payloads having no attachment-only rich card path parallel to transcript mode, so compact surfaces depend on the shared summary or raw-content fallback instead
 
 ## Shared summary formatter
 
