@@ -13,6 +13,7 @@ Relevant leaves:
 - **[terminal-ui.md](terminal-ui.md)** — Composition of the terminal application and major UI regions.
 - **[interaction-feedback.md](interaction-feedback.md)** — How the product communicates progress, risk, and outcomes.
 - **[system-feedback-lines.md](system-feedback-lines.md)** — How system-generated status rows specialize by subtype, collapse noise, and preserve turn and recovery context.
+- **[teammate-mailbox-control-message-rendering.md](teammate-mailbox-control-message-rendering.md)** — How teammate mailbox envelopes, control-message cards, hidden protocol payloads, and compact summaries render across transcript and attachment paths.
 - **[teammate-surfaces-and-navigation.md](teammate-surfaces-and-navigation.md)** — How swarm roster, spinner tree, transcript view, task dialogs, and banners stay synchronized.
 - **[background-task-status-surfaces.md](background-task-status-surfaces.md)** — How coordinator rows, teammate pill strips, generic task pills, and named-agent banners divide and synchronize background work visibility.
 - **[background-task-summary-labels.md](background-task-summary-labels.md)** — How the footer pill and transcript summaries compress visible background work into stable, type-aware labels.
