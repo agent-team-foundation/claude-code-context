@@ -19,3 +19,19 @@ This repository intentionally does not store:
 - source files, source snippets, or prompt bodies copied from the analyzed codebase
 - proprietary strings, secrets, internal codenames, or implementation-only detail
 - repo-by-repo file inventories that would turn the tree into a source mirror
+
+## Synced skill
+
+This repo mirrors the `first-tree-cli-framework` skill from the upstream `agent-team-foundation/first-tree` repository into:
+
+- `skills/first-tree-cli-framework`
+- `.claude/skills/first-tree-cli-framework`
+- `.agents/skills/first-tree-cli-framework`
+
+To sync manually, run:
+
+```bash
+bash ./scripts/sync-first-tree-skill.sh
+```
+
+GitHub Actions also runs `.github/workflows/sync-first-tree-skill.yml` on a schedule and supports manual triggering.
