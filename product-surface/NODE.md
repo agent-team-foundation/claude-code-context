@@ -13,3 +13,4 @@ Relevant leaves:
 - **[interaction-modes.md](interaction-modes.md)** — The major ways a user can operate the product.
 - **[command-surface.md](command-surface.md)** — How commands are grouped and what each group must expose.
 - **[session-state-and-breakpoints.md](session-state-and-breakpoints.md)** — User-visible session phases, mode transitions, and where interaction can fail or be deferred.
+- **[command-runtime-matrix.md](command-runtime-matrix.md)** — How command families map onto runtime subsystems, tool families, and task types.
