@@ -11,3 +11,4 @@ This subdomain captures how Claude Code treats Model Context Protocol servers as
 Relevant leaves:
 
 - **[server-contract.md](server-contract.md)** — Server lifecycle, auth, config, and resource exposure expectations.
+- **[connection-and-recovery-contract.md](connection-and-recovery-contract.md)** — Transport types, session recovery, and runtime failure boundaries for MCP servers.

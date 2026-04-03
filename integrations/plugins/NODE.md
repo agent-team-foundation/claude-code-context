@@ -11,3 +11,5 @@ This subdomain captures the two main extension mechanisms beyond MCP.
 Relevant leaves:
 
 - **[plugin-and-skill-model.md](plugin-and-skill-model.md)** — Roles of plugins versus skills, trust boundaries, and lifecycle expectations.
+- **[plugin-runtime-contract.md](plugin-runtime-contract.md)** — Discovery, admission, caching, deduplication, and failure handling for plugins.
+- **[skill-loading-contract.md](skill-loading-contract.md)** — Skill sources, load path, and the boundary between reusable guidance and executable extensions.
