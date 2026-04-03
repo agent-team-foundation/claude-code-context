@@ -14,3 +14,4 @@ Relevant leaves:
 - **[memory-layers.md](memory-layers.md)** — Ephemeral and durable memory stores.
 - **[compaction-and-dream.md](compaction-and-dream.md)** — Context pressure management and background consolidation.
 - **[context-lifecycle-and-failure-modes.md](context-lifecycle-and-failure-modes.md)** — State transitions for context assembly, caching, compaction, and memory upkeep.
+- **[compact-path.md](compact-path.md)** — End-to-end path for proactive, reactive, and manual compaction flows.

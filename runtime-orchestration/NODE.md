@@ -14,3 +14,5 @@ Relevant leaves:
 - **[task-model.md](task-model.md)** — Background work and long-running task lifecycle.
 - **[build-profiles.md](build-profiles.md)** — Feature gates and environment-specific capability envelopes.
 - **[state-machines-and-failures.md](state-machines-and-failures.md)** — Turn, task, and runtime transition model with the main failure classes.
+- **[review-path.md](review-path.md)** — End-to-end path for local review and remote ultrareview-style flows.
+- **[resume-path.md](resume-path.md)** — End-to-end path for resuming local and teleported sessions.
