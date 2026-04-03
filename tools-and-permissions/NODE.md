@@ -13,6 +13,7 @@ Relevant leaves:
 - **[tool-families.md](tool-families.md)** — The major classes of tools that must exist.
 - **[tool-pool-assembly.md](tool-pool-assembly.md)** — How the runtime assembles the exact tool list that the model and UI can see in one session.
 - **[control-plane-tools.md](control-plane-tools.md)** — Tools that mutate runtime state, teams, tasks, or execution modes.
+- **[agent-tool-launch-routing.md](agent-tool-launch-routing.md)** — How the Agent tool chooses between teammate, fork, background, worktree, and remote execution paths.
 - **[permission-model.md](permission-model.md)** — Safety, sandboxing, and approval behavior.
 - **[permission-decision-pipeline.md](permission-decision-pipeline.md)** — The layered rule, mode, classifier, worker, and dialog flow behind each tool approval.
 - **[permission-rule-loading-and-persistence.md](permission-rule-loading-and-persistence.md)** — How permission rules are loaded, normalized, stripped for auto mode, restored, and persisted.
