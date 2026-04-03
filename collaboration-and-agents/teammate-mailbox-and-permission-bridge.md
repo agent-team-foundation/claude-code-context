@@ -12,9 +12,14 @@ Claude Code uses a shared mailbox protocol so teammates can talk to each other w
 
 Equivalent behavior should preserve:
 
-- one inbox per teammate name within a team
-- append-only mailbox writes protected by locking so concurrent senders do not trample each other
+- one inbox file per teammate name within a team, rooted under the teams directory and derived from sanitized team and agent path components
+- lazy directory creation for the per-team inbox folder plus lazy inbox-file creation on first write, without accidentally creating files during clear or read-only paths
+- append-only mailbox writes protected by locking plus retry backoff so concurrent senders do not trample each other
+- re-reading inbox contents after acquiring the write lock, then appending the new message to that fresh snapshot before rewriting the file
 - explicit read markers rather than destructive dequeue on read
+- a mailbox record shape that always carries sender name, raw text payload, timestamp, read bit, and optional color or short summary metadata for UI use
+- missing inbox files reading as an empty mailbox rather than a hard failure
+- lock-protected read-mark operations for mark-one-by-index, mark-all, and predicate-based partial acknowledgement
 - the same logical transport for pane-backed and in-process teammates so control flows behave the same across backends
 
 Mailbox routing is by teammate name and team, not by ephemeral process identity.
@@ -31,13 +36,19 @@ The durable rule is:
 
 Important structured message families include:
 
-- idle notifications
 - tool-permission requests and responses
 - sandbox network-permission requests and responses
 - plan-approval requests and responses
-- shutdown requests plus shutdown-approved or shutdown-rejected replies
+- shutdown requests and shutdown-approved replies
 - team-wide permission updates
 - leader-driven permission-mode changes
+
+Equivalent behavior should also preserve:
+
+- a narrower attachment-exclusion protocol set than “all structured JSON,” so idle notifications, task assignments, shutdown rejections, task-completed payloads, and teammate-termination notices can still reach later UI filters or summary logic
+- mailbox attachment generation marking only non-protocol messages as read, leaving the intercepted protocol subset unread until the inbox poller handles it
+- raw teammate-message XML formatting preserving color and summary metadata in wrapper attributes instead of flattening everything into text
+- mixed parser strictness across mailbox families: plan approval, shutdown, and mode-set control use schema-validated parsing, while permission, sandbox, idle, task-assignment, and team-permission payloads rely primarily on `type`-based JSON detection
 
 ## Direct leader permission bridge
 
@@ -60,6 +71,8 @@ A faithful rebuild should preserve:
 - worker-side callback registration keyed by permission request ID
 - mailbox-based permission requests when the live leader bridge is unavailable
 - mailbox-based permission responses that resolve the matching worker callback
+- permission-request payload fields staying aligned with SDK control-plane naming, including snake_case request and tool-use identifiers
+- permission-response payloads mirroring control success-versus-error structure instead of inventing a separate ad hoc response shape
 - compatibility with older file-based pending or resolved permission flows while newer mailbox IPC is taking over
 - cleanup of resolved artifacts and callbacks after a response is consumed
 
@@ -81,6 +94,8 @@ Teammate plan approval is another mailbox-mediated control flow.
 Required behavior:
 
 - leader-side inbox handling may auto-approve teammate plan requests
+- plan-approval request payloads carrying requester identity, request id, plan file path, plan body, and timestamp as first-class structured fields
+- plan-approval responses carrying an approval boolean, request id, optional feedback, timestamp, and optional inherited permission mode
 - the returned permission mode should inherit the leader's current external mode
 - if the leader is itself in plan mode, the inherited worker mode should normalize back to an ordinary execution mode rather than trapping the worker in plan forever
 - separate UI state such as "awaiting plan approval" should be cleared without conflating it with the worker's permission-mode update
@@ -92,7 +107,7 @@ Sandbox host approvals use the same overall pattern as tool permissions but need
 Equivalent behavior should preserve:
 
 - unique sandbox request IDs
-- worker-to-leader requests that carry host identity plus worker identity
+- worker-to-leader requests that carry host identity in a nested host-pattern object plus worker id, worker name, optional worker color, and creation time
 - leader-to-worker responses that resolve the matching pending sandbox callback
 - no cross-talk between tool-permission and sandbox-permission registries
 
@@ -102,14 +117,18 @@ Mailbox control traffic also governs teammate lifecycle and steering.
 
 Equivalent behavior should preserve:
 
+- shutdown-request payloads using deterministic request ids per target and inheriting sender identity from the current agent context or reserved leader identity
 - shutdown requests that remain visible to the teammate model or UI for approval or rejection
-- shutdown-approved messages that let the leader finish backend-specific cleanup
+- shutdown-approved messages that let the leader finish backend-specific cleanup and may also carry optional pane or backend metadata for that cleanup step
+- shutdown-rejected messages remaining visible coordination traffic rather than being hidden inside the attachment-exclusion protocol subset
 - mode-set messages that let the leader cycle a worker's permission mode without editing its prompt history
 - team permission update broadcasts that carry shared allow rules to workers
 
 ## Failure modes
 
+- **over-broad protocol filter**: every structured JSON mailbox item is treated as control-plane traffic and idle, assignment, or rejection updates never reach the UI layer
 - **protocol leak**: shutdown or permission JSON is surfaced as ordinary teammate text and never reaches its handler
+- **write race**: concurrent mailbox senders overwrite one another because the writer does not re-read after acquiring the lock
 - **mode bleed-back**: worker permission updates overwrite the leader's actual mode
 - **stale approval**: a callback from an older request fires after session reset and resolves the wrong permission prompt
 - **registry collision**: sandbox and tool-permission responses share identifiers or handlers and unblock the wrong waiter
