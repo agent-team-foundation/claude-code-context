@@ -11,6 +11,7 @@ This domain captures how Claude Code scales from one foreground agent to many co
 Relevant leaves:
 
 - **[multi-agent-topology.md](multi-agent-topology.md)** — Agent roles, teams, and coordination patterns.
+- **[worker-execution-boundaries.md](worker-execution-boundaries.md)** — Context isolation, executor modes, identity, and permission boundaries for worker agents.
 - **[remote-and-bridge-flows.md](remote-and-bridge-flows.md)** — Remote execution, bridge transport, and session handoff behavior.
 - **[collaboration-state-machine.md](collaboration-state-machine.md)** — How local, delegated, remote, and bridge-mediated work transitions over time.
 - **[remote-session-contract.md](remote-session-contract.md)** — Contract for remote session ownership, messaging, approval, and reconnect.
