@@ -13,6 +13,7 @@ Relevant leaves:
 - **[terminal-ui.md](terminal-ui.md)** — Composition of the terminal application and major UI regions.
 - **[interaction-feedback.md](interaction-feedback.md)** — How the product communicates progress, risk, and outcomes.
 - **[permission-prompt-shell-and-worker-states.md](permission-prompt-shell-and-worker-states.md)** — How queued approval prompts, shared permission dialog chrome, feedback-entry controls, and worker waiting cards behave.
+- **[plan-mode-approval-surfaces.md](plan-mode-approval-surfaces.md)** — How enter-plan and exit-plan approvals present plans, collect feedback, choose execution modes, and hand plan acceptance back into the session loop.
 - **[system-feedback-lines.md](system-feedback-lines.md)** — How system-generated status rows specialize by subtype, collapse noise, and preserve turn and recovery context.
 - **[hook-execution-feedback.md](hook-execution-feedback.md)** — How hook progress rows, async hook attachments, stop-hook spinner suffixes, and dynamic-versus-static message behavior stay coordinated.
 - **[teammate-mailbox-control-message-rendering.md](teammate-mailbox-control-message-rendering.md)** — How teammate mailbox envelopes, control-message cards, hidden protocol payloads, and compact summaries render across transcript and attachment paths.
