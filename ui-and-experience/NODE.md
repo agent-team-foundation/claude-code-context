@@ -12,3 +12,4 @@ Relevant leaves:
 
 - **[terminal-ui.md](terminal-ui.md)** — Composition of the terminal application and major UI regions.
 - **[interaction-feedback.md](interaction-feedback.md)** — How the product communicates progress, risk, and outcomes.
+- **[feedback-state-machine.md](feedback-state-machine.md)** — UI state transitions from idle to progress, approval, recovery, and completion.

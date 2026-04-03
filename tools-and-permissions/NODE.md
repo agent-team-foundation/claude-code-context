@@ -13,3 +13,4 @@ Relevant leaves:
 - **[tool-families.md](tool-families.md)** — The major classes of tools that must exist.
 - **[permission-model.md](permission-model.md)** — Safety, sandboxing, and approval behavior.
 - **[delegation-modes.md](delegation-modes.md)** — Plan mode, worktree mode, and delegated execution patterns.
+- **[tool-execution-state-machine.md](tool-execution-state-machine.md)** — How tools move from selection to execution, denial, retry, and result integration.
