@@ -16,6 +16,10 @@ Relevant leaves:
 - **[turn-attachments-and-sidechannels.md](turn-attachments-and-sidechannels.md)** — The post-tool attachment drain, queued prompts, memory/skill sidechannels, and recursion control signals.
 - **[task-model.md](task-model.md)** — Background work and long-running task lifecycle.
 - **[background-shell-task-lifecycle.md](background-shell-task-lifecycle.md)** — How shell tasks register, background in place, notify exactly once, and stop safely.
+- **[local-agent-task-lifecycle.md](local-agent-task-lifecycle.md)** — How local subagents register early, background in place, retain transcript state, and notify without duplicate starts.
+- **[background-main-session-lifecycle.md](background-main-session-lifecycle.md)** — How the main query detaches into a task-scoped transcript that survives clear and can be foregrounded later.
+- **[remote-agent-restoration-and-polling.md](remote-agent-restoration-and-polling.md)** — How remote sessions persist restore metadata, poll safely, and specialize review or planning completion.
+- **[dream-task-visibility.md](dream-task-visibility.md)** — How auto-dream work becomes a UI-visible task without entering the normal model-facing notification path.
 - **[task-output-persistence-and-streaming.md](task-output-persistence-and-streaming.md)** — The single output owner, session-stable task files, shared polling, and bounded readback model.
 - **[session-artifacts-and-sharing.md](session-artifacts-and-sharing.md)** — The session files, snapshots, subagent transcripts, and shareable artifacts around resume.
 - **[build-profiles.md](build-profiles.md)** — Feature gates and environment-specific capability envelopes.

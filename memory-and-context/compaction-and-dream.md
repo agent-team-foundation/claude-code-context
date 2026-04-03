@@ -1,7 +1,7 @@
 ---
 title: "Compaction and Dream"
 owners: []
-soft_links: [/runtime-orchestration/query-loop.md, /collaboration-and-agents/multi-agent-topology.md]
+soft_links: [/runtime-orchestration/query-loop.md, /collaboration-and-agents/multi-agent-topology.md, /runtime-orchestration/dream-task-visibility.md]
 ---
 
 # Compaction and Dream
@@ -21,5 +21,6 @@ Second, the product needs durable consolidation:
 - promotion of stable insights into durable memory
 - pruning of contradictions and stale pointers
 - strict separation between memory maintenance and arbitrary source edits
+- a UI-visible dream-task surface so users can inspect or stop consolidation without turning it into an ordinary model-facing background notification
 
 The design point is not merely "summarize when long." It is "keep sessions responsive while preserving durable knowledge quality over time."
