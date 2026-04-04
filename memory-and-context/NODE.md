@@ -14,6 +14,7 @@ Relevant leaves:
 - **[instruction-sources-and-precedence.md](instruction-sources-and-precedence.md)** — Exact ordering, filtering, and selective loading rules for instruction-bearing memory.
 - **[memory-layers.md](memory-layers.md)** — Ephemeral and durable memory stores.
 - **[durable-memory-recall-and-auto-memory.md](durable-memory-recall-and-auto-memory.md)** — Project-scoped durable memory storage, selective recall, and assistant-mode auto-memory flows.
+- **[relevant-memory-selection-and-session-memory-upkeep.md](relevant-memory-selection-and-session-memory-upkeep.md)** — Exact turn-time relevant-memory selection contract and the thresholded upkeep path for session memory.
 - **[session-memory.md](session-memory.md)** — Background upkeep of a session-scoped working memory file.
 - **[memory-management-and-context-inspection.md](memory-management-and-context-inspection.md)** — How `/memory` edits and opens memory surfaces, and how `/context` plus SDK inspection report the real model-facing context budget.
 - **[compaction-and-dream.md](compaction-and-dream.md)** — Context pressure management and background consolidation.

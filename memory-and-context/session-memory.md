@@ -1,7 +1,7 @@
 ---
 title: "Session Memory"
 owners: []
-soft_links: [/memory-and-context/compaction-and-dream.md, /memory-and-context/durable-memory-recall-and-auto-memory.md, /memory-and-context/context-bootstrap.md, /memory-and-context/context-cache-and-invalidation.md, /runtime-orchestration/task-model.md, /platform-services/sync-and-managed-state.md]
+soft_links: [/memory-and-context/compaction-and-dream.md, /memory-and-context/durable-memory-recall-and-auto-memory.md, /memory-and-context/relevant-memory-selection-and-session-memory-upkeep.md, /memory-and-context/context-bootstrap.md, /memory-and-context/context-cache-and-invalidation.md, /runtime-orchestration/task-model.md, /platform-services/sync-and-managed-state.md]
 ---
 
 # Session Memory
