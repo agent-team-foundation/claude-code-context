@@ -25,4 +25,5 @@ Relevant leaves:
 - **[bridge-contract.md](bridge-contract.md)** — Contract for bridge-mediated control from constrained companion clients.
 - **[bridge-transport-and-remote-control-runtime.md](bridge-transport-and-remote-control-runtime.md)** — Attach-time runtime mechanics for bridge sessions, including transport selection, dedup, reconnect, state reporting, and teardown.
 - **[remote-control-spawn-modes-and-session-resume.md](remote-control-spawn-modes-and-session-resume.md)** — Standalone `claude remote-control` startup gating, spawn-mode precedence, session placement, resume pointer hygiene, and environment-reuse fallback.
+- **[repl-remote-control-lifecycle.md](repl-remote-control-lifecycle.md)** — Interactive `/remote-control` enablement sources, mirror-to-full upgrade rules, hook lifecycle, failure fuse, and disconnect persistence.
 - **[remote-handoff-path.md](remote-handoff-path.md)** — End-to-end path for teleport, remote review or planning, and cross-machine continuation.

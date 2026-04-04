@@ -1,7 +1,7 @@
 ---
 title: "Remote and Bridge Flows"
 owners: []
-soft_links: [/integrations/clients/client-surfaces.md, /platform-services/auth-config-and-policy.md, /collaboration-and-agents/remote-control-spawn-modes-and-session-resume.md]
+soft_links: [/integrations/clients/client-surfaces.md, /platform-services/auth-config-and-policy.md, /collaboration-and-agents/remote-control-spawn-modes-and-session-resume.md, /collaboration-and-agents/repl-remote-control-lifecycle.md]
 ---
 
 # Remote and Bridge Flows
@@ -12,6 +12,7 @@ Capabilities in this area include:
 
 - remote agent sessions for long-running or heavyweight work
 - bridge layers that connect local terminal state with remote execution or companion surfaces
+- interactive sessions whose REPL can keep an always-on Remote Control bridge alive through explicit command, startup auto-connect, or outbound-only mirror mode
 - standalone remote-control hosting that can stay as one resumable session or become a persistent multi-session host with shared-directory versus worktree-isolated placement
 - direct-connect or session-handoff flows that require auth, transport setup, and repo identity checks
 - resume and teleport behavior that brings remote results back into the local working context
