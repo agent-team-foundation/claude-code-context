@@ -1,7 +1,7 @@
 ---
 title: "Remote Session Contract"
 owners: []
-soft_links: [/collaboration-and-agents/remote-and-bridge-flows.md, /collaboration-and-agents/remote-session-live-control-loop.md, /runtime-orchestration/app-state-and-input-routing.md, /integrations/clients/client-surfaces.md, /integrations/clients/structured-io-and-headless-session-loop.md, /integrations/clients/remote-session-message-adaptation-and-viewer-state.md, /tools-and-permissions/permission-model.md]
+soft_links: [/collaboration-and-agents/remote-and-bridge-flows.md, /collaboration-and-agents/remote-session-live-control-loop.md, /collaboration-and-agents/remote-session-subscription-auth-and-reconnect.md, /runtime-orchestration/app-state-and-input-routing.md, /integrations/clients/client-surfaces.md, /integrations/clients/structured-io-and-headless-session-loop.md, /integrations/clients/remote-session-message-adaptation-and-viewer-state.md, /tools-and-permissions/permission-model.md]
 ---
 
 # Remote Session Contract
