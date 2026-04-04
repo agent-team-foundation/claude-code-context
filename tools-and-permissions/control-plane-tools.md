@@ -1,7 +1,7 @@
 ---
 title: "Control-Plane Tools"
 owners: []
-soft_links: [/tools-and-permissions/delegation-modes.md, /tools-and-permissions/permission-mode-transitions-and-gates.md, /tools-and-permissions/task-and-team-control-tool-contracts.md, /tools-and-permissions/config-discovery-and-trigger-tool-contracts.md, /runtime-orchestration/task-model.md, /runtime-orchestration/worktree-session-lifecycle.md, /integrations/clients/sdk-control-protocol.md]
+soft_links: [/tools-and-permissions/delegation-modes.md, /tools-and-permissions/permission-mode-transitions-and-gates.md, /tools-and-permissions/task-and-team-control-tool-contracts.md, /tools-and-permissions/config-discovery-and-trigger-tool-contracts.md, /runtime-orchestration/task-model.md, /runtime-orchestration/shared-task-control-plane-and-lifecycle-events.md, /runtime-orchestration/worktree-session-lifecycle.md, /integrations/clients/sdk-control-protocol.md]
 ---
 
 # Control-Plane Tools
@@ -31,5 +31,7 @@ Some control-plane families need stronger guarantees than a generic schema:
 - task and team tools should be transactional, with rollback or veto paths when hooks reject a mutation
 - config and trigger tools should write only through registry-backed, type-aware mutation paths
 - permission-management surfaces should operate on source-attributed rule state rather than on flattened raw text blobs
+
+Runtime task-management tools also need a clear boundary: file-backed team task lists are one contract, while live background-task registration, stop dispatch, and lifecycle bookends are the runtime contract captured in [shared-task-control-plane-and-lifecycle-events.md](../runtime-orchestration/shared-task-control-plane-and-lifecycle-events.md).
 
 This distinction is important for reconstruction because Claude Code is not just a bundle of file and shell tools. It is also a runtime that can reconfigure itself while work is in progress.

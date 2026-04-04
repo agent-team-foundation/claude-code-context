@@ -17,6 +17,7 @@ Relevant leaves:
 - **[unified-command-queue-and-drain.md](unified-command-queue-and-drain.md)** — How the shared command queue mediates busy input, between-turn draining, mid-turn attachments, headless batching, and agent-scoped delivery.
 - **[proactive-assistant-loop-and-brief-mode.md](proactive-assistant-loop-and-brief-mode.md)** — How assistant mode, proactive ticks, BriefTool, and startup team bootstrap create a persistent autonomous posture.
 - **[task-model.md](task-model.md)** — Background work and long-running task lifecycle.
+- **[shared-task-control-plane-and-lifecycle-events.md](shared-task-control-plane-and-lifecycle-events.md)** — Shared task IDs, registration and replacement rules, generic stop or poll or eviction behavior, and SDK lifecycle bookends across task families.
 - **[workflow-script-runtime.md](workflow-script-runtime.md)** — How workflow definitions become badged commands, bootstrap bundled flows, run as background workflow tasks, emit phase progress, and clean up workflow worktrees.
 - **[app-state-and-input-routing.md](app-state-and-input-routing.md)** — Central app-state partitions, routed input targeting, metadata projection, and write-through side effects.
 - **[task-registry-and-visibility.md](task-registry-and-visibility.md)** — Canonical local task records, family-specific identity, and the derived surfaces that make work visible.

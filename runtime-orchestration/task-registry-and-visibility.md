@@ -1,12 +1,14 @@
 ---
 title: "Task Registry and Visibility"
 owners: []
-soft_links: [/runtime-orchestration/task-model.md, /runtime-orchestration/monitor-task-families-and-watch-lifecycle.md, /runtime-orchestration/app-state-and-input-routing.md, /runtime-orchestration/background-main-session-lifecycle.md, /runtime-orchestration/remote-agent-restoration-and-polling.md, /ui-and-experience/background-task-status-surfaces.md]
+soft_links: [/runtime-orchestration/task-model.md, /runtime-orchestration/shared-task-control-plane-and-lifecycle-events.md, /runtime-orchestration/monitor-task-families-and-watch-lifecycle.md, /runtime-orchestration/app-state-and-input-routing.md, /runtime-orchestration/background-main-session-lifecycle.md, /runtime-orchestration/remote-agent-restoration-and-polling.md, /ui-and-experience/background-task-status-surfaces.md]
 ---
 
 # Task Registry and Visibility
 
 Claude Code keeps one shared in-memory registry for locally owned tasks, then derives many different user-visible surfaces from that registry. Reconstructing the product requires both halves: the canonical task records and the rules that decide which tasks appear where.
+
+Registration, replacement, generic stop dispatch, and SDK task-lifecycle bookends are shared runtime mechanics captured in [shared-task-control-plane-and-lifecycle-events.md](shared-task-control-plane-and-lifecycle-events.md). This leaf focuses on record shape and on the derived surfaces built from those records.
 
 ## Canonical task record
 

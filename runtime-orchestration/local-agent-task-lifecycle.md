@@ -8,6 +8,8 @@ soft_links: [/runtime-orchestration/task-model.md, /runtime-orchestration/turn-a
 
 Local subagents are explicit task records, not disposable helper calls. The same agent may begin inline, switch to background execution, be viewed in a coordinator panel, receive follow-up messages, survive a resume path, and later re-surface after compaction.
 
+Shared task registration, replacement semantics, `notified` barriers, terminal eviction rules, and SDK lifecycle bookends are captured in [shared-task-control-plane-and-lifecycle-events.md](shared-task-control-plane-and-lifecycle-events.md). This leaf focuses on the agent-specific foreground, background, transcript-retention, and prompt-injection behavior layered on top.
+
 ## Stable identity and transcript binding
 
 Equivalent behavior should preserve:

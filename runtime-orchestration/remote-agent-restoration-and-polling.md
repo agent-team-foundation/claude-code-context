@@ -8,6 +8,8 @@ soft_links: [/runtime-orchestration/task-model.md, /runtime-orchestration/task-o
 
 Remote work is represented locally as a shadow task that watches, interprets, and sometimes controls a remote Claude session. The local runtime does not just show a spinner: it persists reconnect metadata, polls remote events, translates task-type-specific completion signals, and decides what should come back to the local model versus what should stay a remote artifact.
 
+Shared task registration, generic stop dispatch, `notified` barriers, terminal eviction rules, and SDK lifecycle bookends are captured in [shared-task-control-plane-and-lifecycle-events.md](shared-task-control-plane-and-lifecycle-events.md). This leaf focuses on the remote-session-specific restore, polling, and result-shaping logic layered on top.
+
 ## Local shadow-task contract
 
 Equivalent behavior should preserve:

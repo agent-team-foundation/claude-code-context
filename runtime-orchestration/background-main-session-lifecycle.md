@@ -8,6 +8,8 @@ soft_links: [/runtime-orchestration/task-model.md, /runtime-orchestration/task-r
 
 Claude Code can detach the main conversation itself into a background task. That path is not the same as spawning a helper agent: it keeps running the standard query loop, but under a task-scoped identity and transcript that can survive UI reset and session-clear flows.
 
+Shared task registration, generic stop dispatch, `notified` barriers, terminal eviction rules, and SDK lifecycle bookends are captured in [shared-task-control-plane-and-lifecycle-events.md](shared-task-control-plane-and-lifecycle-events.md). This leaf focuses on what is special about backgrounding the main conversation itself.
+
 ## Specialized task identity
 
 Equivalent behavior should preserve:
