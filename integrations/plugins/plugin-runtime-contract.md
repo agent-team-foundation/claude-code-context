@@ -1,7 +1,7 @@
 ---
 title: "Plugin Runtime Contract"
 owners: []
-soft_links: [/integrations/plugins/plugin-and-skill-model.md, /integrations/mcp/connection-and-recovery-contract.md, /platform-services/auth-config-and-policy.md]
+soft_links: [/integrations/plugins/plugin-and-skill-model.md, /integrations/plugins/plugin-source-precedence-and-cache-loading.md, /integrations/plugins/plugin-hot-reload-and-settings-coupling.md, /integrations/mcp/connection-and-recovery-contract.md, /platform-services/auth-config-and-policy.md]
 ---
 
 # Plugin Runtime Contract
@@ -12,7 +12,8 @@ Plugins are operational extensions and therefore need a stricter lifecycle than 
 
 - Built-in plugins may ship with the product and be user-toggleable.
 - User-installed or marketplace-backed plugins should be discoverable from configured plugin directories and caches.
-- Session-only plugin injection is possible, but it should never silently override persistent plugin state.
+- Session-only plugin injection should be able to override an installed plugin of the same name for the current session.
+- Managed policy must be able to block that session override when the plugin name is admin-locked.
 
 ## Admission contract
 
@@ -36,3 +37,5 @@ Plugins are operational extensions and therefore need a stricter lifecycle than 
 - **validation failure**: manifest or component shape is invalid
 - **source blocked**: marketplace, policy, or trust rules reject the plugin
 - **cache skew**: command or hook state no longer matches the installed plugin bits
+
+The detailed source-precedence, cache-loading, and hot-reload contracts live in the dedicated plugin leaves linked above. This node is the umbrella runtime contract for why those subcontracts matter.
