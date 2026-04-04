@@ -9,6 +9,8 @@ owners: []
 
 This proposal defines how nodes are structured, named, and owned in a Context Tree repository.
 
+Owner entries use GitHub usernames. Standard GitHub handles, including hyphenated names such as `bingran-you`, are valid in `owners`.
+
 ## NODE.md as the Parent Node
 
 Every folder in the tree **must** contain a `NODE.md` file. This file serves two purposes:

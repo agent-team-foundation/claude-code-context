@@ -1,5 +1,6 @@
 ---
 title: "<Your Organization>"
+# Use your GitHub username in owners; hyphenated handles like bingran-you are valid.
 owners: [<your-github-username>]
 ---
 
