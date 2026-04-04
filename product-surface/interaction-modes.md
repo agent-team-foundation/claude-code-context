@@ -1,7 +1,7 @@
 ---
 title: "Interaction Modes"
 owners: []
-soft_links: [/runtime-orchestration/query-loop.md, /product-surface/session-utility-commands.md, /tools-and-permissions/delegation-modes.md, /tools-and-permissions/permission-mode-transitions-and-gates.md]
+soft_links: [/runtime-orchestration/query-loop.md, /runtime-orchestration/worktree-session-lifecycle.md, /product-surface/session-utility-commands.md, /tools-and-permissions/delegation-modes.md, /tools-and-permissions/permission-mode-transitions-and-gates.md]
 ---
 
 # Interaction Modes
@@ -16,7 +16,7 @@ The product surface should support at least these operating modes:
 - Session continuation flows such as resume, export, share, and branch-aware recovery.
 - Session-maintenance and utility flows such as rename, tag, copy, export, and live session inspection.
 - Behavior toggles that change how the agent works without changing the core runtime, such as model selection, effort level, fast mode, output style, and compactness.
-- Focused task modes, including planning-oriented turns, worktree-isolated work, reviews, context inspection, and memory-focused operations.
+- Focused task modes, including planning-oriented turns, main-session worktree posture, reviews, context inspection, and memory-focused operations.
 
 ## Mode composition
 

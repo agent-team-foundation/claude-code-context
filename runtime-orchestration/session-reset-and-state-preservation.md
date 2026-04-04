@@ -1,7 +1,7 @@
 ---
 title: "Session Reset and State Preservation"
 owners: []
-soft_links: [/runtime-orchestration/background-main-session-lifecycle.md, /runtime-orchestration/resume-path.md, /memory-and-context/context-cache-and-invalidation.md]
+soft_links: [/runtime-orchestration/background-main-session-lifecycle.md, /runtime-orchestration/resume-path.md, /runtime-orchestration/worktree-session-lifecycle.md, /memory-and-context/context-cache-and-invalidation.md]
 ---
 
 # Session Reset and State Preservation
@@ -70,6 +70,7 @@ Equivalent behavior should therefore re-persist:
 
 - the current interaction mode when that mode influences later resume behavior
 - the current worktree state when the session is still operating inside an alternate worktree
+- the already-chosen worktree posture rather than normalizing it, because startup `--worktree` and mid-session `EnterWorktree` do not grant the stable project root to the worktree in the same way
 
 This is how later resume can understand the fresh post-reset session correctly.
 

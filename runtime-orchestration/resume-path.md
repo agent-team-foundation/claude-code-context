@@ -1,7 +1,7 @@
 ---
 title: "Resume Path"
 owners: []
-soft_links: [/product-surface/end-to-end-scenario-graphs.md, /product-surface/session-utility-commands.md, /runtime-orchestration/session-artifacts-and-sharing.md, /runtime-orchestration/session-discovery-and-lite-indexing.md, /runtime-orchestration/app-state-and-input-routing.md, /runtime-orchestration/session-reset-and-state-preservation.md, /memory-and-context/context-lifecycle-and-failure-modes.md, /collaboration-and-agents/remote-handoff-path.md]
+soft_links: [/product-surface/end-to-end-scenario-graphs.md, /product-surface/session-utility-commands.md, /runtime-orchestration/session-artifacts-and-sharing.md, /runtime-orchestration/session-discovery-and-lite-indexing.md, /runtime-orchestration/app-state-and-input-routing.md, /runtime-orchestration/session-reset-and-state-preservation.md, /runtime-orchestration/worktree-session-lifecycle.md, /memory-and-context/context-lifecycle-and-failure-modes.md, /collaboration-and-agents/remote-handoff-path.md]
 ---
 
 # Resume Path
@@ -45,6 +45,7 @@ A faithful rebuild should preserve:
 - lineage between pre-reset and post-reset session identities
 - branch or worktree hints that explain where a recovered session expects to run
 - enough artifact metadata to distinguish top-level resumable sessions from subordinate task transcripts
+- fresh startup-created worktree posture taking precedence over stale transcript worktree state when both are present during resume
 - explicit recovery even when branch checkout fails, so transcript continuity and repo-state recovery can degrade independently
 
 ## Failure branches

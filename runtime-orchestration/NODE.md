@@ -34,6 +34,7 @@ Relevant leaves:
 - **[dream-task-visibility.md](dream-task-visibility.md)** — How auto-dream work becomes a UI-visible task without entering the normal model-facing notification path.
 - **[task-output-persistence-and-streaming.md](task-output-persistence-and-streaming.md)** — The single output owner, session-stable task files, shared polling, and bounded readback model.
 - **[session-artifacts-and-sharing.md](session-artifacts-and-sharing.md)** — The session files, snapshots, subagent transcripts, and shareable artifacts around resume.
+- **[worktree-session-lifecycle.md](worktree-session-lifecycle.md)** — How startup and mid-session worktree entry differ, how worktree posture persists across reset and resume, and how exit/removal safely restore the main session.
 - **[conversation-branching-and-forked-session-state.md](conversation-branching-and-forked-session-state.md)** — `/branch` session forking, transcript cloning, title collision handling, content-replacement preservation, and immediate handoff into the fork.
 - **[build-profiles.md](build-profiles.md)** — Feature gates and environment-specific capability envelopes.
 - **[state-machines-and-failures.md](state-machines-and-failures.md)** — Turn, task, and runtime transition model with the main failure classes.
