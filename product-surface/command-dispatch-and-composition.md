@@ -1,7 +1,7 @@
 ---
 title: "Command Dispatch and Composition"
 owners: []
-soft_links: [/runtime-orchestration/turn-assembly-and-recovery.md, /integrations/plugins/skill-loading-contract.md, /integrations/clients/sdk-control-protocol.md]
+soft_links: [/runtime-orchestration/turn-assembly-and-recovery.md, /runtime-orchestration/workflow-script-runtime.md, /integrations/plugins/skill-loading-contract.md, /integrations/clients/sdk-control-protocol.md]
 ---
 
 # Command Dispatch and Composition
@@ -27,7 +27,7 @@ One command registry should assemble commands from several layers:
 - built-in plugin commands and skills
 - project or user skill directories
 - installable plugin commands
-- workflow-backed commands
+- workflow-backed commands discovered from dedicated workflow definitions and inserted into the same catalog
 - dynamic skills discovered only after the runtime touches relevant files or context
 
 A correct rebuild should load these sources into one catalog rather than making users think in separate extension silos.

@@ -1,7 +1,7 @@
 ---
 title: "Background Task Detail Dialogs"
 owners: []
-soft_links: [/ui-and-experience/background-task-status-surfaces.md, /runtime-orchestration/foregrounded-worker-steering.md, /runtime-orchestration/task-output-persistence-and-streaming.md, /runtime-orchestration/remote-agent-restoration-and-polling.md, /runtime-orchestration/review-path.md, /runtime-orchestration/resume-path.md, /runtime-orchestration/dream-task-visibility.md]
+soft_links: [/ui-and-experience/background-task-status-surfaces.md, /runtime-orchestration/foregrounded-worker-steering.md, /runtime-orchestration/task-output-persistence-and-streaming.md, /runtime-orchestration/remote-agent-restoration-and-polling.md, /runtime-orchestration/review-path.md, /runtime-orchestration/resume-path.md, /runtime-orchestration/dream-task-visibility.md, /runtime-orchestration/workflow-script-runtime.md]
 ---
 
 # Background Task Detail Dialogs
