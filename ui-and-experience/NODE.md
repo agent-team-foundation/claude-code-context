@@ -16,6 +16,7 @@ Relevant leaves:
 - **[plan-mode-approval-surfaces.md](plan-mode-approval-surfaces.md)** — How enter-plan and exit-plan approvals present plans, collect feedback, choose execution modes, and hand plan acceptance back into the session loop.
 - **[ask-user-question-and-plan-interview-ui.md](ask-user-question-and-plan-interview-ui.md)** — How ask-user prompts paginate questions, render previews, collect notes and attachments, and expose plan-interview-specific footer actions.
 - **[keybinding-customization-and-context-resolution.md](keybinding-customization-and-context-resolution.md)** — How `/keybindings`, config loading, context priority, chord interception, and warning surfaces stay aligned.
+- **[voice-mode-and-hold-to-talk-dictation.md](voice-mode-and-hold-to-talk-dictation.md)** — How voice eligibility, hold-to-talk capture, streaming transcription, prompt injection, and voice-specific feedback stay coordinated.
 - **[system-feedback-lines.md](system-feedback-lines.md)** — How system-generated status rows specialize by subtype, collapse noise, and preserve turn and recovery context.
 - **[hook-execution-feedback.md](hook-execution-feedback.md)** — How hook progress rows, async hook attachments, stop-hook spinner suffixes, and dynamic-versus-static message behavior stay coordinated.
 - **[teammate-mailbox-control-message-rendering.md](teammate-mailbox-control-message-rendering.md)** — How teammate mailbox envelopes, control-message cards, hidden protocol payloads, and compact summaries render across transcript and attachment paths.
