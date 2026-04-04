@@ -17,4 +17,5 @@ Relevant leaves:
 - **[plugin-management-and-marketplace-flows.md](plugin-management-and-marketplace-flows.md)** — `/plugin` command routing, marketplace management, scope-aware plugin lifecycle actions, refresh signaling, and delist handling.
 - **[lsp-plugin-and-diagnostics.md](lsp-plugin-and-diagnostics.md)** — How plugin-provided LSP servers are validated, trust-gated, routed, refreshed, and turned into diagnostics or install recommendations.
 - **[skill-loading-contract.md](skill-loading-contract.md)** — Skill sources, load path, and the boundary between reusable guidance and executable extensions.
+- **[skill-improvement-detection-and-apply-flow.md](skill-improvement-detection-and-apply-flow.md)** — How ant-only post-sampling analysis turns repeated project-skill corrections into approval-gated `SKILL.md` rewrites.
 - **[markdown-prompt-shell-expansion.md](markdown-prompt-shell-expansion.md)** — How skills, plugin commands, and some built-in prompt commands substitute runtime variables, execute inline shell snippets, choose Bash versus PowerShell, and refuse untrusted MCP shell bodies before the model sees the final prompt.
