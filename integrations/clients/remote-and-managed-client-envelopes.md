@@ -24,5 +24,6 @@ Reconstruction requirements:
 - Remote control and remote execution are related but distinct envelopes. One can proxy or observe a local session; the other can select or create a remote environment that executes work elsewhere.
 - Managed settings must be able to constrain these envelopes without forcing a fork of the underlying runtime semantics.
 - Browser handoff should be best-effort and user-visible. Opening a companion surface is part of the product flow, not an implementation detail hidden from the user.
+- Session creation inside these envelopes should carry explicit repo, model, and permission context rather than assuming the remote side can infer them later.
 
 This envelope model matters because many high-value Claude Code experiences are neither purely local nor purely server-side. They are negotiated clients around one shared session model.

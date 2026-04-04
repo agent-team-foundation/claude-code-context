@@ -11,7 +11,9 @@ This subdomain captures the two main extension mechanisms beyond MCP.
 Relevant leaves:
 
 - **[plugin-and-skill-model.md](plugin-and-skill-model.md)** — Roles of plugins versus skills, trust boundaries, and lifecycle expectations.
+- **[plugin-source-precedence-and-cache-loading.md](plugin-source-precedence-and-cache-loading.md)** — How layered settings, session-only injections, managed policy, cache-only startup, and full refresh assemble the effective plugin set.
 - **[plugin-runtime-contract.md](plugin-runtime-contract.md)** — Discovery, admission, caching, deduplication, and failure handling for plugins.
+- **[plugin-hot-reload-and-settings-coupling.md](plugin-hot-reload-and-settings-coupling.md)** — How plugin hooks and plugin-contributed settings react to managed-settings changes, cache invalidation, and reload timing.
 - **[plugin-management-and-marketplace-flows.md](plugin-management-and-marketplace-flows.md)** — `/plugin` command routing, marketplace management, scope-aware plugin lifecycle actions, refresh signaling, and delist handling.
 - **[lsp-plugin-and-diagnostics.md](lsp-plugin-and-diagnostics.md)** — How plugin-provided LSP servers are validated, trust-gated, routed, refreshed, and turned into diagnostics or install recommendations.
 - **[skill-loading-contract.md](skill-loading-contract.md)** — Skill sources, load path, and the boundary between reusable guidance and executable extensions.

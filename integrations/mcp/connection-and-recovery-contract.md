@@ -33,6 +33,7 @@ MCP integration must support multiple transport styles and still present a singl
 - deny rules must be able to hide an entire server namespace
 - oversized descriptions or outputs should be truncated or persisted rather than blindly forwarded
 - auth or elicitation flows must surface through the same user-facing control model as built-in capabilities
+- insufficient-scope auth should be able to force an explicit higher-scope reauthorization instead of looping forever through ordinary refresh
 
 ## Failure classes
 

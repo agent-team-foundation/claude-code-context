@@ -14,6 +14,8 @@ The important layers are:
 - **remote managed settings** for organization-controlled policy and configuration overlays
 - **team memory sync** for repo-scoped shared memory that multiple authenticated collaborators can read and update
 
+The detailed contracts for the personal and shared layers live in [user-settings-sync-contract.md](user-settings-sync-contract.md) and [team-memory-sync-and-secret-guardrails.md](team-memory-sync-and-secret-guardrails.md).
+
 Reconstruction requirements:
 
 - User sync should be incremental rather than full-copy whenever possible. Local interactive environments push changed entries upward, while remote or containerized environments pull relevant settings before dependent systems such as plugin activation or remote execution begin.
