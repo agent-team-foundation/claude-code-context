@@ -1,12 +1,14 @@
 ---
 title: "Remote Session Live Control Loop"
 owners: []
-soft_links: [/collaboration-and-agents/remote-session-contract.md, /collaboration-and-agents/bridge-transport-and-remote-control-runtime.md, /tools-and-permissions/permission-decision-pipeline.md, /integrations/clients/sdk-control-protocol.md, /integrations/clients/structured-io-and-headless-session-loop.md]
+soft_links: [/collaboration-and-agents/remote-session-contract.md, /collaboration-and-agents/remote-session-subscription-auth-and-reconnect.md, /collaboration-and-agents/bridge-transport-and-remote-control-runtime.md, /tools-and-permissions/permission-decision-pipeline.md, /integrations/clients/sdk-control-protocol.md, /integrations/clients/structured-io-and-headless-session-loop.md]
 ---
 
 # Remote Session Live Control Loop
 
 Claude Code's remote-session support is not just transcript polling. Live control uses a bidirectional loop: WebSocket subscription for inbound events, HTTP-style submission for outbound user messages, and a structured control channel for permission and interrupt actions.
+
+For the exact CCR subscribe-socket auth path, pending-request map semantics, and close-code reconnect ladder this loop relies on, see [remote-session-subscription-auth-and-reconnect.md](remote-session-subscription-auth-and-reconnect.md).
 
 ## Transport split
 

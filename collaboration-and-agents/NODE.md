@@ -22,6 +22,7 @@ Relevant leaves:
 - **[collaboration-state-machine.md](collaboration-state-machine.md)** — How local, delegated, remote, and bridge-mediated work transitions over time.
 - **[remote-session-contract.md](remote-session-contract.md)** — Contract for remote session ownership, messaging, approval, and reconnect.
 - **[remote-session-live-control-loop.md](remote-session-live-control-loop.md)** — Live remote control transport, permission or interrupt bridging, adaptation, and reconnect behavior.
+- **[remote-session-subscription-auth-and-reconnect.md](remote-session-subscription-auth-and-reconnect.md)** — Header-authenticated CCR subscribe socket semantics, pending permission bookkeeping, and close-code-specific reconnect rules.
 - **[bridge-contract.md](bridge-contract.md)** — Contract for bridge-mediated control from constrained companion clients.
 - **[bridge-transport-and-remote-control-runtime.md](bridge-transport-and-remote-control-runtime.md)** — Attach-time runtime mechanics for bridge sessions, including transport selection, dedup, reconnect, state reporting, and teardown.
 - **[bridge-session-state-projection-and-command-narrowing.md](bridge-session-state-projection-and-command-narrowing.md)** — The companion-visible bridge state model, `system/init` redaction rules, and inbound slash-command narrowing for Remote Control sessions.
