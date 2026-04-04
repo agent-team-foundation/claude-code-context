@@ -1,7 +1,7 @@
 ---
 title: "Worktree Session Lifecycle"
 owners: []
-soft_links: [/product-surface/interaction-modes.md, /product-surface/session-utility-commands.md, /runtime-orchestration/resume-path.md, /runtime-orchestration/session-reset-and-state-preservation.md, /runtime-orchestration/session-artifacts-and-sharing.md, /tools-and-permissions/control-plane-tools.md, /tools-and-permissions/agent-tool-launch-routing.md, /ui-and-experience/status-line-and-footer-notification-stack.md]
+soft_links: [/product-surface/interaction-modes.md, /product-surface/session-utility-commands.md, /runtime-orchestration/resume-path.md, /runtime-orchestration/session-reset-and-state-preservation.md, /runtime-orchestration/session-artifacts-and-sharing.md, /platform-services/interactive-startup-and-project-activation.md, /tools-and-permissions/control-plane-tools.md, /tools-and-permissions/agent-tool-launch-routing.md, /ui-and-experience/status-line-and-footer-notification-stack.md]
 ---
 
 # Worktree Session Lifecycle

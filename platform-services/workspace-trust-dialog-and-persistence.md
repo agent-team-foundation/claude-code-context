@@ -1,7 +1,7 @@
 ---
 title: "Workspace Trust Dialog and Persistence"
 owners: []
-soft_links: [/platform-services/trust-and-capability-hydration.md, /platform-services/auth-config-and-policy.md, /platform-services/bootstrap-and-service-failures.md, /collaboration-and-agents/remote-and-bridge-flows.md, /integrations/plugins/plugin-management-and-marketplace-flows.md, /tools-and-permissions/permission-model.md]
+soft_links: [/platform-services/trust-and-capability-hydration.md, /platform-services/interactive-startup-and-project-activation.md, /platform-services/auth-config-and-policy.md, /platform-services/bootstrap-and-service-failures.md, /collaboration-and-agents/remote-and-bridge-flows.md, /integrations/plugins/plugin-management-and-marketplace-flows.md, /tools-and-permissions/permission-model.md]
 ---
 
 # Workspace Trust Dialog and Persistence
@@ -20,6 +20,7 @@ This leaf covers:
 It intentionally does not re-document:
 
 - the post-trust startup hydration order already captured in [trust-and-capability-hydration.md](trust-and-capability-hydration.md)
+- the wider startup sequencing around first render, deferred prefetch, and cwd-sensitive setup captured in [interactive-startup-and-project-activation.md](interactive-startup-and-project-activation.md)
 - detailed tool-permission prompts or managed-settings security prompts, which remain separate approval layers
 
 ## Interactive startup gate
