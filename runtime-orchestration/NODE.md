@@ -14,6 +14,7 @@ Relevant leaves:
 - **[query-recovery-and-continuation.md](query-recovery-and-continuation.md)** — The precise recovery ladder for compaction, overflow, truncation, and continuation.
 - **[turn-assembly-and-recovery.md](turn-assembly-and-recovery.md)** — The full turn envelope from context assembly through tool batches, recovery branches, and persistence.
 - **[turn-attachments-and-sidechannels.md](turn-attachments-and-sidechannels.md)** — The post-tool attachment drain, queued prompts, memory/skill sidechannels, and recursion control signals.
+- **[unified-command-queue-and-drain.md](unified-command-queue-and-drain.md)** — How the shared command queue mediates busy input, between-turn draining, mid-turn attachments, headless batching, and agent-scoped delivery.
 - **[task-model.md](task-model.md)** — Background work and long-running task lifecycle.
 - **[scheduled-prompts-and-cron-lifecycle.md](scheduled-prompts-and-cron-lifecycle.md)** — How local scheduled prompts, `/loop`, cron persistence, jitter, multi-session ownership, and missed-task catch-up behave as one runtime subsystem.
 - **[shared-task-list-contract.md](shared-task-list-contract.md)** — File-backed task-list storage, claiming, watcher pickup, and the user-facing summary model for team work queues.
