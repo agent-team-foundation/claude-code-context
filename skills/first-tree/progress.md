@@ -8,7 +8,7 @@
 - [x] NODE.md has placeholder content — analyzed the provided Claude Code source snapshot and replaced placeholders with a full domain structure
 
 ## Agent Instructions
-- [x] Added project-specific clean-room reconstruction instructions below the framework markers in AGENT.md
+- [x] Added project-specific clean-room reconstruction instructions below the framework markers in AGENTS.md
 
 ## Members
 - [x] Added member nodes under `members/` for the tree owner and the context-building assistant
@@ -39,7 +39,7 @@ If (1): ask the user to provide the key, then run `gh secret set` with the secre
 After completing the tasks above, run `context-tree verify` to confirm:
 - [x] `skills/first-tree/assets/framework/VERSION` exists
 - [x] Root NODE.md has valid frontmatter (title, owners)
-- [x] AGENT.md exists with framework markers
+- [x] AGENTS.md exists with framework markers
 - [x] `context-tree verify` passes with no blocking errors once tree population and frontmatter fixes were completed
 - [x] At least one member node exists
 
