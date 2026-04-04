@@ -1,7 +1,7 @@
 ---
 title: "Remote Session Contract"
 owners: []
-soft_links: [/collaboration-and-agents/remote-and-bridge-flows.md, /collaboration-and-agents/remote-session-live-control-loop.md, /runtime-orchestration/app-state-and-input-routing.md, /integrations/clients/client-surfaces.md, /integrations/clients/structured-io-and-headless-session-loop.md, /tools-and-permissions/permission-model.md]
+soft_links: [/collaboration-and-agents/remote-and-bridge-flows.md, /collaboration-and-agents/remote-session-live-control-loop.md, /runtime-orchestration/app-state-and-input-routing.md, /integrations/clients/client-surfaces.md, /integrations/clients/structured-io-and-headless-session-loop.md, /integrations/clients/remote-session-message-adaptation-and-viewer-state.md, /tools-and-permissions/permission-model.md]
 ---
 
 # Remote Session Contract
@@ -29,6 +29,8 @@ Remote sessions are not just transports. They split responsibility between a rem
 - inbound messages must preserve enough structure to render tool progress, compaction events, and assistant output correctly
 - outbound user messages and control responses must carry stable session identity over a separate send path
 - remote event streams need an adaptation layer so replayed history, live partials, tool progress, and status events are rendered correctly without double-printing user content
+
+The local-side message adapter and viewer-state projection contract is detailed in [remote-session-message-adaptation-and-viewer-state.md](../integrations/clients/remote-session-message-adaptation-and-viewer-state.md).
 
 ## Permission and interrupt bridge
 
