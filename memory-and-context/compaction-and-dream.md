@@ -23,4 +23,6 @@ Second, the product needs durable consolidation:
 - strict separation between memory maintenance and arbitrary source edits
 - a UI-visible dream-task surface so users can inspect or stop consolidation without turning it into an ordinary model-facing background notification
 
+The broad distinction belongs here. The exact auto-dream trigger, lock, and forked-worker contract lives in [auto-dream-consolidation-and-locking.md](auto-dream-consolidation-and-locking.md).
+
 The design point is not merely "summarize when long." It is "keep sessions responsive while preserving durable knowledge quality over time."
