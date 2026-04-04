@@ -16,6 +16,7 @@ Relevant leaves:
 - **[turn-assembly-and-recovery.md](turn-assembly-and-recovery.md)** — The full turn envelope from context assembly through tool batches, recovery branches, and persistence.
 - **[turn-attachments-and-sidechannels.md](turn-attachments-and-sidechannels.md)** — The post-tool attachment drain, queued prompts, memory/skill sidechannels, and recursion control signals.
 - **[unified-command-queue-and-drain.md](unified-command-queue-and-drain.md)** — How the shared command queue mediates busy input, between-turn draining, mid-turn attachments, headless batching, and agent-scoped delivery.
+- **[queued-command-projection-and-replay.md](queued-command-projection-and-replay.md)** — How one queued item becomes preview rows, transcript attachments, replayed user events, remote delivery state, and non-rewindable synthetic prompt history.
 - **[proactive-assistant-loop-and-brief-mode.md](proactive-assistant-loop-and-brief-mode.md)** — How assistant mode, proactive ticks, BriefTool, and startup team bootstrap create a persistent autonomous posture.
 - **[task-model.md](task-model.md)** — Background work and long-running task lifecycle.
 - **[shared-task-control-plane-and-lifecycle-events.md](shared-task-control-plane-and-lifecycle-events.md)** — Shared task IDs, registration and replacement rules, generic stop or poll or eviction behavior, and SDK lifecycle bookends across task families.

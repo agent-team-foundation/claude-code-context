@@ -30,7 +30,7 @@ The tree must remain a reconstruction spec, not a source mirror. If a detail is 
 
 ## Working with the Tree
 
-See [AGENT.md](AGENT.md) for agent instructions — the before/during/after workflow, ownership model, and tree maintenance.
+See [AGENTS.md](AGENTS.md) for agent instructions — the before/during/after workflow, ownership model, and tree maintenance.
 
 See [about.md](about.md) for background — the mission of this repo and the clean-room boundary it enforces.
 

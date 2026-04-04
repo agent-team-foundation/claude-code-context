@@ -29,4 +29,5 @@ Relevant leaves:
 - **[bridge-session-state-projection-and-command-narrowing.md](bridge-session-state-projection-and-command-narrowing.md)** — The companion-visible bridge state model, `system/init` redaction rules, and inbound slash-command narrowing for Remote Control sessions.
 - **[remote-control-spawn-modes-and-session-resume.md](remote-control-spawn-modes-and-session-resume.md)** — Standalone `claude remote-control` startup gating, spawn-mode precedence, session placement, resume pointer hygiene, and environment-reuse fallback.
 - **[repl-remote-control-lifecycle.md](repl-remote-control-lifecycle.md)** — Interactive `/remote-control` enablement sources, mirror-to-full upgrade rules, hook lifecycle, failure fuse, and disconnect persistence.
+- **[remote-control-entrypoints-and-startup-preferences.md](remote-control-entrypoints-and-startup-preferences.md)** — The three Remote Control entry surfaces, bootstrap fast-path ordering, startup preference precedence, and leaked-key migration boundaries.
 - **[remote-handoff-path.md](remote-handoff-path.md)** — End-to-end path for teleport, remote review or planning, and cross-machine continuation.
