@@ -1,7 +1,7 @@
 ---
 title: "Prompt Composer and Queued Command Shell"
 owners: []
-soft_links: [/runtime-orchestration/prompt-suggestion-and-speculation.md, /runtime-orchestration/foregrounded-worker-steering.md, /runtime-orchestration/turn-attachments-and-sidechannels.md, /product-surface/command-dispatch-and-composition.md, /ui-and-experience/vim-mode-and-modal-editing.md]
+soft_links: [/runtime-orchestration/prompt-suggestion-and-speculation.md, /runtime-orchestration/foregrounded-worker-steering.md, /runtime-orchestration/turn-attachments-and-sidechannels.md, /runtime-orchestration/app-state-and-input-routing.md, /product-surface/command-dispatch-and-composition.md, /ui-and-experience/vim-mode-and-modal-editing.md, /ui-and-experience/companion-buddy-surface.md]
 ---
 
 # Prompt Composer and Queued Command Shell
