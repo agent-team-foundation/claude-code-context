@@ -22,11 +22,14 @@ This repository intentionally does not store:
 
 Local analysis-only inputs such as raw source snapshots should live under hidden paths like `.analysis/` so `context-tree verify` continues to validate the tree itself rather than auxiliary research material.
 
-## Synced skill
+## Installed skill
 
-This repo mirrors the `first-tree` skill from the upstream `agent-team-foundation/first-tree` repository into:
+This repo keeps the canonical installed `first-tree` skill at:
 
-- `.skills/first-tree`
+- `skills/first-tree`
+
+Compatibility mirrors are also kept in sync for local agent tooling:
+
 - `.claude/skills/first-tree`
 - `.agents/skills/first-tree`
 
@@ -35,5 +38,7 @@ To sync manually, run:
 ```bash
 bash ./.scripts/sync-first-tree-skill.sh
 ```
+
+The sync script refreshes `skills/first-tree/` from the upstream skill and then updates the compatibility mirrors without clobbering the repo-local `skills/first-tree/progress.md`.
 
 GitHub Actions also runs `.github/workflows/sync-first-tree-skill.yml` on a schedule and supports manual triggering.

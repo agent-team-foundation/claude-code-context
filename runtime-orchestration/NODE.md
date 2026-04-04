@@ -11,6 +11,7 @@ This domain captures the core assembly logic that turns a prompt, a tool registr
 Relevant leaves:
 
 - **[query-loop.md](query-loop.md)** — The streaming turn engine and its recovery paths.
+- **[api-request-assembly-retry-and-prompt-cache-stability.md](api-request-assembly-retry-and-prompt-cache-stability.md)** — How one turn becomes one or more model requests, including tool filtering, beta/header latching, retry or fallback policy, and prompt-cache break control.
 - **[query-recovery-and-continuation.md](query-recovery-and-continuation.md)** — The precise recovery ladder for compaction, overflow, truncation, and continuation.
 - **[turn-assembly-and-recovery.md](turn-assembly-and-recovery.md)** — The full turn envelope from context assembly through tool batches, recovery branches, and persistence.
 - **[turn-attachments-and-sidechannels.md](turn-attachments-and-sidechannels.md)** — The post-tool attachment drain, queued prompts, memory/skill sidechannels, and recursion control signals.
@@ -42,3 +43,5 @@ Relevant leaves:
 - **[ultraplan-remote-plan-loop.md](ultraplan-remote-plan-loop.md)** — How Ultraplan launches a remote plan-mode session, polls approval artifacts, and splits into remote execution or local handoff.
 - **[review-path.md](review-path.md)** — End-to-end path for local review and remote ultrareview-style flows.
 - **[resume-path.md](resume-path.md)** — End-to-end path for resuming local and teleported sessions.
+- **[file-checkpointing-and-rewind.md](file-checkpointing-and-rewind.md)** — Per-message file checkpoints, backup storage, rewind dry-runs, restore semantics, and resume-time checkpoint migration.
+- **[stop-hook-orchestration-and-turn-end-bookkeeping.md](stop-hook-orchestration-and-turn-end-bookkeeping.md)** — Stop-hook execution outcomes, API-error stop-failure fallback, and the turn-end sidework that runs around hook evaluation.

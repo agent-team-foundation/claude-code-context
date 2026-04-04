@@ -19,3 +19,4 @@ Relevant leaves:
 - **[session-state-and-breakpoints.md](session-state-and-breakpoints.md)** — User-visible session phases, mode transitions, and where interaction can fail or be deferred.
 - **[command-runtime-matrix.md](command-runtime-matrix.md)** — How command families map onto runtime subsystems, tool families, and task types.
 - **[end-to-end-scenario-graphs.md](end-to-end-scenario-graphs.md)** — Concrete user journey to command to runtime to tool or task to state-transition flows.
+- **[init-command-and-claude-md-setup.md](init-command-and-claude-md-setup.md)** — The `/init` prompt-command contract, staged setup flow, and CLAUDE.md/CLAUDE.local.md loading and trust boundaries.

@@ -13,7 +13,7 @@ You are working in a **Context Tree** — the living source of truth for decisio
 
 4. **Git-native tree structure.** Each node is a file; each domain is a directory. Soft links allow cross-references without the complexity of a full graph. History, ownership, and review follow Git conventions.
 
-See `.context-tree/principles.md` for detailed explanations and examples.
+See `skills/first-tree/references/principles.md` for detailed explanations and examples.
 
 ## Before Every Task
 
@@ -40,7 +40,7 @@ Ask yourself: **Does the tree need updating?**
 
 ## Reference
 
-For ownership rules, tree structure, and key files, see [NODE.md](NODE.md) and `.context-tree/ownership-and-naming.md`.
+For ownership rules, tree structure, and key files, see [NODE.md](NODE.md) and `skills/first-tree/references/ownership-and-naming.md`.
 <!-- END CONTEXT-TREE FRAMEWORK -->
 
 # Project-Specific Instructions
@@ -56,4 +56,4 @@ Additional rules for this tree:
 5. Flag gaps openly. A missing or uncertain behavior is better than silently guessing from leaked code.
 6. Treat any non-public or obviously internal-only capability as feature-gated unless it is clearly core to the product shape. Document the gate, not the hidden implementation.
 7. After each meaningful milestone, open a PR and merge via squash into `main` once reviewed. Keep the tree continuously releasable.
-8. Before concluding any task, run `context-tree verify` and make sure `.context-tree/progress.md` still reflects reality.
+8. Before concluding any task, run `context-tree verify` and make sure `skills/first-tree/progress.md` still reflects reality.

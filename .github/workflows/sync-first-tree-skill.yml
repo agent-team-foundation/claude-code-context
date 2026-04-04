@@ -18,7 +18,7 @@ jobs:
 
       - name: Commit if changed
         run: |
-          git add -A .skills .claude/skills .agents/skills
+          git add -A skills .claude/skills .agents/skills
           git diff --cached --quiet && exit 0
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"

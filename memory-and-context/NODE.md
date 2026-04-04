@@ -22,3 +22,7 @@ Relevant leaves:
 - **[context-cache-and-invalidation.md](context-cache-and-invalidation.md)** — Session caches, prompt-prefix rebuilding, and the difference between hard clears and semantic reloads.
 - **[context-lifecycle-and-failure-modes.md](context-lifecycle-and-failure-modes.md)** — State transitions for context assembly, caching, compaction, and memory upkeep.
 - **[compact-path.md](compact-path.md)** — End-to-end path for proactive, reactive, and manual compaction flows.
+- **[autocompact-gating-and-circuit-breakers.md](autocompact-gating-and-circuit-breakers.md)** — Effective-window thresholds, suppression rules, hard blocking guards, and failure-circuit shutdown for proactive compaction.
+- **[compaction-execution-and-post-compact-rehydration.md](compaction-execution-and-post-compact-rehydration.md)** — Full or partial or session-memory compaction execution, retry ladders, boundary semantics, and mandatory context rehydration.
+- **[tool-result-microcompaction-and-cache-editing.md](tool-result-microcompaction-and-cache-editing.md)** — Pre-autocompact tool-result reduction paths, cache-edit placement rules, and deferred deletion accounting.
+- **[turn-end-auto-memory-extraction.md](turn-end-auto-memory-extraction.md)** — Stop-phase-triggered memory extraction, overlap coalescing, restricted forked-agent writes, and shutdown drain behavior.
