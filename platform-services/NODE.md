@@ -12,6 +12,8 @@ Relevant leaves:
 
 - **[auth-config-and-policy.md](auth-config-and-policy.md)** — Authentication, layered settings, and policy gating.
 - **[auth-login-logout-and-token-lifecycle.md](auth-login-logout-and-token-lifecycle.md)** — How login, account switching, logout, OAuth transport, and auth-sensitive runtime refreshes behave as one coordinated lifecycle.
+- **[provider-specific-api-clients-and-auth-routing.md](provider-specific-api-clients-and-auth-routing.md)** — How provider selection, managed-session exceptions, auth-source precedence, and first-party versus Bedrock versus Vertex versus Foundry client construction stay aligned.
+- **[provider-model-mapping-and-capability-gates.md](provider-model-mapping-and-capability-gates.md)** — How one canonical model catalog fans out into provider-specific runtime IDs, overrides, validation rules, and provider-aware feature gates.
 - **[workspace-trust-dialog-and-persistence.md](workspace-trust-dialog-and-persistence.md)** — How interactive trust review, repo-root persistence, home-directory session trust, and ancestor inheritance decide whether a workspace counts as trusted.
 - **[trust-and-capability-hydration.md](trust-and-capability-hydration.md)** — Workspace trust as the gate that unlocks experiments, env vars, approvals, and telemetry.
 - **[sync-and-managed-state.md](sync-and-managed-state.md)** — User settings sync, managed settings, and shared memory synchronization.
