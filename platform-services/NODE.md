@@ -16,6 +16,7 @@ Relevant leaves:
 - **[trust-and-capability-hydration.md](trust-and-capability-hydration.md)** — Workspace trust as the gate that unlocks experiments, env vars, approvals, and telemetry.
 - **[sync-and-managed-state.md](sync-and-managed-state.md)** — User settings sync, managed settings, and shared memory synchronization.
 - **[policy-and-managed-settings-lifecycle.md](policy-and-managed-settings-lifecycle.md)** — Fetch, cache, polling, and reload behavior for remote settings overlays and policy restrictions.
+- **[privacy-level-and-grove-policy-flow.md](privacy-level-and-grove-policy-flow.md)** — Environment-driven privacy levels, Grove eligibility caching, and how startup, `/privacy-settings`, and headless flows enforce consumer privacy-policy choices.
 - **[settings-change-detection-and-runtime-reload.md](settings-change-detection-and-runtime-reload.md)** — How file-watch and programmatic settings changes are gated, fanned out, and hot-applied across interactive state, headless state, permissions, env, sandbox, and plugin hooks.
 - **[usage-analytics-and-migrations.md](usage-analytics-and-migrations.md)** — Telemetry, quotas, updates, and local evolution over time.
 - **[doctor-command-and-health-diagnostics.md](doctor-command-and-health-diagnostics.md)** — How `/doctor`, `claude doctor`, shared install health checks, and persistent diagnostics aggregate warnings across settings, sandboxing, plugins, MCP, and context.
