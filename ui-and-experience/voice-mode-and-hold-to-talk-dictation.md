@@ -58,6 +58,7 @@ Equivalent behavior should preserve:
 - a recording-availability probe that rejects remote or homespace-style environments where no local microphone can exist
 - a separate voice-stream availability check that confirms Claude.ai OAuth is present before starting audio capture
 - dependency checks that prefer the native audio module when available, but still validate Linux fallbacks such as `arecord` or `rec`
+- Linux and WSL availability checks probing whether fallback binaries can actually open a capture device instead of trusting mere PATH presence
 - proactive microphone-permission probing during enablement so the operating system permission dialog appears at setup time rather than on the user's first hold-to-talk attempt
 - platform-specific remediation guidance when microphone permission is denied
 - enable success text naming the currently resolved push-to-talk shortcut instead of hardcoding `Space`
@@ -103,6 +104,7 @@ Equivalent behavior should preserve:
 - modifier combos using a much longer first-press fallback timer, around two seconds, to bridge the operating system's initial repeat delay
 - bare-key activations stripping the warmup characters that leaked into the prompt before recording started
 - that strip logic preserving real trailing user text as much as possible by tracking how many leaked characters are intentional warmup versus pre-existing prompt content
+- when the configured hold key is space, full-width spaces inserted by CJK IMEs being treated as the same physical key for both leak cleanup and activation matching
 - continued auto-repeat during recording being swallowed and forwarded only to the release detector
 - release detection using an inactivity timeout of about 200ms after repeat has started
 - a separate fallback timer of about 600ms so a quick tap-and-release still transitions out of recording even if auto-repeat never starts
@@ -167,6 +169,7 @@ Equivalent behavior should preserve:
 - immediate and periodic keepalive control messages so the server does not time out before audio capture begins or while the user pauses briefly
 - returning a connection object with `send`, `finalize`, `close`, and `isConnected` semantics rather than exposing the raw WebSocket
 - dropping any late audio frames after `CloseStream` has been sent, because the server rejects post-finalize audio
+- deferring the actual `CloseStream` send by one event-loop tick so recorder callbacks already queued in the runtime can flush before the server stops accepting audio
 
 ## Recording session lifecycle
 
@@ -195,6 +198,7 @@ Equivalent behavior should preserve:
 - the no-data timeout being cancelled only after post-`CloseStream` transcript data really arrives
 - non-Nova interim handling auto-finalizing a previous segment when a completely different segment begins, preventing later speech from overwriting earlier speech
 - Nova-style cumulative interims skipping that auto-finalize heuristic because revisions to earlier text would otherwise duplicate content
+- empty-transcript warnings surfacing only for sessions long enough to look intentional, while short accidental taps quietly fall back to idle
 
 ## Retry and degraded-network behavior
 
@@ -217,7 +221,7 @@ Equivalent behavior should preserve:
 - accepting both language codes and common English or native language names
 - falling back to English when the configured language is unsupported instead of hard-failing the entire voice feature
 - surfacing that fallback to the user when enabling voice
-- enriching the STT request with keyterms for coding vocabulary, current project name, git branch words, and recent file names
+- enriching the STT request with keyterms for coding vocabulary, current project name, and git branch words, while preserving helper support for recent-file enrichment even though the current live REPL path does not pass recent files
 - capping the total number of keyterms so context enrichment stays bounded
 
 ## User-facing feedback surfaces
