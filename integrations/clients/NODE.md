@@ -17,3 +17,4 @@ Relevant leaves:
 - **[hooks-and-event-surface.md](hooks-and-event-surface.md)** — Hook registration, event delivery, and client-visible lifecycle signals.
 - **[remote-and-managed-client-envelopes.md](remote-and-managed-client-envelopes.md)** — Remote-capable clients, managed wrappers, and environment-selection envelopes.
 - **[remote-setup-and-companion-bootstrap.md](remote-setup-and-companion-bootstrap.md)** — Local bootstrap flows for web, desktop, mobile, browser, and bridge companion surfaces.
+- **[ide-connectivity-and-diff-review.md](ide-connectivity-and-diff-review.md)** — IDE discovery, auto-connect and install bootstrap, live `/ide` selection, and IDE-backed diff approval loops.
