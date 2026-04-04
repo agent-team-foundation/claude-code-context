@@ -1,7 +1,7 @@
 ---
 title: "Remote Setup and Companion Bootstrap"
 owners: []
-soft_links: [/integrations/clients/remote-and-managed-client-envelopes.md, /collaboration-and-agents/bridge-transport-and-remote-control-runtime.md, /platform-services/auth-login-logout-and-token-lifecycle.md, /ui-and-experience/terminal-ui.md]
+soft_links: [/integrations/clients/remote-and-managed-client-envelopes.md, /collaboration-and-agents/bridge-transport-and-remote-control-runtime.md, /collaboration-and-agents/repl-remote-control-lifecycle.md, /platform-services/auth-login-logout-and-token-lifecycle.md, /ui-and-experience/terminal-ui.md]
 ---
 
 # Remote Setup and Companion Bootstrap
@@ -20,6 +20,7 @@ This leaf covers:
 It intentionally does not re-document:
 
 - bridge transport, reconnect, dedup, and teardown internals already captured in [bridge-transport-and-remote-control-runtime.md](../../collaboration-and-agents/bridge-transport-and-remote-control-runtime.md)
+- the interactive always-on `/remote-control` enablement, failure fuse, and disconnect lifecycle already captured in [repl-remote-control-lifecycle.md](../../collaboration-and-agents/repl-remote-control-lifecycle.md)
 - the broader remote and managed client envelope model already captured in [remote-and-managed-client-envelopes.md](remote-and-managed-client-envelopes.md)
 - generic command-safety rules beyond the bootstrap-specific fact that these surfaces are local orchestration wrappers rather than remote-safe bridge commands
 
