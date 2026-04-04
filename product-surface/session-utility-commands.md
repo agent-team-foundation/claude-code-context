@@ -1,7 +1,7 @@
 ---
 title: "Session Utility Commands"
 owners: []
-soft_links: [/runtime-orchestration/resume-path.md, /runtime-orchestration/session-artifacts-and-sharing.md, /memory-and-context/session-memory.md]
+soft_links: [/runtime-orchestration/resume-path.md, /runtime-orchestration/session-artifacts-and-sharing.md, /runtime-orchestration/session-discovery-and-lite-indexing.md, /memory-and-context/session-memory.md]
 ---
 
 # Session Utility Commands

@@ -1,7 +1,7 @@
 ---
 title: "Session Artifacts and Sharing"
 owners: []
-soft_links: [/runtime-orchestration/resume-path.md, /runtime-orchestration/session-reset-and-state-preservation.md, /product-surface/session-utility-commands.md, /memory-and-context/context-lifecycle-and-failure-modes.md, /collaboration-and-agents/remote-handoff-path.md]
+soft_links: [/runtime-orchestration/resume-path.md, /runtime-orchestration/session-discovery-and-lite-indexing.md, /runtime-orchestration/session-reset-and-state-preservation.md, /product-surface/session-utility-commands.md, /memory-and-context/context-lifecycle-and-failure-modes.md, /collaboration-and-agents/remote-handoff-path.md]
 ---
 
 # Session Artifacts and Sharing
