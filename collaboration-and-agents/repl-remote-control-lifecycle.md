@@ -22,6 +22,7 @@ It intentionally does not re-document:
 
 - standalone `claude remote-control` host startup, spawn-mode selection, and resume pointer behavior already captured in [remote-control-spawn-modes-and-session-resume.md](remote-control-spawn-modes-and-session-resume.md)
 - low-level bridge transport, reconnect, dedup, and teardown internals already captured in [bridge-transport-and-remote-control-runtime.md](bridge-transport-and-remote-control-runtime.md)
+- detailed companion-visible bridge state, `system/init` redaction, and inbound slash-command narrowing already captured in [bridge-session-state-projection-and-command-narrowing.md](bridge-session-state-projection-and-command-narrowing.md)
 - companion pairing dialog rendering and install/bootstrap wrappers already captured in [remote-setup-and-companion-bootstrap.md](../integrations/clients/remote-setup-and-companion-bootstrap.md)
 
 ## Desired state and startup sources
@@ -59,14 +60,11 @@ Equivalent behavior should preserve:
 
 ## Connected-session projection and bridge-safe surface
 
-Equivalent behavior should preserve:
+Detailed projection and narrowing rules live in [bridge-session-state-projection-and-command-narrowing.md](bridge-session-state-projection-and-command-narrowing.md). Lifecycle-wise, equivalent behavior should preserve:
 
-- full bridge connections publishing connect and session URLs into app state and appending a remote-status transcript message, while outbound-only mirror mode exposes only the minimum state needed for forwarding
-- connected REPL sessions sending a system-init payload that advertises only bridge-safe commands, plus model, permission mode, active agents, skills, and fast-mode state
-- system-init intentionally redacting tool inventories, MCP client lists, and plugin inventories that would leak local integration wiring or raw filesystem context to companion clients
+- full bridge sessions and outbound-only mirror sessions projecting different depth into app state, because only the full bridge exposes URLs, permission callbacks, and status transcript rows
 - inbound bridge callbacks applying model, thinking-budget, and permission-mode changes through the same centralized session state transitions used locally, rather than through a forked remote-only state path
-- bridge permission requests registering callbacks by stable request ID so local approval UI can race, answer, or cancel them without losing correlation
-- inbound user prompts entering the unified command queue with preserved UUIDs and bridge-origin markers, allowing bridge-safe slash commands while keeping local-only commands blocked
+- disconnect dialogs, footer pills, and transcript status rows reading the shared projected bridge state instead of recomputing connection truth independently
 
 ## Disconnect and persistence rules
 
