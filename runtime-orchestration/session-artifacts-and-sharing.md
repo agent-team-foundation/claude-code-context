@@ -1,7 +1,7 @@
 ---
 title: "Session Artifacts and Sharing"
 owners: []
-soft_links: [/runtime-orchestration/resume-path.md, /runtime-orchestration/session-discovery-and-lite-indexing.md, /runtime-orchestration/session-reset-and-state-preservation.md, /product-surface/session-utility-commands.md, /memory-and-context/context-lifecycle-and-failure-modes.md, /collaboration-and-agents/remote-handoff-path.md]
+soft_links: [/runtime-orchestration/resume-path.md, /runtime-orchestration/session-discovery-and-lite-indexing.md, /runtime-orchestration/session-reset-and-state-preservation.md, /runtime-orchestration/worktree-session-lifecycle.md, /product-surface/session-utility-commands.md, /memory-and-context/context-lifecycle-and-failure-modes.md, /collaboration-and-agents/remote-handoff-path.md]
 ---
 
 # Session Artifacts and Sharing
@@ -13,6 +13,7 @@ Artifacts that matter for reconstruction:
 - a primary per-session transcript stored as an append-oriented artifact
 - lightweight index entries that can be listed quickly and upgraded to full logs on demand
 - snapshots attached to the session timeline for things like mode, file-history state, attribution state, worktree state, and similar restore-critical context
+- worktree-state entries following a last-wins contract so resume can tell whether the session most recently entered or exited its alternate checkout
 - lineage metadata that explains when a fresh session ID replaced an older one during a structured reset
 - live output bindings for preserved background tasks that may need relinking after reset
 - subordinate transcripts for subagents or teammates that ran beside the main session, without promoting them automatically to top-level resumable sessions

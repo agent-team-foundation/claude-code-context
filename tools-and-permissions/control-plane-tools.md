@@ -1,7 +1,7 @@
 ---
 title: "Control-Plane Tools"
 owners: []
-soft_links: [/tools-and-permissions/delegation-modes.md, /tools-and-permissions/permission-mode-transitions-and-gates.md, /tools-and-permissions/task-and-team-control-tool-contracts.md, /tools-and-permissions/config-discovery-and-trigger-tool-contracts.md, /runtime-orchestration/task-model.md, /integrations/clients/sdk-control-protocol.md]
+soft_links: [/tools-and-permissions/delegation-modes.md, /tools-and-permissions/permission-mode-transitions-and-gates.md, /tools-and-permissions/task-and-team-control-tool-contracts.md, /tools-and-permissions/config-discovery-and-trigger-tool-contracts.md, /runtime-orchestration/task-model.md, /runtime-orchestration/worktree-session-lifecycle.md, /integrations/clients/sdk-control-protocol.md]
 ---
 
 # Control-Plane Tools
@@ -24,6 +24,7 @@ Equivalent implementations should preserve these invariants:
 - The same permission and policy system used for world-facing tools must also gate sensitive control-plane actions.
 - Control-plane tools need stable schemas because other subsystems depend on them for orchestration.
 - Entering a specialized mode should tighten the runtime contract for later turns; it should not behave like a cosmetic flag.
+- mode-switch tools that enter or exit worktree posture must mutate persisted resume state, prompt-visible environment context, and session-owned cleanup state together rather than toggling a display-only badge
 
 Some control-plane families need stronger guarantees than a generic schema:
 
