@@ -27,6 +27,7 @@ Relevant leaves:
 - **[prompt-suggestion-and-speculation.md](prompt-suggestion-and-speculation.md)** — How leader-only next-input suggestions are generated, filtered, optionally pre-executed in overlays, and accepted or aborted.
 - **[background-main-session-lifecycle.md](background-main-session-lifecycle.md)** — How the main query detaches into a task-scoped transcript that survives clear and can be foregrounded later.
 - **[session-reset-and-state-preservation.md](session-reset-and-state-preservation.md)** — Structured reset, preserved background work, fresh session identity, and artifact relinking.
+- **[session-discovery-and-lite-indexing.md](session-discovery-and-lite-indexing.md)** — How resume and SDK session listing discover sessions cheaply, across worktrees, before upgrading a chosen candidate into full transcript state.
 - **[remote-agent-restoration-and-polling.md](remote-agent-restoration-and-polling.md)** — How remote sessions persist restore metadata, poll safely, and specialize review or planning completion.
 - **[dream-task-visibility.md](dream-task-visibility.md)** — How auto-dream work becomes a UI-visible task without entering the normal model-facing notification path.
 - **[task-output-persistence-and-streaming.md](task-output-persistence-and-streaming.md)** — The single output owner, session-stable task files, shared polling, and bounded readback model.

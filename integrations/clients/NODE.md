@@ -18,4 +18,5 @@ Relevant leaves:
 - **[remote-and-managed-client-envelopes.md](remote-and-managed-client-envelopes.md)** — Remote-capable clients, managed wrappers, and environment-selection envelopes.
 - **[direct-connect-session-bootstrap-and-environment-selection.md](direct-connect-session-bootstrap-and-environment-selection.md)** — How direct-connect, bridge resume, and remote session creation choose environments and seed remote sessions with repo, model, and permission context.
 - **[remote-setup-and-companion-bootstrap.md](remote-setup-and-companion-bootstrap.md)** — Local bootstrap flows for web, desktop, mobile, browser, and bridge companion surfaces.
+- **[assistant-viewer-attach-and-history-paging.md](assistant-viewer-attach-and-history-paging.md)** — How `claude assistant` discovers a running assistant session, attaches as a viewer-skewed client, and pages remote history without taking over session ownership.
 - **[ide-connectivity-and-diff-review.md](ide-connectivity-and-diff-review.md)** — IDE discovery, auto-connect and install bootstrap, live `/ide` selection, and IDE-backed diff approval loops.
