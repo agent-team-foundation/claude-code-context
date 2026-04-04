@@ -1,7 +1,7 @@
 ---
 title: "Shell Execution and Backgrounding"
 owners: []
-soft_links: [/runtime-orchestration/task-model.md, /tools-and-permissions/tool-batching-and-streaming-execution.md, /tools-and-permissions/tool-execution-state-machine.md]
+soft_links: [/runtime-orchestration/task-model.md, /runtime-orchestration/monitor-task-families-and-watch-lifecycle.md, /tools-and-permissions/tool-batching-and-streaming-execution.md, /tools-and-permissions/tool-execution-state-machine.md]
 ---
 
 # Shell Execution and Backgrounding

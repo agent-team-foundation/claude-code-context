@@ -1,7 +1,7 @@
 ---
 title: "Background Task Status Surfaces"
 owners: []
-soft_links: [/ui-and-experience/teammate-surfaces-and-navigation.md, /runtime-orchestration/local-agent-task-lifecycle.md, /runtime-orchestration/foregrounded-worker-steering.md, /runtime-orchestration/task-model.md]
+soft_links: [/ui-and-experience/teammate-surfaces-and-navigation.md, /runtime-orchestration/local-agent-task-lifecycle.md, /runtime-orchestration/foregrounded-worker-steering.md, /runtime-orchestration/task-model.md, /runtime-orchestration/monitor-task-families-and-watch-lifecycle.md]
 ---
 
 # Background Task Status Surfaces

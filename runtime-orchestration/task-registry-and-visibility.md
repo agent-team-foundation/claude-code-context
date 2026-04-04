@@ -1,7 +1,7 @@
 ---
 title: "Task Registry and Visibility"
 owners: []
-soft_links: [/runtime-orchestration/task-model.md, /runtime-orchestration/app-state-and-input-routing.md, /runtime-orchestration/background-main-session-lifecycle.md, /runtime-orchestration/remote-agent-restoration-and-polling.md, /ui-and-experience/background-task-status-surfaces.md]
+soft_links: [/runtime-orchestration/task-model.md, /runtime-orchestration/monitor-task-families-and-watch-lifecycle.md, /runtime-orchestration/app-state-and-input-routing.md, /runtime-orchestration/background-main-session-lifecycle.md, /runtime-orchestration/remote-agent-restoration-and-polling.md, /ui-and-experience/background-task-status-surfaces.md]
 ---
 
 # Task Registry and Visibility
@@ -28,6 +28,8 @@ Terminal tasks must become immutable from the runtime's point of view even if th
 Equivalent behavior should distinguish at least these identity classes:
 
 - ordinary background tasks
+- monitor-style shell tasks that reuse shell storage shape while changing notification and labeling semantics
+- dedicated monitor-MCP watch tasks that need their own namespace and dialog slot
 - local subagent-style tasks
 - backgrounded main-conversation tasks that reuse local-agent infrastructure but still need their own recognizable flavor
 - remote shadow tasks that represent work owned elsewhere

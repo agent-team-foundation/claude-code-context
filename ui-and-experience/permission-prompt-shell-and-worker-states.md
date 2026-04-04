@@ -1,7 +1,7 @@
 ---
 title: "Permission Prompt Shell and Worker States"
 owners: []
-soft_links: [/ui-and-experience/interaction-feedback.md, /tools-and-permissions/permission-model.md, /tools-and-permissions/permission-decision-pipeline.md, /collaboration-and-agents/teammate-mailbox-and-permission-bridge.md]
+soft_links: [/ui-and-experience/interaction-feedback.md, /tools-and-permissions/permission-model.md, /tools-and-permissions/permission-decision-pipeline.md, /collaboration-and-agents/teammate-mailbox-and-permission-bridge.md, /runtime-orchestration/monitor-task-families-and-watch-lifecycle.md]
 ---
 
 # Permission Prompt Shell and Worker States
