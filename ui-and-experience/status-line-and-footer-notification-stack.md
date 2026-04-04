@@ -1,7 +1,7 @@
 ---
 title: "Status Line and Footer Notification Stack"
 owners: []
-soft_links: [/ui-and-experience/interaction-feedback.md, /ui-and-experience/system-feedback-lines.md, /ui-and-experience/terminal-ui.md, /tools-and-permissions/permission-model.md]
+soft_links: [/ui-and-experience/interaction-feedback.md, /ui-and-experience/system-feedback-lines.md, /ui-and-experience/terminal-ui.md, /ui-and-experience/companion-buddy-surface.md, /tools-and-permissions/permission-model.md]
 ---
 
 # Status Line and Footer Notification Stack
