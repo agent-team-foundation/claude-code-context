@@ -18,15 +18,12 @@ trap cleanup EXIT
 echo "Cloning $REPO_URL@$REPO_REF ..."
 git clone --depth=1 --branch "$REPO_REF" "$REPO_URL" "$CLONE_DIR" >/dev/null
 
-for required_path in \
-  "$CLONE_DIR/skills/first-tree-cli-framework" \
-  "$CLONE_DIR/.claude/skills/first-tree-cli-framework" \
-  "$CLONE_DIR/.agents/skills/first-tree-cli-framework"; do
-  if [[ ! -d "$required_path" ]]; then
-    echo "Missing expected upstream path: $required_path" >&2
-    exit 1
-  fi
-done
+UPSTREAM_SKILL_DIR="$CLONE_DIR/skills/first-tree-cli-framework"
+
+if [[ ! -d "$UPSTREAM_SKILL_DIR" ]]; then
+  echo "Missing expected upstream path: $UPSTREAM_SKILL_DIR" >&2
+  exit 1
+fi
 
 mkdir -p \
   "$ROOT_DIR/.skills/first-tree-cli-framework" \
@@ -34,15 +31,15 @@ mkdir -p \
   "$ROOT_DIR/.agents/skills/first-tree-cli-framework"
 
 rsync -a --delete \
-  "$CLONE_DIR/skills/first-tree-cli-framework/" \
+  "$UPSTREAM_SKILL_DIR/" \
   "$ROOT_DIR/.skills/first-tree-cli-framework/"
 
 rsync -a --delete \
-  "$CLONE_DIR/.claude/skills/first-tree-cli-framework/" \
+  "$ROOT_DIR/.skills/first-tree-cli-framework/" \
   "$ROOT_DIR/.claude/skills/first-tree-cli-framework/"
 
 rsync -a --delete \
-  "$CLONE_DIR/.agents/skills/first-tree-cli-framework/" \
+  "$ROOT_DIR/.skills/first-tree-cli-framework/" \
   "$ROOT_DIR/.agents/skills/first-tree-cli-framework/"
 
 echo "Synchronized first-tree-cli-framework from $REPO_URL@$REPO_REF"
