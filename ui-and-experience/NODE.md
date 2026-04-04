@@ -16,6 +16,7 @@ Relevant leaves:
 - **[plan-mode-approval-surfaces.md](plan-mode-approval-surfaces.md)** — How enter-plan and exit-plan approvals present plans, collect feedback, choose execution modes, and hand plan acceptance back into the session loop.
 - **[ask-user-question-and-plan-interview-ui.md](ask-user-question-and-plan-interview-ui.md)** — How ask-user prompts paginate questions, render previews, collect notes and attachments, and expose plan-interview-specific footer actions.
 - **[keybinding-customization-and-context-resolution.md](keybinding-customization-and-context-resolution.md)** — How `/keybindings`, config loading, context priority, chord interception, and warning surfaces stay aligned.
+- **[prompt-composer-and-queued-command-shell.md](prompt-composer-and-queued-command-shell.md)** — How the interactive prompt shell coordinates composition, autocomplete, history, pasted artifacts, queue recovery, footer focus, and busy-state submission routing.
 - **[vim-mode-and-modal-editing.md](vim-mode-and-modal-editing.md)** — How `/vim`, editor-mode persistence, modal prompt parsing, repeat/register memory, and Vim-specific UI cues stay coordinated.
 - **[voice-mode-and-hold-to-talk-dictation.md](voice-mode-and-hold-to-talk-dictation.md)** — How voice eligibility, hold-to-talk capture, streaming transcription, prompt injection, and voice-specific feedback stay coordinated.
 - **[system-feedback-lines.md](system-feedback-lines.md)** — How system-generated status rows specialize by subtype, collapse noise, and preserve turn and recovery context.
