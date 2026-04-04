@@ -25,3 +25,4 @@ Relevant leaves:
 - **[doctor-command-and-health-diagnostics.md](doctor-command-and-health-diagnostics.md)** — How `/doctor`, `claude doctor`, shared install health checks, and persistent diagnostics aggregate warnings across settings, sandboxing, plugins, MCP, and context.
 - **[bootstrap-and-service-failures.md](bootstrap-and-service-failures.md)** — Startup sequencing and how non-core service failures should degrade.
 - **[interactive-startup-and-project-activation.md](interactive-startup-and-project-activation.md)** — How import-time prewarm, cwd-sensitive setup, trust gating, post-trust activation, and deferred prefetch divide the local startup pipeline.
+- **[background-housekeeping-and-deferred-maintenance.md](background-housekeeping-and-deferred-maintenance.md)** — How opportunistic services, idle-gated cleanup, recurring maintenance, and process-detached timers are orchestrated after startup.
