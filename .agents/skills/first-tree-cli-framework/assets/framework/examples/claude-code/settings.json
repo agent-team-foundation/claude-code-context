@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./skills/first-tree-cli-framework/assets/framework/helpers/inject-tree-context.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
