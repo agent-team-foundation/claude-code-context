@@ -15,6 +15,7 @@ Relevant leaves:
 - **[deferred-tool-discovery-and-tool-search.md](deferred-tool-discovery-and-tool-search.md)** — Deferred tool admission, ToolSearch-based discovery, discovered-tool persistence across compaction, and schema-mismatch recovery hints.
 - **[control-plane-tools.md](control-plane-tools.md)** — Tools that mutate runtime state, teams, tasks, or execution modes.
 - **[task-and-team-control-tool-contracts.md](task-and-team-control-tool-contracts.md)** — Transactional contracts for task creation, task updates, ownership routing, and team initialization.
+- **[todowrite-legacy-bridge-and-task-list-v2.md](todowrite-legacy-bridge-and-task-list-v2.md)** — How legacy `TodoWrite`, file-backed Task V2 tools, reminder nudges, shared task-list IDs, and UI watchers stay compatible during the migration.
 - **[config-discovery-and-trigger-tool-contracts.md](config-discovery-and-trigger-tool-contracts.md)** — Read and write configuration surfaces, permission browser behavior, retry paths, and policy-gated triggers.
 - **[ask-user-question-tool-contract.md](ask-user-question-tool-contract.md)** — How the AskUserQuestion tool defines question schemas, preview payloads, interactive availability, and answer serialization.
 - **[agent-tool-launch-routing.md](agent-tool-launch-routing.md)** — How the Agent tool chooses between teammate, fork, background, worktree, and remote execution paths.
