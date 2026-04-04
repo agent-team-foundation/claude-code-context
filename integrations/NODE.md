@@ -17,3 +17,4 @@ Subdomains:
 Cross-cutting leaf:
 
 - **[integration-lifecycle.md](integration-lifecycle.md)** — Shared lifecycle and failure taxonomy for extensions and client surfaces.
+- **[github-app-and-actions-setup-flow.md](github-app-and-actions-setup-flow.md)** — `/install-github-app` wizard logic for GitHub CLI checks, repo/workflow/secret decisions, OAuth token creation, browser PR handoff, and related install-attempt counters.
