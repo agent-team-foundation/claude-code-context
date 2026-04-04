@@ -17,17 +17,17 @@
 - [x] Configured Claude Code session-start integration via `.claude/settings.json`
 
 ## CI / Validation
-- [x] Copied `.context-tree/workflows/validate.yml` to `.github/workflows/validate.yml`
+- [x] Copied `skills/first-tree/assets/framework/workflows/validate.yml` to `.github/workflows/validate.yml`
 - [x] PR review workflow intentionally skipped for now so the repo can stay secret-free and immediately usable; it can be enabled later with either supported provider.
   1. **OpenRouter** — use an OpenRouter API key
   2. **Claude API** — use a Claude API key directly
   3. **Skip** — do not set up PR reviews
-If (1): copy `.context-tree/workflows/pr-review.yml` to `.github/workflows/pr-review.yml` as-is; the repo secret name is `OPENROUTER_API_KEY`. If (2): copy the workflow and replace the `env` block with `ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}`, remove the `ANTHROPIC_BASE_URL`, `ANTHROPIC_AUTH_TOKEN`, and `ANTHROPIC_DEFAULT_SONNET_MODEL` lines; the repo secret name is `ANTHROPIC_API_KEY`. If (3): skip this and the next task.
+If (1): copy `skills/first-tree/assets/framework/workflows/pr-review.yml` to `.github/workflows/pr-review.yml` as-is; the repo secret name is `OPENROUTER_API_KEY`. If (2): copy the workflow and replace the `env` block with `ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}`, remove the `ANTHROPIC_BASE_URL`, `ANTHROPIC_AUTH_TOKEN`, and `ANTHROPIC_DEFAULT_SONNET_MODEL` lines; the repo secret name is `ANTHROPIC_API_KEY`. If (3): skip this and the next task.
 - [x] API secret configuration skipped because PR review setup was intentionally deferred.
   1. **Set it now** — provide the key and the agent will run `gh secret set <SECRET_NAME> --body <KEY>`
   2. **I'll do it myself** — the agent will show manual instructions
 If (1): ask the user to provide the key, then run `gh secret set` with the secret name from the previous step. If (2): tell the user to go to their repo → Settings → Secrets and variables → Actions → New repository secret, and create the secret with the name from the previous step. Skip this task if the user chose Skip in the previous step.
-- [x] Copied `.context-tree/workflows/codeowners.yml` to `.github/workflows/codeowners.yml` to auto-generate CODEOWNERS from tree ownership on every PR.
+- [x] Copied `skills/first-tree/assets/framework/workflows/codeowners.yml` to `.github/workflows/codeowners.yml` to auto-generate CODEOWNERS from tree ownership on every PR.
 
 ## Populate Tree
 - [x] Proceeded with full population based on the provided local Claude Code source directory.
@@ -37,7 +37,7 @@ If (1): ask the user to provide the key, then run `gh secret set` with the secre
 
 ## Verification
 After completing the tasks above, run `context-tree verify` to confirm:
-- [x] `.context-tree/VERSION` exists
+- [x] `skills/first-tree/assets/framework/VERSION` exists
 - [x] Root NODE.md has valid frontmatter (title, owners)
 - [x] AGENT.md exists with framework markers
 - [x] `context-tree verify` passes with no blocking errors once tree population and frontmatter fixes were completed
@@ -45,4 +45,4 @@ After completing the tasks above, run `context-tree verify` to confirm:
 
 ---
 
-**Important:** As you complete each task, check it off in `.context-tree/progress.md` by changing `- [ ]` to `- [x]`. Run `context-tree verify` when done — it will fail if any items remain unchecked.
+**Important:** As you complete each task, check it off in `skills/first-tree/progress.md` by changing `- [ ]` to `- [x]`. Run `context-tree verify` when done — it will fail if any items remain unchecked.

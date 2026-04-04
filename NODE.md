@@ -34,6 +34,6 @@ See [AGENT.md](AGENT.md) for agent instructions — the before/during/after work
 
 See [about.md](about.md) for background — the mission of this repo and the clean-room boundary it enforces.
 
-See the framework documentation in `.context-tree/`:
-- [principles.md](.context-tree/principles.md) — core principles with examples
-- [ownership-and-naming.md](.context-tree/ownership-and-naming.md) — node naming and ownership model
+See the framework documentation in `skills/first-tree/references/`:
+- [principles.md](skills/first-tree/references/principles.md) — core principles with examples
+- [ownership-and-naming.md](skills/first-tree/references/ownership-and-naming.md) — node naming and ownership model
