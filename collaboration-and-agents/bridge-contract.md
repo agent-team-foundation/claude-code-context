@@ -17,6 +17,7 @@ Bridge is a control channel into a session that already exists or is locally anc
 - Prompt-style commands are generally safe because they expand into text for the existing model loop.
 - Local JSX commands are not bridge-safe because they assume an interactive terminal UI.
 - A narrow allowlist is needed for local commands that can safely stream textual results back to the companion client.
+- The concrete REPL projection, `system/init` redaction, and slash-command narrowing rules are captured in [bridge-session-state-projection-and-command-narrowing.md](bridge-session-state-projection-and-command-narrowing.md).
 
 ## Lifecycle
 
