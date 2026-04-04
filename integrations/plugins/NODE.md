@@ -12,5 +12,6 @@ Relevant leaves:
 
 - **[plugin-and-skill-model.md](plugin-and-skill-model.md)** — Roles of plugins versus skills, trust boundaries, and lifecycle expectations.
 - **[plugin-runtime-contract.md](plugin-runtime-contract.md)** — Discovery, admission, caching, deduplication, and failure handling for plugins.
+- **[plugin-management-and-marketplace-flows.md](plugin-management-and-marketplace-flows.md)** — `/plugin` command routing, marketplace management, scope-aware plugin lifecycle actions, refresh signaling, and delist handling.
 - **[lsp-plugin-and-diagnostics.md](lsp-plugin-and-diagnostics.md)** — How plugin-provided LSP servers are validated, trust-gated, routed, refreshed, and turned into diagnostics or install recommendations.
 - **[skill-loading-contract.md](skill-loading-contract.md)** — Skill sources, load path, and the boundary between reusable guidance and executable extensions.
