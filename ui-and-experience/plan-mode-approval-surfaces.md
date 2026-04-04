@@ -1,7 +1,7 @@
 ---
 title: "Plan Mode Approval Surfaces"
 owners: []
-soft_links: [/ui-and-experience/permission-prompt-shell-and-worker-states.md, /tools-and-permissions/permission-decision-pipeline.md, /runtime-orchestration/turn-attachments-and-sidechannels.md, /product-surface/session-state-and-breakpoints.md]
+soft_links: [/ui-and-experience/permission-prompt-shell-and-worker-states.md, /tools-and-permissions/permission-decision-pipeline.md, /runtime-orchestration/turn-attachments-and-sidechannels.md, /runtime-orchestration/ultraplan-remote-plan-loop.md, /product-surface/session-state-and-breakpoints.md]
 ---
 
 # Plan Mode Approval Surfaces
@@ -86,6 +86,7 @@ Equivalent behavior should preserve:
 - fullscreen mode moving the choice list into the sticky footer only when a real non-empty plan exists, while scrollback mode keeps the options inline below the plan body
 - sticky-footer teardown clearing the footer registration when the dialog disappears, so long-plan controls do not leak into later UI states
 - choosing Ultraplan dismissing the local dialog immediately, rejecting the local plan execution, and launching the remote refinement flow asynchronously so the command loop is not blocked
+- once Ultraplan launches, local visibility moving from the approval dialog into background task and active-session state rather than leaving the plan dialog mounted as a fake progress surface
 
 ## Failure modes
 

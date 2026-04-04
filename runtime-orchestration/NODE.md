@@ -15,6 +15,7 @@ Relevant leaves:
 - **[turn-assembly-and-recovery.md](turn-assembly-and-recovery.md)** — The full turn envelope from context assembly through tool batches, recovery branches, and persistence.
 - **[turn-attachments-and-sidechannels.md](turn-attachments-and-sidechannels.md)** — The post-tool attachment drain, queued prompts, memory/skill sidechannels, and recursion control signals.
 - **[unified-command-queue-and-drain.md](unified-command-queue-and-drain.md)** — How the shared command queue mediates busy input, between-turn draining, mid-turn attachments, headless batching, and agent-scoped delivery.
+- **[proactive-assistant-loop-and-brief-mode.md](proactive-assistant-loop-and-brief-mode.md)** — How assistant mode, proactive ticks, BriefTool, and startup team bootstrap create a persistent autonomous posture.
 - **[task-model.md](task-model.md)** — Background work and long-running task lifecycle.
 - **[app-state-and-input-routing.md](app-state-and-input-routing.md)** — Central app-state partitions, routed input targeting, metadata projection, and write-through side effects.
 - **[task-registry-and-visibility.md](task-registry-and-visibility.md)** — Canonical local task records, family-specific identity, and the derived surfaces that make work visible.
@@ -33,5 +34,6 @@ Relevant leaves:
 - **[conversation-branching-and-forked-session-state.md](conversation-branching-and-forked-session-state.md)** — `/branch` session forking, transcript cloning, title collision handling, content-replacement preservation, and immediate handoff into the fork.
 - **[build-profiles.md](build-profiles.md)** — Feature gates and environment-specific capability envelopes.
 - **[state-machines-and-failures.md](state-machines-and-failures.md)** — Turn, task, and runtime transition model with the main failure classes.
+- **[ultraplan-remote-plan-loop.md](ultraplan-remote-plan-loop.md)** — How Ultraplan launches a remote plan-mode session, polls approval artifacts, and splits into remote execution or local handoff.
 - **[review-path.md](review-path.md)** — End-to-end path for local review and remote ultrareview-style flows.
 - **[resume-path.md](resume-path.md)** — End-to-end path for resuming local and teleported sessions.

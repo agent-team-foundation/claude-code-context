@@ -12,6 +12,7 @@ The product surface should support at least these operating modes:
 
 - Interactive REPL for day-to-day coding work, with streaming output and tool progress.
 - Non-interactive and structured-output entry paths for automation, scripts, and SDK consumers.
+- Persistent assistant and proactive-autonomy postures, where the runtime can stay alive between user turns and communicate through a narrower status-oriented channel.
 - Session continuation flows such as resume, export, share, and branch-aware recovery.
 - Session-maintenance and utility flows such as rename, tag, copy, export, and live session inspection.
 - Behavior toggles that change how the agent works without changing the core runtime, such as model selection, effort level, fast mode, output style, and compactness.
@@ -24,6 +25,7 @@ Equivalent behavior should treat "mode" as several independent axes rather than 
 - surface style: interactive terminal, structured headless session, remote viewer, or companion client
 - execution locality: leader session, background main session, local worker, teammate, or remote executor
 - permission posture: ordinary approval, plan-aware posture, no-prompt worker posture, or automated classifier-backed approval
+- initiative posture: user-driven request/response, brief-only status channel, or proactive tick-driven autonomy
 - transcript and view targeting: leader transcript, foregrounded background task, or routed worker input target
 
 The important design choice is that one runtime serves many surfaces. New modes should reuse the same conversation, tool, and state machinery rather than fork entirely separate implementations.

@@ -76,6 +76,7 @@ Required behavior:
 - remote-review success should inject the parsed review text directly into the next local turn rather than exposing a machine-oriented log dump
 - remote-review failure should send review-specific retry guidance
 - machine-oriented planning failures should use a specialized summary instead of telling the model to inspect raw JSONL output
+- remote planning flows should be able to hold a nonterminal local phase until the user either teleports an approved plan back or leaves execution in the remote session
 - successful remote review should keep the remote session itself accessible as a durable external record even after the local task is done
 
 ## Remote-review completion heuristics
