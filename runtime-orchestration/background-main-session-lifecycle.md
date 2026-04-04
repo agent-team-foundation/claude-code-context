@@ -1,7 +1,7 @@
 ---
 title: "Background Main Session Lifecycle"
 owners: []
-soft_links: [/runtime-orchestration/task-model.md, /runtime-orchestration/task-output-persistence-and-streaming.md, /runtime-orchestration/turn-attachments-and-sidechannels.md, /memory-and-context/context-lifecycle-and-failure-modes.md]
+soft_links: [/runtime-orchestration/task-model.md, /runtime-orchestration/task-registry-and-visibility.md, /runtime-orchestration/app-state-and-input-routing.md, /runtime-orchestration/session-reset-and-state-preservation.md, /runtime-orchestration/task-output-persistence-and-streaming.md, /runtime-orchestration/turn-attachments-and-sidechannels.md, /memory-and-context/context-lifecycle-and-failure-modes.md]
 ---
 
 # Background Main Session Lifecycle
@@ -14,6 +14,7 @@ Equivalent behavior should preserve:
 
 - a dedicated main-session task ID namespace distinct from normal subagent IDs
 - task type compatibility with local-agent infrastructure, while still marking the task as `main-session` for UI and routing decisions
+- registration in the shared local task registry as its own recognizable task flavor even when storage shape is reused from ordinary local-agent tasks
 - reuse of the existing abort controller when a live foreground query is backgrounded, so later stop requests abort the real in-flight query rather than a detached copy
 
 ## Isolated transcript contract
@@ -59,6 +60,7 @@ A faithful rebuild should preserve:
 - rolling message accumulation for foreground re-entry
 - rough token counting from assistant text
 - a bounded list of recent tool activities
+- task visibility derived from the shared registry and main-view foreground pointer rather than from task-local UI state
 - no-op state updates when token count, tool count, and message list have not materially changed
 
 ## Foreground return path
@@ -70,6 +72,7 @@ Equivalent behavior should preserve:
 - a dedicated foregrounded-task pointer for the main view
 - returning the task's accumulated messages so the visible transcript can be reconstructed immediately
 - backgrounding of any previously foregrounded local-agent task when a new one is brought to the front
+- keeping the separate viewed-worker steering pointer free to continue targeting teammates or named agents
 - continued execution while foregrounded; this is a display change, not a restart
 
 ## Completion and notification rules
@@ -108,3 +111,4 @@ The runtime should:
 - **lost notifications**: task notifications removed during handoff are never forwarded into the detached session
 - **double completion**: a foregrounded task still emits a model-facing completion notification
 - **scope leakage**: background task loses its agent-scoped caches or skill state during `/clear`
+- **identity collapse**: main-session work is reconstructed as an ordinary subagent task and loses its distinct routing or notification behavior

@@ -1,7 +1,7 @@
 ---
 title: "Session Memory"
 owners: []
-soft_links: [/memory-and-context/compaction-and-dream.md, /runtime-orchestration/task-model.md, /platform-services/sync-and-managed-state.md]
+soft_links: [/memory-and-context/compaction-and-dream.md, /memory-and-context/durable-memory-recall-and-auto-memory.md, /memory-and-context/context-bootstrap.md, /memory-and-context/context-cache-and-invalidation.md, /runtime-orchestration/task-model.md, /platform-services/sync-and-managed-state.md]
 ---
 
 # Session Memory
@@ -15,6 +15,22 @@ This layer should be reconstructed as an automatically maintained notes artifact
 - Updates are threshold-based. The system should wait for enough new context, enough tool activity, or a natural pause before rewriting the notes.
 - The update path should avoid racing with active tool-heavy turns and should prefer stable boundaries where the extracted notes will remain coherent.
 - The file should capture operationally useful summaries, unresolved threads, decisions, and handoff-ready context rather than duplicating the full transcript.
+
+## Isolation model
+
+A faithful rebuild should preserve strong isolation for the updater:
+
+- upkeep runs in a forked or otherwise isolated helper so the main conversation loop stays responsive
+- that helper should be allowed to edit only the exact session-memory artifact, not arbitrary project files
+- the session-memory refresh should surface as maintenance work that can be observed or deferred without looking like ordinary foreground assistant output
+
+## Output contract
+
+Equivalent behavior should preserve:
+
+- bounded rewrite frequency based on thresholds rather than on every turn
+- durable placement in session-specific storage so reset and resume can find the latest working note
+- enough structure to support later handoff, review, or resume without pretending to be a full transcript
 
 Session memory is distinct from both compaction and durable memory:
 

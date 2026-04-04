@@ -13,9 +13,12 @@ Relevant leaves:
 - **[tool-families.md](tool-families.md)** — The major classes of tools that must exist.
 - **[tool-pool-assembly.md](tool-pool-assembly.md)** — How the runtime assembles the exact tool list that the model and UI can see in one session.
 - **[control-plane-tools.md](control-plane-tools.md)** — Tools that mutate runtime state, teams, tasks, or execution modes.
+- **[task-and-team-control-tool-contracts.md](task-and-team-control-tool-contracts.md)** — Transactional contracts for task creation, task updates, ownership routing, and team initialization.
+- **[config-discovery-and-trigger-tool-contracts.md](config-discovery-and-trigger-tool-contracts.md)** — Read and write configuration surfaces, permission browser behavior, retry paths, and policy-gated triggers.
 - **[ask-user-question-tool-contract.md](ask-user-question-tool-contract.md)** — How the AskUserQuestion tool defines question schemas, preview payloads, interactive availability, and answer serialization.
 - **[agent-tool-launch-routing.md](agent-tool-launch-routing.md)** — How the Agent tool chooses between teammate, fork, background, worktree, and remote execution paths.
 - **[permission-model.md](permission-model.md)** — Safety, sandboxing, and approval behavior.
+- **[permission-mode-transitions-and-gates.md](permission-mode-transitions-and-gates.md)** — Startup precedence, centralized mode transitions, async auto-mode gates, and dangerous-rule stripping or restoration.
 - **[permission-decision-pipeline.md](permission-decision-pipeline.md)** — The layered rule, mode, classifier, worker, and dialog flow behind each tool approval.
 - **[permission-rule-loading-and-persistence.md](permission-rule-loading-and-persistence.md)** — How permission rules are loaded, normalized, stripped for auto mode, restored, and persisted.
 - **[shell-execution-and-backgrounding.md](shell-execution-and-backgrounding.md)** — How shell tools stream, background, reuse tasks, and stay responsive in assistant mode.

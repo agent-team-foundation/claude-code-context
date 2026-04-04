@@ -1,7 +1,7 @@
 ---
 title: "Instruction Sources and Precedence"
 owners: []
-soft_links: [/memory-and-context/context-bootstrap.md, /memory-and-context/memory-layers.md, /reconstruction-guardrails/source-boundary.md]
+soft_links: [/memory-and-context/context-bootstrap.md, /memory-and-context/memory-layers.md, /memory-and-context/durable-memory-recall-and-auto-memory.md, /memory-and-context/session-memory.md, /platform-services/workspace-trust-dialog-and-persistence.md, /reconstruction-guardrails/source-boundary.md]
 ---
 
 # Instruction Sources and Precedence
@@ -17,6 +17,14 @@ Reconstruction should preserve the distinction between three classes of memory:
 - **durable memory entrypoints** such as auto-memory or team memory that travel through the same discovery pass but should not be treated as ordinary instruction overrides
 
 If these classes are flattened together, the rebuilt system will either over-inject or under-inject guidance.
+
+## Relationship to other memory layers
+
+Instruction precedence does not flatten every other memory type into the same stack.
+
+- session memory should stay a session-scoped working note, not an overriding baseline instruction file
+- durable-memory recall should be selected after discovery and injected as explicit recall context, not treated as a higher-priority project rule
+- compaction summaries may replace older transcript context, but they should not silently rewrite the underlying instruction source order
 
 ## Baseline discovery and precedence
 

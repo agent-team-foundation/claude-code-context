@@ -16,6 +16,8 @@ Relevant leaves:
 - **[turn-attachments-and-sidechannels.md](turn-attachments-and-sidechannels.md)** — The post-tool attachment drain, queued prompts, memory/skill sidechannels, and recursion control signals.
 - **[unified-command-queue-and-drain.md](unified-command-queue-and-drain.md)** — How the shared command queue mediates busy input, between-turn draining, mid-turn attachments, headless batching, and agent-scoped delivery.
 - **[task-model.md](task-model.md)** — Background work and long-running task lifecycle.
+- **[app-state-and-input-routing.md](app-state-and-input-routing.md)** — Central app-state partitions, routed input targeting, metadata projection, and write-through side effects.
+- **[task-registry-and-visibility.md](task-registry-and-visibility.md)** — Canonical local task records, family-specific identity, and the derived surfaces that make work visible.
 - **[scheduled-prompts-and-cron-lifecycle.md](scheduled-prompts-and-cron-lifecycle.md)** — How local scheduled prompts, `/loop`, cron persistence, jitter, multi-session ownership, and missed-task catch-up behave as one runtime subsystem.
 - **[shared-task-list-contract.md](shared-task-list-contract.md)** — File-backed task-list storage, claiming, watcher pickup, and the user-facing summary model for team work queues.
 - **[background-shell-task-lifecycle.md](background-shell-task-lifecycle.md)** — How shell tasks register, background in place, notify exactly once, and stop safely.
@@ -23,6 +25,7 @@ Relevant leaves:
 - **[foregrounded-worker-steering.md](foregrounded-worker-steering.md)** — How viewed workers redirect prompt input, bootstrap transcripts, and retarget mailbox attachments.
 - **[prompt-suggestion-and-speculation.md](prompt-suggestion-and-speculation.md)** — How leader-only next-input suggestions are generated, filtered, optionally pre-executed in overlays, and accepted or aborted.
 - **[background-main-session-lifecycle.md](background-main-session-lifecycle.md)** — How the main query detaches into a task-scoped transcript that survives clear and can be foregrounded later.
+- **[session-reset-and-state-preservation.md](session-reset-and-state-preservation.md)** — Structured reset, preserved background work, fresh session identity, and artifact relinking.
 - **[remote-agent-restoration-and-polling.md](remote-agent-restoration-and-polling.md)** — How remote sessions persist restore metadata, poll safely, and specialize review or planning completion.
 - **[dream-task-visibility.md](dream-task-visibility.md)** — How auto-dream work becomes a UI-visible task without entering the normal model-facing notification path.
 - **[task-output-persistence-and-streaming.md](task-output-persistence-and-streaming.md)** — The single output owner, session-stable task files, shared polling, and bounded readback model.
