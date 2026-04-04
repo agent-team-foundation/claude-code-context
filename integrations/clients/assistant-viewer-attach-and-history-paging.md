@@ -1,12 +1,14 @@
 ---
 title: "Assistant Viewer Attach and History Paging"
 owners: []
-soft_links: [/collaboration-and-agents/remote-session-contract.md, /runtime-orchestration/proactive-assistant-loop-and-brief-mode.md, /runtime-orchestration/task-registry-and-visibility.md, /integrations/clients/remote-and-managed-client-envelopes.md, /integrations/clients/remote-setup-and-companion-bootstrap.md]
+soft_links: [/collaboration-and-agents/remote-session-contract.md, /runtime-orchestration/proactive-assistant-loop-and-brief-mode.md, /runtime-orchestration/task-registry-and-visibility.md, /integrations/clients/remote-and-managed-client-envelopes.md, /integrations/clients/remote-setup-and-companion-bootstrap.md, /integrations/clients/remote-session-message-adaptation-and-viewer-state.md]
 ---
 
 # Assistant Viewer Attach and History Paging
 
 `claude assistant` is not a generic remote attach path. It is a viewer-skewed client for an already running persistent assistant session: discover or choose the right session, attach without re-running leader bootstrap, lazy-page remote history, and keep the assistant's brief-style output visible while ownership stays remote.
+
+For the exact SDK-message adaptation, echo suppression, remote task counting, and viewer-state projection rules this attach flow relies on, see [remote-session-message-adaptation-and-viewer-state.md](remote-session-message-adaptation-and-viewer-state.md).
 
 ## Entry path and attach bootstrap
 
