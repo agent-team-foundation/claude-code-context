@@ -1,7 +1,7 @@
 ---
 title: "Control-Plane Tools"
 owners: []
-soft_links: [/tools-and-permissions/delegation-modes.md, /runtime-orchestration/task-model.md, /integrations/clients/sdk-control-protocol.md]
+soft_links: [/tools-and-permissions/delegation-modes.md, /tools-and-permissions/permission-mode-transitions-and-gates.md, /tools-and-permissions/task-and-team-control-tool-contracts.md, /tools-and-permissions/config-discovery-and-trigger-tool-contracts.md, /runtime-orchestration/task-model.md, /integrations/clients/sdk-control-protocol.md]
 ---
 
 # Control-Plane Tools
@@ -12,10 +12,10 @@ These control-plane tools fall into a few recurring groups:
 
 - **elicitation tools** that ask the user structured questions or request narrow confirmations
 - **mode-switch tools** that enter or exit plan mode, worktree mode, or similar execution envelopes
-- **task-management tools** that create, inspect, update, list, stream, or stop background work
+- **task-management tools** that create, inspect, update, list, stream, assign, or stop background work
 - **coordination tools** that create teams, send messages, or route work across cooperating agents
-- **runtime discovery tools** that search the tool registry, inspect integration resources, or expose configuration state
-- **trigger tools** that schedule or remotely start work outside the current foreground turn
+- **runtime discovery tools** that search the tool registry, inspect integration resources, browse permission state, or expose configuration state
+- **trigger and admin tools** that schedule or remotely start work outside the current foreground turn, retry previously denied actions, or mutate narrow policy-backed runtime settings
 
 Equivalent implementations should preserve these invariants:
 
@@ -24,5 +24,11 @@ Equivalent implementations should preserve these invariants:
 - The same permission and policy system used for world-facing tools must also gate sensitive control-plane actions.
 - Control-plane tools need stable schemas because other subsystems depend on them for orchestration.
 - Entering a specialized mode should tighten the runtime contract for later turns; it should not behave like a cosmetic flag.
+
+Some control-plane families need stronger guarantees than a generic schema:
+
+- task and team tools should be transactional, with rollback or veto paths when hooks reject a mutation
+- config and trigger tools should write only through registry-backed, type-aware mutation paths
+- permission-management surfaces should operate on source-attributed rule state rather than on flattened raw text blobs
 
 This distinction is important for reconstruction because Claude Code is not just a bundle of file and shell tools. It is also a runtime that can reconfigure itself while work is in progress.

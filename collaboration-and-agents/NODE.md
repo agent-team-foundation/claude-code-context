@@ -21,6 +21,7 @@ Relevant leaves:
 - **[remote-and-bridge-flows.md](remote-and-bridge-flows.md)** — Remote execution, bridge transport, and session handoff behavior.
 - **[collaboration-state-machine.md](collaboration-state-machine.md)** — How local, delegated, remote, and bridge-mediated work transitions over time.
 - **[remote-session-contract.md](remote-session-contract.md)** — Contract for remote session ownership, messaging, approval, and reconnect.
+- **[remote-session-live-control-loop.md](remote-session-live-control-loop.md)** — Live remote control transport, permission or interrupt bridging, adaptation, and reconnect behavior.
 - **[bridge-contract.md](bridge-contract.md)** — Contract for bridge-mediated control from constrained companion clients.
 - **[bridge-transport-and-remote-control-runtime.md](bridge-transport-and-remote-control-runtime.md)** — Attach-time runtime mechanics for bridge sessions, including transport selection, dedup, reconnect, state reporting, and teardown.
 - **[remote-handoff-path.md](remote-handoff-path.md)** — End-to-end path for teleport, remote review or planning, and cross-machine continuation.

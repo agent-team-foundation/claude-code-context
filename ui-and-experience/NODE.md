@@ -11,7 +11,9 @@ This domain captures how Claude Code makes a complex agent runtime legible insid
 Relevant leaves:
 
 - **[terminal-ui.md](terminal-ui.md)** — Composition of the terminal application and major UI regions.
+- **[terminal-runtime-and-fullscreen-interaction.md](terminal-runtime-and-fullscreen-interaction.md)** — Terminal capability negotiation, buffered redraws, fullscreen behavior, and input-protocol gating.
 - **[interaction-feedback.md](interaction-feedback.md)** — How the product communicates progress, risk, and outcomes.
+- **[status-line-and-footer-notification-stack.md](status-line-and-footer-notification-stack.md)** — Priority-driven footer arbitration, persistent indicators, and notification folding rules.
 - **[permission-prompt-shell-and-worker-states.md](permission-prompt-shell-and-worker-states.md)** — How queued approval prompts, shared permission dialog chrome, feedback-entry controls, and worker waiting cards behave.
 - **[plan-mode-approval-surfaces.md](plan-mode-approval-surfaces.md)** — How enter-plan and exit-plan approvals present plans, collect feedback, choose execution modes, and hand plan acceptance back into the session loop.
 - **[ask-user-question-and-plan-interview-ui.md](ask-user-question-and-plan-interview-ui.md)** — How ask-user prompts paginate questions, render previews, collect notes and attachments, and expose plan-interview-specific footer actions.
