@@ -8,6 +8,8 @@ soft_links: [/runtime-orchestration/task-model.md, /runtime-orchestration/monito
 
 Claude Code does not treat a background shell command as "just a detached process." It registers it as structured task state, gives it a stable output file, deduplicates notifications, and preserves enough metadata for the UI, SDK, and task tools to reason about it later.
 
+Shared registration, generic stop dispatch, `notified` barriers, terminal eviction rules, and SDK lifecycle ordering are captured in [shared-task-control-plane-and-lifecycle-events.md](shared-task-control-plane-and-lifecycle-events.md). This leaf focuses on the shell-specific backgrounding, watchdog, and completion details layered on top of that base.
+
 ## Foreground versus background registration
 
 Shell task state has two distinct registration modes:

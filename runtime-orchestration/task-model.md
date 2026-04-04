@@ -1,12 +1,14 @@
 ---
 title: "Task Model"
 owners: []
-soft_links: [/collaboration-and-agents/multi-agent-topology.md, /tools-and-permissions/delegation-modes.md, /runtime-orchestration/workflow-script-runtime.md, /runtime-orchestration/monitor-task-families-and-watch-lifecycle.md]
+soft_links: [/collaboration-and-agents/multi-agent-topology.md, /tools-and-permissions/delegation-modes.md, /runtime-orchestration/shared-task-control-plane-and-lifecycle-events.md, /runtime-orchestration/workflow-script-runtime.md, /runtime-orchestration/monitor-task-families-and-watch-lifecycle.md]
 ---
 
 # Task Model
 
 Claude Code treats long-running work as explicit tasks with typed lifecycle management rather than as anonymous detached side effects.
+
+One shared task control plane owns registration, replacement, generic stop dispatch, offset polling, terminal eviction, and SDK lifecycle bookends across those families. Family-specific leaves then define what completion means, what summary gets emitted, and what extra state each family carries on top of that shared base.
 
 Required task qualities:
 
