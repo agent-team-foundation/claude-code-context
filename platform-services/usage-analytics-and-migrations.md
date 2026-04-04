@@ -12,6 +12,7 @@ Expected responsibilities:
 
 - bootstrap and entitlement prefetch at startup
 - usage tracking, rate or quota awareness, and plan-specific behaviors
+- the dedicated Claude.ai subscriber limit-state contract documented in [claude-ai-limits-and-extra-usage-state.md](claude-ai-limits-and-extra-usage-state.md)
 - analytics and diagnostic pipelines with opt-out and sink controls
 - release notes and update flows
 - local migrations that evolve stored settings and defaults over time
