@@ -1,7 +1,7 @@
 ---
 title: "Background Task Row And Progress Semantics"
 owners: []
-soft_links: [/ui-and-experience/background-task-status-surfaces.md, /ui-and-experience/background-task-detail-dialogs.md, /runtime-orchestration/task-model.md, /runtime-orchestration/review-path.md, /runtime-orchestration/dream-task-visibility.md, /runtime-orchestration/foregrounded-worker-steering.md]
+soft_links: [/ui-and-experience/background-task-status-surfaces.md, /ui-and-experience/background-task-detail-dialogs.md, /runtime-orchestration/task-model.md, /runtime-orchestration/monitor-task-families-and-watch-lifecycle.md, /runtime-orchestration/review-path.md, /runtime-orchestration/dream-task-visibility.md, /runtime-orchestration/foregrounded-worker-steering.md]
 ---
 
 # Background Task Row And Progress Semantics

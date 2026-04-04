@@ -1,7 +1,7 @@
 ---
 title: "Background Shell Task Lifecycle"
 owners: []
-soft_links: [/runtime-orchestration/task-model.md, /tools-and-permissions/shell-execution-and-backgrounding.md, /runtime-orchestration/turn-attachments-and-sidechannels.md]
+soft_links: [/runtime-orchestration/task-model.md, /runtime-orchestration/monitor-task-families-and-watch-lifecycle.md, /tools-and-permissions/shell-execution-and-backgrounding.md, /runtime-orchestration/turn-attachments-and-sidechannels.md]
 ---
 
 # Background Shell Task Lifecycle

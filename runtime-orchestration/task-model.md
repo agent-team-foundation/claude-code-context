@@ -1,7 +1,7 @@
 ---
 title: "Task Model"
 owners: []
-soft_links: [/collaboration-and-agents/multi-agent-topology.md, /tools-and-permissions/delegation-modes.md, /runtime-orchestration/workflow-script-runtime.md]
+soft_links: [/collaboration-and-agents/multi-agent-topology.md, /tools-and-permissions/delegation-modes.md, /runtime-orchestration/workflow-script-runtime.md, /runtime-orchestration/monitor-task-families-and-watch-lifecycle.md]
 ---
 
 # Task Model
