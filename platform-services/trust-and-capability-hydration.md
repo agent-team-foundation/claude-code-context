@@ -1,7 +1,7 @@
 ---
 title: "Trust and Capability Hydration"
 owners: []
-soft_links: [/platform-services/auth-config-and-policy.md, /integrations/mcp/server-contract.md, /memory-and-context/instruction-sources-and-precedence.md]
+soft_links: [/platform-services/auth-config-and-policy.md, /platform-services/interactive-startup-and-project-activation.md, /integrations/mcp/server-contract.md, /memory-and-context/instruction-sources-and-precedence.md]
 ---
 
 # Trust and Capability Hydration
@@ -75,6 +75,8 @@ Instead, capabilities become active as more prerequisites line up:
 - telemetry and analytics boot
 
 This incremental hydration model explains why some features appear unavailable during early startup and then become ready moments later.
+
+The surrounding startup sequencing, first-render boundary, and cwd-sensitive setup rules live separately in [interactive-startup-and-project-activation.md](interactive-startup-and-project-activation.md).
 
 ## Failure modes
 

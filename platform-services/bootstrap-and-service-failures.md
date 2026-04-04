@@ -1,7 +1,7 @@
 ---
 title: "Bootstrap and Service Failures"
 owners: []
-soft_links: [/platform-services/auth-config-and-policy.md, /platform-services/usage-analytics-and-migrations.md]
+soft_links: [/platform-services/auth-config-and-policy.md, /platform-services/usage-analytics-and-migrations.md, /platform-services/interactive-startup-and-project-activation.md]
 ---
 
 # Bootstrap and Service Failures
@@ -14,10 +14,12 @@ Platform services should shape capability, not hold the entire product hostage.
    Optional service reads begin in parallel with heavy imports.
 2. Core initialization.
    Essential session state, settings, and runtime invariants are established.
-3. Capability hydration.
+3. Trust and project activation.
+   Interactive startup decides whether repo-scoped execution surfaces may continue.
+4. Capability hydration.
    Auth, policy, plugin, MCP, and telemetry layers supply the rest of the envelope.
-4. Ready with full services.
-5. Ready with degraded services.
+5. Ready with full services.
+6. Ready with degraded services.
 
 ## Failure handling expectations
 

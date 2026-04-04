@@ -1,7 +1,7 @@
 ---
 title: "Command Runtime Matrix"
 owners: []
-soft_links: [/product-surface/command-surface.md, /runtime-orchestration/state-machines-and-failures.md, /tools-and-permissions/tool-families.md]
+soft_links: [/product-surface/command-surface.md, /platform-services/interactive-startup-and-project-activation.md, /runtime-orchestration/state-machines-and-failures.md, /tools-and-permissions/tool-families.md]
 ---
 
 # Command Runtime Matrix
