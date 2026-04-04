@@ -11,6 +11,7 @@ This domain captures the supporting services that make the runtime operable in t
 Relevant leaves:
 
 - **[auth-config-and-policy.md](auth-config-and-policy.md)** — Authentication, layered settings, and policy gating.
+- **[auth-login-logout-and-token-lifecycle.md](auth-login-logout-and-token-lifecycle.md)** — How login, account switching, logout, OAuth transport, and auth-sensitive runtime refreshes behave as one coordinated lifecycle.
 - **[trust-and-capability-hydration.md](trust-and-capability-hydration.md)** — Workspace trust as the gate that unlocks experiments, env vars, approvals, and telemetry.
 - **[sync-and-managed-state.md](sync-and-managed-state.md)** — User settings sync, managed settings, and shared memory synchronization.
 - **[policy-and-managed-settings-lifecycle.md](policy-and-managed-settings-lifecycle.md)** — Fetch, cache, polling, and reload behavior for remote settings overlays and policy restrictions.
