@@ -24,11 +24,11 @@ Local analysis-only inputs such as raw source snapshots should live under hidden
 
 ## Synced skill
 
-This repo mirrors the `first-tree-cli-framework` skill from the upstream `agent-team-foundation/first-tree` repository into:
+This repo mirrors the `first-tree` skill from the upstream `agent-team-foundation/first-tree` repository into:
 
-- `.skills/first-tree-cli-framework`
-- `.claude/skills/first-tree-cli-framework`
-- `.agents/skills/first-tree-cli-framework`
+- `.skills/first-tree`
+- `.claude/skills/first-tree`
+- `.agents/skills/first-tree`
 
 To sync manually, run:
 
