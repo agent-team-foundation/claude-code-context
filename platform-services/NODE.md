@@ -26,3 +26,4 @@ Relevant leaves:
 - **[bootstrap-and-service-failures.md](bootstrap-and-service-failures.md)** — Startup sequencing and how non-core service failures should degrade.
 - **[interactive-startup-and-project-activation.md](interactive-startup-and-project-activation.md)** — How import-time prewarm, cwd-sensitive setup, trust gating, post-trust activation, and deferred prefetch divide the local startup pipeline.
 - **[background-housekeeping-and-deferred-maintenance.md](background-housekeeping-and-deferred-maintenance.md)** — How opportunistic services, idle-gated cleanup, recurring maintenance, and process-detached timers are orchestrated after startup.
+- **[magic-docs-background-maintenance.md](magic-docs-background-maintenance.md)** — How `# MAGIC DOC` files are discovered, tracked, and rewritten by a constrained background agent that keeps docs current instead of historical.
