@@ -24,6 +24,7 @@ Relevant leaves:
 - **[vim-mode-and-modal-editing.md](vim-mode-and-modal-editing.md)** — How `/vim`, editor-mode persistence, modal prompt parsing, repeat/register memory, and Vim-specific UI cues stay coordinated.
 - **[voice-mode-and-hold-to-talk-dictation.md](voice-mode-and-hold-to-talk-dictation.md)** — How voice eligibility, hold-to-talk capture, streaming transcription, prompt injection, and voice-specific feedback stay coordinated.
 - **[system-feedback-lines.md](system-feedback-lines.md)** — How system-generated status rows specialize by subtype, collapse noise, and preserve turn and recovery context.
+- **[idle-return-and-away-summary.md](idle-return-and-away-summary.md)** — How long-idle returns trigger restart nudges, blocking continue-or-clear choices, and focus-loss recap summaries.
 - **[hook-execution-feedback.md](hook-execution-feedback.md)** — How hook progress rows, async hook attachments, stop-hook spinner suffixes, and dynamic-versus-static message behavior stay coordinated.
 - **[teammate-mailbox-control-message-rendering.md](teammate-mailbox-control-message-rendering.md)** — How teammate mailbox envelopes, control-message cards, hidden protocol payloads, and compact summaries render across transcript and attachment paths.
 - **[teammate-surfaces-and-navigation.md](teammate-surfaces-and-navigation.md)** — How swarm roster, spinner tree, transcript view, task dialogs, and banners stay synchronized.
