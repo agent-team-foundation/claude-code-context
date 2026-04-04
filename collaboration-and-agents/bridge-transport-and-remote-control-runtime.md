@@ -1,7 +1,7 @@
 ---
 title: "Bridge Transport and Remote-Control Runtime"
 owners: []
-soft_links: [/collaboration-and-agents/bridge-contract.md, /collaboration-and-agents/remote-session-contract.md, /integrations/clients/structured-io-and-headless-session-loop.md, /runtime-orchestration/state-machines-and-failures.md]
+soft_links: [/collaboration-and-agents/bridge-contract.md, /collaboration-and-agents/remote-session-contract.md, /collaboration-and-agents/remote-control-spawn-modes-and-session-resume.md, /integrations/clients/structured-io-and-headless-session-loop.md, /runtime-orchestration/state-machines-and-failures.md]
 ---
 
 # Bridge Transport and Remote-Control Runtime
@@ -22,7 +22,7 @@ It intentionally does not re-document:
 
 - the high-level product contract for bridge-safe commands already captured in [bridge-contract.md](bridge-contract.md)
 - the generic structured host I/O loop already captured in [structured-io-and-headless-session-loop.md](../integrations/clients/structured-io-and-headless-session-loop.md)
-- the standalone multi-session spawn loop behind `claude remote-control` beyond the shared bridge-runtime primitives it reuses
+- the standalone multi-session spawn loop behind `claude remote-control`, which is captured in [remote-control-spawn-modes-and-session-resume.md](remote-control-spawn-modes-and-session-resume.md), beyond the shared bridge-runtime primitives it reuses
 
 ## Bootstrap path selection and session identity
 
