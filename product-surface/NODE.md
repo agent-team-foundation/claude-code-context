@@ -12,6 +12,7 @@ Relevant leaves:
 
 - **[interaction-modes.md](interaction-modes.md)** — The major ways a user can operate the product.
 - **[command-surface.md](command-surface.md)** — How commands are grouped and what each group must expose.
+- **[model-and-behavior-controls.md](model-and-behavior-controls.md)** — How `/model`, `/effort`, `/fast`, `/theme`, `/color`, and `/output-style` together control runtime model choice, effort, premium speed paths, and behavior styling.
 - **[command-dispatch-and-composition.md](command-dispatch-and-composition.md)** — How one command registry composes built-ins, skills, plugins, workflows, and gated command variants into one surface.
 - **[session-state-and-breakpoints.md](session-state-and-breakpoints.md)** — User-visible session phases, mode transitions, and where interaction can fail or be deferred.
 - **[command-runtime-matrix.md](command-runtime-matrix.md)** — How command families map onto runtime subsystems, tool families, and task types.
