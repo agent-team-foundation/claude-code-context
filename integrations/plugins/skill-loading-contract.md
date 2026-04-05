@@ -6,34 +6,177 @@ soft_links: [/integrations/plugins/plugin-and-skill-model.md, /tools-and-permiss
 
 # Skill Loading Contract
 
-Skills are a prompt-layer extension mechanism. They behave like reusable domain guidance, not like executable plugins.
+Skills are a prompt-layer extension mechanism, but the runtime does not load them through one uniform path. Bundled skills, file-backed local skills, plugin skills, MCP-delivered skills, and dynamically discovered nested skills each arrive through different channels, then meet again inside the shared command registry. A faithful rebuild needs those channels and their ordering to stay intact, or user-visible slash resolution, SkillTool availability, and dynamic path-triggered skills will drift.
 
-## Source classes
+## Scope boundary
 
-- project-local skills
-- user-level skills
-- managed or policy-provided skills
-- bundled defaults
-- plugin-provided skills
-- skills synthesized from other integration systems such as MCP
+This leaf covers:
 
-## Loading boundary
+- startup discovery of bundled, file-backed, plugin, MCP, and dynamic nested skills
+- policy and `--bare` rules that suppress or narrow discovery
+- frontmatter fields that materially change invocation behavior
+- late activation of conditional and dynamically discovered skills
+- command-registry ordering and name-collision behavior for skills
 
-- A skill may specify metadata such as description, recommended tools, invocation controls, or model preferences.
-- A skill should compile down to promptable guidance or controlled execution context, not arbitrary runtime mutation.
-- Skill loading failures should degrade softly; a bad skill index must not crash the entire product.
+It intentionally does not re-document:
 
-## Lifecycle
+- the broader conceptual difference between skills and plugins already covered in [plugin-and-skill-model.md](plugin-and-skill-model.md)
+- the ant-only skill-improvement rewrite loop already covered in [skill-improvement-detection-and-apply-flow.md](skill-improvement-detection-and-apply-flow.md)
 
-1. Discover markdown or generated skill source.
-2. Parse frontmatter and normalize metadata.
-3. Deduplicate by canonical identity rather than only by filename.
-4. Index for search, listing, and invocation.
-5. Expand into prompt content when invoked or selected.
+## The runtime tracks provenance and loading channel separately
 
-## Failure classes
+Equivalent behavior should preserve:
 
-- **frontmatter invalid**: the skill exists but cannot be safely interpreted
-- **duplicate identity**: multiple paths resolve to the same underlying skill
-- **stale index**: a new skill exists but command or search caches have not refreshed
-- **capability mismatch**: a skill recommends tools or modes unavailable in the current runtime
+- bundled skills registering outside the filesystem scan
+- file-backed managed, user, project, and `--add-dir` skills all loading through the same `/skills` loader even though their provenance differs
+- provenance staying attached as the source class:
+  - managed policy settings
+  - user settings
+  - project settings
+- loading channel staying distinct from provenance:
+  - modern `/skills`
+  - legacy `/commands`
+  - plugin-delivered skills
+  - bundled skills
+  - MCP-delivered skills
+- public reconstruction not inventing a separate managed-only skill format just because managed policy is one source class
+
+## Startup discovery order is fixed and visible
+
+Equivalent behavior should preserve:
+
+- bundled skills being registered before command loading begins
+- disk-backed startup discovery scanning, in order:
+  - managed `.claude/skills`
+  - user `~/.claude/skills`
+  - project `.claude/skills` directories from cwd upward toward the repo boundary
+  - explicit `--add-dir` roots by looking for `dir/.claude/skills`
+  - legacy `/commands` discovery
+- plugin skills being loaded through the plugin system rather than through the ordinary disk-backed skill scan
+- MCP skills arriving through the MCP integration path instead of being treated like file-backed markdown
+- project discovery stopping at the repo boundary rather than walking all the way to the filesystem root
+- worktrees without a checked-out `.claude/<subdir>` being able to fall back to the canonical repo copy for those project-scoped markdown sources
+
+## `--bare` and plugin-only policy narrow discovery but do not bypass policy
+
+Equivalent behavior should preserve:
+
+- `--bare` suppressing managed, user, and automatic project discovery
+- `--bare` also suppressing legacy `/commands` discovery
+- `--bare` still allowing only explicit `--add-dir` skill roots to load, and only if project settings are otherwise allowed
+- plugin-only policy being able to lock the skill surface so user and project file-backed skills do not load
+- that same plugin-only policy also blocking `--bare` from sneaking project skill roots back in
+- bundled skills remaining separately registered even when file-backed discovery is narrowed
+
+## Filesystem formats and naming rules are channel-specific
+
+Equivalent behavior should preserve:
+
+- modern `/skills` directories only accepting `skill-name/SKILL.md`
+- standalone `.md` files being ignored inside `/skills`
+- legacy `/commands` discovery remaining backward-compatible with both:
+  - `dir/SKILL.md`
+  - ordinary `.md` files
+- nested legacy command directories becoming `:`-namespaced command names
+- plugin skill names being namespaced from their plugin identity instead of sharing the raw local filename namespace
+- MCP skills using `server:skill` style names, which are distinct from plain MCP prompts
+
+## Frontmatter is shared, but invocation transforms are not trivial
+
+Equivalent behavior should preserve:
+
+- these shared frontmatter fields materially affecting runtime behavior:
+  - description fallback from body text
+  - `allowed-tools`
+  - `argument-hint`
+  - argument names
+  - `when_to_use`
+  - `version`
+  - `model`, including explicit `inherit`
+  - `disable-model-invocation`
+  - `user-invocable`, defaulting to true
+  - hooks
+  - `context: fork`
+  - `agent`
+  - `effort`
+  - `shell`
+  - `paths`
+- `paths` using CLAUDE.md-style matching, stripping trailing `/**`, and collapsing all-`**` patterns into "unconditional"
+- invocation-time prompt assembly doing more than just read markdown:
+  - prepend a base-directory hint for file-backed and plugin skills
+  - substitute positional arguments
+  - substitute `${CLAUDE_SKILL_DIR}` when the skill has a real local directory
+  - substitute `${CLAUDE_SESSION_ID}`
+- plugin skills additionally being able to substitute plugin-root-relative paths and non-sensitive plugin user-config values
+- inline shell execution from skill markdown being allowed for local and plugin skills
+- inline shell execution from MCP skills being explicitly disabled because those skills are remote and untrusted
+
+## Deduplication is by file identity, not by skill name
+
+Equivalent behavior should preserve:
+
+- canonical-file deduplication using resolved file identity rather than plain path string
+- symlinked or overlapping paths to the same physical skill collapsing to one entry
+- distinct files with the same skill name not being globally merged away
+- name collisions therefore remaining order-dependent at command-resolution time instead of being normalized into one canonical winner during loading
+
+## Conditional and nested skills are late-bound
+
+Equivalent behavior should preserve:
+
+- startup-visible unconditional skills being separated from conditional `paths` skills
+- conditional `paths` skills being stored but withheld from the active command list until matching file paths are touched
+- path activation using cwd-relative matching and ignoring files outside the cwd boundary
+- activation being one-way for the current session once a conditional skill has matched
+- nested `.claude/skills` directories being discoverable dynamically by walking upward from touched file paths toward cwd
+- nested skill discovery caching both hits and misses so repeated file operations do not restat the same directories forever
+- directories whose containing path is gitignored being skipped from dynamic skill discovery
+- deeper nested skill directories overriding shallower dynamic ones when they collide by name
+
+## Command composition order determines real precedence
+
+Equivalent behavior should preserve:
+
+- assembled command order being:
+  - bundled skills
+  - built-in plugin skills
+  - disk-backed skill-dir skills
+  - workflow commands
+  - plugin commands
+  - plugin skills
+  - built-in commands
+- slash-command and SkillTool lookup taking the first matching visible command rather than running a second name-based merge
+- disk-backed or plugin skills therefore being able to exist in the registry yet still be shadowed by earlier channels when names collide
+- dynamic skills being inserted after plugin skills but before built-ins
+- dynamic skills only being added when their name is not already present in the base command list, so dynamic discovery cannot override an already-visible bundled, plugin, or disk-backed command by name
+- user-invocable visibility being distinct from model invocability:
+  - user-invocable false hides a skill from ordinary slash-command UI
+  - the SkillTool can still target model-usable skills that are not meant for manual slash invocation
+
+## MCP skills are a separate surface from plain MCP prompts
+
+Equivalent behavior should preserve:
+
+- ordinary MCP prompts and MCP skills staying distinct even though both are delivered through MCP
+- MCP prompts being treated as prompt resources rather than as skills
+- MCP skills being discovered from MCP skill-like resources and registered into the skill surface with `loadedFrom: mcp`
+- SkillTool and skill listings being able to filter MCP skills specifically instead of conflating them with every MCP prompt
+- the exact `skill://` resource builder path remaining a known clean-room gap in this snapshot, while the surrounding call sites still make the distinction reconstruction-critical
+
+## Cache invalidation is multi-layered
+
+Equivalent behavior should preserve:
+
+- dynamic skill discovery firing a lightweight signal that clears command memoization without wiping the dynamic skill state it just added
+- on-disk skill edits going through a stronger watcher path that clears the ordinary skill and command caches after debounce
+- feature-flag or enablement refreshes being able to invalidate memoized command visibility without pretending the underlying skill files changed
+- late skill activation therefore becoming visible promptly without forcing a full session restart
+
+## Failure modes
+
+- **policy bypass**: `--bare` or `--add-dir` can load project skills even when plugin-only policy should have locked the surface
+- **filesystem flattening**: `/skills` and legacy `/commands` are treated as the same format and lose their distinct naming and compatibility rules
+- **name-merge fiction**: same-named skills from different channels are silently merged even though the observed runtime keeps order-dependent shadowing
+- **dynamic override bug**: nested dynamic skills replace already-visible base commands even though the observed runtime only inserts missing names
+- **unsafe shell expansion**: remote MCP skills are allowed to execute inline shell bodies like local skills
+- **stale visibility**: dynamic or conditional skill activation never invalidates command caches, so touched-path skills remain undiscoverable until restart

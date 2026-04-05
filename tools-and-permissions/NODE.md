@@ -11,6 +11,7 @@ This domain captures the tool contract that powers agentic work and the permissi
 Relevant leaves:
 
 - **[tool-families.md](tool-families.md)** — The major classes of tools that must exist.
+- **[browser-automation-and-native-computer-use.md](browser-automation-and-native-computer-use.md)** — How authenticated Chrome automation and native desktop computer-use stay separate, gated, and safe.
 - **[tool-pool-assembly.md](tool-pool-assembly.md)** — How the runtime assembles the exact tool list that the model and UI can see in one session.
 - **[deferred-tool-discovery-and-tool-search.md](deferred-tool-discovery-and-tool-search.md)** — Deferred tool admission, ToolSearch-based discovery, discovered-tool persistence across compaction, and schema-mismatch recovery hints.
 - **[control-plane-tools.md](control-plane-tools.md)** — Tools that mutate runtime state, teams, tasks, or execution modes.
@@ -19,6 +20,7 @@ Relevant leaves:
 - **[todowrite-legacy-bridge-and-task-list-v2.md](todowrite-legacy-bridge-and-task-list-v2.md)** — How legacy `TodoWrite`, file-backed Task V2 tools, reminder nudges, shared task-list IDs, and UI watchers stay compatible during the migration.
 - **[config-discovery-and-trigger-tool-contracts.md](config-discovery-and-trigger-tool-contracts.md)** — Read and write configuration surfaces, permission browser behavior, retry paths, and policy-gated triggers.
 - **[ask-user-question-tool-contract.md](ask-user-question-tool-contract.md)** — How the AskUserQuestion tool defines question schemas, preview payloads, interactive availability, and answer serialization.
+- **[agent-definition-loading-and-precedence.md](agent-definition-loading-and-precedence.md)** — How built-in, plugin, file-backed, and injected agent definitions assemble into one active catalog before launch routing begins.
 - **[agent-tool-launch-routing.md](agent-tool-launch-routing.md)** — How the Agent tool chooses between teammate, fork, background, worktree, and remote execution paths.
 - **[permission-model.md](permission-model.md)** — Safety, sandboxing, and approval behavior.
 - **[permission-mode-transitions-and-gates.md](permission-mode-transitions-and-gates.md)** — Startup precedence, centralized mode transitions, async auto-mode gates, and dangerous-rule stripping or restoration.
