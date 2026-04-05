@@ -22,6 +22,7 @@ Relevant leaves:
 - **[ask-user-question-tool-contract.md](ask-user-question-tool-contract.md)** — How the AskUserQuestion tool defines question schemas, preview payloads, interactive availability, and answer serialization.
 - **[agent-definition-loading-and-precedence.md](agent-definition-loading-and-precedence.md)** — How built-in, plugin, file-backed, and injected agent definitions assemble into one active catalog before launch routing begins.
 - **[agent-tool-launch-routing.md](agent-tool-launch-routing.md)** — How the Agent tool chooses between teammate, fork, background, worktree, and remote execution paths.
+- **[agent-runtime-context-and-tool-shaping.md](agent-runtime-context-and-tool-shaping.md)** — How a selected worker gets its final tool set, permission posture, inherited context, preloaded skills, frontmatter hooks, and additive MCP clients before the query loop starts.
 - **[permission-model.md](permission-model.md)** — Safety, sandboxing, and approval behavior.
 - **[permission-mode-transitions-and-gates.md](permission-mode-transitions-and-gates.md)** — Startup precedence, centralized mode transitions, async auto-mode gates, and dangerous-rule stripping or restoration.
 - **[permission-decision-pipeline.md](permission-decision-pipeline.md)** — The layered rule, mode, classifier, worker, and dialog flow behind each tool approval.

@@ -20,7 +20,8 @@ This leaf covers:
 It intentionally does not re-document:
 
 - the later launch-routing branches already covered in [agent-tool-launch-routing.md](agent-tool-launch-routing.md)
-- worker execution boundaries after an agent has already been selected, already covered in [../collaboration-and-agents/worker-execution-boundaries.md](../collaboration-and-agents/worker-execution-boundaries.md)
+- the post-selection runtime shaping of tools, permissions, and inherited context, already covered in [agent-runtime-context-and-tool-shaping.md](agent-runtime-context-and-tool-shaping.md)
+- the higher-level worker execution boundaries across collaboration backends, already covered in [../collaboration-and-agents/worker-execution-boundaries.md](../collaboration-and-agents/worker-execution-boundaries.md)
 
 ## Catalog assembly is multi-source and mode-dependent
 
