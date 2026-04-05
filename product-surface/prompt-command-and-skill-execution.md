@@ -22,6 +22,7 @@ It intentionally does not re-document:
 - registry composition, precedence, and name resolution already covered in [command-dispatch-and-composition.md](command-dispatch-and-composition.md)
 - skill discovery channels and frontmatter loading rules already covered in [../integrations/plugins/skill-loading-contract.md](../integrations/plugins/skill-loading-contract.md)
 - model-facing and human-facing skill listing surfaces already covered in [../integrations/plugins/skill-discovery-and-listing-surfaces.md](../integrations/plugins/skill-discovery-and-listing-surfaces.md)
+- feature-gated discovery-tool overlays and remote canonical skill follow-through already covered in [../integrations/plugins/skill-search-and-canonical-skill-flow.md](../integrations/plugins/skill-search-and-canonical-skill-flow.md)
 - markdown prompt compilation, placeholder substitution, and inline shell execution already covered in [../integrations/plugins/markdown-prompt-shell-expansion.md](../integrations/plugins/markdown-prompt-shell-expansion.md)
 - the post-selection worker runtime shaping once a forked prompt has already become a worker run, already covered in [../tools-and-permissions/agent-runtime-context-and-tool-shaping.md](../tools-and-permissions/agent-runtime-context-and-tool-shaping.md)
 
