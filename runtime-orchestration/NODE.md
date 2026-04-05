@@ -24,6 +24,7 @@ Relevant leaves:
 - **[app-state-and-input-routing.md](app-state-and-input-routing.md)** — Central app-state partitions, routed input targeting, metadata projection, and write-through side effects.
 - **[task-registry-and-visibility.md](task-registry-and-visibility.md)** — Canonical local task records, family-specific identity, and the derived surfaces that make work visible.
 - **[scheduled-prompts-and-cron-lifecycle.md](scheduled-prompts-and-cron-lifecycle.md)** — How local scheduled prompts, `/loop`, cron persistence, jitter, multi-session ownership, and missed-task catch-up behave as one runtime subsystem.
+- **[remote-scheduled-agents-and-trigger-management.md](remote-scheduled-agents-and-trigger-management.md)** — How cloud-side scheduled agents, trigger APIs, `/schedule`, environment selection, and connector setup stay distinct from local cron.
 - **[shared-task-list-contract.md](shared-task-list-contract.md)** — File-backed task-list storage, claiming, watcher pickup, and the user-facing summary model for team work queues.
 - **[background-shell-task-lifecycle.md](background-shell-task-lifecycle.md)** — How shell tasks register, background in place, notify exactly once, and stop safely.
 - **[monitor-task-families-and-watch-lifecycle.md](monitor-task-families-and-watch-lifecycle.md)** — How monitor-style shell tasks and monitor-MCP tasks diverge in entry guards, notification urgency, teardown, and UI partitioning.
