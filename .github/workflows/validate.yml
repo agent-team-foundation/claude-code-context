@@ -20,20 +20,5 @@ jobs:
         with:
           node-version: "22"
 
-      - name: Enable pnpm
-        run: corepack enable
-
-      - name: Clone latest first-tree
-        run: git clone --depth=1 https://github.com/agent-team-foundation/first-tree.git "$RUNNER_TEMP/first-tree"
-
-      - name: Install first-tree
-        working-directory: ${{ runner.temp }}/first-tree
-        run: pnpm install --frozen-lockfile
-
-      - name: Build first-tree CLI
-        working-directory: ${{ runner.temp }}/first-tree
-        run: pnpm build
-
       - name: Validate tree
-        working-directory: ${{ runner.temp }}/first-tree
-        run: node dist/cli.js verify --tree-path "$GITHUB_WORKSPACE"
+        run: npx -p first-tree context-tree verify

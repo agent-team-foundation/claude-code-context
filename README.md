@@ -37,3 +37,5 @@ bash ./.scripts/sync-first-tree-skill.sh
 
 The sync script refreshes both installed roots from the upstream skill and
 preserves the repo-local `.agents/skills/first-tree/progress.md`.
+After syncing, confirm that progress file still reflects reality and rerun
+`context-tree verify`.
