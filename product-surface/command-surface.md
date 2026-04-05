@@ -1,20 +1,20 @@
 ---
 title: "Command Surface"
 owners: []
-soft_links: [/integrations, /platform-services/auth-config-and-policy.md]
+soft_links: [/integrations, /platform-services/auth-config-and-policy.md, /collaboration-and-agents/bridge-session-state-projection-and-command-narrowing.md]
 ---
 
 # Command Surface
 
-Claude Code has one shared command catalog, but users do not see that catalog through one flat, identical list everywhere. A faithful rebuild needs the presentation contract around command discoverability to stay stable across local help, machine-readable init payloads, and narrowed remote or bridge inventories.
+Claude Code should not be reconstructed as one flat user-visible command list. The product keeps a composed command record set for the current environment, but each surface projects a different subset, name form, and metadata bundle. A faithful rebuild needs those projections to stay distinct across `/help`, `/skills`, bootstrap payloads, SDK control responses, and narrowed remote or bridge clients.
 
 ## Scope boundary
 
 This leaf covers:
 
-- how the shared command catalog is presented to humans and client surfaces
-- which commands are hidden, deduplicated, or narrowed before a user-facing inventory is shown
-- how built-in versus custom command inventories diverge in the help surface
+- how the admitted command and skill record set is projected into human-facing and machine-readable inventories
+- which records are hidden, deduplicated, reformatted, or narrowed before a surface exposes them
+- how help, skill browsing, SDK bootstrap payloads, and bridge-safe inventories diverge from one another
 
 It intentionally does not re-document:
 
@@ -22,47 +22,60 @@ It intentionally does not re-document:
 - execution semantics for specific command families already covered in the more specific command leaves in this domain
 - bridge-specific narrowing and remote-safe overlays already covered in [../collaboration-and-agents/bridge-session-state-projection-and-command-narrowing.md](../collaboration-and-agents/bridge-session-state-projection-and-command-narrowing.md)
 
-## One registry feeds several inventories
+## Presentation starts after admission
 
 Equivalent behavior should preserve:
 
-- one assembled command catalog being the source for both interactive and machine-readable command inventories
-- user-facing inventories treating command discoverability as a presentation layer over that shared catalog rather than each surface inventing its own command implementation tree
-- some surfaces exposing command names only, while richer local surfaces also show descriptions and argument hints
-- deeper command leaves owning behavior, while this leaf owns how those commands become browsable affordances
+- provider, auth, policy, and feature gates deciding whether a command is admitted to the local catalog before any inventory is rendered
+- presentation surfaces showing only the command set that is currently available in this environment, not the product's theoretical full capability set
+- remote or bridge clients applying additional narrowing after that admission step instead of inventing a separate command-definition system
 
-## The local help surface splits built-in and custom commands
-
-Equivalent behavior should preserve:
-
-- `/help` opening a local JSX inventory instead of starting a model turn
-- the help dialog separating the visible command set into built-in commands and custom commands
-- hidden commands staying out of those lists
-- same-named custom commands being deduplicated by command name before rendering, so overlapping scopes do not create repeated rows in the help picker
-- each visible list being sorted alphabetically by command name rather than by load order
-- displayed descriptions using source-aware formatting so plugin, bundled, and other non-builtin origins can still be understood from the inventory row
-- build-specific internal-only commands being excluded from the ordinary public help surface even if they exist in the underlying registry
-
-## Machine-readable command inventories are narrower than the raw registry
+## Local inventories are not interchangeable
 
 Equivalent behavior should preserve:
 
-- `system/init`-style and SDK control payloads exporting only user-invocable slash commands rather than every hidden or model-only entry in the raw command catalog
-- those machine-readable inventories carrying enough metadata for clients to render command pickers without exposing the full local UI implementation
-- command and skill inventories staying related but not identical, because skills can also be surfaced through separate skill-specific lists
-- narrower remote or bridge surfaces further filtering those same inventories instead of redefining command existence from scratch
+- `/help` opening a local UI surface instead of starting a model turn
+- the help dialog separating visible entries into default commands and custom commands
+- hidden commands staying out of help, and build-specific internal entries staying out of ordinary external help
+- same-named custom commands being deduplicated by internal slash name before rendering, so overlapping scopes do not create repeated help rows
+- each visible help list being sorted alphabetically by slash name rather than by load order
+- help rows using raw slash names plus source-aware descriptions, so origin cues survive without exposing implementation layout
+- `/skills` being a separate local UI surface over prompt-backed skills rather than another tab in help
+- `/skills` grouping skills by source family and using a skill-centric row format instead of the help description list
+- `/skills` not being treated as the user-invocable slash-command list; it is a source-grouped skill view, so its inclusion rules can differ from ordinary slash discoverability
 
-## Commands stay as affordances over deeper subsystems
+## Machine-readable projections differ by client contract
 
 Equivalent behavior should preserve:
 
-- commands acting as discoverable entry points into deeper runtime, integration, and policy subsystems
-- command inventories helping users find the right affordance without duplicating the entire subsystem architecture inside the command list
-- rebuilds treating command presentation, command execution, and subsystem ownership as separate concerns so the tree stays clean as new command families appear
+- `system/init` exporting slash commands and skills as separate arrays instead of one mixed inventory
+- the `slash_commands` array being a narrow name-only projection for user-invocable slash commands, while `skills` is its own separate name-only projection
+- those name-only init arrays preserving the command record's slash token rather than the richer display formatting used in some local client pickers
+- SDK initialize and plugin-reload control responses exporting richer command objects for client pickers, including user-visible name, source-aware description, and argument hint
+- those richer SDK control responses being based on the local catalog state rather than assuming the same merged view as every live session
+- bridge `system/init` being narrower still: only bridge-safe slash commands should be advertised, and local tool, plugin, or MCP wiring should stay redacted from companion clients
+
+## Live session surfaces can merge later overlays
+
+Equivalent behavior should preserve:
+
+- active session execution surfaces being able to append live MCP-provided commands after the local catalog has already been assembled
+- that MCP merge happening as a late session overlay, with exact-name deduplication where needed, rather than rewriting the local catalog contract
+- inventories tied to local configuration refresh, such as plugin-reload responses, not being mistaken for the full live session command set
+
+## Naming and discoverability are surface-specific
+
+Equivalent behavior should preserve:
+
+- one command record potentially having different name forms across surfaces: raw slash token in help or init-style lists, richer display name in some SDK picker payloads, and alias or display-name matching in command resolution
+- `user-invocable: false` removing entries from slash-command inventories even if the underlying skill remains model-usable
+- skill discoverability, slash-command discoverability, and command resolution staying modeled as separate concerns rather than one universal visibility flag
+- source-aware descriptions being attached only where the surface actually renders descriptions; compact bootstrap arrays should stay lean
 
 ## Failure modes
 
-- **help/runtime mismatch**: the help dialog advertises commands that the active surface later hides or blocks
-- **catalog flattening**: every surface exposes the raw registry directly, leaking hidden or non-user-invocable commands
-- **duplicate custom rows**: same-named commands from multiple scopes render multiple help entries instead of one browseable row
-- **source-blind inventory**: plugin or bundled commands lose their origin cues in help and machine-readable inventories
+- **one-list fallacy**: rebuilds reuse one universal inventory for help, skills, init, SDK control, and bridge clients
+- **name-form drift**: local help, SDK pickers, and init payloads disagree about which slash token or display name they serialize
+- **skill/slash conflation**: skill browsing is treated as just another slash-command tab, erasing its separate grouping and export contract
+- **overlay amnesia**: MCP commands are either baked permanently into the local catalog or omitted from live session surfaces that should receive them
+- **bridge overshare**: companion clients learn about local-only commands or local integration wiring that the bridge runtime would later block
