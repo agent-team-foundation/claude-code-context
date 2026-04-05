@@ -1,7 +1,7 @@
 ---
 title: "Bridge Transport and Remote-Control Runtime"
 owners: []
-soft_links: [/collaboration-and-agents/bridge-contract.md, /collaboration-and-agents/remote-session-contract.md, /collaboration-and-agents/remote-control-spawn-modes-and-session-resume.md, /collaboration-and-agents/repl-remote-control-lifecycle.md, /integrations/clients/structured-io-and-headless-session-loop.md, /runtime-orchestration/state-machines-and-failures.md]
+soft_links: [/collaboration-and-agents/bridge-contract.md, /collaboration-and-agents/remote-session-contract.md, /collaboration-and-agents/remote-control-spawn-modes-and-session-resume.md, /collaboration-and-agents/repl-remote-control-lifecycle.md, /collaboration-and-agents/peer-addressing-discovery-and-routing.md, /integrations/clients/structured-io-and-headless-session-loop.md, /runtime-orchestration/state-machines-and-failures.md]
 ---
 
 # Bridge Transport and Remote-Control Runtime
@@ -35,6 +35,7 @@ Equivalent behavior should preserve:
 - automatic title improvement continuing after attach until the runtime has either seen an explicit rename or derived enough early prompts, including an early placeholder and a later richer regeneration from a wider conversation slice
 - bridge session creation carrying repository identity and model context for the companion surface instead of creating an anonymous session card
 - session identity being treated as one logical session with multiple tag encodings, so equality checks compare the underlying UUID while individual endpoints still receive the tag form they require
+- bridge-backed reachability being published as an additional peer alias for the local session instead of replacing the local session identity, so discovery can deduplicate `bridge:` and direct-local routes without losing either concept
 - crash-recovery or perpetual-session pointers recording both the bridge environment identity and the current session identity, with later reconnect code deciding whether that pointer is still reusable
 - trusted-device headers remaining part of the bridge auth surface when elevated-auth enforcement is enabled, while enrollment and secure-storage failures stay best-effort rather than blocking attach
 
@@ -52,6 +53,7 @@ Equivalent behavior should preserve:
 - v1 Session-Ingress traffic preferring OAuth tokens for writes and reconnects, while CCR v2 worker endpoints require worker credentials that are scoped to one session and cannot be replaced with ordinary OAuth
 - multi-session-safe callers being able to provide per-instance auth closures so one bridge session does not overwrite another session's auth token in process-global environment state
 - outbound-only attachments still building the write path and heartbeat path even when the inbound SSE read stream is intentionally skipped
+- outbound-only mirror attachments staying non-addressable for peer messaging, because they can mirror transcript traffic without supporting safe bidirectional prompt injection
 
 ## Initial history flush, message eligibility, and duplicate suppression
 
@@ -96,6 +98,7 @@ Equivalent behavior should preserve:
 - v2 handshake generations being monotonic so stale async registrations cannot overwrite a newer transport that carries the correct worker epoch
 - reconnect-time writes being gated or dropped intentionally rather than half-sent through a transport whose epoch has already been superseded
 - connect deadlines and explicit close-code handling distinguishing recoverable auth loss from permanent transport failure, so the runtime can choose rebuild, environment recovery, or teardown appropriately
+- reconnect, rename, and teardown paths updating the published bridge-session alias promptly enough that peer discovery prefers a live direct-local route when both exist and does not suppress a genuinely remote peer after the alias is cleared
 
 ## Shared reporting, keep-alive, and teardown rules
 

@@ -1,7 +1,7 @@
 ---
 title: "SDK Control Protocol"
 owners: []
-soft_links: [/runtime-orchestration/query-loop.md, /runtime-orchestration/shared-task-control-plane-and-lifecycle-events.md, /tools-and-permissions/permission-model.md, /integrations/clients/sdk-hook-event-transport.md]
+soft_links: [/runtime-orchestration/query-loop.md, /runtime-orchestration/shared-task-control-plane-and-lifecycle-events.md, /tools-and-permissions/permission-model.md, /integrations/clients/sdk-hook-event-transport.md, /collaboration-and-agents/peer-addressing-discovery-and-routing.md]
 ---
 
 # SDK Control Protocol
@@ -12,6 +12,13 @@ The protocol should be modeled as two layers:
 
 - **core serializable types** for models, usage, permissions, MCP status, hook payloads, agents, and output formats
 - **control messages** for session initialization, interruption, permission handling, runtime configuration changes, and live inspection
+
+Equivalent behavior should also preserve two different initialization surfaces:
+
+- a streamed `system/init` snapshot that attaches to live message streams and may repeat on attach, reconnect, or surface-specific startup paths
+- a richer `initialize` control-response payload that returns command catalogs, agent catalogs, model lists, output styles, account state, and other host-bootstrap metadata
+- shared fields staying aligned across those surfaces where possible, without pretending they are interchangeable or emitted on the same schedule
+- trusted or internal surfaces being allowed to carry hidden peer-targeting metadata outside the public SDK schema when needed for live peer discovery
 
 Reconstruction requirements:
 

@@ -1,12 +1,14 @@
 ---
 title: "Session Discovery and Lite Indexing"
 owners: []
-soft_links: [/runtime-orchestration/resume-path.md, /runtime-orchestration/session-artifacts-and-sharing.md, /product-surface/session-utility-commands.md, /integrations/clients/structured-io-and-headless-session-loop.md]
+soft_links: [/runtime-orchestration/resume-path.md, /runtime-orchestration/session-artifacts-and-sharing.md, /product-surface/session-utility-commands.md, /integrations/clients/structured-io-and-headless-session-loop.md, /collaboration-and-agents/peer-addressing-discovery-and-routing.md]
 ---
 
 # Session Discovery and Lite Indexing
 
 Resume and SDK session listing do not begin by loading every full transcript. Claude Code uses a lightweight discovery layer that resolves project scope, extracts only cheap summary metadata, filters out subordinate transcripts, and upgrades to full state only after a concrete session has been chosen.
+
+This leaf is about resumable transcript discovery, not live peer discovery for cross-session messaging. Current reachability, direct local ingress, and Remote Control peer aliases are published through a separate live-session registry captured in [peer-addressing-discovery-and-routing.md](../collaboration-and-agents/peer-addressing-discovery-and-routing.md).
 
 ## Discovery scope and project resolution
 

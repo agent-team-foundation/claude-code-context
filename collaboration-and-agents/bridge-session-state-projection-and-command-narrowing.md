@@ -1,7 +1,7 @@
 ---
 title: "Bridge Session State Projection and Command Narrowing"
 owners: []
-soft_links: [/collaboration-and-agents/repl-remote-control-lifecycle.md, /collaboration-and-agents/bridge-contract.md, /product-surface/command-runtime-matrix.md, /runtime-orchestration/unified-command-queue-and-drain.md, /integrations/clients/remote-setup-and-companion-bootstrap.md]
+soft_links: [/collaboration-and-agents/repl-remote-control-lifecycle.md, /collaboration-and-agents/bridge-contract.md, /collaboration-and-agents/peer-addressing-discovery-and-routing.md, /product-surface/command-runtime-matrix.md, /runtime-orchestration/unified-command-queue-and-drain.md, /integrations/clients/remote-setup-and-companion-bootstrap.md]
 ---
 
 # Bridge Session State Projection and Command Narrowing
@@ -40,11 +40,14 @@ Equivalent behavior should preserve:
 Equivalent behavior should preserve:
 
 - REPL bridge sending a `system/init` message on connect because interactive REPL queries bypass the normal QueryEngine SDK init path
+- that streamed `system/init` surface being a lean attach-time snapshot, not the richer control-plane `initialize` response used by headless and SDK bootstrap
 - using the same base init schema as SDK or headless flows so companion clients still receive cwd, session ID, version, API-key source, output style, betas, agent list, skills, and fast-mode state in a recognizable shape
 - REPL bridge populating model, permission mode, active agents, and user-invocable skill names from current local state at connect time rather than inventing a bridge-only metadata format
+- local transcript session ID, Remote Control session ID, and environment/pairing ID remaining distinct in projected state and metadata, because companion navigation, reconnect, and peer reply addresses do not all refer to the same identity
 - slash commands in that payload being filtered down to bridge-safe commands only, so companion clients surface only actions that the local REPL will actually honor
 - tool list, MCP server list, and plugin list being intentionally redacted to empty collections for REPL bridge sessions, because revealing local integration names or plugin paths would leak local environment wiring and filesystem context to companion clients
 - the shared init helper still filtering out non-user-invocable commands and skills before names are emitted, even after the bridge-specific narrowing pass
+- trusted internal clients being allowed to learn additional hidden peer-targeting metadata, such as a local messaging socket path, without expanding the public companion catalog or exposing full local integration inventories
 - outbound-only or narrow bridge surfaces still replying successfully to server `initialize` requests, but with minimal capability claims rather than pretending the companion owns the full local command or model catalog
 
 ## Inbound command gate and slash-command routing

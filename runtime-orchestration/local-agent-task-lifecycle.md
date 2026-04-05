@@ -1,7 +1,7 @@
 ---
 title: "Local Agent Task Lifecycle"
 owners: []
-soft_links: [/runtime-orchestration/task-model.md, /runtime-orchestration/turn-attachments-and-sidechannels.md, /collaboration-and-agents/multi-agent-topology.md, /tools-and-permissions/delegation-modes.md]
+soft_links: [/runtime-orchestration/task-model.md, /runtime-orchestration/turn-attachments-and-sidechannels.md, /collaboration-and-agents/multi-agent-topology.md, /collaboration-and-agents/peer-addressing-discovery-and-routing.md, /tools-and-permissions/delegation-modes.md]
 ---
 
 # Local Agent Task Lifecycle
@@ -73,9 +73,11 @@ A local agent can receive follow-up user input while still running.
 
 Equivalent behavior should preserve:
 
+- plain-text follow-up targeting resolving by registered agent name or stable agent ID before any teammate-mailbox fallback is attempted
 - per-task queued messages that are routed to the agent's next request, not injected into the transcript immediately
 - a separate UI append path so the user can see the prompt appear in the viewed transcript without lying about when the model actually consumed it
 - draining of queued messages only at defined attachment or tool-round boundaries
+- running agents consuming those queued messages on their next eligible round without requiring a second task registration
 
 ## Completion, kill, and notification ordering
 
@@ -98,6 +100,7 @@ The durable contract is:
 - compaction and recovery paths should keep enough task metadata to stop the model from spawning a duplicate worker
 - pending results should remain attachable until the runtime considers them consumed
 - resume paths should reconstruct the running agent from transcript plus task state rather than treat it as an unrelated new worker
+- a targeted follow-up to a stopped or evicted local agent should prefer transcript-backed background resume under the same agent identity, and fail explicitly if no resumable transcript remains
 
 ## Failure modes
 

@@ -1,7 +1,7 @@
 ---
 title: "Remote Session Contract"
 owners: []
-soft_links: [/collaboration-and-agents/remote-and-bridge-flows.md, /collaboration-and-agents/remote-session-live-control-loop.md, /collaboration-and-agents/remote-session-subscription-auth-and-reconnect.md, /runtime-orchestration/app-state-and-input-routing.md, /integrations/clients/client-surfaces.md, /integrations/clients/structured-io-and-headless-session-loop.md, /integrations/clients/remote-session-message-adaptation-and-viewer-state.md, /tools-and-permissions/permission-model.md]
+soft_links: [/collaboration-and-agents/remote-and-bridge-flows.md, /collaboration-and-agents/remote-session-live-control-loop.md, /collaboration-and-agents/remote-session-subscription-auth-and-reconnect.md, /collaboration-and-agents/peer-addressing-discovery-and-routing.md, /runtime-orchestration/app-state-and-input-routing.md, /integrations/clients/client-surfaces.md, /integrations/clients/structured-io-and-headless-session-loop.md, /integrations/clients/remote-session-message-adaptation-and-viewer-state.md, /tools-and-permissions/permission-model.md]
 ---
 
 # Remote Session Contract
@@ -13,6 +13,7 @@ Remote sessions are not just transports. They split responsibility between a rem
 - The remote runtime owns turn execution, streaming events, and remote task progress.
 - The client owns rendering, user-facing session controls, and permission response UX unless the remote surface explicitly handles those itself.
 - Session identity, repository identity, and handoff metadata must remain stable across reconnects and resumes.
+- Local logical session IDs, remote transport/session IDs, environment or pairing IDs, and user-visible reply addresses are different identities and must not be collapsed into one generic "session" field.
 - Permission posture projected into remote metadata should expose only externally meaningful states, not worker-internal transition details.
 
 ## Lifecycle
@@ -28,6 +29,7 @@ Remote sessions are not just transports. They split responsibility between a rem
 
 - inbound messages must preserve enough structure to render tool progress, compaction events, and assistant output correctly
 - outbound user messages and control responses must carry stable session identity over a separate send path
+- message-routing surfaces may expose a reply address that targets the current remote session, but that address is not itself the canonical transcript or resume identity
 - remote event streams need an adaptation layer so replayed history, live partials, tool progress, and status events are rendered correctly without double-printing user content
 
 The local-side message adapter and viewer-state projection contract is detailed in [remote-session-message-adaptation-and-viewer-state.md](../integrations/clients/remote-session-message-adaptation-and-viewer-state.md).

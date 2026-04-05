@@ -1,12 +1,14 @@
 ---
 title: "Inbox Polling and Control Delivery"
 owners: []
-soft_links: [/collaboration-and-agents/teammate-mailbox-and-permission-bridge.md, /runtime-orchestration/turn-attachments-and-sidechannels.md, /ui-and-experience/interaction-feedback.md]
+soft_links: [/collaboration-and-agents/teammate-mailbox-and-permission-bridge.md, /collaboration-and-agents/peer-addressing-discovery-and-routing.md, /runtime-orchestration/turn-attachments-and-sidechannels.md, /ui-and-experience/interaction-feedback.md]
 ---
 
 # Inbox Polling and Control Delivery
 
 Pane-backed teammates and leaders rely on inbox polling as the compatibility layer between mailbox files and live runtime state. The inbox path must be able to turn unread mailbox entries into either control actions or model-visible teammate messages without dropping, duplicating, or misclassifying traffic.
+
+This poller covers swarm mailbox ingress only. Cross-session peer messages arrive through a separate queued-prompt path and should not be reconstructed as mailbox attachments or teammate control cards.
 
 ## Poll eligibility and identity
 

@@ -11,6 +11,7 @@ This domain captures how Claude Code scales from one foreground agent to many co
 Relevant leaves:
 
 - **[multi-agent-topology.md](multi-agent-topology.md)** — Agent roles, teams, and coordination patterns.
+- **[peer-addressing-discovery-and-routing.md](peer-addressing-discovery-and-routing.md)** — Address namespaces, live peer discovery, local-agent follow-up routing, and cross-session delivery boundaries.
 - **[worker-execution-boundaries.md](worker-execution-boundaries.md)** — Context isolation, executor modes, identity, and permission boundaries for worker agents.
 - **[team-formation-and-spawn-contract.md](team-formation-and-spawn-contract.md)** — Team creation, teammate membership, shared task-list binding, spawn-time identity rules, and teardown cleanup.
 - **[in-process-teammate-lifecycle.md](in-process-teammate-lifecycle.md)** — The long-lived same-process teammate loop, idle semantics, task-list claiming, and kill versus shutdown behavior.

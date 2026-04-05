@@ -1,12 +1,14 @@
 ---
 title: "Teammate Mailbox and Permission Bridge"
 owners: []
-soft_links: [/collaboration-and-agents/worker-execution-boundaries.md, /collaboration-and-agents/in-process-teammate-lifecycle.md, /tools-and-permissions/permission-model.md, /ui-and-experience/interaction-feedback.md]
+soft_links: [/collaboration-and-agents/worker-execution-boundaries.md, /collaboration-and-agents/in-process-teammate-lifecycle.md, /collaboration-and-agents/peer-addressing-discovery-and-routing.md, /tools-and-permissions/permission-model.md, /ui-and-experience/interaction-feedback.md]
 ---
 
 # Teammate Mailbox and Permission Bridge
 
 Claude Code uses a shared mailbox protocol so teammates can talk to each other without sharing one mutable conversation buffer. That same transport also carries permission requests, sandbox approvals, plan-approval responses, shutdown control traffic, and mode changes. In-process workers add a direct bridge into the leader's UI when both sides live in the same process, but the mailbox contract remains the compatibility fallback.
+
+This leaf is intentionally limited to the team-local swarm mailbox plane. Same-process local-agent follow-up, direct session-to-session delivery, and Remote Control peer delivery are separate routing paths captured in [peer-addressing-discovery-and-routing.md](peer-addressing-discovery-and-routing.md).
 
 ## Mailbox transport contract
 
@@ -22,7 +24,7 @@ Equivalent behavior should preserve:
 - lock-protected read-mark operations for mark-one-by-index, mark-all, and predicate-based partial acknowledgement
 - the same logical transport for pane-backed and in-process teammates so control flows behave the same across backends
 
-Mailbox routing is by teammate name and team, not by ephemeral process identity.
+Mailbox routing is by teammate name and team, not by ephemeral process identity, local session socket, or Remote Control session identifier.
 
 ## Structured versus conversational traffic
 
@@ -33,6 +35,7 @@ The durable rule is:
 - raw teammate messages may be rendered as teammate-message XML with optional color and summary
 - structured protocol messages must be intercepted by the inbox poller before attachment generation
 - protocol traffic should never be bundled into generic teammate-message attachments just because it traveled through the same inbox file
+- structured control payloads remain team-local; cross-session peer routes accept plain text only
 
 Important structured message families include:
 
