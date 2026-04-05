@@ -1,37 +1,47 @@
 ---
 title: "Interactive Setup and Onboarding Screens"
 owners: []
-soft_links: [/ui-and-experience/startup-welcome-dashboard-and-feed-rotation.md, /ui-and-experience/terminal-setup-and-multiline-entry-affordances.md, /platform-services/interactive-startup-and-project-activation.md, /platform-services/workspace-trust-dialog-and-persistence.md, /platform-services/auth-login-logout-and-token-lifecycle.md]
+soft_links: [/ui-and-experience/startup-welcome-dashboard-and-feed-rotation.md, /ui-and-experience/terminal-setup-and-multiline-entry-affordances.md, /ui-and-experience/focused-dialog-and-overlay-arbitration.md, /platform-services/interactive-startup-and-project-activation.md, /platform-services/workspace-trust-dialog-and-persistence.md, /platform-services/auth-login-logout-and-token-lifecycle.md]
 ---
 
 # Interactive Setup and Onboarding Screens
 
-Claude Code has a concrete pre-REPL setup flow. Before the normal prompt loop is fully available, the product can run onboarding, workspace-trust review, policy/security dialogs, account setup, and terminal-specific affordances. A faithful rebuild needs that staged screen flow, not just a welcome banner plus later slash commands.
+Claude Code has a concrete pre-REPL startup gate. Before the normal prompt loop is fully available, the product can run a first-run wizard, workspace-trust review, startup-only policy/security confirmations, account setup, and terminal-specific affordances. A faithful rebuild needs that staged startup gate, not just a welcome banner plus later slash commands.
 
 ## Scope boundary
 
 This leaf covers:
 
-- first-run onboarding screens before the main REPL is live
-- trust/setup dialogs that still happen before ordinary prompt use
-- post-trust startup screens that remain part of interactive setup
+- the first-run onboarding wizard before the main REPL is live
+- the broader pre-REPL startup gate that includes trust and post-trust confirmations before ordinary prompt use
+- startup-only setup surfaces that are distinct from later REPL dialog arbitration
 
 It does not re-document:
 
 - the post-REPL startup dashboard/feed surface
-- steady-state permission dialogs once the normal runtime is active
+- steady-state REPL dialog arbitration or the later low-priority recommendation band once normal prompt usage is active
 - the standalone `/terminal-setup` command internals beyond how onboarding enters that flow
 
 ## Top-level gating and persistence
 
 Equivalent behavior should preserve:
 
-- test/demo-style environments being able to suppress the setup flow entirely
+- test/demo-style environments being able to suppress the startup gate entirely
 - onboarding appearing at least once when the user has not completed first-run setup or still lacks a persisted theme choice
 - onboarding completion writing durable first-run markers rather than relying only on process memory
 - setup/trust screens being interactive-session behavior, not something automatically mirrored into bare headless paths
 
 The clean-room requirement is that first-run setup is a real persisted lifecycle, not an ephemeral splash screen.
+
+## First-run wizard versus broader startup gate
+
+Equivalent behavior should preserve:
+
+- the first-run onboarding wizard being only one possible prefix of startup, not the whole pre-REPL gate
+- workspace trust still running afterward when needed, even if the first-run wizard did not show at all
+- post-trust confirmations such as policy/privacy, custom API-key, dangerous-mode, auto-mode, dev-channel, or browser-specific startup screens still resolving before ordinary prompt use becomes available
+- this startup-only gate not sharing the same arbitration lane as later REPL-only low-priority dialogs such as IDE onboarding, remote-control first use, plugin recommendations, or desktop upsell
+- project onboarding in the welcome dashboard remaining a later workspace-nudge surface, not part of this pre-REPL gate
 
 ## Onboarding itself is a multi-step screen flow
 
@@ -85,6 +95,7 @@ Equivalent behavior should preserve:
 ## Failure modes
 
 - **banner-only rebuild**: onboarding is collapsed into a welcome card and loses its actual step order
+- **wizard/gate conflation**: first-run onboarding, trust, and later startup-only confirmations are flattened into one indistinct flow
 - **trust conflation**: workspace trust is treated as just another permission prompt and appears at the wrong time
 - **post-trust drift**: MCP/include/policy/auth startup dialogs are postponed until after ordinary prompt usage begins
 - **terminal-setup orphaning**: onboarding shows terminal guidance but never reuses the real setup capability or completion flags

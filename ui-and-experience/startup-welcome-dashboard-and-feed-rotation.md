@@ -1,7 +1,7 @@
 ---
 title: "Startup Welcome Dashboard and Feed Rotation"
 owners: []
-soft_links: [/ui-and-experience/terminal-ui.md, /ui-and-experience/system-feedback-lines.md, /ui-and-experience/interactive-setup-and-onboarding-screens.md, /product-surface/init-command-and-claude-md-setup.md, /memory-and-context/turn-end-auto-memory-extraction.md]
+soft_links: [/ui-and-experience/terminal-ui.md, /ui-and-experience/system-feedback-lines.md, /ui-and-experience/interactive-setup-and-onboarding-screens.md, /platform-services/interactive-startup-and-project-activation.md, /product-surface/init-command-and-claude-md-setup.md, /memory-and-context/turn-end-auto-memory-extraction.md]
 ---
 
 # Startup Welcome Dashboard and Feed Rotation
@@ -28,8 +28,20 @@ It does not re-document:
 Equivalent behavior should preserve:
 
 - startup-session count incremented **before** first interactive render so first-render consumers read the updated value
+- startup timing/telemetry for "startup" being recorded before human-blocking setup dialogs, so metrics do not accidentally measure how long the user sat on onboarding/trust/login/resume choices
 - logo/notices rendering as the header block at the top of the transcript region
 - startup notices rendered through a separate notice registry surface, not embedded into the logo component itself
+
+## Project onboarding lifecycle
+
+Equivalent behavior should preserve:
+
+- project onboarding remaining separate from the earlier first-run wizard/trust startup gate, with its own persisted completion bit and seen-count budget
+- a workspace-state-driven step model rather than a static checklist
+- empty workspaces enabling a "create or clone a project" step, while non-empty workspaces enable the `/init`/`CLAUDE.md` step instead
+- completion considering only currently enabled/completable steps, so empty and non-empty workspaces clear through different paths
+- onboarding completion being re-checked not only at startup but also after `/init`, after successful `/terminal-setup`, and whenever a real user prompt is submitted, because those are the moments where workspace/setup state may have just changed
+- the onboarding feed being able to append contextual warnings such as "you launched from your home directory" without turning those warnings into completion steps
 
 ## Display-mode gating
 
@@ -83,7 +95,6 @@ Equivalent behavior should preserve:
   - onboarding already completed
   - onboarding has already been shown enough times
   - demo mode suppresses it
-- onboarding feed steps derived from current workspace state and CLAUDE.md presence
 - onboarding seen-count incremented when onboarding feed is shown on startup
 - startup render marking release notes as seen for current version
 
@@ -97,6 +108,7 @@ Equivalent behavior should preserve:
 ## Failure modes
 
 - **startup-order race**: `numStartups` increments after first render, causing first-render gates to use stale counters
+- **wizard/feed conflation**: project onboarding is treated like the earlier pre-REPL onboarding wizard instead of as a later dashboard nudge with its own lifecycle
 - **mode collapse**: condensed and full dashboard branches stop honoring release-notes/onboarding gating
 - **feed priority inversion**: upsell feed displaces onboarding feed when onboarding is still active
 - **layout drift**: right-column feeds compute independent widths and visually jitter
