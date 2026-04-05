@@ -1,7 +1,7 @@
 ---
 title: "Browser Automation and Native Computer Use"
 owners: []
-soft_links: [/integrations/mcp/server-contract.md, /integrations/mcp/connection-and-recovery-contract.md, /runtime-orchestration/build-profiles.md, /runtime-orchestration/stop-hook-orchestration-and-turn-end-bookkeeping.md, /ui-and-experience/permission-prompt-shell-and-worker-states.md, /product-surface/command-runtime-matrix.md]
+soft_links: [/integrations/mcp/server-contract.md, /integrations/mcp/connection-and-recovery-contract.md, /runtime-orchestration/build-profiles.md, /runtime-orchestration/stop-hook-orchestration-and-turn-end-bookkeeping.md, /ui-and-experience/permission-prompt-shell-and-worker-states.md, /product-surface/command-execution-archetypes.md]
 ---
 
 # Browser Automation and Native Computer Use

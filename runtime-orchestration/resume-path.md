@@ -1,7 +1,7 @@
 ---
 title: "Resume Path"
 owners: []
-soft_links: [/product-surface/end-to-end-scenario-graphs.md, /product-surface/session-utility-commands.md, /runtime-orchestration/session-artifacts-and-sharing.md, /runtime-orchestration/session-discovery-and-lite-indexing.md, /runtime-orchestration/app-state-and-input-routing.md, /runtime-orchestration/session-reset-and-state-preservation.md, /runtime-orchestration/worktree-session-lifecycle.md, /memory-and-context/context-lifecycle-and-failure-modes.md, /collaboration-and-agents/remote-handoff-path.md]
+soft_links: [/product-surface/command-execution-archetypes.md, /product-surface/session-utility-commands.md, /runtime-orchestration/session-artifacts-and-sharing.md, /runtime-orchestration/session-discovery-and-lite-indexing.md, /runtime-orchestration/app-state-and-input-routing.md, /runtime-orchestration/session-reset-and-state-preservation.md, /runtime-orchestration/worktree-session-lifecycle.md, /memory-and-context/context-lifecycle-and-failure-modes.md, /collaboration-and-agents/remote-handoff-path.md]
 ---
 
 # Resume Path

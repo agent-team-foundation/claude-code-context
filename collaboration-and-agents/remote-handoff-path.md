@@ -1,7 +1,7 @@
 ---
 title: "Remote Handoff Path"
 owners: []
-soft_links: [/product-surface/end-to-end-scenario-graphs.md, /collaboration-and-agents/remote-session-contract.md, /collaboration-and-agents/bridge-contract.md]
+soft_links: [/product-surface/command-execution-archetypes.md, /collaboration-and-agents/remote-session-contract.md, /collaboration-and-agents/bridge-contract.md]
 ---
 
 # Remote Handoff Path

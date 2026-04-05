@@ -1,7 +1,7 @@
 ---
 title: "Conversation Export Dialog"
 owners: []
-soft_links: [/product-surface/session-utility-commands.md, /product-surface/command-runtime-matrix.md, /runtime-orchestration/session-artifacts-and-sharing.md]
+soft_links: [/product-surface/session-utility-commands.md, /product-surface/command-execution-archetypes.md, /runtime-orchestration/session-artifacts-and-sharing.md]
 ---
 
 # Conversation Export Dialog

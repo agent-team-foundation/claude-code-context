@@ -1,7 +1,7 @@
 ---
 title: "Diff Dialog and Turn History Navigation"
 owners: []
-soft_links: [/product-surface/command-runtime-matrix.md, /integrations/clients/ide-connectivity-and-diff-review.md, /tools-and-permissions/path-and-filesystem-safety.md]
+soft_links: [/product-surface/command-execution-archetypes.md, /integrations/clients/ide-connectivity-and-diff-review.md, /tools-and-permissions/path-and-filesystem-safety.md]
 ---
 
 # Diff Dialog and Turn History Navigation
@@ -20,7 +20,7 @@ This leaf covers:
 
 It intentionally does not re-document:
 
-- generic command registration and local-JSX command loading already captured in [command-runtime-matrix.md](../product-surface/command-runtime-matrix.md)
+- generic command archetypes and local-JSX command loading already captured in [command-execution-archetypes.md](../product-surface/command-execution-archetypes.md)
 - the separate IDE-backed diff approval flow already captured in [ide-connectivity-and-diff-review.md](../integrations/clients/ide-connectivity-and-diff-review.md)
 - lower-level filesystem and path safety rules beyond the fact that detail view reads the file under the current workspace root, already captured in [path-and-filesystem-safety.md](../tools-and-permissions/path-and-filesystem-safety.md)
 - the internals of patch parsing or syntax-highlighted structured diff rendering

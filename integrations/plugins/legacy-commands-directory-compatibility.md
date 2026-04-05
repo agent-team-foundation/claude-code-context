@@ -1,7 +1,7 @@
 ---
 title: "Legacy Commands Directory Compatibility"
 owners: []
-soft_links: [/integrations/plugins/skill-loading-contract.md, /product-surface/command-runtime-matrix.md, /tools-and-permissions/tool-families.md]
+soft_links: [/integrations/plugins/skill-loading-contract.md, /product-surface/command-execution-archetypes.md, /tools-and-permissions/tool-families.md]
 ---
 
 # Legacy Commands Directory Compatibility

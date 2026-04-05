@@ -12,7 +12,7 @@ Relevant leaves:
 
 - **[plugin-and-skill-model.md](plugin-and-skill-model.md)** — Boundary between installable plugin bundles and prompt-layer skills, including built-in-plugin versus bundled-skill distinctions.
 - **[plugin-source-precedence-and-cache-loading.md](plugin-source-precedence-and-cache-loading.md)** — How layered settings, session-only injections, managed policy, cache-only startup, and full refresh assemble the effective plugin set.
-- **[plugin-runtime-contract.md](plugin-runtime-contract.md)** — Discovery, admission, caching, deduplication, and failure handling for plugins.
+- **[plugin-runtime-contract.md](plugin-runtime-contract.md)** — Lifecycle, refresh, and partial-failure isolation for plugins across intent, materialization, and live runtime state.
 - **[plugin-dependency-resolution-and-demotion.md](plugin-dependency-resolution-and-demotion.md)** — Install-time dependency closure, marketplace-aware resolution, and runtime fixed-point demotion when prerequisites are missing.
 - **[plugin-hot-reload-and-settings-coupling.md](plugin-hot-reload-and-settings-coupling.md)** — How plugin hooks and plugin-contributed settings react to managed-settings changes, cache invalidation, and reload timing.
 - **[plugin-management-and-marketplace-flows.md](plugin-management-and-marketplace-flows.md)** — `/plugin` command routing, marketplace management, scope-aware plugin lifecycle actions, refresh signaling, and delist handling.

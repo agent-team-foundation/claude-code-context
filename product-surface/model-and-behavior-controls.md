@@ -1,7 +1,7 @@
 ---
 title: "Model and Behavior Controls"
 owners: []
-soft_links: [/product-surface/command-surface.md, /product-surface/command-runtime-matrix.md, /platform-services/auth-config-and-policy.md, /platform-services/policy-and-managed-settings-lifecycle.md, /platform-services/settings-change-detection-and-runtime-reload.md, /ui-and-experience/voice-mode-and-hold-to-talk-dictation.md]
+soft_links: [/product-surface/command-surface.md, /product-surface/command-execution-archetypes.md, /platform-services/auth-config-and-policy.md, /platform-services/policy-and-managed-settings-lifecycle.md, /platform-services/settings-change-detection-and-runtime-reload.md, /ui-and-experience/voice-mode-and-hold-to-talk-dictation.md]
 ---
 
 # Model and Behavior Controls
