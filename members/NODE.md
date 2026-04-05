@@ -36,7 +36,7 @@ domains:
 
 Use your GitHub username in `owners`; hyphenated handles such as `bingran-you` are valid.
 
-See `skills/first-tree/assets/framework/templates/member-node.md.template` for a full scaffold.
+See `.agents/skills/first-tree/assets/framework/templates/member-node.md.template` for a full scaffold.
 
 ---
 
