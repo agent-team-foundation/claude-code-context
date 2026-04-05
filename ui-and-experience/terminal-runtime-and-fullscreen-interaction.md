@@ -1,7 +1,7 @@
 ---
 title: "Terminal Runtime and Fullscreen Interaction"
 owners: []
-soft_links: [/ui-and-experience/terminal-ui.md, /ui-and-experience/feedback-state-machine.md, /ui-and-experience/keybinding-customization-and-context-resolution.md, /integrations/clients/surface-adapter-contract.md]
+soft_links: [/ui-and-experience/terminal-ui.md, /ui-and-experience/focused-dialog-and-overlay-arbitration.md, /ui-and-experience/keybinding-customization-and-context-resolution.md, /integrations/clients/surface-adapter-contract.md]
 ---
 
 # Terminal Runtime and Fullscreen Interaction

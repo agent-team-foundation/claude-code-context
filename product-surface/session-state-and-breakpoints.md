@@ -1,7 +1,7 @@
 ---
 title: "Session State and Breakpoints"
 owners: []
-soft_links: [/runtime-orchestration/state-machines-and-failures.md, /runtime-orchestration/session-reset-and-state-preservation.md, /tools-and-permissions/permission-mode-transitions-and-gates.md, /collaboration-and-agents/remote-session-live-control-loop.md, /ui-and-experience/feedback-state-machine.md]
+soft_links: [/runtime-orchestration/state-machines-and-failures.md, /runtime-orchestration/session-reset-and-state-preservation.md, /runtime-orchestration/app-state-and-input-routing.md, /tools-and-permissions/permission-mode-transitions-and-gates.md, /collaboration-and-agents/remote-session-live-control-loop.md, /ui-and-experience/focused-dialog-and-overlay-arbitration.md]
 ---
 
 # Session State and Breakpoints
@@ -25,7 +25,36 @@ From the user's perspective, Claude Code behaves like one session moving through
 7. Terminal end.
    The session exits, hands off, archives, or becomes remote-view only.
 
-One important user-visible invariant is that "which transcript is shown" and "which target receives new input" can diverge temporarily. Foregrounding a background task or viewing a worker should not silently rewrite the rest of the session state machine.
+One important user-visible invariant is that "which transcript is shown" and "which target receives new input" are different axes. Claude Code can temporarily show one transcript while steering input somewhere else, and a clean-room rebuild needs to preserve that split instead of folding everything into one active-session pointer.
+
+## Transcript view and input target are separate state
+
+Equivalent behavior should preserve at least three distinct user-visible routing cases:
+
+- the default leader view, where the leader transcript is shown and new input goes to the leader
+- a foregrounded background-session transcript, where the main pane is showing a background task's history without necessarily changing worker-routing rules
+- a viewed worker transcript, where a teammate or named local agent becomes both visible and steerable through a separate viewed-target pointer
+
+Important invariants:
+
+- the main transcript-view pointer and the viewed-worker pointer are different state, because the product supports showing a background task without pretending it is the same thing as viewing a steerable worker
+- viewed-worker routing degrades safely back to the leader if the referenced task disappears or no longer matches a steerable worker shape
+- switching who is viewed must not require re-registering the task or inventing a second transcript identity
+
+Without this split, background-session viewing, teammate steering, and recovery after worker exit all become visibly wrong.
+
+## Viewing a worker changes retention semantics
+
+Equivalent behavior should preserve that entering and leaving worker view changes more than the header label.
+
+That includes:
+
+- retaining the viewed local-agent transcript in memory while it is actively viewed
+- releasing it back to a lighter stub form when the user leaves that view
+- giving terminal viewed workers a short grace window before eviction instead of deleting them the instant the user navigates away
+- immediately dismissing a terminal viewed worker when the user explicitly closes that row
+
+The product contract is that "viewing" is a stateful hold on transcript material, not just a cursor position.
 
 ## Breakpoints that matter
 
@@ -46,3 +75,4 @@ One important user-visible invariant is that "which transcript is shown" and "wh
 - **Interaction dead-end**: the product asks for a decision but lacks a viable UI path for the current client.
 - **Handoff ambiguity**: users cannot tell whether work is local, remote, background, or merely queued.
 - **Routing mismatch**: the session shows one transcript while input or approval actions still target a stale recipient.
+- **view-state collapse**: foregrounded background transcripts and steerable worker views are merged into one pointer and break resume or release behavior.

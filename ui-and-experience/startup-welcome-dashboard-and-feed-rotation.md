@@ -1,7 +1,7 @@
 ---
 title: "Startup Welcome Dashboard and Feed Rotation"
 owners: []
-soft_links: [/ui-and-experience/terminal-ui.md, /ui-and-experience/system-feedback-lines.md, /product-surface/init-command-and-claude-md-setup.md, /memory-and-context/turn-end-auto-memory-extraction.md]
+soft_links: [/ui-and-experience/terminal-ui.md, /ui-and-experience/system-feedback-lines.md, /ui-and-experience/interactive-setup-and-onboarding-screens.md, /product-surface/init-command-and-claude-md-setup.md, /memory-and-context/turn-end-auto-memory-extraction.md]
 ---
 
 # Startup Welcome Dashboard and Feed Rotation
@@ -20,6 +20,7 @@ This leaf covers:
 It does not re-document:
 
 - transcript-row rendering after normal conversation messages begin
+- the pre-REPL onboarding and trust/setup screens that happen before this dashboard exists
 - detailed release-notes fetching internals
 
 ## Startup timing contract

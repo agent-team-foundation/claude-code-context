@@ -14,7 +14,7 @@ Relevant leaves:
 - **[surface-adapter-contract.md](surface-adapter-contract.md)** — How each client wraps the same runtime without forking semantics.
 - **[sdk-control-protocol.md](sdk-control-protocol.md)** — The structured control channel used by SDK and automation-facing clients.
 - **[structured-io-and-headless-session-loop.md](structured-io-and-headless-session-loop.md)** — How NDJSON transport, pending control requests, headless run-state, replay, and remote transport glue preserve one live session.
-- **[hooks-and-event-surface.md](hooks-and-event-surface.md)** — Hook registration, event delivery, and client-visible lifecycle signals.
+- **[sdk-hook-event-transport.md](sdk-hook-event-transport.md)** — SDK/session hook callback registration, low-noise versus opt-in event delivery, and bounded late-subscriber replay.
 - **[remote-and-managed-client-envelopes.md](remote-and-managed-client-envelopes.md)** — Remote-capable clients, managed wrappers, and environment-selection envelopes.
 - **[direct-connect-session-bootstrap-and-environment-selection.md](direct-connect-session-bootstrap-and-environment-selection.md)** — How direct-connect, bridge resume, and remote session creation choose environments and seed remote sessions with repo, model, and permission context.
 - **[ssh-remote-session-and-auth-proxy.md](ssh-remote-session-and-auth-proxy.md)** — How `claude ssh` keeps UI local, runs execution remotely, bridges permission prompts back into the local REPL, and scopes the auth proxy to Anthropic API traffic only.

@@ -1,7 +1,7 @@
 ---
 title: "Init Command and CLAUDE.md Setup"
 owners: []
-soft_links: [/product-surface/command-dispatch-and-composition.md, /memory-and-context/instruction-sources-and-precedence.md, /ui-and-experience/startup-welcome-dashboard-and-feed-rotation.md]
+soft_links: [/product-surface/command-dispatch-and-composition.md, /memory-and-context/instruction-sources-and-precedence.md, /ui-and-experience/startup-welcome-dashboard-and-feed-rotation.md, /ui-and-experience/interactive-setup-and-onboarding-screens.md]
 ---
 
 # Init Command and CLAUDE.md Setup
@@ -62,7 +62,7 @@ Rebuilds that collapse these paths lose hook fidelity and produce misleading rel
 
 ## Onboarding coupling
 
-Project onboarding includes creating repository instructions as a first-class step. `/init` and terminal setup both participate in onboarding-completion bookkeeping so the product can stop repeating setup nudges once the workspace is actually initialized.
+Project onboarding includes creating repository instructions as a first-class step. `/init` and terminal setup both participate in onboarding-completion bookkeeping so the product can stop repeating setup nudges once the workspace is actually initialized. That onboarding feed is distinct from the earlier pre-REPL setup screens described in [../ui-and-experience/interactive-setup-and-onboarding-screens.md](../ui-and-experience/interactive-setup-and-onboarding-screens.md).
 
 ## Failure modes
 

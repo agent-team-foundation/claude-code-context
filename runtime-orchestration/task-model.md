@@ -10,22 +10,71 @@ Claude Code treats long-running work as explicit tasks with typed lifecycle mana
 
 One shared task control plane owns registration, replacement, generic stop dispatch, offset polling, terminal eviction, and SDK lifecycle bookends across those families. Family-specific leaves then define what completion means, what summary gets emitted, and what extra state each family carries on top of that shared base.
 
-Required task qualities:
+## Finite task universe and base state
 
-- A task has a stable identifier, type, status, description, and output location.
-- A task can move through non-terminal and terminal states; terminal tasks must reject further writes.
-- The UI and tool surface can inspect, stream, update, and stop task execution.
-- Task types own their completion semantics. Generic polling can stream output and evict finished work, but task-specific code decides when a task is truly complete and how it should notify the model or SDK.
-- Task identity can outlive a foreground turn and, for some task families, even survive a session clear or local process restart.
+Equivalent behavior should preserve that tasks come from a finite runtime family set, not arbitrary caller-defined labels.
 
-Important task families include:
+The load-bearing shared fields are:
 
-- local shell tasks that can begin in the foreground and later background in place
-- local agent tasks that may remain inline, move to background, receive follow-up prompts, or be resumed from transcript state
-- local workflow tasks that orchestrate multi-step scripted work with their own progress tree and operator controls
-- backgrounded main-session tasks that keep running the ordinary query loop under an isolated task transcript
-- remote agent tasks that shadow off-machine sessions and must be restorable after reconnect
-- monitor tasks that remain visible as long-lived watches instead of one-shot shell work
-- dream-style consolidation tasks that are visible in UI but do not use the normal model-facing notification path
+- stable task ID
+- stable coarse type
+- one status from a finite lifecycle universe
+- human description
+- one output file binding and read offset
+- one `notified` flag that acts as the terminal closeout barrier
 
-This separation matters because Claude Code mixes interactive foreground turns with work that may outlive a single turn, span different permission or transport boundaries, and surface its results asynchronously.
+Terminal status is a hard invariant. Once a task is terminal, generic runtime code should stop accepting new writes, follow-up injections, or duplicate notifications for that task.
+
+## IDs and statuses are structural, not cosmetic
+
+Equivalent behavior should preserve:
+
+- per-family task ID namespaces rather than one flat random ID pool
+- stable task-status values such as pending, running, completed, failed, and killed
+- birth-time initialization of output offset and `notified = false` before any family-specific progress starts
+- shared terminality checks that every family respects
+
+The point is not the literal prefix characters. It is that task identity and terminality are part of the runtime contract, not UI decoration.
+
+## Registration and replacement semantics
+
+Equivalent behavior should preserve:
+
+- one shared registration path that creates the base task record before the family starts doing real work
+- replacement semantics for families that swap runtime handles while keeping the same task identity
+- replacement intentionally not re-emitting a second "started" lifecycle event
+- carry-forward of user-held state such as loaded transcript slices, retain posture, pending follow-up messages, and other viewing metadata when the family logically continues the same task
+
+This is what lets backgrounding, restore, and family-specific refreshes feel like continuity rather than a new row every time.
+
+## Family-specific identity still matters
+
+Important runtime families include:
+
+- local shell tasks
+- local agent tasks
+- remote agent shadow tasks
+- in-process teammate tasks
+- local workflow tasks
+- monitor-MCP tasks
+- dream/maintenance tasks
+
+One special case is load-bearing: backgrounded main-session work reuses the `local_agent` family shape for compatibility, but still needs an explicit "main-session" identity branch so it remains distinguishable from an ordinary spawned subagent. A faithful rebuild cannot collapse that distinction away.
+
+## Task lifetime exceeds one foreground turn
+
+Equivalent behavior should preserve:
+
+- tasks outliving the foreground prompt that created them
+- some families surviving session clear or reconnect through isolated transcript/output storage
+- task visibility, stop semantics, and SDK lifecycle bookends staying available even when the user is no longer focused on the originating turn
+
+This separation matters because Claude Code mixes interactive foreground work with runtime activity that can continue, reappear, or notify later.
+
+## Failure modes
+
+- **identity drift**: a handoff or replacement silently creates a second task instead of continuing the first
+- **terminal mutation**: finished tasks still accept output or follow-up messages
+- **type collapse**: main-session background work becomes indistinguishable from ordinary local-agent work
+- **double start**: replacement or resume emits a second lifecycle-start event for the same logical task
+- **closeout leak**: completion and explicit stop both notify because `notified` is not treated as the barrier
