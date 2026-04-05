@@ -1,7 +1,7 @@
 ---
 title: "Structured I/O and Headless Session Loop"
 owners: []
-soft_links: [/integrations/clients/sdk-control-protocol.md, /integrations/clients/hooks-and-event-surface.md, /runtime-orchestration/unified-command-queue-and-drain.md, /collaboration-and-agents/bridge-contract.md, /product-surface/session-state-and-breakpoints.md]
+soft_links: [/integrations/clients/sdk-control-protocol.md, /integrations/clients/sdk-hook-event-transport.md, /runtime-orchestration/unified-command-queue-and-drain.md, /collaboration-and-agents/bridge-contract.md, /product-surface/session-state-and-breakpoints.md]
 ---
 
 # Structured I/O and Headless Session Loop

@@ -1,7 +1,7 @@
 ---
 title: "Terminal Setup and Multiline Entry Affordances"
 owners: []
-soft_links: [/ui-and-experience/prompt-composer-and-queued-command-shell.md, /ui-and-experience/keybinding-customization-and-context-resolution.md, /product-surface/init-command-and-claude-md-setup.md, /tools-and-permissions/tool-hook-control-plane.md]
+soft_links: [/ui-and-experience/prompt-composer-and-queued-command-shell.md, /ui-and-experience/keybinding-customization-and-context-resolution.md, /ui-and-experience/interactive-setup-and-onboarding-screens.md, /product-surface/init-command-and-claude-md-setup.md, /tools-and-permissions/tool-hook-control-plane.md]
 ---
 
 # Terminal Setup and Multiline Entry Affordances
@@ -20,6 +20,7 @@ This leaf covers:
 It does not re-document:
 
 - full prompt composer queue/history behavior
+- the broader pre-REPL onboarding/trust flow beyond the terminal-specific step
 - generic keybinding customization UI
 
 ## Command availability model

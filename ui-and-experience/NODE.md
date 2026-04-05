@@ -12,6 +12,7 @@ Relevant leaves:
 
 - **[terminal-ui.md](terminal-ui.md)** — Composition of the terminal application and major UI regions.
 - **[terminal-runtime-and-fullscreen-interaction.md](terminal-runtime-and-fullscreen-interaction.md)** — Terminal capability negotiation, buffered redraws, fullscreen behavior, and input-protocol gating.
+- **[interactive-setup-and-onboarding-screens.md](interactive-setup-and-onboarding-screens.md)** — Pre-REPL onboarding, trust/setup dialogs, and the staged first-run/startup screen flow.
 - **[startup-welcome-dashboard-and-feed-rotation.md](startup-welcome-dashboard-and-feed-rotation.md)** — Startup header mode selection, welcome dashboard composition, and right-column feed arbitration.
 - **[terminal-setup-and-multiline-entry-affordances.md](terminal-setup-and-multiline-entry-affordances.md)** — `/terminal-setup` install flows, multiline-enter fallbacks, and terminal-specific input compatibility.
 - **[interaction-feedback.md](interaction-feedback.md)** — How the product communicates progress, risk, and outcomes.
@@ -48,4 +49,4 @@ Relevant leaves:
 - **[background-task-row-and-progress-semantics.md](background-task-row-and-progress-semantics.md)** — How one-line background-task rows choose titles, normalize statuses, expose unread work, and render compact progress.
 - **[background-task-local-detail-metadata.md](background-task-local-detail-metadata.md)** — How local-agent and teammate detail dialogs compose titles, stats, prompt previews, and recent tool activity.
 - **[background-task-detail-dialogs.md](background-task-detail-dialogs.md)** — How task inspection dialogs enter, return, cap readback, and specialize controls for local, remote, and dream work.
-- **[feedback-state-machine.md](feedback-state-machine.md)** — UI state transitions from idle to progress, approval, recovery, and completion.
+- **[focused-dialog-and-overlay-arbitration.md](focused-dialog-and-overlay-arbitration.md)** — How blocking dialogs, prompt-owned overlays, typing suppression, and low-priority callouts arbitrate for focus.
