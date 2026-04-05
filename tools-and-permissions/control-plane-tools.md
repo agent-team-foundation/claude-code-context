@@ -1,7 +1,7 @@
 ---
 title: "Control-Plane Tools"
 owners: []
-soft_links: [/tools-and-permissions/delegation-modes.md, /tools-and-permissions/permission-mode-transitions-and-gates.md, /tools-and-permissions/task-and-team-control-tool-contracts.md, /tools-and-permissions/config-discovery-and-trigger-tool-contracts.md, /runtime-orchestration/task-model.md, /runtime-orchestration/shared-task-control-plane-and-lifecycle-events.md, /runtime-orchestration/worktree-session-lifecycle.md, /integrations/clients/sdk-control-protocol.md]
+soft_links: [/tools-and-permissions/delegation-modes.md, /tools-and-permissions/permission-mode-transitions-and-gates.md, /tools-and-permissions/task-and-team-control-tool-contracts.md, /tools-and-permissions/config-discovery-and-trigger-tool-contracts.md, /runtime-orchestration/task-model.md, /runtime-orchestration/shared-task-control-plane-and-lifecycle-events.md, /runtime-orchestration/worktree-session-lifecycle.md, /integrations/clients/sdk-control-protocol.md, /collaboration-and-agents/peer-addressing-discovery-and-routing.md]
 ---
 
 # Control-Plane Tools
@@ -13,7 +13,7 @@ These control-plane tools fall into a few recurring groups:
 - **elicitation tools** that ask the user structured questions or request narrow confirmations
 - **mode-switch tools** that enter or exit plan mode, worktree mode, or similar execution envelopes
 - **task-management tools** that create, inspect, update, list, stream, assign, or stop background work
-- **coordination tools** that create teams, send messages, or route work across cooperating agents
+- **coordination tools** that create teams, enumerate addressable peers, send follow-up messages, or route work across cooperating agents and live sessions
 - **runtime discovery tools** that search the tool registry, inspect integration resources, browse permission state, or expose configuration state
 - **trigger and admin tools** that schedule or remotely start work outside the current foreground turn, retry previously denied actions, or mutate narrow policy-backed runtime settings
 
@@ -31,6 +31,12 @@ Some control-plane families need stronger guarantees than a generic schema:
 - task and team tools should be transactional, with rollback or veto paths when hooks reject a mutation
 - config and trigger tools should write only through registry-backed, type-aware mutation paths
 - permission-management surfaces should operate on source-attributed rule state rather than on flattened raw text blobs
+
+Coordination tools need an additional boundary:
+
+- same-process local-agent follow-up, team-local mailbox delivery, direct local-session delivery, and Remote Control peer delivery are different routing classes even when the user-facing send surface feels unified
+- team-local structured control payloads must not leak onto cross-session routes; direct peer delivery is plain-text-only
+- cross-machine peer sends require an explicit consent gate even though ordinary teammate messaging does not
 
 Runtime task-management tools also need a clear boundary: file-backed team task lists are one contract, while live background-task registration, stop dispatch, and lifecycle bookends are the runtime contract captured in [shared-task-control-plane-and-lifecycle-events.md](../runtime-orchestration/shared-task-control-plane-and-lifecycle-events.md).
 

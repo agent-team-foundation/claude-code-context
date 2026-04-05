@@ -1,18 +1,21 @@
 ---
 title: "Teammate Mailbox Control Message Rendering"
 owners: []
-soft_links: [/ui-and-experience/teammate-surfaces-and-navigation.md, /collaboration-and-agents/teammate-mailbox-and-permission-bridge.md, /collaboration-and-agents/inbox-polling-and-control-delivery.md, /runtime-orchestration/task-model.md]
+soft_links: [/ui-and-experience/teammate-surfaces-and-navigation.md, /collaboration-and-agents/teammate-mailbox-and-permission-bridge.md, /collaboration-and-agents/inbox-polling-and-control-delivery.md, /collaboration-and-agents/peer-addressing-discovery-and-routing.md, /runtime-orchestration/task-model.md]
 ---
 
 # Teammate Mailbox Control Message Rendering
 
 Mailbox-derived teammate output is not rendered as one raw text blob. Claude Code splits teammate traffic across an XML-wrapped transcript path and a `teammate_mailbox` attachment path, suppresses some control payloads entirely, and then chooses among rich control cards, compact summaries, and transcript-only full text. A faithful rebuild needs the same source split, visibility gates, and precedence rules or swarm coordination will either leak protocol traffic into chat or hide important control state.
 
+This leaf is swarm-specific. Cross-session peer messages use a different envelope and reply model, and should not be reconstructed as teammate mailbox rows or mailbox-count surfaces. That separate routing contract is captured in [peer-addressing-discovery-and-routing.md](../collaboration-and-agents/peer-addressing-discovery-and-routing.md).
+
 ## Envelope parsing and source aggregation
 
 Equivalent behavior should preserve:
 
 - one dedicated `teammate-message` XML wrapper around each transcript-facing mailbox item, with required teammate identity plus optional color and short summary metadata
+- that teammate envelope staying distinct from the separate cross-session message envelope used for direct peer delivery between top-level sessions
 - support for multiple wrapped teammate messages inside one text block, preserving source order and trimming the wrapped body before render routing
 - display names remaining almost identical to the wrapped teammate id, with only the reserved lead id normalized to the same literal handle used elsewhere in swarm UI
 - wrapper-level summary text acting only as a preview for plain teammate rows; it does not outrank structured control renderers

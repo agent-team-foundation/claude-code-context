@@ -93,8 +93,9 @@ Equivalent behavior should preserve:
 
 Equivalent behavior should preserve:
 
-- the general CCR websocket viewer path accepting repeated init or status traffic while still extracting slash-command metadata and connection truth from the remote session
+- the general CCR websocket viewer path accepting repeated streamed init or status traffic while still extracting slash-command metadata and connection truth from the remote session
 - direct-connect and SSH-backed remote sessions deduplicating repeated `system/init` messages because those transports can emit an init payload on every turn
+- that repeated-init dedup applying to the lean streamed `system/init` surface, not to the richer one-time `initialize` control-response catalog used during host bootstrap
 - direct-connect and SSH paths still converting remote tool results for local rendering even though they do not use the full viewer-only history mode
 - non-viewer remote sessions being allowed to update the remote session title after the first successful outbound user message when the session was created without an initial prompt
 - viewer-only sessions never mutating the remote title and never sending interrupt on local cancel, because the remote agent remains the owner of the session lifecycle
