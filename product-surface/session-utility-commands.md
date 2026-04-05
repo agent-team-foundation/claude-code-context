@@ -46,6 +46,7 @@ Important requirements:
 - when a response contains code blocks, the user can choose whole-response versus one-block extraction
 - clipboard copy is best-effort and paired with a file fallback
 - export renders the conversation into plain text before writing, instead of dumping raw structured transcript artifacts
+- providing an explicit export filename bypasses the chooser UI and writes directly under the current working directory after normalizing the text-file suffix
 - default export filenames derive from the first user prompt when possible and fall back to timestamped generic names otherwise
 
 ## Failure modes
