@@ -97,6 +97,7 @@ Both services need long-lived operational behavior:
 - background polling should run on a timer that does not keep the process alive by itself
 - cleanup hooks should stop polling on shutdown
 - waiters for initial load must always resolve eventually, even if the remote call never happens or fails
+- background polling failures must remain fail-open and must not retroactively flip live runtime checks into deny-on-miss; the stricter essential-traffic carve-out applies only at synchronous policy-decision time when no cached policy data exists
 
 Remote managed settings go further by allowing cached disk content to unblock waiters immediately while the network refresh continues in the background.
 

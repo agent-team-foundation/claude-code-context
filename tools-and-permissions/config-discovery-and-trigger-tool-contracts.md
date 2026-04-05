@@ -6,7 +6,7 @@ soft_links: [/tools-and-permissions/control-plane-tools.md, /platform-services/s
 
 # Config Discovery and Trigger Tool Contracts
 
-Claude Code exposes several user- or model-facing control surfaces whose main job is to inspect or mutate runtime configuration. These surfaces are reconstruction-critical because they define which settings are safe to read, which writes need confirmation, and which admin actions are policy-gated.
+Claude Code exposes several user- or model-facing control surfaces whose main job is to inspect or mutate runtime configuration. These surfaces are reconstruction-critical because they define which settings are safe to read, which writes need confirmation, and which admin actions are policy-gated. Local scheduling and remote trigger management are related control-plane families, but they have their own dedicated contracts in [local-scheduled-prompt-tool-contracts.md](local-scheduled-prompt-tool-contracts.md) and [remote-trigger-control-tool-contracts.md](remote-trigger-control-tool-contracts.md).
 
 ## Configuration tool contract
 

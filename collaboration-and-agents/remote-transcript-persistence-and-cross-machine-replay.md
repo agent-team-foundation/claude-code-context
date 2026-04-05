@@ -1,10 +1,10 @@
 ---
-title: "Remote Transcript Persistence and Teleport Replay"
+title: "Remote Transcript Persistence and Cross-Machine Replay"
 owners: []
 soft_links: [/collaboration-and-agents/remote-handoff-path.md, /collaboration-and-agents/remote-session-contract.md, /collaboration-and-agents/remote-session-live-control-loop.md, /runtime-orchestration/resume-path.md]
 ---
 
-# Remote Transcript Persistence and Teleport Replay
+# Remote Transcript Persistence and Cross-Machine Replay
 
 Cross-machine continuation depends on durable transcript persistence, ordered append semantics, and replay paths that can tolerate partially migrated backends.
 
@@ -51,7 +51,7 @@ There are multiple fetch surfaces for rebuilding a remote transcript.
 Equivalent behavior should preserve:
 
 - a direct session-ingress style fetch path that hydrates all currently stored entries and refreshes the local last-entry token from the fetched tail
-- an OAuth-backed legacy fetch path for older teleport-style resumes
+- an OAuth-backed legacy fetch path for older cross-machine resume flows
 - a newer paginated event feed for remote replay, where each page returns opaque event payloads and an opaque cursor for the next page
 
 The product contract is compatibility across storage generations, not one permanent backend shape.
@@ -66,7 +66,7 @@ The paginated replay path should preserve:
 - treating "not found on first page" as ambiguous during migration windows so callers can fall back to the legacy fetch path
 - treating "not found after some pages" as partial success and returning what was already recovered
 
-Partial transcript recovery is better than abandoning teleport or remote resume entirely.
+Partial transcript recovery is better than abandoning cross-machine or remote resume entirely.
 
 ## Replay and resume guarantees
 

@@ -20,7 +20,7 @@ This leaf covers:
 It intentionally does not re-document:
 
 - skill discovery from disk, plugins, MCP, or dynamic nested paths already covered in [skill-loading-contract.md](skill-loading-contract.md)
-- feature-gated discovery-tool timing, discovery reminders, and remote canonical skill follow-through already covered in [skill-search-and-canonical-skill-flow.md](skill-search-and-canonical-skill-flow.md)
+- feature-gated discovery-tool timing, discovery reminders, and remote discovered-skill follow-through already covered in [feature-gated-remote-skill-discovery-overlay.md](feature-gated-remote-skill-discovery-overlay.md)
 - prompt-command and SkillTool execution after a skill has been chosen, already covered in [../../product-surface/prompt-command-and-skill-execution.md](../../product-surface/prompt-command-and-skill-execution.md)
 - generic command-registry precedence and collision rules already covered in [../../product-surface/command-dispatch-and-composition.md](../../product-surface/command-dispatch-and-composition.md)
 

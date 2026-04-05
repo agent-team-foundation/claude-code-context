@@ -86,6 +86,8 @@ Equivalent behavior should preserve:
 - a distinction between the extraction-frequency boundary and the compaction-safe summary boundary
 - tool-call counting for future upkeep windows advancing when an extraction fires, even if the newest assistant turn is not yet safe to treat as a compaction cutoff
 - the compaction-safe boundary advancing only when the latest assistant turn has no tool calls, preventing later compaction from keeping tool results whose matching tool uses were already summarized away
+- resumed sessions with a non-empty working summary but no remembered summary boundary still remaining eligible for the session-memory compaction path; the preserved tail can start empty and then expand backward only until freshness and minimum-context floors are met
+- remembered boundary identifiers that no longer resolve in the current transcript forcing a fail-open fallback to legacy compaction rather than guessing where summarized and unsummarized history split
 - session-memory compaction waiting briefly for any in-flight extraction to finish, then falling back to legacy compaction when no session-memory file exists, the file is still just the template, or the recorded summary boundary no longer exists in the current transcript
 - successful compaction resetting the saved summary boundary afterward, because the old message UUIDs are no longer valid once the transcript has been pruned and rewritten
 

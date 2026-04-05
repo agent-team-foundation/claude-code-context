@@ -1,12 +1,12 @@
 ---
-title: "Assistant Viewer Attach and History Paging"
+title: "Feature-Gated Persistent Assistant Viewer Attach and History Paging"
 owners: []
 soft_links: [/collaboration-and-agents/remote-session-contract.md, /runtime-orchestration/proactive-assistant-loop-and-brief-mode.md, /runtime-orchestration/task-registry-and-visibility.md, /integrations/clients/remote-and-managed-client-envelopes.md, /integrations/clients/remote-setup-and-companion-bootstrap.md, /integrations/clients/remote-session-message-adaptation-and-viewer-state.md]
 ---
 
-# Assistant Viewer Attach and History Paging
+# Feature-Gated Persistent Assistant Viewer Attach and History Paging
 
-`claude assistant` is not a generic remote attach path. It is a viewer-skewed client for an already running persistent assistant session: discover or choose the right session, attach without re-running leader bootstrap, lazy-page remote history, and keep the assistant's brief-style output visible while ownership stays remote.
+A feature-gated persistent-assistant attach surface is not a generic remote attach path. It is a viewer-skewed client for an already running long-lived assistant session: discover or choose the right session, attach without re-running leader bootstrap, lazy-page remote history, and keep compact assistant status output visible while ownership stays remote.
 
 For the exact SDK-message adaptation, echo suppression, remote task counting, and viewer-state projection rules this attach flow relies on, see [remote-session-message-adaptation-and-viewer-state.md](remote-session-message-adaptation-and-viewer-state.md).
 
@@ -14,8 +14,8 @@ For the exact SDK-message adaptation, echo suppression, remote task counting, an
 
 Equivalent behavior should preserve:
 
-- an explicit session identifier attaching directly, while a bare command first discovers available assistant sessions
-- zero-session discovery offering a local install/bootstrap flow and then telling the user to rerun after the assistant daemon has time to create a live session
+- an explicit session identifier attaching directly, while a bare attach entry first discovers available persistent assistant sessions
+- zero-session discovery offering a local bootstrap flow and then telling the user to rerun after the assistant host has time to create a live session
 - one discovered session auto-attaching, while multiple sessions require an explicit chooser
 - authentication being refreshed before attach, but reconnects using a fresh-token closure instead of freezing the first access token forever
 - attach-time feedback appearing immediately in the local terminal so the user can tell which remote session they joined
@@ -26,8 +26,8 @@ The important contract is that this surface connects to a preexisting assistant 
 
 Equivalent behavior should preserve:
 
-- the local client enabling the assistant-compatible brief communication channel before the REPL starts, so remote status-style replies have a valid visible rendering path
-- the attached client entering remote mode and a brief-only display posture without enabling local assistant-leader startup effects
+- the local client enabling the assistant-compatible compact communication channel before the REPL starts, so remote status-style replies have a valid visible rendering path
+- the attached client entering remote mode and a compact-output posture without enabling local assistant-leader startup effects
 - local bridge and local assistant ownership flags remaining off, so the viewer does not try to become the session's leader, rebuild teammates, or re-bootstrap autonomous state
 - the command set being filtered to the remote-safe subset before the viewer REPL launches
 
@@ -40,12 +40,12 @@ Equivalent behavior should preserve:
 - the REPL opening without a blocking full-history fetch
 - newest history loading asynchronously after mount, anchored to the latest remote events and kept in chronological order
 - older history pages being fetched only when the user scrolls near the top, using the oldest loaded event as the next cursor
-- history conversion using the same viewer-facing message adapters as live traffic, including user-text conversion and tool-result conversion, so brief-channel replies do not render as blank tool stubs
+- history conversion using the same viewer-facing message adapters as live traffic, including user-text conversion and tool-result conversion, so compact assistant replies do not render as blank tool stubs
 - top-of-transcript sentinel states for `loading`, retryable load failure, and true start-of-session
 - prepending history with scroll anchoring and unseen-divider adjustment so the viewport stays stable instead of jumping
 - chaining a bounded number of older-page fetches on first paint until the transcript actually overflows the viewport
 
-The clean-room point is that assistant history is a lazy transcript surface layered onto a live viewer, not a giant blocking preload.
+The clean-room point is that persistent-assistant history is a lazy transcript surface layered onto a live viewer, not a giant blocking preload.
 
 ## Live stream merge and remote-ownership boundaries
 
@@ -63,7 +63,7 @@ This split is load-bearing: the viewer is interactive, but it is not the owner o
 ## Failure modes
 
 - **attach split-brain**: the viewer replays local assistant bootstrap and corrupts remote ownership assumptions
-- **invisible brief replies**: remote brief-channel output is not converted from tool results, so the assistant appears to say nothing
+- **invisible compact replies**: remote compact-channel output is not converted from tool results, so the assistant appears to say nothing
 - **history jump**: older-page prepends move the viewport or unseen-divider baseline unpredictably
 - **phantom task list**: remote background work is reconstructed from local task state and shows tasks that do not actually exist in the viewer process
 - **unsafe takeover**: the viewer is allowed to rename or interrupt a remotely owned assistant session

@@ -6,13 +6,13 @@ soft_links: [/ui-and-experience/teammate-surfaces-and-navigation.md, /runtime-or
 
 # Background Task Status Surfaces
 
-Claude Code does not expose all background work through one generic footer pill. It partitions background state across a generic summary pill, a teammate pill strip, an ant-only coordinator panel, and the swarm banner. A faithful rebuild needs those surfaces to share filters, ordering, and steering state so the same worker never appears duplicated, disappears too early, or receives focus in one place while another surface points somewhere else.
+Claude Code does not expose all background work through one generic footer pill. It partitions background state across a generic summary pill, a teammate pill strip, an optional coordinator panel in eligible builds, and the swarm banner. A faithful rebuild needs those surfaces to share filters, ordering, and steering state so the same worker never appears duplicated, disappears too early, or receives focus in one place while another surface points somewhere else.
 
 ## Surface partitioning and visibility
 
 Equivalent behavior should preserve:
 
-- the coordinator panel rendering only in the ant or coordinator-style build, below the prompt footer rather than inside the footer line itself
+- the coordinator panel rendering only in eligible coordinator-style builds, below the prompt footer rather than inside the footer line itself
 - coordinator rows being reserved for panel-managed `local_agent` tasks, defined as `local_agent` records whose `agentType` is not `main-session`
 - one shared visible-row predicate for every coordinator consumer: filter panel-managed tasks with `evictAfter !== 0`, then sort them by `startTime`
 - coordinator selection bounds being derived from that same filtered list, plus one synthetic `main` row whenever at least one visible agent row exists
@@ -20,7 +20,7 @@ Equivalent behavior should preserve:
 - released terminal named agents setting `evictAfter` to a future timestamp so they linger briefly before garbage collection
 - explicit dismiss bypassing time-based linger by setting `evictAfter = 0`, which hides the row immediately even before the next clock-based expiry check
 - the coordinator panel owning the once-per-second tick that both refreshes elapsed time and evicts rows whose `evictAfter` deadline has passed
-- the generic `BackgroundTaskStatus` footer using the broader background-task filter but excluding the same panel-managed local agents in ant builds, so named agents never appear in both the summary pill and the coordinator panel
+- the generic `BackgroundTaskStatus` footer using the broader background-task filter but excluding the same panel-managed local agents whenever the coordinator panel is active, so named agents never appear in both the summary pill and the coordinator panel
 - spinner-tree mode suppressing the generic footer entirely when every visible background task is an in-process teammate, because the teammate tree above already exposes that state
 - the footer switching from a generic summary pill to a horizontally scrollable strip of `main` plus teammate pills whenever all visible background work is teammate-only, or whenever the user is already viewing a teammate while the spinner tree is collapsed
 - both footer and panel collapsing fully when no surface has anything left to show, instead of leaving dead focus targets behind

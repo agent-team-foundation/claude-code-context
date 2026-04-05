@@ -102,7 +102,7 @@ Equivalent behavior should preserve:
 - re-reading the merged effective settings fresh when a notification arrives
 - reloading permission rules from disk and resynchronizing them into the live permission context
 - refreshing the hooks configuration snapshot on every settings apply so later hook execution sees the new config
-- ant-style foreground builds re-stripping overly broad Bash permissions after rule sync, rather than assuming the previous in-memory pruning still matches disk
+- certain internal foreground builds re-stripping overly broad Bash permissions after rule sync, rather than assuming the previous in-memory pruning still matches disk
 - re-disabling bypass-permissions mode if the freshly loaded settings or gates no longer allow it
 - transitioning plan-auto permission state through the same helper used elsewhere, so settings reload does not leave auto-plan in an impossible intermediate state
 - careful synchronization of denormalized effort state from settings, but only when the settings value itself actually changed and only when the new persisted value is defined

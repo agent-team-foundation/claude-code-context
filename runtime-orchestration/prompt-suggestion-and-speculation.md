@@ -52,7 +52,7 @@ Equivalent behavior should preserve:
 
 Equivalent behavior should preserve:
 
-- speculation being separately gated from suggestion generation and enabled only for the ant-style build plus a user-configurable speculation toggle
+- speculation being separately gated from suggestion generation and enabled only for eligible internal builds plus a user-configurable speculation toggle
 - starting a new speculation run aborting any previous active speculation first, so only one overlay fork is ever authoritative
 - each speculation run owning a unique overlay directory under a temp-root path keyed by process and short speculation ID
 - active speculation state carrying an abort handle, shared message buffer, set of overlay-written paths, completion boundary, tool-use count, saved context reference, and optional pipelined next suggestion
@@ -73,7 +73,7 @@ Equivalent behavior should preserve:
 - incomplete speculation truncating trailing assistant output so any fallback normal query still ends on a user message instead of illegal assistant prefill
 - overlay file changes being copied back into the main workspace only for the set of paths the speculation run actually wrote
 - successful acceptance updating cumulative session time-saved accounting and, when any time was saved, appending a transcript-side speculation-accept event instead of exposing the whole speculative fork transcript as durable history
-- ant-only feedback messages being synthesized from accepted speculative work so the user can see tools, token count, and saved time without exposing the hidden fork directly
+- internal-only feedback messages being synthesized from accepted speculative work so the user can see tools, token count, and saved time without exposing the hidden fork directly
 - extracted read-file cache state from accepted speculative messages being merged back into the main read cache, so later turns inherit the same read knowledge the fork already acquired
 - fully completed speculation promoting its precomputed pipelined next suggestion into the visible prompt-suggestion slot and immediately starting a new speculation run against the augmented accepted transcript
 - incomplete or failed acceptance falling back to the normal query path with `queryRequired = true`, rather than swallowing the user's accepted input

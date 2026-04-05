@@ -67,6 +67,8 @@ Equivalent behavior should preserve:
 - a real first-render boundary after which latency-hiding work can begin without delaying the initial interactive surface
 - first-render consumers such as the startup welcome/dashboard surface reading synchronously updated startup counters and other gating state before that first REPL render happens
 - heavy but deferrable prefetches such as user context, system context, tips, model-capability refresh, analytics gates, file counters, and change detectors starting only after that boundary
+- network-backed startup cache-warms respecting a shared last-run timestamp plus remotely configured cooldown, so repeated launches can skip the warmup burst and rely on cached values instead of hammering the same bootstrap endpoints
+- cooldown-suppressed startups still resolving cache-backed status where possible, so skipped warmups do not leave the UI stuck in a permanently pending state
 - startup code distinguishing "needed before first render" from "useful before first query" rather than treating all cache warmups as equally urgent
 - headless or non-interactive callers being allowed to start some of these prefetches earlier because there is no human-first render to protect
 - deferred work not beginning while blocking setup dialogs are still the active startup surface, because the product first measures and clears the startup gate, then lets first-render/post-render work proceed

@@ -40,7 +40,7 @@ Equivalent behavior should preserve:
 - that spinner suffix disappearing as soon as a stop-hook summary exists for the same execution, handing ownership over to the summary surface
 - completed-stop counts for the spinner suffix being derived from matching stop-hook attachment records rather than from progress-message counts alone
 - custom stop-hook status messages overriding the generic spinner text, with multi-hook runs appending a `completed/total` style counter
-- build-profile-specific stop-hook suffix details being allowed: the current ant-oriented build can include the current hook command label, while generic builds fall back to a plain stop-hook phrase
+- build-profile-specific stop-hook suffix details being allowed: richer internal builds can include the current hook command label, while generic builds fall back to a plain stop-hook phrase
 
 ## Async hook attachments and visibility gates
 

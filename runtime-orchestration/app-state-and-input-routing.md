@@ -1,7 +1,7 @@
 ---
 title: "App State and Input Routing"
 owners: []
-soft_links: [/runtime-orchestration/task-registry-and-visibility.md, /runtime-orchestration/session-reset-and-state-preservation.md, /tools-and-permissions/permission-mode-transitions-and-gates.md, /ui-and-experience/background-task-status-surfaces.md, /ui-and-experience/companion-buddy-surface.md]
+soft_links: [/runtime-orchestration/task-registry-and-visibility.md, /runtime-orchestration/session-reset-and-state-preservation.md, /tools-and-permissions/permission-mode-transitions-and-gates.md, /ui-and-experience/background-task-status-surfaces.md, /ui-and-experience/companion-surface.md]
 ---
 
 # App State and Input Routing

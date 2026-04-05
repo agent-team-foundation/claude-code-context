@@ -29,12 +29,12 @@ It intentionally does not re-document:
 Equivalent behavior should preserve:
 
 - one shared `focusedInputDialog` selector deciding whether any low-priority dialog is allowed to mount at all
-- these dialogs only competing after higher-priority surfaces such as message selection, permission prompts, ask-user prompts, worker permission prompts, elicitation, cost acknowledgement, idle-return, and ultraplan launch choices have had their chance
+- these dialogs only competing after higher-priority surfaces such as message selection, permission prompts, ask-user prompts, worker permission prompts, elicitation, cost acknowledgement, idle-return, and remote-planning launch choices have had their chance
 - prompt typing suppressing this whole band, so low-priority dialogs do not steal focus from an actively composing user
 - the low-priority band still respecting the shared `allowDialogsWithAnimation` gate, so tool-owned animation surfaces can block or allow dialog mounting consistently with the rest of the REPL
 - only one low-priority dialog being mounted at a time, with later candidates waiting behind the current winner instead of rendering concurrently
 - a stable ordering in the shipped external build: IDE onboarding first, then effort onboarding, then remote-control first use, then LSP recommendation, then generic plugin hint, and finally desktop upsell
-- reserved positions for ant-only model-switch and undercover explainers ahead of effort onboarding, while external builds compile those slots away and effectively skip them
+- reserved positions for internal-only model-switch and public-repo redaction explainers ahead of effort onboarding, while external builds compile those slots away and effectively skip them
 
 ## Shared plugin-recommendation helper
 

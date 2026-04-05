@@ -1,20 +1,20 @@
 ---
-title: "Companion Buddy Surface"
+title: "Companion Surface"
 owners: []
 soft_links: [/ui-and-experience/prompt-composer-and-queued-command-shell.md, /ui-and-experience/status-line-and-footer-notification-stack.md, /runtime-orchestration/app-state-and-input-routing.md, /runtime-orchestration/turn-attachments-and-sidechannels.md, /ui-and-experience/terminal-ui.md]
 ---
 
-# Companion Buddy Surface
+# Companion Surface
 
-Claude Code's companion is not just a decorative sprite. It is a small persistent side-surface with deterministic identity, prompt-shell entrypoints, footer focus, notification-based discovery, reaction bubbles, and a hidden model-facing attachment that teaches the main assistant when to stay out of the companion's way.
+The feature-gated companion is not just a decorative sprite. It is a small persistent side-surface with deterministic identity, prompt-shell entrypoints, footer focus, notification-based discovery, reaction bubbles, and a hidden model-facing attachment that teaches the main assistant when to stay out of the companion's way.
 
-## Deterministic identity with persisted soul
+## Deterministic identity with persisted persona
 
 Equivalent behavior should preserve:
 
 - a distinction between no companion, a hatched companion, and a muted companion
-- only the companion's soul-like fields persisting across sessions, while visible bones such as species, rarity, eyes, hat, and stats are regenerated from stable user identity on every read
-- regeneration preventing config edits from spoofing rarity or species while still allowing stored companions to survive asset renames or roster changes
+- only the companion's persona-like fields persisting across sessions, while visible presentation traits are regenerated from stable user identity on every read
+- regeneration preventing config edits from spoofing presentation rarity or identity while still allowing stored companions to survive asset renames or roster changes
 - rarity influencing visible styling and baseline stat quality without changing the shell's broader interaction model
 - companion absence or mute suppressing the sprite, teaser affordances, and model-facing intro attachment together
 
@@ -26,9 +26,9 @@ Equivalent behavior should preserve:
 
 - a startup teaser notification for unhatched users during a limited rollout window, evaluated in local calendar time rather than one global UTC midnight
 - teaser delivery going through the ordinary footer-notification stack with immediate priority and automatic expiry instead of a bespoke one-off renderer
-- `/buddy` text in the prompt receiving the same kind of distinctive trigger highlighting used by other special command keywords
+- a dedicated companion keyword in the prompt receiving the same kind of distinctive trigger highlighting used by other special command keywords
 - a companion footer pill appearing only when a non-muted companion exists, and participating in the same footer-selection state machine as tasks, bridge, and team pills
-- activating that pill routing through ordinary prompt submission of `/buddy` rather than inventing a second command-dispatch path
+- activating that pill routing through ordinary prompt submission of the companion command rather than inventing a second command-dispatch path
 
 This keeps the feature discoverable without breaking the rule that one prompt shell owns command entry.
 
@@ -63,5 +63,5 @@ This is the load-bearing logic that makes the companion feel like a coherent par
 - **teaser spam**: the startup teaser ignores hatch state, rollout window, or footer invalidation and keeps reappearing after it should stop
 - **layout collision**: prompt width does not reserve space for the inline companion surface, so the input and bubble overlap or reflow constantly
 - **bubble clipping**: fullscreen mode renders the bubble inside a clipped region and silently hides the companion's reaction text
-- **assistant-companion cross-talk**: the model never receives the hidden companion intro and keeps narrating over direct buddy interactions
+- **assistant-companion cross-talk**: the model never receives the hidden companion intro and keeps narrating over direct companion interactions
 - **mute split-brain**: the sprite disappears but the hidden companion attachment or footer affordance keeps acting as if the companion were still active

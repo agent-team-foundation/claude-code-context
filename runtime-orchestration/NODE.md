@@ -42,7 +42,7 @@ Relevant leaves:
 - **[conversation-branching-and-forked-session-state.md](conversation-branching-and-forked-session-state.md)** — `/branch` session forking, transcript cloning, title collision handling, content-replacement preservation, and immediate handoff into the fork.
 - **[build-profiles.md](build-profiles.md)** — Feature gates and environment-specific capability envelopes.
 - **[state-machines-and-failures.md](state-machines-and-failures.md)** — Turn, task, and runtime transition model with the main failure classes.
-- **[ultraplan-remote-plan-loop.md](ultraplan-remote-plan-loop.md)** — How Ultraplan launches a remote plan-mode session, polls approval artifacts, and splits into remote execution or local handoff.
+- **[remote-planning-session-loop.md](remote-planning-session-loop.md)** — How the gated remote-planning flow launches a remote plan-mode session, polls approval artifacts, and splits into remote execution or local handoff.
 - **[review-path.md](review-path.md)** — End-to-end path for local review and remote ultrareview-style flows.
 - **[resume-path.md](resume-path.md)** — End-to-end path for resuming local and teleported sessions.
 - **[file-checkpointing-and-rewind.md](file-checkpointing-and-rewind.md)** — Per-message file checkpoints, backup storage, rewind dry-runs, restore semantics, and resume-time checkpoint migration.
