@@ -10,7 +10,7 @@ This subdomain captures the two main extension mechanisms beyond MCP.
 
 Relevant leaves:
 
-- **[plugin-and-skill-model.md](plugin-and-skill-model.md)** — Roles of plugins versus skills, trust boundaries, and lifecycle expectations.
+- **[plugin-and-skill-model.md](plugin-and-skill-model.md)** — Boundary between installable plugin bundles and prompt-layer skills, including built-in-plugin versus bundled-skill distinctions.
 - **[plugin-source-precedence-and-cache-loading.md](plugin-source-precedence-and-cache-loading.md)** — How layered settings, session-only injections, managed policy, cache-only startup, and full refresh assemble the effective plugin set.
 - **[plugin-runtime-contract.md](plugin-runtime-contract.md)** — Discovery, admission, caching, deduplication, and failure handling for plugins.
 - **[plugin-dependency-resolution-and-demotion.md](plugin-dependency-resolution-and-demotion.md)** — Install-time dependency closure, marketplace-aware resolution, and runtime fixed-point demotion when prerequisites are missing.
