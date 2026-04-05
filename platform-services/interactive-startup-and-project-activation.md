@@ -1,12 +1,14 @@
 ---
 title: "Interactive Startup and Project Activation"
 owners: []
-soft_links: [/platform-services/bootstrap-and-service-failures.md, /platform-services/workspace-trust-dialog-and-persistence.md, /platform-services/trust-and-capability-hydration.md, /platform-services/settings-change-detection-and-runtime-reload.md, /platform-services/usage-analytics-and-migrations.md, /runtime-orchestration/worktree-session-lifecycle.md, /product-surface/command-runtime-matrix.md]
+soft_links: [/platform-services/startup-service-sequencing-and-capability-gates.md, /platform-services/bootstrap-and-service-failures.md, /platform-services/workspace-trust-dialog-and-persistence.md, /platform-services/trust-and-capability-hydration.md, /platform-services/settings-change-detection-and-runtime-reload.md, /platform-services/usage-analytics-and-migrations.md, /runtime-orchestration/worktree-session-lifecycle.md, /product-surface/command-runtime-matrix.md]
 ---
 
 # Interactive Startup and Project Activation
 
 Claude Code startup is not one monolithic init call. The local interactive product has a staged activation pipeline: import-time prewarm, cwd-sensitive setup, trust gating, post-trust capability activation, and a later deferred-prefetch phase after the UI is already alive. Rebuilding the individual services without this ordering contract will still produce the wrong product.
+
+Shared service-waiter creation, managed-settings/policy/sync join points, and the headless-versus-bare startup split live in [startup-service-sequencing-and-capability-gates.md](startup-service-sequencing-and-capability-gates.md). This leaf focuses on the interactive local activation pipeline layered on top.
 
 ## Import-time prewarm and eager normalization
 
@@ -50,6 +52,7 @@ Equivalent behavior should preserve:
 
 - post-trust refresh of auth-dependent or entitlement-dependent clients before those services decide what the session is allowed to do
 - worktree-entered startup re-reading settings and hook state from the new checkout before the rest of activation treats that worktree as the project root
+- shared managed-settings/policy startup loads already having been launched under the startup service sequencing contract, so post-trust activation joins or reacts to them instead of redefining their fetch lifecycle
 - settings validation, remote-control eligibility, and other trust-dependent warnings surfacing only after the trust gate rather than during the pre-trust phase
 - session-start hooks and MCP connection warmup being allowed to overlap with one another after trust, while still avoiding duplicate startup-trigger execution on resume-like paths
 - MCP resource preconnect and similar optional integration warmups staying non-blocking for the interactive loop, so a slow server does not postpone first useful interaction
@@ -73,9 +76,11 @@ The clean-room insight is that "as soon as possible" is not the same as "before 
 Equivalent behavior should preserve:
 
 - startup `--worktree` being allowed to change the project's effective root before command loading, while mid-session worktree entry remains a separate later runtime concern
-- non-interactive or print-style sessions treating trust as implicit and therefore applying the fuller project environment earlier than the interactive REPL path would allow
-- bare mode cutting away hooks, plugin-sync helpers, LSP startup, attribution helpers, and most background prefetches without skipping minimal safety checks or core session bookkeeping
+- non-interactive or print-style sessions treating trust as implicit and therefore applying the fuller project environment earlier than the interactive REPL path would allow, while still preserving richer headless joins such as hooks, MCP connect, plugin/state refresh, and immediate deferred prefetch
+- bare mode, by contrast, cutting away hooks, plugin-sync helpers, LSP startup, attribution helpers, and most background prefetches without skipping minimal safety checks or core session bookkeeping
 - resume-like flows, remote-control attach, and other specialized entry paths reusing as much of the shared startup pipeline as possible while still short-circuiting the parts that would double-run ownership or startup hooks
+
+Headless and bare are therefore different branches: headless is trust-implicit but still feature-rich, while bare is intentionally stripped down.
 
 This is how one codebase supports multiple entry surfaces without silently drifting into different products.
 
