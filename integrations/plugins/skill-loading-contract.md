@@ -22,6 +22,7 @@ It intentionally does not re-document:
 
 - the broader conceptual difference between skills and plugins already covered in [plugin-and-skill-model.md](plugin-and-skill-model.md)
 - model-facing and human-facing skill listing surfaces already covered in [skill-discovery-and-listing-surfaces.md](skill-discovery-and-listing-surfaces.md)
+- feature-gated discovery-tool overlays and remote canonical skill behavior already covered in [skill-search-and-canonical-skill-flow.md](skill-search-and-canonical-skill-flow.md)
 - prompt-command and SkillTool execution paths already covered in [../../product-surface/prompt-command-and-skill-execution.md](../../product-surface/prompt-command-and-skill-execution.md)
 - the ant-only skill-improvement rewrite loop already covered in [skill-improvement-detection-and-apply-flow.md](skill-improvement-detection-and-apply-flow.md)
 
@@ -135,25 +136,13 @@ Equivalent behavior should preserve:
 - directories whose containing path is gitignored being skipped from dynamic skill discovery
 - deeper nested skill directories overriding shallower dynamic ones when they collide by name
 
-## Command composition order determines real precedence
+## Loading must preserve per-skill identity until command composition
 
 Equivalent behavior should preserve:
 
-- assembled command order being:
-  - bundled skills
-  - built-in plugin skills
-  - disk-backed skill-dir skills
-  - workflow commands
-  - plugin commands
-  - plugin skills
-  - built-in commands
-- slash-command and SkillTool lookup taking the first matching visible command rather than running a second name-based merge
-- disk-backed or plugin skills therefore being able to exist in the registry yet still be shadowed by earlier channels when names collide
-- dynamic skills being inserted after plugin skills but before built-ins
-- dynamic skills only being added when their name is not already present in the base command list, so dynamic discovery cannot override an already-visible bundled, plugin, or disk-backed command by name
-- user-invocable visibility being distinct from model invocability:
-  - user-invocable false hides a skill from ordinary slash-command UI
-  - the SkillTool can still target model-usable skills that are not meant for manual slash invocation
+- same-named skills from different channels staying as distinct loaded candidates until [../../product-surface/command-dispatch-and-composition.md](../../product-surface/command-dispatch-and-composition.md) applies final registry ordering and first-match resolution
+- dynamic skill discovery handing late candidates into that same command-composition phase rather than retroactively rewriting or renormalizing already loaded command records
+- user-invocable and model-invocable metadata staying attached to the loaded skill record so later slash-command UI, SkillTool filtering, and attachment surfaces can diverge without reparsing markdown sources
 
 ## MCP skills are a separate surface from plain MCP prompts
 
