@@ -1,12 +1,14 @@
 ---
 title: "Trust and Capability Hydration"
 owners: []
-soft_links: [/platform-services/auth-config-and-policy.md, /platform-services/interactive-startup-and-project-activation.md, /integrations/mcp/server-contract.md, /memory-and-context/instruction-sources-and-precedence.md]
+soft_links: [/platform-services/auth-config-and-policy.md, /platform-services/startup-service-sequencing-and-capability-gates.md, /platform-services/interactive-startup-and-project-activation.md, /integrations/mcp/server-contract.md, /memory-and-context/instruction-sources-and-precedence.md]
 ---
 
 # Trust and Capability Hydration
 
 Workspace trust is a first-class startup boundary in Claude Code. It is not the same thing as tool permissions, and several other services stay partially dormant until that boundary is crossed.
+
+Shared service-waiter sequencing and the broader interactive/headless/bare startup split live in [startup-service-sequencing-and-capability-gates.md](startup-service-sequencing-and-capability-gates.md). This leaf focuses on the trust-dependent hydration that happens once the workspace boundary is resolved.
 
 ## Trust is its own gate
 
@@ -48,6 +50,17 @@ Several startup actions become dangerous if they run too early:
 
 A rebuild that does all startup hydration before trust will expose the wrong attack surface.
 
+## Trust is necessary, but not sufficient
+
+Workspace trust unlocks repo-scoped execution, but some capabilities still have later prerequisites.
+
+Equivalent behavior should preserve:
+
+- Remote Control and remote-session entry surfaces being allowed to wait on policy limits even after trust is already accepted, because trust alone does not answer organization-governed capability questions
+- telemetry initialization waiting for trusted environment application and, for eligible sessions, allowing managed-settings overlays to land before telemetry becomes authoritative
+- onboarding-time or live login refreshes being able to trigger another hydration pass for managed settings, policy, experiments, and trusted-device prep before the session treats new auth as settled
+- trust-sensitive surfaces reading one shared hydrated state instead of caching pre-trust or pre-login verdicts forever
+
 ## Trust-adjacent approvals
 
 Workspace trust does not automatically approve every secondary extension point.
@@ -70,6 +83,7 @@ Instead, capabilities become active as more prerequisites line up:
 - trust status
 - valid settings state
 - authenticated experiments and entitlements
+- resolved managed-settings/policy overlays when a capability depends on them
 - approved integrations
 - environment-variable application
 - telemetry and analytics boot

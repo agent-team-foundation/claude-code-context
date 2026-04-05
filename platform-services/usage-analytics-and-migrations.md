@@ -1,18 +1,18 @@
 ---
 title: "Usage, Analytics, and Migrations"
 owners: []
-soft_links: [/platform-services/bootstrap-and-service-failures.md, /platform-services/claude-ai-limits-and-extra-usage-state.md, /product-surface/interaction-modes.md, /runtime-orchestration/build-profiles.md]
+soft_links: [/platform-services/startup-service-sequencing-and-capability-gates.md, /platform-services/bootstrap-and-service-failures.md, /platform-services/claude-ai-limits-and-extra-usage-state.md, /product-surface/interaction-modes.md, /runtime-orchestration/build-profiles.md]
 ---
 
 # Usage, Analytics, and Migrations
 
-Claude Code includes several non-core support systems that still shape architecture: startup cache warming, usage/quota awareness, analytics sinks, release evolution, and local migrations. A faithful rebuild needs these to stay non-blocking where possible while still preserving their ordering and cache contracts.
+Claude Code includes several non-core support systems that still shape architecture: usage/quota awareness, analytics sinks, startup support caches, release evolution, and local migrations. The timing of startup warmers lives in [startup-service-sequencing-and-capability-gates.md](startup-service-sequencing-and-capability-gates.md); this leaf focuses on what those support systems cache, persist, and migrate.
 
 ## Scope boundary
 
 This leaf covers:
 
-- startup cache-warm bundles that hydrate usage- or entitlement-adjacent caches
+- usage- and entitlement-adjacent startup support caches
 - analytics and diagnostics initialization ordering
 - local migrations and release-evolution behavior
 
@@ -22,9 +22,11 @@ It does not re-document:
 - remote managed-settings or policy transport internals
 - privacy-level semantics beyond the fact that they suppress some analytics or nonessential traffic
 
-## Startup cache-warm bundle
+## Usage-adjacent warm bundle
 
-Equivalent behavior should preserve that several support reads happen as one trust-gated startup bundle rather than being lazily rediscovered one by one during the first turn.
+When startup chooses to run support warmers, several reads happen as one bundle rather than being lazily rediscovered one by one during the first turn.
+
+The exact startup phase for this bundle lives elsewhere, but the contents and persistence contract should stay stable.
 
 That bundle should include at least:
 
@@ -36,7 +38,7 @@ That bundle should include at least:
 Important invariants:
 
 - this bundle runs only after trust has been established and the runtime has enough auth/config state to use these services safely
-- bare/simple sessions skip the whole bundle because these reads are first-turn responsiveness optimizations, not core startup requirements
+- bare/minimal sessions skip the whole bundle because these reads are first-turn responsiveness optimizations, not core startup requirements
 - the bundle may be throttled by a persisted last-prefetched timestamp so every launch does not immediately repeat the same background network work
 
 ## Bootstrap cache hydration is a specific contract

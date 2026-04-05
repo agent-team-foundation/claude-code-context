@@ -1,7 +1,7 @@
 ---
 title: "Structured I/O and Headless Session Loop"
 owners: []
-soft_links: [/integrations/clients/sdk-control-protocol.md, /integrations/clients/sdk-hook-event-transport.md, /runtime-orchestration/unified-command-queue-and-drain.md, /collaboration-and-agents/bridge-contract.md, /product-surface/session-state-and-breakpoints.md]
+soft_links: [/integrations/clients/sdk-control-protocol.md, /integrations/clients/sdk-hook-event-transport.md, /runtime-orchestration/unified-command-queue-and-drain.md, /collaboration-and-agents/bridge-contract.md, /platform-services/startup-service-sequencing-and-capability-gates.md, /product-surface/session-state-and-breakpoints.md]
 ---
 
 # Structured I/O and Headless Session Loop
@@ -75,11 +75,14 @@ Equivalent behavior should preserve:
 
 - headless startup selecting StructuredIO or RemoteIO from one factory based on whether the session is local stdio or attached to a remote stream URL
 - non-interactive startup subscribing directly to settings hot-reload because there is no React tree to host the usual settings hook
+- headless sessions treating trust as implicit and therefore applying the full environment plus telemetry initialization before the first streamed output, rather than stopping at the interactive safe-env subset
 - remote-only policy and trust checks, sandbox setup, and other preflight gates running before the first streamed output so hosts never see a partially initialized session pretending to be ready
+- managed-settings waiters being started earlier in shared startup, with headless plugin install joining both managed-settings completion and any remote user-settings download before plugin enablement, marketplaces, or related MCP diffs are treated as authoritative
 - resume, rewind, agent restore, and hook-injected initial-user-message paths being able to alter the first headless turn before the main run loop begins
 - initialize requests being the one place where stdin-provided system prompts, appended prompts, JSON schemas, hooks, and SDK-defined agents are merged into the live runtime configuration
 - initialize responses returning the currently invocable command catalog, agent catalog, output styles, model list, account snapshot, process identity, and fast-mode state from the actual live runtime rather than from a static SDK manifest
 - agent-defined initial prompts still entering through the structured input path, even when the host is streaming JSON rather than passing a single prompt string
+- synchronous plugin-install mode being able to hold the first query until plugin refresh completes, while async install continues in the background and later refreshes commands, agents, hooks, and MCP state in place
 
 ## Headless run loop and streamed output
 
