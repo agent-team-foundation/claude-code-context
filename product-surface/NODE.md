@@ -11,7 +11,7 @@ This domain captures how Claude Code presents itself to users: entry modes, comm
 Relevant leaves:
 
 - **[interaction-modes.md](interaction-modes.md)** — The major ways a user can operate the product.
-- **[command-surface.md](command-surface.md)** — How commands are grouped and what each group must expose.
+- **[command-surface.md](command-surface.md)** — How the shared command catalog is presented, narrowed, and made discoverable across help, init payloads, and related user-facing inventories.
 - **[special-entrypoint-argv-rewrite-and-fullscreen-handoff.md](special-entrypoint-argv-rewrite-and-fullscreen-handoff.md)** — How direct-connect URLs, `assistant`, `ssh`, and hidden handoff commands are intercepted before ordinary subcommand dispatch and routed back into the main REPL or headless runner.
 - **[model-and-behavior-controls.md](model-and-behavior-controls.md)** — How `/model`, `/effort`, `/fast`, `/theme`, `/color`, and `/output-style` together control runtime model choice, effort, premium speed paths, and behavior styling.
 - **[command-dispatch-and-composition.md](command-dispatch-and-composition.md)** — How one command registry composes built-ins, skills, plugins, workflows, and gated command variants into one surface.
