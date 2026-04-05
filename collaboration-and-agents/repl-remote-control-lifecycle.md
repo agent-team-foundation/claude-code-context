@@ -42,7 +42,7 @@ Equivalent behavior should preserve:
 - explicit `--remote-control` entitlement checks running only after trust setup and auth-dependent startup work complete, so the flag can print a concrete warning instead of failing later inside bridge init
 - `/remote-control` opening a disconnect or continue dialog when full bidirectional Remote Control is already active instead of registering a second bridge
 - outbound-only mirror sessions not counting as "already connected" for that command, so `/remote-control` upgrades the session into full bidirectional control rather than trapping the user in mirror mode
-- command preflight checking organization policy, bridge entitlement, the correct version floor for the v1 versus v2 path, assistant-mode forcing back to the non-env-less path, and token presence before desired state flips on
+- command preflight checking organization policy, bridge entitlement, the correct version floor for the legacy versus worker-scoped path, assistant-mode forcing back to the environment-backed path, and token presence before desired state flips on
 - a first-use remote callout being allowed to intercept the command, while still capturing the requested session name so the later consent handler can connect with the same intent
 - explicit activation setting desired state plus "this was user-requested" metadata, clearing outbound-only posture, and leaving actual environment or session creation to the hook
 
@@ -83,4 +83,4 @@ Equivalent behavior should preserve:
 - **state collapse**: desired enablement and live connection state are flattened into one bit, so reconnecting or failed sessions render as either fully off or falsely healthy
 - **metadata leak**: companion bootstrap advertises local-only commands or full local tool or plugin inventories to remote clients
 - **teardown race**: re-enable happens before a previous deregister completes and the stale teardown destroys the newly registered bridge
-- **perpetual drift**: assistant sessions accidentally take the env-less ephemeral path and lose continuity across clean restarts
+- **perpetual drift**: assistant sessions accidentally take the direct session-first ephemeral path and lose continuity across clean restarts

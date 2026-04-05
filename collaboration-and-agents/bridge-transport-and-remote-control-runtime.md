@@ -12,7 +12,7 @@ The bridge contract only explains what a constrained companion client is allowed
 
 This leaf covers:
 
-- how REPL-side remote control chooses between the environment-backed bridge path and the env-less direct bridge path
+- how REPL-side remote control chooses between the environment-backed bridge path and the direct session-first bridge path
 - how bridge sessions are created, titled, tagged, archived, and resumed across compat and infrastructure session IDs
 - how bridge transports authenticate, flush initial history, gate live writes, deduplicate replay, and route inbound control traffic
 - how outbound-only or mirror attachments narrow the control surface while still satisfying the server handshake
@@ -30,7 +30,7 @@ It intentionally does not re-document:
 Equivalent behavior should preserve:
 
 - bridge startup refusing to proceed unless remote control is feature-enabled, the client is signed into claude.ai, organization policy allows remote control, the organization UUID is available, and the running build satisfies the minimum version gate for the selected bridge path
-- a strict distinction between transport generation and bootstrap generation: the environment-backed bridge can still use the newer CCR v2 wire protocol, while the env-less bridge removes the environment register or poll layer entirely and talks directly to session-ingress-compatible code-session endpoints
+- a strict distinction between transport generation and bootstrap generation: the environment-backed bridge can still use a worker-scoped event wire, while the direct session-first bridge removes the environment register or poll layer entirely and talks directly to session endpoints
 - title derivation precedence of explicit remote-control name, stored renamed title, latest meaningful human-authored user text, then a generated slug fallback
 - automatic title improvement continuing after attach until the runtime has either seen an explicit rename or derived enough early prompts, including an early placeholder and a later richer regeneration from a wider conversation slice
 - bridge session creation carrying repository identity and model context for the companion surface instead of creating an anonymous session card
@@ -41,16 +41,16 @@ Equivalent behavior should preserve:
 
 The important reconstruction rule is that bridge identity is not just a URL. It is a tuple of session ID, environment or worker authority, title state, auth context, and repo metadata that must survive reconnect logic without drifting.
 
-## Environment-backed versus env-less attach flow
+## Environment-backed versus direct session-first attach flow
 
 Equivalent behavior should preserve:
 
 - the environment-backed path registering a bridge environment first, then either reconnecting an existing session in place or creating a new bridge session on that environment before polling for work dispatch
 - perpetual-mode startup attempting to reuse the prior environment and session instead of always creating a fresh session, but falling back to fresh creation when the old environment cannot be resurrected
-- the env-less path always creating a fresh code session first, then exchanging OAuth credentials for worker credentials through a bridge-specific handshake that also returns the API base URL and worker epoch
-- the env-less path treating each credential refresh as a new worker registration event, because the credential exchange itself bumps server-side epoch and therefore invalidates older workers
-- the bridge transport abstraction hiding whether reads come from HybridTransport or SSE while writes go to Session-Ingress or CCR worker endpoints, so higher-level bridge code can share one callback and teardown model
-- v1 Session-Ingress traffic preferring OAuth tokens for writes and reconnects, while CCR v2 worker endpoints require worker credentials that are scoped to one session and cannot be replaced with ordinary OAuth
+- the direct session-first path always creating a fresh code session first, then exchanging OAuth credentials for worker credentials through a bridge-specific handshake that also returns the API base URL and worker epoch
+- the direct session-first path treating each credential refresh as a new worker registration event, because the credential exchange itself bumps server-side epoch and therefore invalidates older workers
+- the bridge transport abstraction hiding whether reads come from one-stream or split-stream reads while writes go to session-event endpoints or worker-scoped endpoints, so higher-level bridge code can share one callback and teardown model
+- legacy session-event write paths using OAuth credentials for writes and reconnects, while worker-scoped endpoints require worker credentials that are bound to one session and cannot be replaced with ordinary OAuth
 - multi-session-safe callers being able to provide per-instance auth closures so one bridge session does not overwrite another session's auth token in process-global environment state
 - outbound-only attachments still building the write path and heartbeat path even when the inbound SSE read stream is intentionally skipped
 - outbound-only mirror attachments staying non-addressable for peer messaging, because they can mirror transcript traffic without supporting safe bidirectional prompt injection
@@ -60,10 +60,11 @@ Equivalent behavior should preserve:
 Equivalent behavior should preserve:
 
 - only user messages, assistant messages, and local-command system events being forwarded into the bridge transcript, with virtual or display-only internal chatter excluded
+- transport-only frames such as keep-alive, ack-only control responses, and cancel noise being consumed by protocol handlers rather than projected into transcript rows
 - the initial history flush being capped to a configurable recent window, because the bridge transcript is for companion visibility and recovery rather than full model replay
 - initial history being written only after transport connect, while a flush gate temporarily queues newer live messages so the server sees `[history..., live...]` instead of interleaved ordering
 - the environment-backed reused-session path remembering which initial UUIDs were already flushed into the same remote session so reconnects do not poison the server with duplicate UUIDs
-- the env-less fresh-session path skipping that cross-session flushed-UUID filter, because each attach creates a new remote session and stale local suppression would otherwise erase history on re-enable
+- the direct session-first fresh-session path skipping that cross-session flushed-UUID filter, because each attach creates a new remote session and stale local suppression would otherwise erase history on re-enable
 - one bounded recent-posted UUID set suppressing echoes of locally forwarded events, plus a second bounded recent-inbound UUID set suppressing replayed inbound prompts after sequence-cursor loss or transport rebuild
 - initial flush UUIDs seeding the outbound dedup state so the first server echo of flushed history is recognized as our own traffic
 - user-message scanning for title derivation happening before flush-gate queueing, so queued prompts can still improve session naming
@@ -78,7 +79,7 @@ Equivalent behavior should preserve:
 - server-initiated control requests receiving a prompt response even when the bridge surface is narrow, because silence causes the server to kill the connection
 - `initialize` returning a minimal success payload that proves the bridge is alive without pretending the companion owns the full REPL command or model catalog
 - `set_model`, `set_max_thinking_tokens`, `interrupt`, and permission-mode changes delegating to local callbacks when that context actually supports them
-- unsupported or unknown control-request subtypes returning structured errors instead of hanging
+- unsupported or unknown control-request subtypes returning structured protocol errors instead of hanging, including direct session-first and environment-backed bridge attachments
 - outbound-only mode still replying successfully to `initialize`, but returning explicit errors for all other mutable requests so the companion does not show false success for actions that the local session will not honor
 - permission-mode changes requiring a verdict callback that can reject unsupported modes or policy-forbidden transitions without corrupting the local permission invariant
 - inbound bridge permission answers reusing the same control-response shape as the rest of the runtime and transitioning the visible session state out of `requires_action` once the answer wins
@@ -91,11 +92,11 @@ Equivalent behavior should preserve:
 - heartbeat-auth failures immediately tearing down the current work attachment and waking the poll loop, instead of waiting for long reconnect budgets while the server stops forwarding prompts
 - environment-loss recovery first trying to re-register the same environment and reconnect the same session in place, then archiving the orphaned session and creating a fresh replacement only if in-place recovery fails
 - reconnect-in-place preserving the user-facing session identity and previously flushed history, while fresh-session fallback resets replay cursors and rewrites the crash-recovery pointer to the new session
-- the env-less path scheduling proactive credential refresh before expiry and also supporting reactive recovery after a `401`, with both paths fetching fresh bridge credentials and rebuilding the entire transport rather than swapping a token in place
+- the direct session-first path scheduling proactive credential refresh before expiry and also supporting reactive recovery after a `401`, with both paths fetching fresh bridge credentials and rebuilding the entire transport rather than swapping a token in place
 - only one auth-recovery path being allowed to claim a refresh window at a time, because multiple overlapping bridge-credential fetches would each bump worker epoch and make the earlier rebuild stale immediately
 - transport rebuild carrying forward the last observed SSE sequence number when the logical session stays the same, so the new read stream resumes after the last processed event instead of replaying the whole history from zero
 - sequence carryover being reset when a genuinely fresh session is created, because reusing an old cursor against a new session would silently skip valid events
-- v2 handshake generations being monotonic so stale async registrations cannot overwrite a newer transport that carries the correct worker epoch
+- worker-handshake generations being monotonic so stale async registrations cannot overwrite a newer transport that carries the correct worker epoch
 - reconnect-time writes being gated or dropped intentionally rather than half-sent through a transport whose epoch has already been superseded
 - connect deadlines and explicit close-code handling distinguishing recoverable auth loss from permanent transport failure, so the runtime can choose rebuild, environment recovery, or teardown appropriately
 - reconnect, rename, and teardown paths updating the published bridge-session alias promptly enough that peer discovery prefers a live direct-local route when both exist and does not suppress a genuinely remote peer after the alias is cleared
@@ -105,12 +106,12 @@ Equivalent behavior should preserve:
 Equivalent behavior should preserve:
 
 - one transport interface that exposes write, batch write, close, connect callbacks, sequence introspection, drop detection, state reporting, metadata reporting, delivery reporting, and flush semantics even when some of those operations are no-ops on the legacy path
-- CCR-style delivery reporting acknowledging received and processed events quickly enough that reconnects do not cause the server to redeliver already-handled prompts forever
+- delivery reporting on report-capable transports acknowledging received and processed events quickly enough that reconnects do not cause the server to redeliver already-handled prompts forever
 - session-state pushes reflecting real runtime waits, especially `running`, `idle`, and `requires_action`, so companion surfaces can explain whether the bridge is working, waiting for approval, or quiescent
 - silent `keep_alive` frames being emitted on a timer for bridge sessions that might otherwise look idle long enough for intermediaries or server layers to reap them
 - keep-alive traffic remaining transport-only health signaling and never leaking into visible transcript or UI message loops
 - teardown writing a final result marker before archive and close, because closing first can strand the final result in a client-side buffer that never drains
-- environment-backed teardown stopping active work and archiving the session before deregistering the environment, while env-less teardown archives the session and then closes the transport without any environment deregistration step
+- environment-backed teardown stopping active work and archiving the session before deregistering the environment, while direct session-first teardown archives the session and then closes the transport without any environment deregistration step
 - teardown retrying archive once after an auth refresh when archive fails with authorization expiry, but still completing cleanup if that retry cannot be performed
 - perpetual-mode teardown being intentionally local-only: stop polling, preserve the pointer, and leave the remote session alive so a later restart can reattach instead of signaling normal termination to the server
 - cleanup being idempotent so repeated shutdown signals, reconnect races, or debug fault injections do not archive or deregister the same runtime twice

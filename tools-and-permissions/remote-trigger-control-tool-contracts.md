@@ -16,12 +16,14 @@ Equivalent behavior should preserve:
 - organization-scoped auth and policy gates being mandatory before the tool can act
 - read-only verbs such as list and get being classified separately from mutating verbs such as create, update, and run
 - stable trigger identifiers being required before get, update, or run operations can proceed
+- delete remaining outside this tool contract, so trigger removal is handled by separate product surfaces instead of being silently emulated here
 
 ## Request and response boundary
 
 Equivalent behavior should preserve:
 
 - a narrow action enum for list, get, create, update, and run
+- action-to-method mapping staying consistent: list/get are read-only retrieval paths, while create/update/run are mutating control paths
 - create and update passing a backend-owned request body shape rather than trying to normalize every trigger field into local tool-specific arguments
 - responses preserving enough raw backend structure for higher-level orchestration or diagnostics instead of prematurely flattening every trigger into one local summary format
 - timeouts and cancellation respecting the current tool-execution abort path

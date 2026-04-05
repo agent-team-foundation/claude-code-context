@@ -33,7 +33,7 @@ Equivalent behavior should preserve:
 - outbound-only mirror mode exposing only the minimum projection needed for outbound forwarding, typically connected truth plus session identity, without publishing the full connect or session URL pair or full bidirectional callbacks
 - full bidirectional mode registering bridge permission callbacks in app state so local approval UI can race, answer, or cancel companion-side tool requests using stable request IDs
 - full bridge init appending a bridge-status transcript message with the session URL, while mirror mode stays quiet and lightweight because it is not the primary user-facing control surface
-- env-less bridge sessions allowing a session URL without an environment-backed connect URL, because that path has no resumable environment pairing page
+- direct session-first bridge sessions allowing a session URL without an environment-backed connect URL, because that path has no resumable environment pairing page
 
 ## Companion-visible `system/init` surface
 

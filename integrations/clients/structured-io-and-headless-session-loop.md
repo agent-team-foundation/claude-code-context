@@ -16,7 +16,7 @@ This leaf covers:
 - how request and response pairing, cancellation, replay, and duplicate suppression work
 - how headless sessions initialize, stream output, and decide what becomes the final result
 - how permission prompts, hook callbacks, elicitation, MCP messages, and sandbox asks are externalized through the same transport
-- how remote transports and CCR-style state reporting extend the same control loop
+- how remote transports and session-state or delivery reporting extend the same control loop
 
 It intentionally does not re-document:
 
@@ -33,7 +33,8 @@ Equivalent behavior should preserve:
 - an outbound stream object that serializes SDK-facing emissions from one place, preventing control requests from overtaking queued stream events
 - the ability to prepend synthetic user messages into the input stream before or during iteration, so resumed agents, init-defined agents, and startup hooks can inject a first turn without forking the transport
 - a strict user-role expectation for inbound prompt messages, with malformed lines treated as fatal protocol errors rather than silently downgraded transcript text
-- keep-alive frames being transport health signals rather than conversation content
+- unsupported inbound control-request subtypes returning a structured protocol error response rather than leaving callers waiting on a reply that never comes
+- keep-alive frames and other transport-only control noise being protocol health signals rather than conversation content
 - environment-variable update messages being applied directly to process state when the transport is allowed to mutate runtime auth or environment inputs
 
 ## Pending request registry and cancellation contract
@@ -73,7 +74,7 @@ Equivalent behavior should preserve:
 
 Equivalent behavior should preserve:
 
-- headless startup selecting StructuredIO or RemoteIO from one factory based on whether the session is local stdio or attached to a remote stream URL
+- headless startup selecting local-stdio transport or remote-stream transport from one factory based on whether the session is local stdio or attached to a remote stream URL
 - non-interactive startup subscribing directly to settings hot-reload because there is no React tree to host the usual settings hook
 - headless sessions treating trust as implicit and therefore applying the full environment plus telemetry initialization before the first streamed output, rather than stopping at the interactive safe-env subset
 - remote-only policy and trust checks, sandbox setup, and other preflight gates running before the first streamed output so hosts never see a partially initialized session pretending to be ready
@@ -106,16 +107,16 @@ Equivalent behavior should preserve:
 - partial assistant streaming remaining optional so low-noise consumers can wait for coarser events while richer hosts opt into incremental output
 - session-state changes such as running, idle, or requires-action being mirrored into typed SDK system events and remote metadata channels from one shared state source
 
-## Remote transport and CCR-style extensions
+## Remote transport and delivery-reporting extensions
 
 Equivalent behavior should preserve:
 
-- remote transport setup choosing the concrete wire protocol from the stream URL while still feeding all inbound data back through the same StructuredIO reader
+- remote transport setup choosing the concrete wire protocol from the stream URL while still feeding all inbound data back through the same structured reader and pending-request loop
 - auth and environment-runner headers being refreshed on reconnect instead of being frozen to whatever token existed at process start
 - transport close ending the local input stream so the headless session shuts down through the same cleanup path as a local EOF
 - bridge mode being able to echo outbound control requests, and optionally all outbound traffic in debug mode, so an upstream bridge parent can mirror or intercept approvals
-- CCR-style remote mode restoring worker-side external metadata before headless message loading, letting resumed sessions recover permission mode, pending action, model, and other session metadata from remote state
-- CCR v2 integration registering internal-event writers and readers, delivery reporters, and state or metadata reporters before the transport connects, so early inbound events cannot outrun their acknowledgment wiring
+- remote worker-backed mode restoring worker-side external metadata before headless message loading, letting resumed sessions recover permission mode, pending action, model, and other session metadata from remote state
+- delivery-reporting mode registering internal-event writers and readers, delivery reporters, and state or metadata reporters before the transport connects, so early inbound events cannot outrun their acknowledgment wiring
 - bridge-only keep-alive frames being emitted on a configurable timer to keep otherwise idle remote-control sessions from being reaped by intermediaries, while remaining invisible to normal conversation consumers
 
 ## Failure modes
@@ -124,6 +125,6 @@ Equivalent behavior should preserve:
 - **duplicate execution**: reconnect-delivered control responses or user messages re-run work that the session already completed
 - **replay confusion**: mirrored acknowledgments, control responses, or suggestions arrive in an order that causes the host to think a turn is complete when it is still being held back
 - **requires-action blind spot**: a permission prompt is externalized, but no structured pending-action state is emitted, leaving remote clients unable to explain what the session is waiting on
-- **transport drift**: RemoteIO and local StructuredIO stop sharing the same request registry, so one surface learns behaviors the other cannot reproduce
+- **transport drift**: the remote-stream variant and local-stdio variant stop sharing the same request registry, so one surface learns behaviors the other cannot reproduce
 - **remote resume amnesia**: worker external metadata is not restored before initial message loading, so resumed remote sessions lose model, permission, or pending-action context
 - **idle timeout breakage**: keep-alive signaling is missing or leaks into the visible message stream instead of staying a transport-only health frame

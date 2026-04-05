@@ -16,6 +16,7 @@ Equivalent behavior should preserve:
 - request bodies carrying the current working directory plus an explicit dangerous-permissions bypass flag when the caller opts into that mode
 - optional bearer auth that can be attached without changing the rest of the bootstrap shape
 - strict response validation before the runtime trusts the returned session ID, websocket URL, or normalized work directory
+- when the server returns a normalized `work_dir`, that value becoming the effective runtime and UI cwd before the first turn so subsequent path resolution uses the server-approved directory rather than the caller's pre-bootstrap cwd
 
 The clean-room point is that direct-connect is a distinct bootstrap surface with a much smaller but stricter contract.
 
