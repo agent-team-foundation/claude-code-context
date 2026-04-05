@@ -1,21 +1,23 @@
-import { existsSync, readFileSync } from "node:fs";
-import { join } from "node:path";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { basename, join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { Repo } from "#skill/engine/repo.js";
 import { runUpgrade } from "#skill/engine/upgrade.js";
 import {
   AGENT_INSTRUCTIONS_FILE,
+  CLAUDE_INSTRUCTIONS_FILE,
   FRAMEWORK_VERSION,
   INSTALLED_PROGRESS,
   LEGACY_AGENT_INSTRUCTIONS_FILE,
+  SOURCE_INTEGRATION_MARKER,
 } from "#skill/engine/runtime/asset-loader.js";
+import { buildSourceIntegrationLine } from "#skill/engine/runtime/source-integration.js";
 import {
   makeAgentsMd,
   makeFramework,
   makeSourceRepo,
   makeLegacyFramework,
   makeLegacyRepoFramework,
-  makeLegacyNamedFramework,
   makeSourceSkill,
   useTmpDir,
 } from "./helpers.js";
@@ -60,26 +62,6 @@ describe("runUpgrade", () => {
     expect(existsSync(join(repoDir.path, INSTALLED_PROGRESS))).toBe(false);
   });
 
-  it("migrates repos that still use the previous installed skill name", () => {
-    const repoDir = useTmpDir();
-    const sourceDir = useTmpDir();
-    makeLegacyNamedFramework(repoDir.path, "0.2.0");
-    makeSourceSkill(sourceDir.path, "0.2.0");
-
-    const result = runUpgrade(new Repo(repoDir.path), {
-      sourceRoot: sourceDir.path,
-    });
-
-    expect(result).toBe(0);
-    expect(existsSync(join(repoDir.path, "skills", "first-tree-cli-framework"))).toBe(
-      false,
-    );
-    expect(readFileSync(join(repoDir.path, FRAMEWORK_VERSION), "utf-8").trim()).toBe("0.2.0");
-    expect(readFileSync(join(repoDir.path, INSTALLED_PROGRESS), "utf-8")).toContain(
-      "skills/first-tree-cli-framework/",
-    );
-  });
-
   it("migrates repos that still use the previous workspace skill path", () => {
     const repoDir = useTmpDir();
     const sourceDir = useTmpDir();
@@ -118,5 +100,38 @@ describe("runUpgrade", () => {
     makeSourceRepo(repoDir.path);
     const result = runUpgrade(new Repo(repoDir.path));
     expect(result).toBe(1);
+  });
+
+  it("refreshes source/workspace integration without writing tree progress", () => {
+    const repoDir = useTmpDir();
+    const sourceDir = useTmpDir();
+    makeSourceRepo(repoDir.path);
+    makeFramework(repoDir.path, "0.1.0");
+    writeFileSync(
+      join(repoDir.path, AGENT_INSTRUCTIONS_FILE),
+      `${SOURCE_INTEGRATION_MARKER} old text\n`,
+    );
+    writeFileSync(
+      join(repoDir.path, CLAUDE_INSTRUCTIONS_FILE),
+      `${SOURCE_INTEGRATION_MARKER} old text\n`,
+    );
+    makeSourceSkill(sourceDir.path, "0.2.0");
+
+    const result = runUpgrade(new Repo(repoDir.path), {
+      sourceRoot: sourceDir.path,
+    });
+
+    const expectedLine = buildSourceIntegrationLine(
+      `${basename(repoDir.path)}-context`,
+    );
+    expect(result).toBe(0);
+    expect(readFileSync(join(repoDir.path, FRAMEWORK_VERSION), "utf-8").trim()).toBe("0.2.0");
+    expect(readFileSync(join(repoDir.path, AGENT_INSTRUCTIONS_FILE), "utf-8")).toContain(
+      expectedLine,
+    );
+    expect(readFileSync(join(repoDir.path, CLAUDE_INSTRUCTIONS_FILE), "utf-8")).toContain(
+      expectedLine,
+    );
+    expect(existsSync(join(repoDir.path, INSTALLED_PROGRESS))).toBe(false);
   });
 });

@@ -1,4 +1,4 @@
-# Context Tree Upgrade — v0.1.0 -> v0.2.0
+# Context Tree Upgrade — v0.2.0 -> v0.2.1
 
 ## Installed Skill
 - [x] Review local customizations under `.agents/skills/first-tree/` and `.claude/skills/first-tree/` and reapply them if needed
@@ -10,7 +10,7 @@
 - [x] Compare the framework section in `AGENTS.md` with `.agents/skills/first-tree/assets/framework/templates/agents.md.template` and update the content between the markers if needed
 
 ## Verification
-- [x] `.agents/skills/first-tree/assets/framework/VERSION` reads `0.2.0`
+- [x] `.agents/skills/first-tree/assets/framework/VERSION` reads `0.2.1`
 - [x] `context-tree verify` passes
 
 ---
