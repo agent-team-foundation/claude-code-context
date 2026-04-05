@@ -1,7 +1,7 @@
 ---
 title: "Bridge Session State Projection and Command Narrowing"
 owners: []
-soft_links: [/collaboration-and-agents/repl-remote-control-lifecycle.md, /collaboration-and-agents/bridge-contract.md, /collaboration-and-agents/peer-addressing-discovery-and-routing.md, /product-surface/command-runtime-matrix.md, /runtime-orchestration/unified-command-queue-and-drain.md, /integrations/clients/remote-setup-and-companion-bootstrap.md]
+soft_links: [/collaboration-and-agents/repl-remote-control-lifecycle.md, /collaboration-and-agents/bridge-contract.md, /collaboration-and-agents/peer-addressing-discovery-and-routing.md, /product-surface/command-execution-archetypes.md, /runtime-orchestration/unified-command-queue-and-drain.md, /integrations/clients/remote-setup-and-companion-bootstrap.md]
 ---
 
 # Bridge Session State Projection and Command Narrowing

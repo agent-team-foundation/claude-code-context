@@ -1,7 +1,7 @@
 ---
 title: "Review Path"
 owners: []
-soft_links: [/product-surface/end-to-end-scenario-graphs.md, /collaboration-and-agents/remote-handoff-path.md, /tools-and-permissions/tool-execution-state-machine.md]
+soft_links: [/product-surface/command-execution-archetypes.md, /collaboration-and-agents/remote-handoff-path.md, /tools-and-permissions/tool-execution-state-machine.md]
 ---
 
 # Review Path

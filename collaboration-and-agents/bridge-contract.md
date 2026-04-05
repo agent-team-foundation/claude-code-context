@@ -1,7 +1,7 @@
 ---
 title: "Bridge Contract"
 owners: []
-soft_links: [/collaboration-and-agents/remote-and-bridge-flows.md, /product-surface/command-runtime-matrix.md, /integrations/clients/client-surfaces.md]
+soft_links: [/collaboration-and-agents/remote-and-bridge-flows.md, /product-surface/command-execution-archetypes.md, /integrations/clients/client-surfaces.md]
 ---
 
 # Bridge Contract

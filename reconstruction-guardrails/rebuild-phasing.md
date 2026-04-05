@@ -1,7 +1,7 @@
 ---
 title: "Rebuild Phasing"
 owners: []
-soft_links: [/reconstruction-guardrails/rebuild-standard.md, /product-surface/end-to-end-scenario-graphs.md]
+soft_links: [/reconstruction-guardrails/rebuild-standard.md, /product-surface/command-execution-archetypes.md]
 ---
 
 # Rebuild Phasing
