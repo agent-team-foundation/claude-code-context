@@ -22,9 +22,9 @@ It intentionally does not re-document:
 
 - the broader conceptual difference between skills and plugins already covered in [plugin-and-skill-model.md](plugin-and-skill-model.md)
 - model-facing and human-facing skill listing surfaces already covered in [skill-discovery-and-listing-surfaces.md](skill-discovery-and-listing-surfaces.md)
-- feature-gated discovery-tool overlays and remote canonical skill behavior already covered in [skill-search-and-canonical-skill-flow.md](skill-search-and-canonical-skill-flow.md)
+- feature-gated discovery-tool overlays and remote discovered-skill behavior already covered in [feature-gated-remote-skill-discovery-overlay.md](feature-gated-remote-skill-discovery-overlay.md)
 - prompt-command and SkillTool execution paths already covered in [../../product-surface/prompt-command-and-skill-execution.md](../../product-surface/prompt-command-and-skill-execution.md)
-- the ant-only skill-improvement rewrite loop already covered in [skill-improvement-detection-and-apply-flow.md](skill-improvement-detection-and-apply-flow.md)
+- the feature-gated skill-improvement rewrite loop already covered in [feature-gated-project-skill-improvement-loop.md](feature-gated-project-skill-improvement-loop.md)
 
 ## The runtime tracks provenance and loading channel separately
 

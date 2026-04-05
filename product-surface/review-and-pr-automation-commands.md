@@ -84,15 +84,15 @@ Equivalent behavior should preserve:
 - the model being instructed to complete branch creation, commit, push, and PR create-or-edit in one assistant turn instead of pausing after each step for extra confirmation
 - user-supplied arguments being appended as additional instructions to the prompt rather than replacing the built-in automation contract
 
-## Attribution, undercover mode, and Slack handoff change the `/commit-push-pr` prompt shape
+## Attribution, public-repo redaction mode, and Slack handoff change the `/commit-push-pr` prompt shape
 
 Equivalent behavior should preserve:
 
 - commit and PR attribution text being derived dynamically rather than hardcoded, with remote sessions using a resumable session URL and local sessions using configured or default attribution text
 - enhanced PR attribution being able to include contribution statistics, prompt-count hints, model naming that is sanitized for external repos, and optional internal-only trailer lines when the build and repo class allow it
 - user settings being able to override or suppress attribution without changing the rest of the command contract
-- internal "undercover" mode injecting strict instructions to avoid Anthropic-identifying language in commits or PRs while also removing reviewer defaults, changelog boilerplate, Slack follow-up, and attribution text
-- the default public-facing path still requesting a Claude reviewer on PR creation or update unless undercover mode explicitly strips that behavior
+- an internal public-repo redaction mode injecting strict instructions to avoid company-identifying language in commits or PRs while also removing reviewer defaults, changelog boilerplate, Slack follow-up, and attribution text
+- the default public-facing path still requesting the configured automated reviewer on PR creation or update unless that redaction mode explicitly strips that behavior
 - the optional Slack follow-up step staying conditional on two things: project guidance mentioning Slack routing, and discovery of an actual Slack send tool
 - the Slack step asking the user for confirmation before posting the PR URL rather than sending automatically
 
@@ -124,6 +124,6 @@ Equivalent behavior should preserve:
 - **empty-review launch**: branch-mode ultrareview launches even though there is no diff against the fork point
 - **automation overreach**: `/commit-push-pr` gets broad shell freedom or performs partial multi-turn actions instead of one tightly bounded automation turn
 - **PR duplication**: the flow creates a second PR for a branch that already has one instead of editing the existing PR
-- **attribution leak**: undercover mode or user attribution settings are ignored, exposing internal wording or unwanted attribution in public PRs
+- **attribution leak**: public-repo redaction mode or user attribution settings are ignored, exposing internal wording or unwanted attribution in public PRs
 - **plugin-double path**: migrated commands both advertise plugin installation and still run the fallback path in the same build context
 - **stub resurrection**: `autofix-pr` becomes visible or active even though the current product intentionally ships only a hidden disabled stub

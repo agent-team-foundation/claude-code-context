@@ -27,7 +27,7 @@ It intentionally does not re-document:
 
 Equivalent behavior should preserve:
 
-- startup seeding `replBridgeEnabled` from full Remote Control or mirror posture, `replBridgeExplicit` from explicit CLI or command intent, `replBridgeOutboundOnly` from mirror mode, clearing live URLs or IDs or errors, and storing any requested session name before connect logic starts
+- startup seeding desired enablement from full Remote Control or mirror posture, seeding explicit-user-request origin separately from settings-driven origin, seeding outbound-only posture separately from full bidirectional posture, clearing stale live URLs or IDs or errors, and storing any requested session name before connect logic starts
 - app state keeping separate fields for desired enablement, explicit-versus-settings origin, outbound-only posture, ready versus session-active versus reconnecting phase, connect URL, session URL, environment ID, session ID, and last error so dialogs, footers, and transcript status surfaces can read one source of truth
 - `ready` meaning the bridge runtime has created or recovered a session and can show a pairing URL even though no active companion attachment exists yet, while `connected` means the live ingress stream is open and `reconnecting` means recovery is in progress rather than idle or disabled
 - outbound-only mirror mode exposing only the minimum projection needed for outbound forwarding, typically connected truth plus session identity, without publishing the full connect or session URL pair or full bidirectional callbacks

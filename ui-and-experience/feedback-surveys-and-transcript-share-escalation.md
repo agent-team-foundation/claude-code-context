@@ -16,14 +16,14 @@ This leaf covers:
 - the common survey state machine, transcript-share prompt, and transcript-submission contract
 - session feedback survey pacing and transcript-share escalation
 - post-compact and memory-specific survey triggers
-- detailed-feedback follow-up, auto-run issue notification, and the ant-only issue-flag banner
+- detailed-feedback follow-up, auto-run issue notification, and internal-only escalation extensions
 
 It intentionally does not re-document:
 
 - compaction internals beyond the survey trigger boundary already covered in [../memory-and-context/compact-path.md](../memory-and-context/compact-path.md)
 - durable-memory storage and recall beyond the memory-survey trigger conditions already covered in [../memory-and-context/durable-memory-recall-and-auto-memory.md](../memory-and-context/durable-memory-recall-and-auto-memory.md)
 - the broader command semantics behind `/feedback`, `/issue`, or `/good-claude`, which belong with the command surface
-- the separate ant-only skill-improvement survey, which reuses the same prompt region but applies suggested skill edits instead of collecting product feedback
+- the separate internal-only skill-improvement survey, which reuses the same prompt region but applies suggested skill edits instead of collecting product feedback
 
 ## Shared prompt-area shell
 
@@ -33,8 +33,8 @@ Equivalent behavior should preserve:
 - the whole stack only rendering while prompt input is visible, no higher-priority focused dialog has taken the lane, the session is not exiting, and the transcript cursor bar is not active
 - survey-opening logic refusing to arm while permission prompts, ask-user prompts, sandbox requests, elicitation prompts, or worker-permission prompts are already visible
 - a stable precedence inside the prompt area: auto-run issue notification first, then post-compact survey, then memory survey, then ordinary session survey
-- the ant-only frustration transcript-share surface remaining a separate sibling slot after those ordinary surveys instead of being folded into the session-survey logic
-- the ant-only skill-improvement survey and issue-flag banner rendering lower in the same prompt-area region without displacing the higher-priority survey surfaces above them
+- an internal-only frustration transcript-share surface remaining a separate sibling slot after those ordinary surveys instead of being folded into the session-survey logic
+- internal-only skill-improvement and issue-flag surfaces rendering lower in the same prompt-area region without displacing the higher-priority survey surfaces above them
 
 ## Shared digit-input contract
 
@@ -123,8 +123,8 @@ Equivalent behavior should preserve:
 - both the sticky memory-read flag and the set of already-evaluated assistant messages resetting when `/clear` empties the message list even though the REPL component stays mounted
 - the final probability gate being a fixed twenty-percent chance per newly eligible assistant message in the shipped implementation
 - the memory survey using its own prompt text, asking how well Claude used its memory rather than how the session went overall
-- ant builds escalating both bad and good memory ratings into transcript-share without an extra probability gate once the survey is shown
-- external builds compiling that transcript-share branch away entirely even though the shared transcript-submit backend still supports the `memory_survey` trigger
+- narrower internal builds escalating both bad and good memory ratings into transcript-share without an extra probability gate once the survey is shown
+- public builds omitting that transcript-share branch even though the shared transcript-submit backend still supports the `memory_survey` trigger
 
 ## Detailed feedback handoff and auto-run issue
 
@@ -134,19 +134,19 @@ Equivalent behavior should preserve:
 - a good response showing an optional one-shot `1` follow-up that launches a richer feedback command
 - a fine response showing informational guidance toward the richer feedback command without auto-launching it
 - a bad response showing issue-reporting guidance rather than the good-response follow-up affordance
-- the richer follow-up command being `/feedback` in the shipped external build and `/issue` in ant builds
+- the richer follow-up command being `/feedback` in the shipped public build and a diagnostics-oriented command in narrower internal builds
 - one REPL-side wrapper around the ordinary session survey being responsible for deciding whether a bad response should arm auto-run issue behavior
 - that wrapper only considering auto-run when the response was `bad` and no transcript-share prompt took over the flow
 - the auto-run notification living above the survey stack, auto-submitting its command on mount, and still wiring Escape as a cancellation path for the notification surface
 - a sticky per-cycle ref suppressing the ordinary follow-up affordance after auto-run has been armed, so the user is not immediately offered a second redundant escalation path from the same rating
 - the shipped external build currently leaving `shouldAutoRunIssue(...)` hard-false for both bad and good reasons, so the helper types and UI exist but no automatic feedback command actually triggers there
-- the helper contract still reserving a future good-response auto-run path, including a distinct `feedback_survey_good` reason and `/good-claude` command helper in ant builds
+- the helper contract still reserving a future good-response auto-run path, including a distinct positive-feedback reason and helper in narrower builds
 
-## Ant-only issue-flag banner
+## Internal-only issue-flag banner
 
 Equivalent behavior should preserve:
 
-- a separate ant-only banner surface that nudges the user toward `/issue` when the latest user message looks frustrated
+- a separate internal-only banner surface that nudges the user toward a diagnostics-oriented issue command when the latest user message looks frustrated
 - friction detection being based on the latest user message rather than on a vague whole-session sentiment score
 - the trigger patterns including direct corrections, references to missed instructions, `why did you`, `you were supposed to`, `try again`, and undo or revert phrasing
 - a minimum of three user submits before this banner can appear
@@ -154,15 +154,15 @@ Equivalent behavior should preserve:
 - once triggered, the banner staying visible until the next user submit rather than disappearing on the next render tick
 - compatibility checks suppressing the banner for sessions that already crossed into incompatible containers, especially any session that used MCP tools
 - the same compatibility check also suppressing the banner when prior Bash tool calls match external-command patterns such as `curl`, `ssh`, `kubectl`, `docker`, cloud CLIs, `git push/pull/fetch`, or `gh pr`/`gh issue`
-- the external build's component body being compiled down to `null` even though the hook logic and source map still reveal the intended ant-only banner contract
+- public builds omitting the banner UI even though adjacent hooks still reveal the extension point
 
-## Adjacent ant-only transcript-share hook
+## Adjacent internal-only transcript-share hook
 
 Equivalent behavior should preserve:
 
 - a dedicated frustration-detection slot after the ordinary surveys instead of pretending every transcript-share request originates from the session survey
 - the transcript-share backend still reserving a `frustration` trigger value even in the external source dump
-- the current external build stubbing the frustration hook to a permanently closed state and omitting the implementation module from the source snapshot
+- the current public build stubbing the frustration hook to a permanently closed state and omitting the implementation module from the snapshot
 - rebuilds therefore keeping frustration-triggered transcript sharing as a separate extension point, even if the precise internal detector must be reconstructed from other evidence later
 
 ## Failure modes

@@ -15,6 +15,7 @@ The runtime supports multiple compaction modes with shared primitives:
 - full compaction (auto or manual)
 - partial compaction around a user-selected pivot
 - session-memory-driven compaction when eligible
+- resumed-session session-memory compaction when a working summary exists but no precise summarized-boundary marker survived the resume path
 
 All modes still produce the same core artifact shape: compact boundary, summary message(s), optional preserved segment, post-compact attachments, and hook outputs.
 
@@ -60,8 +61,17 @@ After summary generation, the runtime rebuilds critical working context:
 - in-flight async agent status attachments
 - deferred-tool, agent-listing, and MCP-instruction delta attachments
 - session-start hook outputs, so instruction surfaces are reintroduced in a consistent way
+- session-memory summaries being section-truncated when needed before reinsertion, so one bloated working note cannot consume the entire post-compact budget
 
 If this rehydration is skipped, the next turn sees a syntactically valid but operationally incomplete context.
+
+## Session-memory-specific safety rails
+
+Equivalent behavior should preserve:
+
+- missing or template-only session-memory artifacts falling back to legacy compaction instead of pretending a usable working summary exists
+- stale summarized-boundary markers that no longer resolve in the live transcript also falling back to legacy compaction instead of guessing a cutoff
+- resumed sessions with a real working summary but no boundary marker still being able to use the session-memory path by preserving a fresh recent tail selected from the current transcript
 
 ## Cleanup and cache-state resets
 

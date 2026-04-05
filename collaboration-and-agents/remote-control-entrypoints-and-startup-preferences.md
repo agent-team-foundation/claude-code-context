@@ -15,8 +15,8 @@ This leaf covers:
 - the separate entrypoint contracts for standalone bootstrap, root startup flags, and in-REPL slash command
 - the fast-path ordering for standalone remote-control bootstrap
 - persisted startup preference resolution for interactive sessions
-- migration from the leaked persisted key to the newer user-facing key
-- the distinction between persisted config names and live in-memory app-state names
+- migration from older bridge-centric persisted preferences into the newer user-facing startup preference
+- the distinction between persisted preference naming and live in-memory app-state naming
 
 It intentionally does not re-document:
 
@@ -81,25 +81,25 @@ Conflating the slash command with the standalone host launcher would erase impor
 
 Equivalent behavior should preserve:
 
-- one persisted config key named `remoteControlAtStartup`
+- one persisted user-facing startup preference for "enable Remote Control automatically at startup"
 - precedence of explicit user config over rollout-provided auto-connect defaults over plain false
 - user opt-out always winning over rollout-driven default enablement
 - interactive startup reading the effective startup preference as an input to desired bridge state, not as proof that a live session is already connected
 
 This keeps a stable distinction between "should try to start" and "is currently connected."
 
-## Migration from leaked key to user-facing key
+## Legacy startup-preference migration
 
 Equivalent behavior should preserve:
 
-- migration from legacy persisted key `replBridgeEnabled` to `remoteControlAtStartup`
+- migration from an older bridge-centric persisted key into the newer user-facing startup preference
 - that migration running inside the version-gated main interactive migration flow, not inside the standalone bootstrap fast-path
 - migration copying the old value only when the new key is absent
 - migration deleting the old key only in the branch where it actually performs the copy
 
 One subtle compatibility consequence also matters:
 
-- if `remoteControlAtStartup` already exists, migration exits early and leaves the old `replBridgeEnabled` key on disk unchanged
+- if the new startup preference already exists, migration exits early and may leave the older key on disk unchanged
 
 So a rebuild should not assume that absence of cleanup means the migration never ran.
 
@@ -107,8 +107,8 @@ So a rebuild should not assume that absence of cleanup means the migration never
 
 Equivalent behavior should preserve a deliberate naming split:
 
-- persisted configuration uses the user-facing key `remoteControlAtStartup`
-- live session state still uses `replBridgeEnabled` and related `replBridge*` fields for desired and live bridge posture inside app state
+- persisted configuration uses user-facing preference names
+- live session state can keep bridge-centric internal field names for desired posture, live posture, and error details
 
 That means documentation and tooling should distinguish persisted preferences from runtime state instead of assuming one rename propagated everywhere.
 

@@ -48,7 +48,7 @@ Without that last step, the UI and the model drift apart about which output chan
 Equivalent behavior should preserve:
 
 - proactive activation happening before tool discovery so the Sleep tool is present from the first autonomous turn
-- hidden `<tick>` prompts being enqueued only after the queue goes idle, with an event-loop yield so pending user input or interrupts win the race
+- hidden periodic wake-up prompts being enqueued only after the queue goes idle, with an event-loop yield so pending user input or interrupts win the race
 - ticks using ordinary queued-prompt machinery rather than a separate transcript backdoor
 - control requests being able to toggle proactive mode on or off mid-session
 - paused or context-blocked states suppressing further ticks until compaction or recovery clears the block

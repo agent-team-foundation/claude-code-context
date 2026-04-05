@@ -15,7 +15,7 @@ This leaf covers:
 - how auto-dream is enabled, initialized, and triggered from the main runtime
 - the exact time gate, session gate, scan throttle, and cross-process lock contract
 - the forked worker's prompt, tool restrictions, and transcript-isolation behavior
-- how success, kill, and failure paths reuse the same lock-rewind semantics
+- how success, kill, failure, and manual-trigger paths reuse the same consolidation-marker lineage
 
 It intentionally does not re-document:
 
@@ -31,7 +31,7 @@ Equivalent behavior should preserve:
 - auto-dream being initialized during startup housekeeping but actually executing only from the main turn-stop hook, not from its own standalone timer
 - fire-and-forget invocation only on main-thread turns, never from subagents or other `agentId`-bearing turns
 - the whole background-memory housekeeping family being skipped in bare or simple-style sessions where forked memory workers should not contend for shutdown time
-- auto-dream being disabled in remote mode, disabled in KAIROS assistant mode, and disabled whenever auto-memory itself is off
+- auto-dream being disabled in remote mode, disabled in proactive assistant mode, and disabled whenever auto-memory itself is off
 - the enable flag coming from a small config helper where an explicit `autoDreamEnabled` user setting overrides the server-side experiment default, while an unset setting falls through to the experiment payload
 
 ## Trigger thresholds and gate ordering
@@ -41,18 +41,18 @@ Equivalent behavior should preserve:
 - a cheapest-first gate sequence of time check, session scan, then lock acquisition
 - threshold knobs being read from the same experiment payload as the enable default, with defensive per-field validation and independent fallback to defaults when cached experiment values are wrong-type, non-finite, or non-positive
 - default scheduling thresholds of roughly 24 hours since the last successful consolidation and at least 5 other sessions touched since then
-- the time gate reading one durable timestamp only: the lock file mtime, which stands for `lastConsolidatedAt`
+- the time gate reading one durable timestamp only: the lock artifact's modification time, which stands for `lastConsolidatedAt`
 - the session gate counting transcript files whose mtime is newer than that timestamp, then excluding the current session so a single active conversation does not self-qualify merely by continuing to write its own transcript
 - a scan throttle of about 10 minutes once the time gate is open but the session gate is still closed, so repeated turns do not rescan transcript metadata every time
 - session counting being based on sessions touched since the last consolidation rather than turns inside the current session, so the trigger prefers cross-session accumulation of stable signal
 
-## Lock file contract
+## Lock artifact contract
 
 Equivalent behavior should preserve:
 
-- one lock file named `.consolidate-lock` living inside the durable memory directory, so the lock keys on the same git-root memory scope as the memories it protects
-- the lock file body carrying the holder PID while the lock file mtime carries the precondition timestamp for future runs
-- missing lock files meaning "never consolidated" with an effective timestamp of zero
+- one lock artifact living inside the durable memory directory, so the lock keys on the same git-root memory scope as the memories it protects
+- the lock artifact body carrying the holder PID while its modification time carries the precondition timestamp for future runs
+- missing lock artifacts meaning "never consolidated" with an effective timestamp of zero
 - lock acquisition first reading any existing PID and mtime, then treating a recent live PID holder as authoritative and bailing without firing another dream
 - stale or reclaimable holders including dead PIDs, unparseable bodies, and holders whose mtime is older than about one hour even if the PID still exists, as a PID-reuse guard
 - successful acquisition creating the memory directory if needed, writing the current PID, then rereading the file so two simultaneous reclaimers resolve by last writer wins and the loser exits
@@ -68,6 +68,7 @@ Equivalent behavior should preserve:
 - rollback failures being non-fatal but effectively delaying the next trigger until the normal minimum-hours window, because the timestamp could not be rewound
 - user kill and ordinary fork failure sharing the same rollback primitive so all aborted consolidations reopen the door for future runs
 - kill paths and outer abort cleanup not both rewinding the lock for the same run; once the task layer handled the abort, the outer auto-dream catcher must simply notice the aborted signal and exit
+- foreground or manual consolidation runs stamping the same durable "last consolidated" marker lineage, so a successful manual pass suppresses immediate auto-redreaming instead of looking unrelated to the background scheduler
 
 ## Session discovery semantics
 
@@ -121,4 +122,4 @@ Equivalent behavior should preserve:
 - **double-fire race**: two reclaimers both believe they acquired the lock because there is no PID liveness check or no post-write verification read
 - **memory-scope escape**: the dream worker can edit project files or run mutating shell commands instead of being confined to durable memory maintenance
 - **transcript flood**: the worker reads whole JSONL transcripts or shares its own fork transcript back into the main session, turning consolidation into context pollution
-- **mode collision**: KAIROS assistant-mode distillation and auto-dream both run against the same memory root and create conflicting consolidation behavior
+- **mode collision**: proactive assistant-mode distillation and auto-dream both run against the same memory root and create conflicting consolidation behavior

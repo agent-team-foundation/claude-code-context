@@ -10,7 +10,7 @@ Remote handoff covers the transition from a local coding session into a remote o
 
 ## Main variants
 
-- teleport a new task to a remote environment
+- hand off a new task to a remote environment
 - resume an existing remote or web-backed session from a local machine
 - launch remote review or planning work and keep a local task handle
 - attach a bridge or companion client to an active session

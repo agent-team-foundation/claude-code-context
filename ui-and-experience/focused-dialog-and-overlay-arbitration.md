@@ -17,7 +17,7 @@ The high-priority arbitration contract is:
 1. exit/shutdown state wins and suppresses ordinary dialog focus
 2. message-selector-style restore UI wins over everything else
 3. when the user is actively typing, interruptive approval/prompt dialogs are temporarily suppressed instead of stealing focus
-4. otherwise, blocking request dialogs such as sandbox approval, tool permission, prompt questions, worker-network approval, elicitation, cost threshold, idle-return, and ultraplan choice/launch take precedence
+4. otherwise, blocking request dialogs such as sandbox approval, tool permission, prompt questions, worker-network approval, elicitation, cost threshold, idle-return, and remote-planning choice/launch take precedence
 5. lower-priority onboarding, callout, recommendation, and upsell dialogs only appear when higher-priority blockers are absent
 
 The point is not just visual stacking. The focused dialog controls cancellation, attention routing, and in some cases whether transcript animation is allowed to continue.

@@ -22,7 +22,7 @@ It intentionally does not re-document:
 - registry composition, precedence, and name resolution already covered in [command-dispatch-and-composition.md](command-dispatch-and-composition.md)
 - skill discovery channels and frontmatter loading rules already covered in [../integrations/plugins/skill-loading-contract.md](../integrations/plugins/skill-loading-contract.md)
 - model-facing and human-facing skill listing surfaces already covered in [../integrations/plugins/skill-discovery-and-listing-surfaces.md](../integrations/plugins/skill-discovery-and-listing-surfaces.md)
-- feature-gated discovery-tool overlays and remote canonical skill follow-through already covered in [../integrations/plugins/skill-search-and-canonical-skill-flow.md](../integrations/plugins/skill-search-and-canonical-skill-flow.md)
+- feature-gated discovery-tool overlays and remote discovered-skill follow-through already covered in [../integrations/plugins/feature-gated-remote-skill-discovery-overlay.md](../integrations/plugins/feature-gated-remote-skill-discovery-overlay.md)
 - markdown prompt compilation, placeholder substitution, and inline shell execution already covered in [../integrations/plugins/markdown-prompt-shell-expansion.md](../integrations/plugins/markdown-prompt-shell-expansion.md)
 - the post-selection worker runtime shaping once a forked prompt has already become a worker run, already covered in [../tools-and-permissions/agent-runtime-context-and-tool-shaping.md](../tools-and-permissions/agent-runtime-context-and-tool-shaping.md)
 
@@ -102,7 +102,7 @@ Equivalent behavior should preserve:
 - SkillTool permission checks honoring explicit allow and deny rules for exact names and prefix patterns
 - Skills with only a reviewed safe-property subset auto-approving through SkillTool, while any extra meaningful properties force an ask path by default
 - ask-mode SkillTool permissions suggesting both an exact allow rule and a prefix allow rule for future reuse
-- a feature-gated remote or canonical skill variant remaining a separate model-only path: once previously discovered, it bypasses local command lookup and injects remote markdown directly instead of running local slash-command compilation
+- a feature-gated remote discovered-skill variant remaining a separate model-only path: once previously discovered, it bypasses local command lookup and injects remote markdown directly instead of running local slash-command compilation
 
 ## Inline SkillTool execution reuses prompt expansion but changes state propagation
 

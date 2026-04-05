@@ -35,7 +35,7 @@ Equivalent behavior should preserve:
 
 Equivalent behavior should preserve:
 
-- exactly one remote planning session taking over the summary contract with a dedicated planning brand instead of the generic cloud-session wording
+- exactly one remote planning session taking over the summary contract with a specialized planning label instead of the generic cloud-session wording
 - default planning state showing that branded label with an open diamond and no attention call-to-action
 - input-required planning state keeping the open diamond but swapping in an explicit user-input-needed tail
 - plan-ready planning state switching to a filled diamond plus a ready tail, so the compact summary becomes more urgent than ordinary running remote work

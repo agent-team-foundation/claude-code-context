@@ -65,7 +65,7 @@ Equivalent behavior should preserve:
 
 - the teammate-activity utility layer also owning the predicate that hides the generic tasks footer when the spinner tree is open and every visible background task is an in-process teammate
 - that footer-suppression predicate using the same background-task visibility filter as the broader status surfaces before deciding whether the generic footer would be redundant
-- ant or coordinator-only panel-managed named local agents being excluded from that redundancy check the same way they are excluded from the generic footer itself
+- coordinator-panel-managed named local agents in eligible builds being excluded from that redundancy check the same way they are excluded from the generic footer itself
 
 ## Failure modes
 

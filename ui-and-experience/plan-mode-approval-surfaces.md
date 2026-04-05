@@ -1,7 +1,7 @@
 ---
 title: "Plan Mode Approval Surfaces"
 owners: []
-soft_links: [/ui-and-experience/permission-prompt-shell-and-worker-states.md, /tools-and-permissions/permission-decision-pipeline.md, /runtime-orchestration/turn-attachments-and-sidechannels.md, /runtime-orchestration/ultraplan-remote-plan-loop.md, /product-surface/session-state-and-breakpoints.md]
+soft_links: [/ui-and-experience/permission-prompt-shell-and-worker-states.md, /tools-and-permissions/permission-decision-pipeline.md, /runtime-orchestration/turn-attachments-and-sidechannels.md, /runtime-orchestration/remote-planning-session-loop.md, /product-surface/session-state-and-breakpoints.md]
 ---
 
 # Plan Mode Approval Surfaces
@@ -42,9 +42,9 @@ Equivalent behavior should preserve:
 - the first acceptance slot preferring auto mode when available, otherwise bypass-permissions when available, otherwise accept-edits
 - the second acceptance slot being the keep-context elevated option, again preferring auto mode over bypass-permissions over accept-edits
 - a manual-approval keep-context option always remaining available as the lower-risk accept path
-- the Ultraplan deferral option appearing only when the feature is enabled and no Ultraplan session is already active or launching
+- the remote-planning deferral option appearing only when the feature is enabled and no remote-planning session is already active or launching
 - the final "keep planning" option being an input-backed response rather than a plain reject button, so the user can send revision guidance back with the rejection
-- the option order remaining stable: clear-context first when enabled, then elevated keep-context, then manual keep-context, then optional Ultraplan, then the input-backed rejection path
+- the option order remaining stable: clear-context first when enabled, then elevated keep-context, then manual keep-context, then optional remote planning, then the input-backed rejection path
 
 ## Feedback, editing, and attachments
 
@@ -85,8 +85,8 @@ Equivalent behavior should preserve:
 - the plan-review surface using refs when it registers a fullscreen sticky footer, so footer controls keep select focus and input state even while the surrounding component rerenders
 - fullscreen mode moving the choice list into the sticky footer only when a real non-empty plan exists, while scrollback mode keeps the options inline below the plan body
 - sticky-footer teardown clearing the footer registration when the dialog disappears, so long-plan controls do not leak into later UI states
-- choosing Ultraplan dismissing the local dialog immediately, rejecting the local plan execution, and launching the remote refinement flow asynchronously so the command loop is not blocked
-- once Ultraplan launches, local visibility moving from the approval dialog into background task and active-session state rather than leaving the plan dialog mounted as a fake progress surface
+- choosing remote planning dismissing the local dialog immediately, rejecting the local plan execution, and launching the remote refinement flow asynchronously so the command loop is not blocked
+- once remote planning launches, local visibility moving from the approval dialog into background task and active-session state rather than leaving the plan dialog mounted as a fake progress surface
 
 ## Failure modes
 

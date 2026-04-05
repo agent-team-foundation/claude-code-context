@@ -30,8 +30,8 @@ It intentionally does not re-document:
 Equivalent behavior should preserve:
 
 - a split between desired bridge state and live bridge state, with one flag that says Remote Control should be running and separate fields for ready, active, reconnecting, failed, URL, and debug identity
-- startup seeding the desired bridge state from explicit remote-control launch, the effective `remoteControlAtStartup` setting, or assistant-mode forcing, instead of making the hook rediscover those causes later
-- `remoteControlAtStartup` precedence of explicit user config over rollout-provided defaults over plain false, so a user opt-out beats background auto-connect
+- startup seeding the desired bridge state from explicit remote-control launch, the effective startup preference, or assistant-mode forcing, instead of making the hook rediscover those causes later
+- startup-preference precedence of explicit user config over rollout-provided defaults over plain false, so a user opt-out beats background auto-connect
 - outbound-only mirror mode being a separate startup posture that turns on only when full bidirectional Remote Control is absent
 - explicit session naming being stored in app state before connect logic runs, so later init paths can reuse that name as the first bridge session title
 
@@ -71,7 +71,7 @@ Detailed projection and narrowing rules live in [bridge-session-state-projection
 Equivalent behavior should preserve:
 
 - disconnecting from the command dialog or footer dialog clearing desired bridge state together with explicit and outbound-only markers in one coordinated transition
-- persistent `remoteControlAtStartup=false` being written only when the active bridge was explicitly user-enabled, not when the session was auto-connected by settings or rollout defaults
+- a persistent startup opt-out being written only when the active bridge was explicitly user-enabled, not when the session was auto-connected by settings or rollout defaults
 - continuing from the dialog leaving desired bridge state untouched and simply dismissing the overlay
 - interactive status surfaces reading live app state instead of recomputing bridge truth independently, so ready, active, reconnecting, and failed states stay consistent across transcript rows, footer pills, and dialogs
 

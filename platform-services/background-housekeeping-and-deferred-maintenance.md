@@ -1,7 +1,7 @@
 ---
 title: "Background Housekeeping and Deferred Maintenance"
 owners: []
-soft_links: [/platform-services/interactive-startup-and-project-activation.md, /platform-services/bootstrap-and-service-failures.md, /memory-and-context/auto-dream-consolidation-and-locking.md, /integrations/plugins/skill-improvement-detection-and-apply-flow.md, /integrations/plugins/plugin-management-and-marketplace-flows.md]
+soft_links: [/platform-services/interactive-startup-and-project-activation.md, /platform-services/bootstrap-and-service-failures.md, /memory-and-context/auto-dream-consolidation-and-locking.md, /integrations/plugins/feature-gated-project-skill-improvement-loop.md, /integrations/plugins/plugin-management-and-marketplace-flows.md]
 ---
 
 # Background Housekeeping and Deferred Maintenance
@@ -22,7 +22,7 @@ It intentionally does not re-document:
 
 - the broader startup pipeline already covered in [interactive-startup-and-project-activation.md](interactive-startup-and-project-activation.md)
 - deeper auto-dream internals already covered in [../memory-and-context/auto-dream-consolidation-and-locking.md](../memory-and-context/auto-dream-consolidation-and-locking.md)
-- the detailed skill-improvement detector already covered in [../integrations/plugins/skill-improvement-detection-and-apply-flow.md](../integrations/plugins/skill-improvement-detection-and-apply-flow.md)
+- the detailed skill-improvement detector already covered in [../integrations/plugins/feature-gated-project-skill-improvement-loop.md](../integrations/plugins/feature-gated-project-skill-improvement-loop.md)
 - marketplace refresh and plugin update internals already covered in [../integrations/plugins/plugin-management-and-marketplace-flows.md](../integrations/plugins/plugin-management-and-marketplace-flows.md)
 
 ## Startup entry contract
@@ -66,7 +66,7 @@ Equivalent behavior should preserve:
 Equivalent behavior should preserve:
 
 - long-lived sessions scheduling a recurring maintenance interval at roughly twenty-four-hour cadence
-- that recurring interval being ant-only
+- that recurring interval being limited to narrower internal builds
 - the recurring interval cleaning npm cache entries for Anthropic packages and running the throttled old-version cleanup wrapper
 - the recurring old-version cleanup using per-machine marker files and lockfiles so it runs at most once per day even if many processes are alive
 - npm cache cleanup following the same "skip if recent, skip if another process holds the lock" pattern

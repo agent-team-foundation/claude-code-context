@@ -1,12 +1,12 @@
 ---
 title: "Feedback and Issue Commands"
 owners: []
-soft_links: [/ui-and-experience/feedback-surveys-and-transcript-share-escalation.md, /runtime-orchestration/build-profiles.md, /platform-services/privacy-level-and-grove-policy-flow.md, /platform-services/auth-config-and-policy.md]
+soft_links: [/ui-and-experience/feedback-surveys-and-transcript-share-escalation.md, /runtime-orchestration/build-profiles.md, /platform-services/consumer-privacy-policy-flow.md, /platform-services/auth-config-and-policy.md]
 ---
 
 # Feedback and Issue Commands
 
-Claude Code does not expose one undifferentiated "report a problem" button. The public external build has a manual `/feedback` flow. The source also preserves stubs, UI hints, and escalation wiring for richer `/issue` and `/good-claude` paths that belong to narrower builds. Rebuilding the surface faithfully means preserving that split and flagging what is still only partially visible in this clean-room snapshot.
+Claude Code does not expose one undifferentiated "report a problem" button. The public build has a manual `/feedback` flow. The clean-room snapshot also shows stubs, UI hints, and escalation wiring for richer `/issue` and positive-feedback paths that belong to narrower builds. Rebuilding the surface faithfully means preserving that split and flagging what is still only partially visible.
 
 ## Scope boundary
 
@@ -32,7 +32,7 @@ Equivalent behavior should preserve:
   - third-party provider builds such as Bedrock, Vertex, or Foundry
   - essential-traffic-only privacy posture
   - explicit env kill-switches
-  - internal ant builds
+  - certain internal first-party builds that route feedback elsewhere
   - policy configurations that disallow product feedback
 
 ## `/feedback` is a staged capture and consent flow
@@ -66,15 +66,15 @@ Equivalent behavior should preserve:
 - only after successful upload offering Enter to open a prefilled GitHub issue draft in the browser
 - custom-data-retention or ZDR-style server refusal surfacing a specific explanatory message instead of a generic network failure
 
-## `/issue` and `/good-claude` are narrower build-specific lanes
+## `/issue` and the positive-feedback lane are narrower build-specific surfaces
 
 Equivalent behavior should preserve:
 
-- the external source snapshot shipping `/issue` and `/good-claude` as hidden inert stubs rather than usable public commands
-- rebuilds not inventing detailed public behavior for those commands purely from their filenames
+- the current clean-room evidence showing `/issue` and the positive-feedback counterpart as hidden inert stubs rather than usable public commands
+- rebuilds not inventing detailed public behavior for those commands purely from their names
 - the semantic split that is still visible around them:
   - `/issue` is the model-behavior or diagnostics-oriented escalation path
-  - `/good-claude` is the positive-feedback counterpart reserved for narrower builds
+  - the positive-feedback counterpart is reserved for narrower builds
 - `/issue` being treated as distinct from general product feedback or broad product bugs, even when the concrete UI implementation is absent in this snapshot
 - `/issue` likely carrying a richer diagnostics posture than `/feedback`, because surrounding tooling explicitly preserves extra per-request traces for issue-style debugging
 
@@ -101,8 +101,8 @@ Equivalent behavior should preserve:
 
 ## Failure modes
 
-- **surface flattening**: `/feedback`, `/issue`, and `/good-claude` are treated as one generic report flow with no distinction between product feedback and model-behavior diagnostics
-- **public overclaim**: the rebuild invents a concrete `/issue` or `/good-claude` body that is not actually visible in the clean-room snapshot
+- **surface flattening**: `/feedback`, `/issue`, and the positive-feedback lane are treated as one generic report flow with no distinction between product feedback and model-behavior diagnostics
+- **public overclaim**: the rebuild invents a concrete `/issue` or positive-feedback body that is not actually visible in the clean-room snapshot
 - **report undercapture**: `/feedback` collects only freeform text and drops transcript, subagent, or request context that the product relies on for debugging
 - **auto-run surprise**: the external build starts auto-launching `/issue` even though the observed snapshot keeps that path wired but disabled
 - **retention mismatch**: ZDR or custom-retention refusal is treated like an ordinary transient network error instead of a policy-specific block

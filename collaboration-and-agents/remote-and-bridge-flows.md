@@ -15,6 +15,6 @@ Capabilities in this area include:
 - interactive sessions whose REPL can keep an always-on Remote Control bridge alive through explicit command, startup auto-connect, or outbound-only mirror mode
 - standalone remote-control hosting that can stay as one resumable session or become a persistent multi-session host with shared-directory versus worktree-isolated placement
 - direct-connect or session-handoff flows that require auth, transport setup, and repo identity checks
-- resume and teleport behavior that brings remote results back into the local working context
+- resume and cross-machine handoff behavior that brings remote results back into the local working context
 
 A correct reimplementation should treat transport, auth, and repository validation as first-class concerns. Remote handoff is part of the product experience, not a hidden implementation trick.
