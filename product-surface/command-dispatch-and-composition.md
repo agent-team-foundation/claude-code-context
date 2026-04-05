@@ -21,6 +21,7 @@ This leaf covers:
 It intentionally does not re-document:
 
 - skill-source discovery details already covered in [../integrations/plugins/skill-loading-contract.md](../integrations/plugins/skill-loading-contract.md)
+- prompt-command and SkillTool execution semantics already covered in [prompt-command-and-skill-execution.md](prompt-command-and-skill-execution.md)
 - workflow execution semantics already covered in [../runtime-orchestration/workflow-script-runtime.md](../runtime-orchestration/workflow-script-runtime.md)
 - MCP connection and refresh behavior already covered in [../integrations/mcp/mcp-surface-state-assembly-and-live-refresh.md](../integrations/mcp/mcp-surface-state-assembly-and-live-refresh.md)
 
