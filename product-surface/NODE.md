@@ -18,7 +18,7 @@ Relevant leaves:
 - **[prompt-command-and-skill-execution.md](prompt-command-and-skill-execution.md)** — How prompt-backed slash commands and SkillTool calls divide inline query re-entry, worker-backed fork execution, coordinator summaries, and turn-scoped permission or model overrides.
 - **[review-and-pr-automation-commands.md](review-and-pr-automation-commands.md)** — How `/review`, `/ultrareview`, `/commit-push-pr`, `/pr-comments`, `/security-review`, and the hidden `autofix-pr` stub divide local prompt expansion, remote review launch, plugin fallback, and GitHub automation behavior.
 - **[feedback-and-issue-commands.md](feedback-and-issue-commands.md)** — How `/feedback`, `/issue`, `/good-claude`, and reserved auto-run escalation paths divide public product feedback from narrower model-diagnostics flows.
-- **[session-utility-commands.md](session-utility-commands.md)** — Rename, tag, resume-adjacent, copy, export, and session-inspection commands that operate on session artifacts.
+- **[session-utility-commands.md](session-utility-commands.md)** — How rename, tag, copy, export, remote session inspection, and resume-adjacent commands expose session metadata, transcript extraction, and guarded continuation.
 - **[session-state-and-breakpoints.md](session-state-and-breakpoints.md)** — User-visible session phases, mode transitions, and where interaction can fail or be deferred.
 - **[command-runtime-matrix.md](command-runtime-matrix.md)** — How command families map onto runtime subsystems, tool families, and task types.
 - **[end-to-end-scenario-graphs.md](end-to-end-scenario-graphs.md)** — Concrete user journey to command to runtime to tool or task to state-transition flows.
