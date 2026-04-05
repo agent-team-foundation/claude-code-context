@@ -1,14 +1,14 @@
 ---
-title: "Special Entrypoint Argv Rewrite and Fullscreen Handoff"
+title: "Startup Entrypoint Routing and Session Handoff"
 owners: []
 soft_links: [/integrations/clients/direct-connect-session-bootstrap-and-environment-selection.md, /integrations/clients/assistant-viewer-attach-and-history-paging.md, /integrations/clients/ssh-remote-session-and-auth-proxy.md, /collaboration-and-agents/remote-and-bridge-flows.md]
 ---
 
-# Special Entrypoint Argv Rewrite and Fullscreen Handoff
+# Startup Entrypoint Routing and Session Handoff
 
-Some Claude Code entry surfaces are not ordinary subcommands. They are recognized before normal command dispatch, rewritten back into the main startup path, and then handed off to the full-screen REPL or a special headless runner. Rebuilding them as independent command handlers would miss important behavior.
+Some Claude Code entry surfaces are not ordinary subcommands. They are recognized before normal command dispatch, rewritten back into the main startup path, and then handed off to the interactive REPL or a special headless runner. Rebuilding them as independent command handlers would miss important behavior.
 
-## Rewrite-first boundary
+## Early routing boundary
 
 Equivalent behavior should preserve:
 

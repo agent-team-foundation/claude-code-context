@@ -1,7 +1,7 @@
 ---
 title: "Tool Families"
 owners: []
-soft_links: [/integrations/mcp/server-contract.md, /runtime-orchestration/task-model.md, /tools-and-permissions/control-plane-tools.md, /tools-and-permissions/task-and-team-control-tool-contracts.md, /tools-and-permissions/config-discovery-and-trigger-tool-contracts.md]
+soft_links: [/integrations/mcp/server-contract.md, /runtime-orchestration/task-model.md, /tools-and-permissions/control-plane-tools.md, /tools-and-permissions/task-and-team-control-tool-contracts.md, /tools-and-permissions/config-permission-and-sandbox-admin-surfaces.md]
 ---
 
 # Tool Families

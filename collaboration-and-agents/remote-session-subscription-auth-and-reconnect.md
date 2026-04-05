@@ -6,13 +6,13 @@ soft_links: [/collaboration-and-agents/remote-session-contract.md, /collaboratio
 
 # Remote Session Subscription Auth and Reconnect
 
-Claude Code's CCR-style remote sessions rely on a dedicated subscription channel that is narrower than the full remote-session concept. It owns WebSocket auth, message parsing tolerance, control-message demultiplexing, close-code-specific reconnect behavior, and keepalive management. A faithful rebuild needs these exact semantics or remote sessions will either die too eagerly or reconnect forever in the wrong situations.
+Claude Code's remote sessions rely on a dedicated subscription channel that is narrower than the full remote-session concept. It owns WebSocket auth, message parsing tolerance, control-message demultiplexing, close-code-specific reconnect behavior, and keepalive management. A faithful rebuild needs these exact semantics or remote sessions will either die too eagerly or reconnect forever in the wrong situations.
 
 ## Scope boundary
 
 This leaf covers:
 
-- the CCR session subscription socket and its header-authenticated connect path
+- the remote-session subscription socket and its header-authenticated connect path
 - message parsing, forward-compatible type acceptance, and control-message demultiplexing
 - pending permission-request bookkeeping at the remote-session manager layer
 - close-code-specific reconnect ladders, forced reconnect, and ping lifecycle
@@ -42,7 +42,7 @@ Equivalent behavior should preserve:
 - treating any object with a string `type` as a valid inbound envelope, so newly introduced backend message types are not silently discarded by a stale client-side allowlist
 - leaving unknown SDK message classes to downstream render or adapter code instead of rejecting them at the socket boundary
 - demultiplexing control requests, control-cancel requests, control responses, and ordinary SDK messages before any viewer rendering logic runs
-- acknowledgment-style control responses being treated as protocol noise for this layer rather than as transcript content
+- acknowledgment-style control responses and keepalive-like transport frames being treated as protocol noise for this layer rather than as transcript content
 - unsupported control-request subtypes returning an explicit protocol error response so the server does not hang forever waiting for a reply the client never intends to send
 
 ## Pending permission-request bookkeeping

@@ -1,7 +1,7 @@
 ---
 title: "SSH Remote Session and Auth Proxy"
 owners: []
-soft_links: [/integrations/clients/direct-connect-session-bootstrap-and-environment-selection.md, /integrations/clients/remote-session-message-adaptation-and-viewer-state.md, /product-surface/special-entrypoint-argv-rewrite-and-fullscreen-handoff.md, /platform-services/provider-specific-api-clients-and-auth-routing.md]
+soft_links: [/integrations/clients/direct-connect-session-bootstrap-and-environment-selection.md, /integrations/clients/remote-session-message-adaptation-and-viewer-state.md, /product-surface/startup-entrypoint-routing-and-session-handoff.md, /platform-services/provider-specific-api-clients-and-auth-routing.md]
 ---
 
 # SSH Remote Session and Auth Proxy
@@ -57,7 +57,7 @@ Equivalent behavior should preserve:
 
 Equivalent behavior should preserve:
 
-- the remote CLI receiving an `ANTHROPIC_UNIX_SOCKET` route that tunnels Anthropic API traffic through an SSH reverse-forwarded local auth proxy
+- the remote CLI receiving a dedicated session-scoped route that tunnels Anthropic API traffic through an SSH reverse-forwarded local auth proxy
 - that socket override being scoped only to Anthropic API clients, not to generic fetches, MCP HTTP or SSE transports, or other outbound traffic
 - non-Anthropic traffic continuing to use its normal proxy or direct-routing rules
 - cleanup shutting down both the SSH session manager and the local proxy helper when the session ends

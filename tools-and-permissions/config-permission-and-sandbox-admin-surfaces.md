@@ -1,17 +1,18 @@
 ---
-title: "Config Discovery and Trigger Tool Contracts"
+title: "Config, Permission Browser, and Sandbox Admin Surfaces"
 owners: []
 soft_links: [/tools-and-permissions/control-plane-tools.md, /platform-services/settings-change-detection-and-runtime-reload.md, /tools-and-permissions/path-and-filesystem-safety.md]
 ---
 
-# Config Discovery and Trigger Tool Contracts
+# Config, Permission Browser, and Sandbox Admin Surfaces
 
-Claude Code exposes several user- or model-facing control surfaces whose main job is to inspect or mutate runtime configuration. These surfaces are reconstruction-critical because they define which settings are safe to read, which writes need confirmation, and which admin actions are policy-gated. Local scheduling and remote trigger management are related control-plane families, but they have their own dedicated contracts in [local-scheduled-prompt-tool-contracts.md](local-scheduled-prompt-tool-contracts.md) and [remote-trigger-control-tool-contracts.md](remote-trigger-control-tool-contracts.md).
+Claude Code exposes several control surfaces whose main job is to inspect or mutate runtime configuration or approval state. The observed surfaces in this concern are not one product feature: they are a registry-backed config tool on eligible internal builds, a permission-rule browser with retry handoff, and sandbox admin flows that stay subordinate to policy. Local scheduling and remote trigger management are related control-plane families, but they have their own dedicated contracts in [local-scheduled-prompt-tool-contracts.md](local-scheduled-prompt-tool-contracts.md) and [remote-trigger-control-tool-contracts.md](remote-trigger-control-tool-contracts.md).
 
 ## Configuration tool contract
 
 Equivalent config-tool behavior should preserve:
 
+- the registry-backed config-mutation tool being allowed to disappear entirely in external builds while the neighboring permission and sandbox command surfaces still exist
 - a registry of supported settings rather than arbitrary key-path mutation
 - read operations that are treated as read-only discovery
 - write operations that request explicit approval

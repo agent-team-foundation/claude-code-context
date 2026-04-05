@@ -1,7 +1,7 @@
 ---
 title: "Control-Plane Tools"
 owners: []
-soft_links: [/tools-and-permissions/delegation-modes.md, /tools-and-permissions/permission-mode-transitions-and-gates.md, /tools-and-permissions/task-and-team-control-tool-contracts.md, /tools-and-permissions/config-discovery-and-trigger-tool-contracts.md, /runtime-orchestration/task-model.md, /runtime-orchestration/shared-task-control-plane-and-lifecycle-events.md, /runtime-orchestration/worktree-session-lifecycle.md, /integrations/clients/sdk-control-protocol.md, /collaboration-and-agents/peer-addressing-discovery-and-routing.md]
+soft_links: [/tools-and-permissions/delegation-modes.md, /tools-and-permissions/permission-mode-transitions-and-gates.md, /tools-and-permissions/task-and-team-control-tool-contracts.md, /tools-and-permissions/config-permission-and-sandbox-admin-surfaces.md, /runtime-orchestration/task-model.md, /runtime-orchestration/shared-task-control-plane-and-lifecycle-events.md, /runtime-orchestration/worktree-session-lifecycle.md, /integrations/clients/sdk-control-protocol.md, /collaboration-and-agents/peer-addressing-discovery-and-routing.md]
 ---
 
 # Control-Plane Tools
@@ -29,7 +29,7 @@ Equivalent implementations should preserve these invariants:
 Some control-plane families need stronger guarantees than a generic schema:
 
 - task and team tools should be transactional, with rollback or veto paths when hooks reject a mutation
-- config and trigger tools should write only through registry-backed, type-aware mutation paths
+- config tools should write only through registry-backed, type-aware mutation paths, while remote trigger tools preserve backend-owned request bodies instead of inventing local field-by-field normalization
 - permission-management surfaces should operate on source-attributed rule state rather than on flattened raw text blobs
 
 Coordination tools need an additional boundary:

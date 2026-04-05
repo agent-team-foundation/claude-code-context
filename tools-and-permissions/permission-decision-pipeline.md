@@ -30,6 +30,19 @@ The base permission engine evaluates in this order:
 
 Order matters because earlier objections intentionally override later broad allows.
 
+## Skill-specific split inside stage 1
+
+Skill execution is not one uniform permission path.
+
+Equivalent behavior should preserve:
+
+- skill-level deny rules being evaluated before any auto-allow path, including feature-gated remote discovered-skill execution
+- remote discovered-skill execution requiring prior discovery in the current session before permission resolution proceeds
+- that remote discovered-skill branch remaining a separate model-facing path from ordinary local skill lookup, with default allow only after deny checks have had a chance to block it
+- local prompt skills with only a reviewed safe metadata subset auto-allowing through SkillTool
+- local prompt skills with richer properties falling back to `ask`, with explicit exact-name and prefix allow-rule suggestions for future approvals
+- non-prompt or model-invocation-disabled skill targets failing validation before the normal permission dialog path, rather than being treated as ordinary ask decisions
+
 ## Bypass-immune checks
 
 Some asks must survive even the most permissive modes.
