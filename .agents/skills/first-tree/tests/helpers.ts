@@ -3,9 +3,15 @@ import { join } from "node:path";
 import { tmpdir } from "node:os";
 import { afterEach } from "vitest";
 import {
+  AGENT_INSTRUCTIONS_FILE,
+  AGENT_INSTRUCTIONS_TEMPLATE,
+  CLAUDE_SKILL_ROOT,
   FRAMEWORK_VERSION,
+  LEGACY_AGENT_INSTRUCTIONS_FILE,
+  LEGACY_REPO_SKILL_VERSION,
   LEGACY_SKILL_VERSION,
   LEGACY_VERSION,
+  SKILL_ROOT,
 } from "#skill/engine/runtime/asset-loader.js";
 
 interface TmpDir {
@@ -21,16 +27,51 @@ export function useTmpDir(): TmpDir {
 }
 
 export function makeFramework(root: string, version = "0.1.0"): void {
-  mkdirSync(join(root, "skills", "first-tree", "assets", "framework"), {
-    recursive: true,
-  });
+  for (const skillRoot of [SKILL_ROOT, CLAUDE_SKILL_ROOT]) {
+    mkdirSync(join(root, skillRoot, "assets", "framework"), {
+      recursive: true,
+    });
+    writeFileSync(
+      join(root, skillRoot, "SKILL.md"),
+      "---\nname: first-tree\ndescription: installed\n---\n",
+    );
+  }
   writeFileSync(join(root, FRAMEWORK_VERSION), `${version}\n`);
+  writeFileSync(
+    join(root, CLAUDE_SKILL_ROOT, "assets", "framework", "VERSION"),
+    `${version}\n`,
+  );
+}
+
+export function makeGitRepo(root: string): void {
+  mkdirSync(join(root, ".git"), { recursive: true });
+}
+
+export function makeSourceRepo(root: string): void {
+  makeGitRepo(root);
+  mkdirSync(join(root, "src"), { recursive: true });
+  writeFileSync(
+    join(root, "package.json"),
+    JSON.stringify({ name: "example-source-repo" }, null, 2),
+  );
+  writeFileSync(join(root, "src", "index.ts"), "export const ready = true;\n");
 }
 
 export function makeLegacyFramework(root: string, version = "0.1.0"): void {
   const ct = join(root, ".context-tree");
   mkdirSync(ct, { recursive: true });
   writeFileSync(join(root, LEGACY_VERSION), `${version}\n`);
+}
+
+export function makeLegacyRepoFramework(root: string, version = "0.1.0"): void {
+  mkdirSync(join(root, "skills", "first-tree", "assets", "framework"), {
+    recursive: true,
+  });
+  writeFileSync(
+    join(root, "skills", "first-tree", "SKILL.md"),
+    "---\nname: first-tree\ndescription: legacy installed\n---\n",
+  );
+  writeFileSync(join(root, LEGACY_REPO_SKILL_VERSION), `${version}\n`);
 }
 
 export function makeLegacyNamedFramework(
@@ -85,7 +126,7 @@ export function makeSourceSkill(root: string, version = "0.2.0"): void {
       "assets",
       "framework",
       "templates",
-      "agent.md.template",
+      AGENT_INSTRUCTIONS_TEMPLATE,
     ),
     "<!-- BEGIN CONTEXT-TREE FRAMEWORK -->\nframework text\n<!-- END CONTEXT-TREE FRAMEWORK -->\n",
   );
@@ -114,12 +155,15 @@ export function makeNode(
   );
 }
 
-export function makeAgentMd(
+export function makeAgentsMd(
   root: string,
-  opts?: { markers?: boolean; userContent?: boolean },
+  opts?: { markers?: boolean; userContent?: boolean; legacyName?: boolean },
 ): void {
   const markers = opts?.markers ?? true;
   const userContent = opts?.userContent ?? false;
+  const fileName = opts?.legacyName
+    ? LEGACY_AGENT_INSTRUCTIONS_FILE
+    : AGENT_INSTRUCTIONS_FILE;
   const parts: string[] = [];
   if (markers) {
     parts.push(
@@ -131,7 +175,7 @@ export function makeAgentMd(
   if (userContent) {
     parts.push("\n# Project-specific\nThis is real user content.\n");
   }
-  writeFileSync(join(root, "AGENT.md"), parts.join("\n"));
+  writeFileSync(join(root, fileName), parts.join("\n"));
 }
 
 export function makeMembers(root: string, count = 1): void {

@@ -24,11 +24,7 @@ Local analysis-only inputs such as raw source snapshots should live under hidden
 
 ## Installed skill
 
-This repo keeps the canonical installed `first-tree` skill at:
-
-- `skills/first-tree`
-
-Compatibility mirrors are also kept in sync for local agent tooling:
+This repo keeps the installed `first-tree` skill in the hidden user-tree roots:
 
 - `.claude/skills/first-tree`
 - `.agents/skills/first-tree`
@@ -39,6 +35,5 @@ To sync manually, run:
 bash ./.scripts/sync-first-tree-skill.sh
 ```
 
-The sync script refreshes `skills/first-tree/` from the upstream skill and then updates the compatibility mirrors without clobbering the repo-local `skills/first-tree/progress.md`.
-
-GitHub Actions also runs `.github/workflows/sync-first-tree-skill.yml` on a schedule and supports manual triggering.
+The sync script refreshes both installed roots from the upstream skill and
+preserves the repo-local `.agents/skills/first-tree/progress.md`.

@@ -3,8 +3,13 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { Repo } from "#skill/engine/repo.js";
 import {
+  AGENT_INSTRUCTIONS_FILE,
+  CLAUDE_INSTALLED_PROGRESS,
   FRAMEWORK_VERSION,
   INSTALLED_PROGRESS,
+  LEGACY_AGENT_INSTRUCTIONS_FILE,
+  LEGACY_REPO_SKILL_PROGRESS,
+  LEGACY_REPO_SKILL_VERSION,
   LEGACY_SKILL_PROGRESS,
   LEGACY_SKILL_VERSION,
   LEGACY_PROGRESS,
@@ -13,8 +18,12 @@ import {
 import {
   useTmpDir,
   makeFramework,
+  makeGitRepo,
   makeLegacyFramework,
+  makeLegacyRepoFramework,
   makeLegacyNamedFramework,
+  makeSourceRepo,
+  makeSourceSkill,
 } from "./helpers.js";
 
 // --- pathExists ---
@@ -134,7 +143,14 @@ describe("anyAgentConfig", () => {
 describe("isGitRepo", () => {
   it("returns true with .git dir", () => {
     const tmp = useTmpDir();
-    mkdirSync(join(tmp.path, ".git"));
+    makeGitRepo(tmp.path);
+    const repo = new Repo(tmp.path);
+    expect(repo.isGitRepo()).toBe(true);
+  });
+
+  it("returns true with .git file", () => {
+    const tmp = useTmpDir();
+    writeFileSync(join(tmp.path, ".git"), "gitdir: /tmp/example\n");
     const repo = new Repo(tmp.path);
     expect(repo.isGitRepo()).toBe(true);
   });
@@ -170,6 +186,13 @@ describe("hasFramework", () => {
     expect(repo.hasFramework()).toBe(true);
   });
 
+  it("returns true with the previous workspace skill path", () => {
+    const tmp = useTmpDir();
+    makeLegacyRepoFramework(tmp.path);
+    const repo = new Repo(tmp.path);
+    expect(repo.hasFramework()).toBe(true);
+  });
+
   it("returns false without VERSION file", () => {
     const tmp = useTmpDir();
     const repo = new Repo(tmp.path);
@@ -199,6 +222,13 @@ describe("readVersion", () => {
     makeLegacyNamedFramework(tmp.path, "0.2.5");
     const repo = new Repo(tmp.path);
     expect(repo.readVersion()).toBe("0.2.5");
+  });
+
+  it("reads the previous workspace skill version", () => {
+    const tmp = useTmpDir();
+    makeLegacyRepoFramework(tmp.path, "0.2.4");
+    const repo = new Repo(tmp.path);
+    expect(repo.readVersion()).toBe("0.2.4");
   });
 
   it("returns null when missing", () => {
@@ -233,35 +263,66 @@ describe("path preferences", () => {
     expect(repo.preferredProgressPath()).toBe(LEGACY_SKILL_PROGRESS);
     expect(repo.frameworkVersionPath()).toBe(LEGACY_SKILL_VERSION);
   });
+
+  it("switches path preferences for repos using the previous workspace skill path", () => {
+    const tmp = useTmpDir();
+    makeLegacyRepoFramework(tmp.path);
+    const repo = new Repo(tmp.path);
+    expect(repo.preferredProgressPath()).toBe(LEGACY_REPO_SKILL_PROGRESS);
+    expect(repo.frameworkVersionPath()).toBe(LEGACY_REPO_SKILL_VERSION);
+  });
 });
 
-// --- hasAgentMdMarkers ---
+// --- agent instructions helpers ---
 
-describe("hasAgentMdMarkers", () => {
-  it("returns true with markers", () => {
+describe("agent instructions helpers", () => {
+  it("prefers AGENTS.md when both filenames exist", () => {
     const tmp = useTmpDir();
     writeFileSync(
-      join(tmp.path, "AGENT.md"),
+      join(tmp.path, AGENT_INSTRUCTIONS_FILE),
+      "<!-- BEGIN CONTEXT-TREE FRAMEWORK -->\nstuff\n<!-- END CONTEXT-TREE FRAMEWORK -->\n",
+    );
+    writeFileSync(
+      join(tmp.path, LEGACY_AGENT_INSTRUCTIONS_FILE),
+      "# Legacy instructions\n",
+    );
+    const repo = new Repo(tmp.path);
+    expect(repo.agentInstructionsPath()).toBe(AGENT_INSTRUCTIONS_FILE);
+    expect(repo.hasCanonicalAgentInstructionsFile()).toBe(true);
+    expect(repo.hasLegacyAgentInstructionsFile()).toBe(true);
+    expect(repo.hasDuplicateAgentInstructionsFiles()).toBe(true);
+    expect(repo.hasAgentInstructionsMarkers()).toBe(true);
+  });
+
+  it("falls back to legacy AGENT.md while migrating", () => {
+    const tmp = useTmpDir();
+    writeFileSync(
+      join(tmp.path, LEGACY_AGENT_INSTRUCTIONS_FILE),
       "<!-- BEGIN CONTEXT-TREE FRAMEWORK -->\nstuff\n<!-- END CONTEXT-TREE FRAMEWORK -->\n",
     );
     const repo = new Repo(tmp.path);
-    expect(repo.hasAgentMdMarkers()).toBe(true);
+    expect(repo.agentInstructionsPath()).toBe(LEGACY_AGENT_INSTRUCTIONS_FILE);
+    expect(repo.hasCanonicalAgentInstructionsFile()).toBe(false);
+    expect(repo.hasLegacyAgentInstructionsFile()).toBe(true);
+    expect(repo.hasDuplicateAgentInstructionsFiles()).toBe(false);
+    expect(repo.hasAgentInstructionsMarkers()).toBe(true);
   });
 
   it("returns false without markers", () => {
     const tmp = useTmpDir();
     writeFileSync(
-      join(tmp.path, "AGENT.md"),
+      join(tmp.path, AGENT_INSTRUCTIONS_FILE),
       "# Agent instructions\nNo markers here.\n",
     );
     const repo = new Repo(tmp.path);
-    expect(repo.hasAgentMdMarkers()).toBe(false);
+    expect(repo.hasAgentInstructionsMarkers()).toBe(false);
   });
 
   it("returns false when file is missing", () => {
     const tmp = useTmpDir();
     const repo = new Repo(tmp.path);
-    expect(repo.hasAgentMdMarkers()).toBe(false);
+    expect(repo.agentInstructionsPath()).toBeNull();
+    expect(repo.hasAgentInstructionsMarkers()).toBe(false);
   });
 });
 
@@ -358,5 +419,48 @@ describe("hasPlaceholderNode", () => {
     );
     const repo = new Repo(tmp.path);
     expect(repo.hasPlaceholderNode()).toBe(false);
+  });
+});
+
+// --- init heuristics ---
+
+describe("init heuristics", () => {
+  it("treats a code repo as a likely source repo", () => {
+    const tmp = useTmpDir();
+    makeSourceRepo(tmp.path);
+    const repo = new Repo(tmp.path);
+    expect(repo.isLikelySourceRepo()).toBe(true);
+    expect(repo.isLikelyEmptyRepo()).toBe(false);
+  });
+
+  it("treats a fresh tree repo as empty enough for in-place init", () => {
+    const tmp = useTmpDir();
+    makeGitRepo(tmp.path);
+    writeFileSync(join(tmp.path, "README.md"), "# My Org Context\n");
+    const repo = new Repo(tmp.path);
+    expect(repo.isLikelyEmptyRepo()).toBe(true);
+    expect(repo.isLikelySourceRepo()).toBe(false);
+  });
+
+  it("recognizes a populated tree repo", () => {
+    const tmp = useTmpDir();
+    makeFramework(tmp.path);
+    writeFileSync(
+      join(tmp.path, "NODE.md"),
+      "---\ntitle: My Tree\nowners: [alice]\n---\n# Tree\n",
+    );
+    const repo = new Repo(tmp.path);
+    expect(repo.looksLikeTreeRepo()).toBe(true);
+    expect(repo.isLikelySourceRepo()).toBe(false);
+  });
+
+  it("does not mistake the framework source repo for a user tree repo", () => {
+    const tmp = useTmpDir();
+    makeSourceRepo(tmp.path);
+    makeSourceSkill(tmp.path, "0.2.0");
+    writeFileSync(join(tmp.path, "src", "cli.ts"), "export {};\n");
+    const repo = new Repo(tmp.path);
+    expect(repo.looksLikeTreeRepo()).toBe(false);
+    expect(repo.isLikelySourceRepo()).toBe(true);
   });
 });

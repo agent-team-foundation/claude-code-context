@@ -1,12 +1,20 @@
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
-import { join, resolve } from "node:path";
+import { basename, dirname, join, resolve } from "node:path";
 import {
+  AGENT_INSTRUCTIONS_FILE,
+  CLAUDE_FRAMEWORK_VERSION,
+  CLAUDE_INSTALLED_PROGRESS,
   FRAMEWORK_VERSION,
+  INSTALLED_PROGRESS,
+  LEGACY_AGENT_INSTRUCTIONS_FILE,
+  LEGACY_PROGRESS,
+  LEGACY_REPO_SKILL_PROGRESS,
+  LEGACY_REPO_SKILL_VERSION,
   LEGACY_SKILL_PROGRESS,
   LEGACY_SKILL_VERSION,
-  LEGACY_PROGRESS,
   LEGACY_VERSION,
-  INSTALLED_PROGRESS,
+  agentInstructionsFileCandidates,
+  installedSkillRoots,
   type FrameworkLayout,
   detectFrameworkLayout,
   frameworkVersionCandidates,
@@ -17,6 +25,59 @@ import {
 const FRONTMATTER_RE = /^---\s*\n(.*?)\n---/s;
 const OWNERS_RE = /^owners:\s*\[([^\]]*)\]/m;
 const TITLE_RE = /^title:\s*['"]?(.+?)['"]?\s*$/m;
+const EMPTY_REPO_ENTRY_ALLOWLIST = new Set([
+  ".DS_Store",
+  ".editorconfig",
+  ".gitattributes",
+  ".github",
+  ".gitignore",
+  "AGENT.md",
+  "AGENTS.md",
+  "CLAUDE.md",
+  "LICENSE",
+  "LICENSE.md",
+  "LICENSE.txt",
+  "README",
+  "README.md",
+  "README.txt",
+]);
+const SOURCE_FILE_HINTS = new Set([
+  ".gitmodules",
+  "Cargo.toml",
+  "Dockerfile",
+  "Gemfile",
+  "Makefile",
+  "bun.lock",
+  "bun.lockb",
+  "docker-compose.yml",
+  "go.mod",
+  "package-lock.json",
+  "package.json",
+  "pnpm-lock.yaml",
+  "pyproject.toml",
+  "requirements.txt",
+  "tsconfig.json",
+  "uv.lock",
+  "vite.config.ts",
+  "vite.config.js",
+]);
+const SOURCE_DIR_HINTS = new Set([
+  "app",
+  "apps",
+  "backend",
+  "cli",
+  "client",
+  "docs",
+  "e2e",
+  "frontend",
+  "lib",
+  "packages",
+  "scripts",
+  "server",
+  "src",
+  "test",
+  "tests",
+]);
 
 export const FRAMEWORK_BEGIN_MARKER = "<!-- BEGIN CONTEXT-TREE FRAMEWORK";
 export const FRAMEWORK_END_MARKER = "<!-- END CONTEXT-TREE FRAMEWORK -->";
@@ -26,11 +87,35 @@ export interface Frontmatter {
   owners?: string[];
 }
 
+function hasGitMetadata(root: string): boolean {
+  try {
+    const stat = statSync(join(root, ".git"));
+    return stat.isDirectory() || stat.isFile();
+  } catch {
+    return false;
+  }
+}
+
+function discoverGitRoot(start: string): string | null {
+  let dir = start;
+  while (true) {
+    if (hasGitMetadata(dir)) {
+      return dir;
+    }
+    const parent = dirname(dir);
+    if (parent === dir) {
+      return null;
+    }
+    dir = parent;
+  }
+}
+
 export class Repo {
   readonly root: string;
 
   constructor(root?: string) {
-    this.root = resolve(root ?? process.cwd());
+    const start = resolve(root ?? process.cwd());
+    this.root = root === undefined ? discoverGitRoot(start) ?? start : start;
   }
 
   pathExists(relPath: string): boolean {
@@ -84,12 +169,24 @@ export class Repo {
     return knownConfigs.some((c) => this.pathExists(c));
   }
 
+  installedSkillRoots(): string[] {
+    return installedSkillRoots();
+  }
+
+  missingInstalledSkillRoots(): string[] {
+    return this.installedSkillRoots().filter(
+      (root) =>
+        !this.pathExists(join(root, "SKILL.md")) ||
+        !this.pathExists(join(root, "assets", "framework", "VERSION")),
+    );
+  }
+
+  hasCurrentInstalledSkill(): boolean {
+    return this.missingInstalledSkillRoots().length === 0;
+  }
+
   isGitRepo(): boolean {
-    try {
-      return statSync(join(this.root, ".git")).isDirectory();
-    } catch {
-      return false;
-    }
+    return hasGitMetadata(this.root);
   }
 
   hasFramework(): boolean {
@@ -122,6 +219,12 @@ export class Repo {
     if (layout === "legacy-skill") {
       return LEGACY_SKILL_PROGRESS;
     }
+    if (layout === "legacy-repo-skill") {
+      return LEGACY_REPO_SKILL_PROGRESS;
+    }
+    if (layout === "claude-skill") {
+      return CLAUDE_INSTALLED_PROGRESS;
+    }
     return INSTALLED_PROGRESS;
   }
 
@@ -133,11 +236,39 @@ export class Repo {
     if (layout === "legacy-skill") {
       return LEGACY_SKILL_VERSION;
     }
+    if (layout === "legacy-repo-skill") {
+      return LEGACY_REPO_SKILL_VERSION;
+    }
+    if (layout === "claude-skill") {
+      return CLAUDE_FRAMEWORK_VERSION;
+    }
     return FRAMEWORK_VERSION;
   }
 
-  hasAgentMdMarkers(): boolean {
-    const text = this.readFile("AGENT.md");
+  agentInstructionsPath(): string | null {
+    return resolveFirstExistingPath(this.root, agentInstructionsFileCandidates());
+  }
+
+  hasCanonicalAgentInstructionsFile(): boolean {
+    return this.pathExists(AGENT_INSTRUCTIONS_FILE);
+  }
+
+  hasLegacyAgentInstructionsFile(): boolean {
+    return this.pathExists(LEGACY_AGENT_INSTRUCTIONS_FILE);
+  }
+
+  hasDuplicateAgentInstructionsFiles(): boolean {
+    return this.hasCanonicalAgentInstructionsFile() && this.hasLegacyAgentInstructionsFile();
+  }
+
+  readAgentInstructions(): string | null {
+    const relPath = this.agentInstructionsPath();
+    if (relPath === null) return null;
+    return this.readFile(relPath);
+  }
+
+  hasAgentInstructionsMarkers(): boolean {
+    const text = this.readAgentInstructions();
     if (text === null) return false;
     return text.includes(FRAMEWORK_BEGIN_MARKER) && text.includes(FRAMEWORK_END_MARKER);
   }
@@ -180,5 +311,83 @@ export class Repo {
 
   hasPlaceholderNode(): boolean {
     return this.fileContains("NODE.md", "<!-- PLACEHOLDER");
+  }
+
+  repoName(): string {
+    return basename(this.root);
+  }
+
+  topLevelEntries(): string[] {
+    try {
+      return readdirSync(this.root).filter((entry) => entry !== ".git");
+    } catch {
+      return [];
+    }
+  }
+
+  looksLikeTreeRepo(): boolean {
+    if (
+      this.pathExists("package.json")
+      && this.pathExists("src/cli.ts")
+      && this.pathExists("skills/first-tree/SKILL.md")
+      && this.progressPath() === null
+      && this.frontmatter("NODE.md") === null
+      && !this.hasAgentInstructionsMarkers()
+      && !this.pathExists("members/NODE.md")
+    ) {
+      return false;
+    }
+
+    return (
+      this.progressPath() !== null
+      || this.hasFramework()
+      || this.hasAgentInstructionsMarkers()
+      || this.pathExists("members/NODE.md")
+      || this.frontmatter("NODE.md") !== null
+    );
+  }
+
+  isLikelyEmptyRepo(): boolean {
+    const relevant = this.topLevelEntries().filter(
+      (entry) => !EMPTY_REPO_ENTRY_ALLOWLIST.has(entry),
+    );
+    return relevant.length === 0;
+  }
+
+  isLikelySourceRepo(): boolean {
+    if (this.looksLikeTreeRepo()) {
+      return false;
+    }
+
+    const entries = this.topLevelEntries().filter(
+      (entry) => !EMPTY_REPO_ENTRY_ALLOWLIST.has(entry),
+    );
+    if (entries.length === 0) {
+      return false;
+    }
+
+    let directoryCount = 0;
+
+    for (const entry of entries) {
+      if (SOURCE_FILE_HINTS.has(entry)) {
+        return true;
+      }
+      if (isDirectory(this.root, entry)) {
+        directoryCount += 1;
+        if (SOURCE_DIR_HINTS.has(entry)) {
+          return true;
+        }
+      }
+    }
+
+    return directoryCount >= 2 || entries.length >= 4;
+  }
+}
+
+function isDirectory(root: string, relPath: string): boolean {
+  try {
+    return statSync(join(root, relPath)).isDirectory();
+  } catch {
+    return false;
   }
 }

@@ -1,4 +1,4 @@
-import { execFileSync } from "node:child_process";
+import { execFileSync, spawnSync } from "node:child_process";
 import { existsSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
@@ -7,12 +7,22 @@ import { parse } from "yaml";
 
 const ROOT = process.cwd();
 
+/** Check if a path has any tracked files in git (handles dirs and files). */
+function isTrackedInGit(relativePath: string): boolean {
+  const result = spawnSync("git", ["ls-files", relativePath], {
+    cwd: ROOT,
+    stdio: "pipe",
+  });
+  return (result.stdout?.toString().trim().length ?? 0) > 0;
+}
+
 describe("skill artifacts", () => {
   it("keeps only the canonical skill in the source repo", () => {
     expect(existsSync(join(ROOT, "skills", "first-tree", "SKILL.md"))).toBe(true);
     expect(existsSync(join(ROOT, "skills", "first-tree", "references", "onboarding.md"))).toBe(true);
     expect(existsSync(join(ROOT, "skills", "first-tree", "assets", "framework", "manifest.json"))).toBe(true);
     expect(existsSync(join(ROOT, "skills", "first-tree", "engine", "init.ts"))).toBe(true);
+    expect(existsSync(join(ROOT, "AGENTS.md"))).toBe(true);
     expect(existsSync(join(ROOT, "skills", "first-tree", "tests", "init.test.ts"))).toBe(
       true,
     );
@@ -101,12 +111,14 @@ describe("skill artifacts", () => {
         ),
       ),
     ).toBe(true);
-    expect(existsSync(join(ROOT, ".agents"))).toBe(false);
-    expect(existsSync(join(ROOT, ".claude"))).toBe(false);
-    expect(existsSync(join(ROOT, ".context-tree"))).toBe(false);
-    expect(existsSync(join(ROOT, "skills", "first-tree-cli-framework"))).toBe(false);
-    expect(existsSync(join(ROOT, "docs"))).toBe(false);
-    expect(existsSync(join(ROOT, "tests"))).toBe(false);
+    // Legacy artifacts must not be tracked in git (untracked local files are OK)
+    expect(isTrackedInGit(".agents")).toBe(false);
+    expect(isTrackedInGit(".claude")).toBe(false);
+    expect(isTrackedInGit(".context-tree")).toBe(false);
+    expect(existsSync(join(ROOT, "AGENT.md"))).toBe(false);
+    expect(isTrackedInGit("skills/first-tree-cli-framework")).toBe(false);
+    expect(isTrackedInGit("docs")).toBe(false);
+    expect(isTrackedInGit("tests")).toBe(false);
     expect(existsSync(join(ROOT, "evals"))).toBe(true);
     expect(existsSync(join(ROOT, "src", "commands"))).toBe(false);
     expect(existsSync(join(ROOT, "src", "runtime"))).toBe(false);
@@ -189,21 +201,27 @@ describe("skill artifacts", () => {
     expect(read("README.md")).toContain("Canonical Documentation");
     expect(read("README.md")).toContain("references/source-map.md");
     expect(read("README.md")).toContain("skills/first-tree/");
+    expect(read("README.md")).toContain(".agents/skills/first-tree/");
+    expect(read("README.md")).toContain(".claude/skills/first-tree/");
     expect(read("README.md")).toContain("bundled canonical");
+    expect(read("README.md")).toContain("dedicated tree repo");
     expect(read("README.md")).toContain("`first-tree` skill");
     expect(read("AGENTS.md")).toContain("references/source-map.md");
     expect(read("AGENTS.md")).toContain("bundled skill path");
     expect(read("AGENTS.md")).not.toContain("### Running evals");
     expect(read("AGENTS.md")).not.toContain("EVALS_TREE_REPO");
     expect(read("src/cli.ts")).not.toContain("from upstream");
-    expect(read("package.json")).not.toContain('"#evals/*"');
+    // Note: #evals/* import alias is in package.json but evals/ is excluded from "files" so it won't ship to npm
 
     const onboarding = read("skills/first-tree/references/onboarding.md");
     expect(onboarding).toContain("npx first-tree init");
     expect(onboarding).toContain("npm install -g first-tree");
+    expect(onboarding).toContain("context-tree init --here");
     expect(onboarding).toContain("installed CLI command is");
     expect(onboarding).toContain("currently running `first-tree` npm package");
     expect(onboarding).toContain("npx first-tree@latest upgrade");
+    expect(onboarding).toContain(".agents/skills/first-tree/");
+    expect(onboarding).toContain(".claude/skills/first-tree/");
     expect(onboarding).not.toContain("This clones the framework into `.context-tree/`");
     expect(onboarding).not.toContain("from upstream");
 
@@ -214,6 +232,8 @@ describe("skill artifacts", () => {
     expect(skillMd).toContain("maintainer-testing.md");
     expect(skillMd).toContain("currently running `first-tree` package");
     expect(skillMd).toContain("so it is not confused with the `first-tree`");
+    expect(skillMd).toContain(".agents/skills/first-tree/");
+    expect(skillMd).toContain(".claude/skills/first-tree/");
     expect(skillMd).not.toContain("canonical eval harness");
 
     const sourceMap = read("skills/first-tree/references/source-map.md");
