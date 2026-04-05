@@ -57,6 +57,15 @@ Equivalent implementations should support the same discovery model:
 
 The important invariant is not the exact source layout. It is that the runtime can merge broad global guidance, checked-in repo guidance, and private local guidance into one ordered instruction stream.
 
+## Mode-specific discovery narrowing
+
+Equivalent behavior should preserve that startup mode can narrow which instruction sources are considered without changing precedence among sources that remain eligible.
+
+- bare/simple sessions suppress managed, user, and automatic cwd-upward project discovery by default
+- explicit additional directories can still contribute project-style instruction layers when the caller intentionally enables that path
+- local/private instruction files participate only when the local settings source is enabled; disabling that source removes the whole layer rather than leaving a ghost placeholder
+- these mode- or policy-driven cuts change source eligibility, not the effective priority ordering of files that still load
+
 ## Include expansion and filtering
 
 Instruction files are not just raw markdown blobs. They support a constrained include mechanism.
