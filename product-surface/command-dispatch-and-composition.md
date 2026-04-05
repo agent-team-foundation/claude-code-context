@@ -1,7 +1,7 @@
 ---
 title: "Command Dispatch and Composition"
 owners: []
-soft_links: [/runtime-orchestration/turn-assembly-and-recovery.md, /runtime-orchestration/workflow-script-runtime.md, /integrations/plugins/skill-loading-contract.md, /integrations/mcp/mcp-surface-state-assembly-and-live-refresh.md, /integrations/clients/sdk-control-protocol.md]
+soft_links: [/runtime-orchestration/turn-assembly-and-recovery.md, /runtime-orchestration/workflow-script-runtime.md, /integrations/plugins/skill-loading-contract.md, /integrations/plugins/skill-discovery-and-listing-surfaces.md, /integrations/mcp/mcp-surface-state-assembly-and-live-refresh.md, /integrations/clients/sdk-control-protocol.md]
 ---
 
 # Command Dispatch and Composition
@@ -17,11 +17,12 @@ This leaf covers:
 - how dynamic skills and MCP-provided commands join that surface later
 - runtime visibility filters that run after loading
 - the lookup rule that decides which command actually wins
-- how skill-oriented consumers derive filtered projections from the composed catalog
+- how skill-oriented consumers derive filtered projections and invocation inputs from the composed catalog
 
 It intentionally does not re-document:
 
 - skill-source discovery details already covered in [../integrations/plugins/skill-loading-contract.md](../integrations/plugins/skill-loading-contract.md)
+- model-facing and human-facing skill listing surfaces already covered in [../integrations/plugins/skill-discovery-and-listing-surfaces.md](../integrations/plugins/skill-discovery-and-listing-surfaces.md)
 - prompt-command and SkillTool execution semantics already covered in [prompt-command-and-skill-execution.md](prompt-command-and-skill-execution.md)
 - workflow execution semantics already covered in [../runtime-orchestration/workflow-script-runtime.md](../runtime-orchestration/workflow-script-runtime.md)
 - MCP connection and refresh behavior already covered in [../integrations/mcp/mcp-surface-state-assembly-and-live-refresh.md](../integrations/mcp/mcp-surface-state-assembly-and-live-refresh.md)
@@ -98,6 +99,7 @@ Equivalent behavior should preserve:
   - MCP commands from live session state
 - no separate session-stage plugin command merge beyond what `getCommands(cwd)` already loaded
 - interactive and headless turn-entry paths handing that merged command list into slash parsing and query execution rather than consulting only the local base catalog
+- exact-name deduplication, when a client surface applies it after the merge, preserving the earlier local entry rather than re-arbitrating by source
 
 This boundary is important because MCP commands are live connection state, not file-backed local command definitions.
 
@@ -107,11 +109,10 @@ Equivalent behavior should preserve:
 
 - plain MCP prompts participating in the general slash-command surface as prompt-backed commands
 - MCP skills also arriving through `mcp.commands`, but being filtered back out as a distinct subset for skill-oriented consumers
-- SkillTool and other skill-only consumers building their view from:
-  - filtered local commands from `getCommands(cwd)`
-  - separately threaded MCP skills from session MCP state
+- skill-listing and skill-budget surfaces building narrower views from filtered local prompt commands plus a separately threaded MCP-skill subset
+- SkillTool name resolution reusing a broader composed local catalog plus that separately threaded MCP-skill subset, then applying explicit prompt-only and model-invocation gates afterward
 - plain MCP prompts therefore not becoming SkillTool-invocable merely because they are prompt-shaped
-- these skill-oriented projections being filtered views over the composed catalog rather than separate loaders with their own precedence model
+- these skill-oriented projections and invocation paths reusing composed records and ordering rather than separate loaders with their own precedence model
 
 ## Lookup is ordered and first-match
 
@@ -124,7 +125,7 @@ Equivalent behavior should preserve:
   - aliases
 - no late global arbitration by provenance, plugin identity, or skill channel once lookup begins
 - local-first precedence against MCP collisions because session surfaces merge local commands before MCP commands
-- any downstream deduplication by exact command name preserving first occurrence, so it still reinforces the same local-first precedence instead of changing winners
+- any downstream deduplication by exact internal command name preserving first occurrence, so it still reinforces the same local-first precedence instead of changing winners
 
 User-facing names are display affordances, not a second namespace that bypasses precedence.
 
@@ -133,9 +134,10 @@ User-facing names are display affordances, not a second namespace that bypasses 
 Equivalent behavior should preserve:
 
 - user slash invocation being able to target only commands present in the merged session command list
-- `user-invocable: false` preventing direct user slash execution while still allowing model use through SkillTool when model invocation itself remains enabled
+- `user-invocable: false` removing a command from user-facing slash inventories and producing an explicit refusal on direct user slash invocation, while still allowing model use through SkillTool when model invocation itself remains enabled
 - prompt commands with `disable-model-invocation` being blockable from SkillTool even if they are still user-invocable as slash commands
-- model-facing skill lists being filtered projections over the composed command surface instead of independent load paths
+- SkillTool invocation resolving through the broader composed command surface plus the MCP-skill subset rather than only through the eagerly listed skill inventory
+- model-facing skill lists being narrower filtered projections over the composed command surface instead of independent load paths
 - model-only skills rendering different loading metadata from ordinary slash commands instead of pretending the user invoked them directly
 
 ## Remote and bridge clients narrow the catalog again
