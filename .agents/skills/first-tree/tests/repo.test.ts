@@ -5,15 +5,15 @@ import { Repo } from "#skill/engine/repo.js";
 import {
   AGENT_INSTRUCTIONS_FILE,
   CLAUDE_INSTALLED_PROGRESS,
+  CLAUDE_INSTRUCTIONS_FILE,
   FRAMEWORK_VERSION,
   INSTALLED_PROGRESS,
   LEGACY_AGENT_INSTRUCTIONS_FILE,
   LEGACY_REPO_SKILL_PROGRESS,
   LEGACY_REPO_SKILL_VERSION,
-  LEGACY_SKILL_PROGRESS,
-  LEGACY_SKILL_VERSION,
   LEGACY_PROGRESS,
   LEGACY_VERSION,
+  SOURCE_INTEGRATION_MARKER,
 } from "#skill/engine/runtime/asset-loader.js";
 import {
   useTmpDir,
@@ -21,7 +21,6 @@ import {
   makeGitRepo,
   makeLegacyFramework,
   makeLegacyRepoFramework,
-  makeLegacyNamedFramework,
   makeSourceRepo,
   makeSourceSkill,
 } from "./helpers.js";
@@ -179,13 +178,6 @@ describe("hasFramework", () => {
     expect(repo.hasFramework()).toBe(true);
   });
 
-  it("returns true with the previous installed skill name", () => {
-    const tmp = useTmpDir();
-    makeLegacyNamedFramework(tmp.path);
-    const repo = new Repo(tmp.path);
-    expect(repo.hasFramework()).toBe(true);
-  });
-
   it("returns true with the previous workspace skill path", () => {
     const tmp = useTmpDir();
     makeLegacyRepoFramework(tmp.path);
@@ -215,13 +207,6 @@ describe("readVersion", () => {
     makeLegacyFramework(tmp.path, "0.3.0");
     const repo = new Repo(tmp.path);
     expect(repo.readVersion()).toBe("0.3.0");
-  });
-
-  it("reads the previous installed skill version", () => {
-    const tmp = useTmpDir();
-    makeLegacyNamedFramework(tmp.path, "0.2.5");
-    const repo = new Repo(tmp.path);
-    expect(repo.readVersion()).toBe("0.2.5");
   });
 
   it("reads the previous workspace skill version", () => {
@@ -254,14 +239,6 @@ describe("path preferences", () => {
     const repo = new Repo(tmp.path);
     expect(repo.preferredProgressPath()).toBe(LEGACY_PROGRESS);
     expect(repo.frameworkVersionPath()).toBe(LEGACY_VERSION);
-  });
-
-  it("switches path preferences for repos using the previous skill name", () => {
-    const tmp = useTmpDir();
-    makeLegacyNamedFramework(tmp.path);
-    const repo = new Repo(tmp.path);
-    expect(repo.preferredProgressPath()).toBe(LEGACY_SKILL_PROGRESS);
-    expect(repo.frameworkVersionPath()).toBe(LEGACY_SKILL_VERSION);
   });
 
   it("switches path preferences for repos using the previous workspace skill path", () => {
@@ -452,6 +429,24 @@ describe("init heuristics", () => {
     const repo = new Repo(tmp.path);
     expect(repo.looksLikeTreeRepo()).toBe(true);
     expect(repo.isLikelySourceRepo()).toBe(false);
+  });
+
+  it("treats a source repo with installed skill and integration markers as a source repo", () => {
+    const tmp = useTmpDir();
+    makeSourceRepo(tmp.path);
+    makeFramework(tmp.path);
+    writeFileSync(
+      join(tmp.path, AGENT_INSTRUCTIONS_FILE),
+      `${SOURCE_INTEGRATION_MARKER} Use the installed \`first-tree\` skill here.\n`,
+    );
+    writeFileSync(
+      join(tmp.path, CLAUDE_INSTRUCTIONS_FILE),
+      `${SOURCE_INTEGRATION_MARKER} Use the installed \`first-tree\` skill here.\n`,
+    );
+    const repo = new Repo(tmp.path);
+    expect(repo.hasSourceWorkspaceIntegration()).toBe(true);
+    expect(repo.looksLikeTreeRepo()).toBe(false);
+    expect(repo.isLikelySourceRepo()).toBe(true);
   });
 
   it("does not mistake the framework source repo for a user tree repo", () => {

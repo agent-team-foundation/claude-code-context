@@ -10,8 +10,6 @@ import {
   LEGACY_PROGRESS,
   LEGACY_REPO_SKILL_PROGRESS,
   LEGACY_REPO_SKILL_VERSION,
-  LEGACY_SKILL_PROGRESS,
-  LEGACY_SKILL_VERSION,
   LEGACY_VERSION,
   agentInstructionsFileCandidates,
   installedSkillRoots,
@@ -20,13 +18,17 @@ import {
   frameworkVersionCandidates,
   progressFileCandidates,
   resolveFirstExistingPath,
+  SOURCE_INTEGRATION_FILES,
+  SOURCE_INTEGRATION_MARKER,
 } from "#skill/engine/runtime/asset-loader.js";
 
 const FRONTMATTER_RE = /^---\s*\n(.*?)\n---/s;
 const OWNERS_RE = /^owners:\s*\[([^\]]*)\]/m;
 const TITLE_RE = /^title:\s*['"]?(.+?)['"]?\s*$/m;
 const EMPTY_REPO_ENTRY_ALLOWLIST = new Set([
+  ".agents",
   ".DS_Store",
+  ".claude",
   ".editorconfig",
   ".gitattributes",
   ".github",
@@ -216,9 +218,6 @@ export class Repo {
     if (layout === "legacy") {
       return LEGACY_PROGRESS;
     }
-    if (layout === "legacy-skill") {
-      return LEGACY_SKILL_PROGRESS;
-    }
     if (layout === "legacy-repo-skill") {
       return LEGACY_REPO_SKILL_PROGRESS;
     }
@@ -232,9 +231,6 @@ export class Repo {
     const layout = this.frameworkLayout();
     if (layout === "legacy") {
       return LEGACY_VERSION;
-    }
-    if (layout === "legacy-skill") {
-      return LEGACY_SKILL_VERSION;
     }
     if (layout === "legacy-repo-skill") {
       return LEGACY_REPO_SKILL_VERSION;
@@ -271,6 +267,23 @@ export class Repo {
     const text = this.readAgentInstructions();
     if (text === null) return false;
     return text.includes(FRAMEWORK_BEGIN_MARKER) && text.includes(FRAMEWORK_END_MARKER);
+  }
+
+  hasSourceIntegrationFile(relPath: string): boolean {
+    return this.fileContains(relPath, SOURCE_INTEGRATION_MARKER);
+  }
+
+  hasSourceWorkspaceIntegration(): boolean {
+    return SOURCE_INTEGRATION_FILES.some((file) => this.hasSourceIntegrationFile(file));
+  }
+
+  hasTreeContent(): boolean {
+    return (
+      this.progressPath() !== null
+      || this.hasAgentInstructionsMarkers()
+      || this.pathExists("members/NODE.md")
+      || this.frontmatter("NODE.md") !== null
+    );
   }
 
   hasMembers(): boolean {
@@ -338,13 +351,19 @@ export class Repo {
       return false;
     }
 
-    return (
-      this.progressPath() !== null
-      || this.hasFramework()
-      || this.hasAgentInstructionsMarkers()
-      || this.pathExists("members/NODE.md")
-      || this.frontmatter("NODE.md") !== null
-    );
+    if (this.hasTreeContent()) {
+      return true;
+    }
+
+    if (this.hasFramework() && this.hasSourceWorkspaceIntegration()) {
+      return false;
+    }
+
+    if (this.hasFramework()) {
+      return !this.hasLikelySourceRepoSignals();
+    }
+
+    return false;
   }
 
   isLikelyEmptyRepo(): boolean {
@@ -359,6 +378,10 @@ export class Repo {
       return false;
     }
 
+    return this.hasLikelySourceRepoSignals();
+  }
+
+  private hasLikelySourceRepoSignals(): boolean {
     const entries = this.topLevelEntries().filter(
       (entry) => !EMPTY_REPO_ENTRY_ALLOWLIST.has(entry),
     );
