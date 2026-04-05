@@ -59,6 +59,8 @@ Equivalent behavior should preserve:
 - the dream row only appearing when auto-memory was enabled at dialog entry, so the interface does not collapse underneath the cursor mid-navigation if the user toggles auto-memory off
 - the dream row pointing users toward `/dream` when dream is enabled but not currently running
 - additional folder actions appearing when auto-memory is enabled: open auto-memory storage, open team-memory storage when team memory is active, and open per-agent memory directories for agents that declare dedicated memory scopes
+- per-agent folder actions being sourced from the active agent catalog with their user/project/local scope preserved in the label, instead of one flattened generic "agent memory" row
+- those folder actions opening the current local directory state only; pending project snapshot updates for user-scoped agent memory remain a separate explicit merge/replace decision elsewhere
 - those folder actions ensuring the target directory exists and then opening it through the OS path opener, while swallowing directory-creation failures so the action remains best-effort instead of turning into a hard modal error
 
 ## `/memory` interaction and editor handoff
