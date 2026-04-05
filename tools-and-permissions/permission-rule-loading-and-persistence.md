@@ -1,7 +1,7 @@
 ---
 title: "Permission Rule Loading and Persistence"
 owners: []
-soft_links: [/platform-services/policy-and-managed-settings-lifecycle.md, /tools-and-permissions/permission-model.md, /tools-and-permissions/permission-mode-transitions-and-gates.md, /tools-and-permissions/config-discovery-and-trigger-tool-contracts.md, /tools-and-permissions/shell-rule-grammar-and-matching.md, /tools-and-permissions/path-and-filesystem-safety.md, /memory-and-context/instruction-sources-and-precedence.md]
+soft_links: [/platform-services/policy-and-managed-settings-lifecycle.md, /tools-and-permissions/permission-model.md, /tools-and-permissions/permission-mode-transitions-and-gates.md, /tools-and-permissions/config-permission-and-sandbox-admin-surfaces.md, /tools-and-permissions/shell-rule-grammar-and-matching.md, /tools-and-permissions/path-and-filesystem-safety.md, /memory-and-context/instruction-sources-and-precedence.md]
 ---
 
 # Permission Rule Loading and Persistence

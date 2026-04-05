@@ -1,7 +1,7 @@
 ---
 title: "Remote Scheduled Agents and Trigger Management"
 owners: []
-soft_links: [/runtime-orchestration/scheduled-prompts-and-cron-lifecycle.md, /tools-and-permissions/config-discovery-and-trigger-tool-contracts.md, /collaboration-and-agents/remote-session-contract.md, /integrations/mcp/server-contract.md]
+soft_links: [/runtime-orchestration/scheduled-prompts-and-cron-lifecycle.md, /tools-and-permissions/remote-trigger-control-tool-contracts.md, /collaboration-and-agents/remote-session-contract.md, /integrations/mcp/server-contract.md]
 ---
 
 # Remote Scheduled Agents and Trigger Management
