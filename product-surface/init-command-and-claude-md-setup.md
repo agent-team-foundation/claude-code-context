@@ -15,7 +15,7 @@ The init command is dynamically described and selected between two instruction r
 - legacy: focused CLAUDE.md generation/refinement
 - new flow: staged setup for project/personal instruction files plus optional skills/hooks
 
-Selection is feature-gated and env-gated, but both variants preserve one invariant: invoking `/init` marks project-onboarding progress checks as completed when eligible.
+Selection is feature-gated and env-gated, but both variants preserve one invariant: invoking `/init` re-runs project-onboarding completion checks against the current workspace state, so the onboarding feed can clear once the workspace actually satisfies its enabled steps.
 
 ## New-flow behavioral shape
 
@@ -62,7 +62,14 @@ Rebuilds that collapse these paths lose hook fidelity and produce misleading rel
 
 ## Onboarding coupling
 
-Project onboarding includes creating repository instructions as a first-class step. `/init` and terminal setup both participate in onboarding-completion bookkeeping so the product can stop repeating setup nudges once the workspace is actually initialized. That onboarding feed is distinct from the earlier pre-REPL setup screens described in [../ui-and-experience/interactive-setup-and-onboarding-screens.md](../ui-and-experience/interactive-setup-and-onboarding-screens.md).
+Project onboarding includes creating repository instructions as a first-class step, but it is not the same thing as the earlier pre-REPL onboarding/trust startup gate.
+
+Equivalent behavior should preserve:
+
+- a workspace-state-driven onboarding model where empty workspaces nudge project creation/clone, while non-empty workspaces nudge `/init`/`CLAUDE.md`
+- `/init`, `/terminal-setup`, and real user-prompt submission each re-running the completion check rather than blindly flipping a completion bit
+- the feed stopping only when the workspace's currently enabled onboarding steps are actually satisfied
+- that workspace onboarding feed remaining distinct from the earlier pre-REPL setup screens described in [../ui-and-experience/interactive-setup-and-onboarding-screens.md](../ui-and-experience/interactive-setup-and-onboarding-screens.md)
 
 ## Failure modes
 

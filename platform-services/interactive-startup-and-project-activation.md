@@ -1,7 +1,7 @@
 ---
 title: "Interactive Startup and Project Activation"
 owners: []
-soft_links: [/platform-services/startup-service-sequencing-and-capability-gates.md, /platform-services/bootstrap-and-service-failures.md, /platform-services/workspace-trust-dialog-and-persistence.md, /platform-services/trust-and-capability-hydration.md, /platform-services/settings-change-detection-and-runtime-reload.md, /platform-services/usage-analytics-and-migrations.md, /runtime-orchestration/worktree-session-lifecycle.md, /product-surface/command-runtime-matrix.md]
+soft_links: [/platform-services/startup-service-sequencing-and-capability-gates.md, /platform-services/bootstrap-and-service-failures.md, /platform-services/workspace-trust-dialog-and-persistence.md, /platform-services/trust-and-capability-hydration.md, /platform-services/settings-change-detection-and-runtime-reload.md, /platform-services/usage-analytics-and-migrations.md, /ui-and-experience/interactive-setup-and-onboarding-screens.md, /ui-and-experience/startup-welcome-dashboard-and-feed-rotation.md, /runtime-orchestration/worktree-session-lifecycle.md, /product-surface/command-runtime-matrix.md]
 ---
 
 # Interactive Startup and Project Activation
@@ -39,6 +39,7 @@ This phase is where Claude Code decides which directory the rest of startup is r
 Equivalent behavior should preserve:
 
 - the interactive trust and onboarding surface appearing before the REPL becomes fully active, even though some earlier parsing and safe cache reads have already happened
+- the pre-REPL startup gate covering more than the first-run wizard: trust, post-trust approvals, and other startup-only blockers all resolve before ordinary prompt use begins
 - trust rejection or early shutdown aborting the rest of project activation instead of letting post-trust services keep initializing in the background
 - capability or entitlement checks that need authenticated trusted context being deferred until after the trust gate completes
 - assistant, remote-control, LSP, project-scoped helpers, and other execution-capable integrations being kept behind that same trust boundary
@@ -64,9 +65,11 @@ This is the phase where the product moves from "trusted enough to continue" to "
 Equivalent behavior should preserve:
 
 - a real first-render boundary after which latency-hiding work can begin without delaying the initial interactive surface
+- first-render consumers such as the startup welcome/dashboard surface reading synchronously updated startup counters and other gating state before that first REPL render happens
 - heavy but deferrable prefetches such as user context, system context, tips, model-capability refresh, analytics gates, file counters, and change detectors starting only after that boundary
 - startup code distinguishing "needed before first render" from "useful before first query" rather than treating all cache warmups as equally urgent
 - headless or non-interactive callers being allowed to start some of these prefetches earlier because there is no human-first render to protect
+- deferred work not beginning while blocking setup dialogs are still the active startup surface, because the product first measures and clears the startup gate, then lets first-render/post-render work proceed
 - the deferred phase remaining optional in stripped-down modes, so bare or scripted sessions can skip first-turn UX optimizations that are pure overhead for them
 
 The clean-room insight is that "as soon as possible" is not the same as "before render." Claude Code deliberately saves some startup work for the moment after the UI is already responsive.
@@ -88,6 +91,7 @@ This is how one codebase supports multiple entry surfaces without silently drift
 
 - **cwd race**: command discovery, hook snapshotting, or project identity are computed before startup has finished choosing the final directory
 - **pre-trust execution leak**: LSP, remote-control, helpers, or full project environment activate before the trust gate is resolved
+- **startup-gate blur**: pre-REPL startup-only blockers and later REPL dialog bands are collapsed into one surface with the wrong timing
 - **false parallelism**: setup and command loading are overlapped even though startup worktree creation can still move cwd underneath them
 - **first-render stall**: optional prefetches, detectors, or plugin startup checks run too early and make the terminal feel hung before the user can act
 - **post-shutdown drift**: trust rejection or another early-exit path starts graceful shutdown, but later activation phases keep running anyway
