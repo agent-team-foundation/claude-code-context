@@ -21,6 +21,7 @@ This leaf covers:
 It intentionally does not re-document:
 
 - the broader conceptual difference between skills and plugins already covered in [plugin-and-skill-model.md](plugin-and-skill-model.md)
+- model-facing and human-facing skill listing surfaces already covered in [skill-discovery-and-listing-surfaces.md](skill-discovery-and-listing-surfaces.md)
 - prompt-command and SkillTool execution paths already covered in [../../product-surface/prompt-command-and-skill-execution.md](../../product-surface/prompt-command-and-skill-execution.md)
 - the ant-only skill-improvement rewrite loop already covered in [skill-improvement-detection-and-apply-flow.md](skill-improvement-detection-and-apply-flow.md)
 
