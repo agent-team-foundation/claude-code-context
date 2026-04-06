@@ -1,7 +1,7 @@
 ---
 title: "REPL Remote-Control Lifecycle"
 owners: []
-soft_links: [/collaboration-and-agents/bridge-transport-and-remote-control-runtime.md, /collaboration-and-agents/remote-control-spawn-modes-and-session-resume.md, /integrations/clients/remote-setup-and-companion-bootstrap.md, /platform-services/interactive-startup-and-project-activation.md, /platform-services/auth-config-and-policy.md, /ui-and-experience/system-feedback-lines.md]
+soft_links: [/collaboration-and-agents/bridge-transport-and-remote-control-runtime.md, /collaboration-and-agents/remote-control-spawn-modes-and-session-resume.md, /integrations/clients/remote-setup-and-companion-bootstrap.md, /platform-services/interactive-startup-and-project-activation.md, /platform-services/auth-config-and-policy.md, /ui-and-experience/feedback-and-notifications/system-feedback-lines.md]
 ---
 
 # REPL Remote-Control Lifecycle

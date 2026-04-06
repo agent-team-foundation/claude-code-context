@@ -1,7 +1,7 @@
 ---
 title: "IDE Connectivity and Diff Review"
 owners: []
-soft_links: [/integrations/clients/surface-adapter-contract.md, /integrations/plugins/lsp-plugin-and-diagnostics.md, /ui-and-experience/permission-prompt-shell-and-worker-states.md, /ui-and-experience/terminal-ui.md]
+soft_links: [/integrations/clients/surface-adapter-contract.md, /integrations/plugins/lsp-plugin-and-diagnostics.md, /ui-and-experience/dialogs-and-approvals/permission-prompt-shell-and-worker-states.md, /ui-and-experience/shell-and-input/terminal-ui.md]
 ---
 
 # IDE Connectivity and Diff Review
@@ -23,7 +23,7 @@ It intentionally does not re-document:
 - generic MCP transport and client lifecycle rules already captured in [structured-io-and-headless-session-loop.md](structured-io-and-headless-session-loop.md)
 - generic plugin-provided LSP diagnostics already captured in [lsp-plugin-and-diagnostics.md](../plugins/lsp-plugin-and-diagnostics.md)
 - the broader companion bootstrap surfaces for web, desktop, mobile, browser, and bridge already captured in [remote-setup-and-companion-bootstrap.md](remote-setup-and-companion-bootstrap.md)
-- the generic permission dialog shell beyond the IDE-specific diff handoff already captured in [permission-prompt-shell-and-worker-states.md](../../ui-and-experience/permission-prompt-shell-and-worker-states.md)
+- the generic permission dialog shell beyond the IDE-specific diff handoff already captured in [permission-prompt-shell-and-worker-states.md](../../ui-and-experience/dialogs-and-approvals/permission-prompt-shell-and-worker-states.md)
 
 ## IDE presence is inferred from local endpoint files and workspace matching
 

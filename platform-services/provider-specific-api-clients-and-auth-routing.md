@@ -1,7 +1,7 @@
 ---
 title: "Provider-Specific API Clients and Auth Routing"
 owners: []
-soft_links: [/platform-services/auth-config-and-policy.md, /platform-services/auth-login-logout-and-token-lifecycle.md, /product-surface/model-and-behavior-controls.md, /runtime-orchestration/api-request-assembly-retry-and-prompt-cache-stability.md]
+soft_links: [/platform-services/auth-config-and-policy.md, /platform-services/auth-login-logout-and-token-lifecycle.md, /product-surface/model-and-behavior-controls.md, /runtime-orchestration/turn-flow/api-request-assembly-retry-and-prompt-cache-stability.md]
 ---
 
 # Provider-Specific API Clients and Auth Routing
@@ -21,7 +21,7 @@ It intentionally does not re-document:
 
 - the user-facing `/login` and logout lifecycle already covered in [auth-login-logout-and-token-lifecycle.md](auth-login-logout-and-token-lifecycle.md)
 - the user-facing `/model` and `/fast` controls already covered in [../product-surface/model-and-behavior-controls.md](../product-surface/model-and-behavior-controls.md)
-- request assembly, retry, and turn-loop behavior already covered in [../runtime-orchestration/api-request-assembly-retry-and-prompt-cache-stability.md](../runtime-orchestration/api-request-assembly-retry-and-prompt-cache-stability.md)
+- request assembly, retry, and turn-loop behavior already covered in [../runtime-orchestration/turn-flow/api-request-assembly-retry-and-prompt-cache-stability.md](../runtime-orchestration/turn-flow/api-request-assembly-retry-and-prompt-cache-stability.md)
 
 ## Provider selection is a runtime fork
 

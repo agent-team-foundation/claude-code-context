@@ -1,7 +1,7 @@
 ---
 title: "In-Process Teammate Lifecycle"
 owners: []
-soft_links: [/collaboration-and-agents/worker-execution-boundaries.md, /runtime-orchestration/task-model.md, /runtime-orchestration/local-agent-task-lifecycle.md]
+soft_links: [/collaboration-and-agents/worker-execution-boundaries.md, /runtime-orchestration/tasks/task-model.md, /runtime-orchestration/tasks/local-agent-task-lifecycle.md]
 ---
 
 # In-Process Teammate Lifecycle

@@ -1,7 +1,7 @@
 ---
 title: "Tree Expansion Strategy"
 owners: []
-soft_links: [/reconstruction-guardrails/rebuild-standard.md, /runtime-orchestration/turn-assembly-and-recovery.md, /integrations/clients/surface-adapter-contract.md]
+soft_links: [/reconstruction-guardrails/rebuild-standard.md, /runtime-orchestration/turn-flow/turn-assembly-and-recovery.md, /integrations/clients/surface-adapter-contract.md]
 ---
 
 # Tree Expansion Strategy

@@ -1,7 +1,7 @@
 ---
 title: "Teammate Mailbox and Permission Bridge"
 owners: []
-soft_links: [/collaboration-and-agents/worker-execution-boundaries.md, /collaboration-and-agents/in-process-teammate-lifecycle.md, /collaboration-and-agents/peer-addressing-discovery-and-routing.md, /tools-and-permissions/permission-model.md, /ui-and-experience/interaction-feedback.md]
+soft_links: [/collaboration-and-agents/worker-execution-boundaries.md, /collaboration-and-agents/in-process-teammate-lifecycle.md, /collaboration-and-agents/peer-addressing-discovery-and-routing.md, /tools-and-permissions/permissions/permission-model.md, /ui-and-experience/feedback-and-notifications/interaction-feedback.md]
 ---
 
 # Teammate Mailbox and Permission Bridge

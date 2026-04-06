@@ -1,7 +1,7 @@
 ---
 title: "Config Layering, Policy, and Dedup"
 owners: []
-soft_links: [/integrations/mcp/server-contract.md, /integrations/mcp/connection-and-recovery-contract.md, /integrations/plugins/plugin-runtime-contract.md, /platform-services/auth-config-and-policy.md, /tools-and-permissions/permission-model.md]
+soft_links: [/integrations/mcp/server-contract.md, /integrations/mcp/connection-and-recovery-contract.md, /integrations/plugins/plugin-runtime-contract.md, /platform-services/auth-config-and-policy.md, /tools-and-permissions/permissions/permission-model.md]
 ---
 
 # Config Layering, Policy, and Dedup

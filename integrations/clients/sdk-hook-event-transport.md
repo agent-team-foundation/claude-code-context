@@ -1,7 +1,7 @@
 ---
 title: "SDK Hook Event Transport"
 owners: []
-soft_links: [/integrations/clients/sdk-control-protocol.md, /tools-and-permissions/tool-hook-control-plane.md, /ui-and-experience/hook-execution-feedback.md]
+soft_links: [/integrations/clients/sdk-control-protocol.md, /tools-and-permissions/execution-and-hooks/tool-hook-control-plane.md, /ui-and-experience/feedback-and-notifications/hook-execution-feedback.md]
 ---
 
 # SDK Hook Event Transport

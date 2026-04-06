@@ -1,7 +1,7 @@
 ---
 title: "Memory Layers"
 owners: []
-soft_links: [/memory-and-context/instruction-sources-and-precedence.md, /memory-and-context/durable-memory-recall-and-auto-memory.md, /memory-and-context/relevant-memory-selection-and-session-memory-upkeep.md, /memory-and-context/session-memory.md, /memory-and-context/compaction-and-dream.md, /platform-services/sync-and-managed-state.md, /tools-and-permissions/agent-definition-loading-and-precedence.md]
+soft_links: [/memory-and-context/instruction-sources-and-precedence.md, /memory-and-context/durable-memory-recall-and-auto-memory.md, /memory-and-context/relevant-memory-selection-and-session-memory-upkeep.md, /memory-and-context/session-memory.md, /memory-and-context/compaction-and-dream.md, /platform-services/sync-and-managed-state.md, /tools-and-permissions/tool-catalog/agent-definition-loading-and-precedence.md]
 ---
 
 # Memory Layers

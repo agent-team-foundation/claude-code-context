@@ -1,7 +1,7 @@
 ---
 title: "Settings Change Detection and Runtime Reload"
 owners: []
-soft_links: [/platform-services/policy-and-managed-settings-lifecycle.md, /platform-services/sync-and-managed-state.md, /tools-and-permissions/permission-rule-loading-and-persistence.md, /tools-and-permissions/sandbox-selection-and-bypass-guards.md, /integrations/plugins/plugin-runtime-contract.md, /ui-and-experience/keybinding-customization-and-context-resolution.md]
+soft_links: [/platform-services/policy-and-managed-settings-lifecycle.md, /platform-services/sync-and-managed-state.md, /tools-and-permissions/permissions/permission-rule-loading-and-persistence.md, /tools-and-permissions/permissions/sandbox-selection-and-bypass-guards.md, /integrations/plugins/plugin-runtime-contract.md, /ui-and-experience/shell-and-input/keybinding-customization-and-context-resolution.md]
 ---
 
 # Settings Change Detection and Runtime Reload
@@ -21,7 +21,7 @@ It intentionally does not re-document:
 
 - remote managed settings fetch, cache, polling, and eligibility logic already covered in [policy-and-managed-settings-lifecycle.md](policy-and-managed-settings-lifecycle.md)
 - settings sync products and cross-environment transport already covered in [sync-and-managed-state.md](sync-and-managed-state.md)
-- permission rule semantics or edit operations already covered in [permission-rule-loading-and-persistence.md](../tools-and-permissions/permission-rule-loading-and-persistence.md)
+- permission rule semantics or edit operations already covered in [permission-rule-loading-and-persistence.md](../tools-and-permissions/permissions/permission-rule-loading-and-persistence.md)
 - feature-specific hot reload systems such as keybindings beyond the fact that they sit adjacent to this pipeline
 
 ## Shared design rule

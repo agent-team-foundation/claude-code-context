@@ -1,7 +1,7 @@
 ---
 title: "MCP Surface State Assembly and Live Refresh"
 owners: []
-soft_links: [/integrations/mcp/server-contract.md, /integrations/mcp/connection-and-recovery-contract.md, /integrations/plugins/skill-loading-contract.md, /product-surface/command-dispatch-and-composition.md, /tools-and-permissions/tool-pool-assembly.md]
+soft_links: [/integrations/mcp/server-contract.md, /integrations/mcp/connection-and-recovery-contract.md, /integrations/plugins/skill-loading-contract.md, /product-surface/command-dispatch-and-composition.md, /tools-and-permissions/tool-catalog/tool-pool-assembly.md]
 ---
 
 # MCP Surface State Assembly and Live Refresh

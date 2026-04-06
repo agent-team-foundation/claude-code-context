@@ -1,7 +1,7 @@
 ---
 title: "Worker Execution Boundaries"
 owners: []
-soft_links: [/collaboration-and-agents/multi-agent-topology.md, /collaboration-and-agents/collaboration-state-machine.md, /tools-and-permissions/delegation-modes.md]
+soft_links: [/collaboration-and-agents/multi-agent-topology.md, /collaboration-and-agents/collaboration-state-machine.md, /tools-and-permissions/agent-and-task-control/delegation-modes.md]
 ---
 
 # Worker Execution Boundaries

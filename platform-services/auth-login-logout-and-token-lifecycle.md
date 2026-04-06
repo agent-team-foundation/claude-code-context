@@ -1,7 +1,7 @@
 ---
 title: "Auth Login, Logout, and Token Lifecycle"
 owners: []
-soft_links: [/platform-services/auth-config-and-policy.md, /platform-services/policy-and-managed-settings-lifecycle.md, /collaboration-and-agents/remote-and-bridge-flows.md, /integrations/mcp/server-contract.md, /ui-and-experience/voice-mode-and-hold-to-talk-dictation.md]
+soft_links: [/platform-services/auth-config-and-policy.md, /platform-services/policy-and-managed-settings-lifecycle.md, /collaboration-and-agents/remote-and-bridge-flows.md, /integrations/mcp/server-contract.md, /ui-and-experience/shell-and-input/voice-mode-and-hold-to-talk-dictation.md]
 ---
 
 # Auth Login, Logout, and Token Lifecycle

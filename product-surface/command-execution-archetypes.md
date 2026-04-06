@@ -1,7 +1,7 @@
 ---
 title: "Command Execution Archetypes"
 owners: []
-soft_links: [/product-surface/command-surface.md, /product-surface/command-dispatch-and-composition.md, /runtime-orchestration/review-path.md, /runtime-orchestration/resume-path.md, /memory-and-context/compact-path.md, /collaboration-and-agents/remote-handoff-path.md]
+soft_links: [/product-surface/command-surface.md, /product-surface/command-dispatch-and-composition.md, /runtime-orchestration/automation/review-path.md, /runtime-orchestration/sessions/resume-path.md, /memory-and-context/compact-path.md, /collaboration-and-agents/remote-handoff-path.md]
 ---
 
 # Command Execution Archetypes

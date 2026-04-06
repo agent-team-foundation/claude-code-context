@@ -1,7 +1,7 @@
 ---
 title: "Connection and Recovery Contract"
 owners: []
-soft_links: [/integrations/mcp/server-contract.md, /platform-services/auth-config-and-policy.md, /tools-and-permissions/tool-families.md]
+soft_links: [/integrations/mcp/server-contract.md, /platform-services/auth-config-and-policy.md, /tools-and-permissions/tool-catalog/tool-families.md]
 ---
 
 # Connection and Recovery Contract

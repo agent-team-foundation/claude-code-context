@@ -1,7 +1,7 @@
 ---
 title: "Interactive Startup and Project Activation"
 owners: []
-soft_links: [/platform-services/startup-service-sequencing-and-capability-gates.md, /platform-services/bootstrap-and-service-failures.md, /platform-services/workspace-trust-dialog-and-persistence.md, /platform-services/trust-and-capability-hydration.md, /platform-services/settings-change-detection-and-runtime-reload.md, /platform-services/usage-analytics-and-migrations.md, /ui-and-experience/interactive-setup-and-onboarding-screens.md, /ui-and-experience/startup-welcome-dashboard-and-feed-rotation.md, /runtime-orchestration/worktree-session-lifecycle.md, /product-surface/command-execution-archetypes.md]
+soft_links: [/platform-services/startup-service-sequencing-and-capability-gates.md, /platform-services/bootstrap-and-service-failures.md, /platform-services/workspace-trust-dialog-and-persistence.md, /platform-services/trust-and-capability-hydration.md, /platform-services/settings-change-detection-and-runtime-reload.md, /platform-services/usage-analytics-and-migrations.md, /ui-and-experience/startup-and-onboarding/interactive-setup-and-onboarding-screens.md, /ui-and-experience/startup-and-onboarding/startup-welcome-dashboard-and-feed-rotation.md, /runtime-orchestration/sessions/worktree-session-lifecycle.md, /product-surface/command-execution-archetypes.md]
 ---
 
 # Interactive Startup and Project Activation

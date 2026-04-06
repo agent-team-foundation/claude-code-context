@@ -1,7 +1,7 @@
 ---
 title: "Remote Transcript Persistence and Cross-Machine Replay"
 owners: []
-soft_links: [/collaboration-and-agents/remote-handoff-path.md, /collaboration-and-agents/remote-session-contract.md, /collaboration-and-agents/remote-session-live-control-loop.md, /runtime-orchestration/resume-path.md]
+soft_links: [/collaboration-and-agents/remote-handoff-path.md, /collaboration-and-agents/remote-session-contract.md, /collaboration-and-agents/remote-session-live-control-loop.md, /runtime-orchestration/sessions/resume-path.md]
 ---
 
 # Remote Transcript Persistence and Cross-Machine Replay

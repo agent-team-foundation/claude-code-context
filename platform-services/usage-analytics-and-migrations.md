@@ -1,7 +1,7 @@
 ---
 title: "Usage, Analytics, and Migrations"
 owners: []
-soft_links: [/platform-services/startup-service-sequencing-and-capability-gates.md, /platform-services/bootstrap-and-service-failures.md, /platform-services/claude-ai-limits-and-extra-usage-state.md, /product-surface/interaction-modes.md, /runtime-orchestration/build-profiles.md]
+soft_links: [/platform-services/startup-service-sequencing-and-capability-gates.md, /platform-services/bootstrap-and-service-failures.md, /platform-services/claude-ai-limits-and-extra-usage-state.md, /product-surface/interaction-modes.md, /runtime-orchestration/state/build-profiles.md]
 ---
 
 # Usage, Analytics, and Migrations

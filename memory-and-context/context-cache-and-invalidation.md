@@ -1,7 +1,7 @@
 ---
 title: "Context Cache and Invalidation"
 owners: []
-soft_links: [/memory-and-context/context-bootstrap.md, /runtime-orchestration/turn-assembly-and-recovery.md, /memory-and-context/compact-path.md]
+soft_links: [/memory-and-context/context-bootstrap.md, /runtime-orchestration/turn-flow/turn-assembly-and-recovery.md, /memory-and-context/compact-path.md]
 ---
 
 # Context Cache and Invalidation

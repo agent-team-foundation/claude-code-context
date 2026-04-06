@@ -1,7 +1,7 @@
 ---
 title: "Deep Link Protocol Trampoline and Origin Banner"
 owners: []
-soft_links: [/platform-services/interactive-startup-and-project-activation.md, /product-surface/init-command-and-claude-md-setup.md, /ui-and-experience/interaction-feedback.md]
+soft_links: [/platform-services/interactive-startup-and-project-activation.md, /product-surface/init-command-and-claude-md-setup.md, /ui-and-experience/feedback-and-notifications/interaction-feedback.md]
 ---
 
 # Deep Link Protocol Trampoline and Origin Banner

@@ -1,7 +1,7 @@
 ---
 title: "Skill Loading Contract"
 owners: []
-soft_links: [/integrations/plugins/plugin-and-skill-model.md, /tools-and-permissions/tool-families.md, /product-surface/command-execution-archetypes.md]
+soft_links: [/integrations/plugins/plugin-and-skill-model.md, /tools-and-permissions/tool-catalog/tool-families.md, /product-surface/command-execution-archetypes.md]
 ---
 
 # Skill Loading Contract

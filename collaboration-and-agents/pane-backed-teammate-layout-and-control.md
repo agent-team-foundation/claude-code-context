@@ -1,7 +1,7 @@
 ---
 title: "Pane-Backed Teammate Layout and Control"
 owners: []
-soft_links: [/collaboration-and-agents/worker-execution-boundaries.md, /collaboration-and-agents/teammate-backend-and-context-bootstrap.md, /ui-and-experience/terminal-ui.md]
+soft_links: [/collaboration-and-agents/worker-execution-boundaries.md, /collaboration-and-agents/teammate-backend-and-context-bootstrap.md, /ui-and-experience/shell-and-input/terminal-ui.md]
 ---
 
 # Pane-Backed Teammate Layout and Control

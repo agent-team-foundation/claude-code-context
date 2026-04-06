@@ -1,7 +1,7 @@
 ---
 title: "Autocompact Gating and Circuit Breakers"
 owners: []
-soft_links: [/memory-and-context/compact-path.md, /runtime-orchestration/query-recovery-and-continuation.md, /memory-and-context/context-lifecycle-and-failure-modes.md]
+soft_links: [/memory-and-context/compact-path.md, /runtime-orchestration/turn-flow/query-recovery-and-continuation.md, /memory-and-context/context-lifecycle-and-failure-modes.md]
 ---
 
 # Autocompact Gating and Circuit Breakers

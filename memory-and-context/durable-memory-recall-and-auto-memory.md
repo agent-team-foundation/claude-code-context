@@ -1,7 +1,7 @@
 ---
 title: "Durable Memory Recall and Auto-Memory"
 owners: []
-soft_links: [/memory-and-context/memory-layers.md, /memory-and-context/instruction-sources-and-precedence.md, /memory-and-context/relevant-memory-selection-and-session-memory-upkeep.md, /tools-and-permissions/agent-definition-loading-and-precedence.md, /platform-services/sync-and-managed-state.md]
+soft_links: [/memory-and-context/memory-layers.md, /memory-and-context/instruction-sources-and-precedence.md, /memory-and-context/relevant-memory-selection-and-session-memory-upkeep.md, /tools-and-permissions/tool-catalog/agent-definition-loading-and-precedence.md, /platform-services/sync-and-managed-state.md]
 ---
 
 # Durable Memory Recall and Auto-Memory

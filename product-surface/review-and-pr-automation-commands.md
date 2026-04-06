@@ -1,7 +1,7 @@
 ---
 title: "Review and PR Automation Commands"
 owners: []
-soft_links: [/product-surface/command-dispatch-and-composition.md, /runtime-orchestration/review-path.md, /runtime-orchestration/remote-agent-restoration-and-polling.md, /integrations/plugins/plugin-runtime-contract.md, /tools-and-permissions/permission-model.md, /platform-services/auth-config-and-policy.md]
+soft_links: [/product-surface/command-dispatch-and-composition.md, /runtime-orchestration/automation/review-path.md, /runtime-orchestration/sessions/remote-agent-restoration-and-polling.md, /integrations/plugins/plugin-runtime-contract.md, /tools-and-permissions/permissions/permission-model.md, /platform-services/auth-config-and-policy.md]
 ---
 
 # Review and PR Automation Commands
@@ -21,10 +21,10 @@ This leaf covers:
 It intentionally does not re-document:
 
 - generic command discovery, aliasing, and registry composition already captured in [command-dispatch-and-composition.md](command-dispatch-and-composition.md)
-- the shared local-versus-remote review lifecycle already captured in [review-path.md](../runtime-orchestration/review-path.md)
-- generic remote-task registration, restore, and polling behavior already captured in [remote-agent-restoration-and-polling.md](../runtime-orchestration/remote-agent-restoration-and-polling.md)
+- the shared local-versus-remote review lifecycle already captured in [review-path.md](../runtime-orchestration/automation/review-path.md)
+- generic remote-task registration, restore, and polling behavior already captured in [remote-agent-restoration-and-polling.md](../runtime-orchestration/sessions/remote-agent-restoration-and-polling.md)
 - the broader plugin runtime and marketplace loading model already captured in [plugin-runtime-contract.md](../integrations/plugins/plugin-runtime-contract.md)
-- generic permission evaluation rules already captured in [permission-model.md](../tools-and-permissions/permission-model.md)
+- generic permission evaluation rules already captured in [permission-model.md](../tools-and-permissions/permissions/permission-model.md)
 
 ## `/review` stays local and is defined by a prompt contract, not a bespoke runtime
 

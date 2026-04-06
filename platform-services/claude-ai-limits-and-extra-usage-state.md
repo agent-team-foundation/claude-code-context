@@ -1,7 +1,7 @@
 ---
 title: "Claude AI Limits and Extra Usage State"
 owners: []
-soft_links: [/platform-services/usage-analytics-and-migrations.md, /product-surface/model-and-behavior-controls.md, /ui-and-experience/status-line-and-footer-notification-stack.md, /product-surface/review-and-pr-automation-commands.md]
+soft_links: [/platform-services/usage-analytics-and-migrations.md, /product-surface/model-and-behavior-controls.md, /ui-and-experience/feedback-and-notifications/status-line-and-footer-notification-stack.md, /product-surface/review-and-pr-automation-commands.md]
 ---
 
 # Claude AI Limits and Extra Usage State
@@ -22,7 +22,7 @@ It intentionally does not re-document:
 
 - the broader auth and account lifecycle already covered in [auth-login-logout-and-token-lifecycle.md](auth-login-logout-and-token-lifecycle.md)
 - the full model picker and command semantics already covered in [../product-surface/model-and-behavior-controls.md](../product-surface/model-and-behavior-controls.md)
-- the generic footer queue implementation already covered in [../ui-and-experience/status-line-and-footer-notification-stack.md](../ui-and-experience/status-line-and-footer-notification-stack.md)
+- the generic footer queue implementation already covered in [../ui-and-experience/feedback-and-notifications/status-line-and-footer-notification-stack.md](../ui-and-experience/feedback-and-notifications/status-line-and-footer-notification-stack.md)
 - the dedicated ultrareview billing flow already covered in [../product-surface/review-and-pr-automation-commands.md](../product-surface/review-and-pr-automation-commands.md)
 
 ## Shared limit-state model and intake gate

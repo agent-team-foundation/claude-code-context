@@ -1,7 +1,7 @@
 ---
 title: "Plugin Management and Marketplace Flows"
 owners: []
-soft_links: [/integrations/plugins/plugin-runtime-contract.md, /integrations/plugins/lsp-plugin-and-diagnostics.md, /platform-services/trust-and-capability-hydration.md, /ui-and-experience/interaction-feedback.md]
+soft_links: [/integrations/plugins/plugin-runtime-contract.md, /integrations/plugins/lsp-plugin-and-diagnostics.md, /platform-services/trust-and-capability-hydration.md, /ui-and-experience/feedback-and-notifications/interaction-feedback.md]
 ---
 
 # Plugin Management and Marketplace Flows

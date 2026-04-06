@@ -1,7 +1,7 @@
 ---
 title: "MCP Integration"
 owners: []
-soft_links: [/tools-and-permissions/tool-families.md, /platform-services/auth-config-and-policy.md]
+soft_links: [/tools-and-permissions/tool-catalog/tool-families.md, /platform-services/auth-config-and-policy.md]
 ---
 
 # MCP Integration
