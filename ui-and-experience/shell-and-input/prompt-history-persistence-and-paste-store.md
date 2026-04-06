@@ -13,7 +13,7 @@ Claude Code's prompt history is not just "remember the last string." It persists
 This leaf covers:
 
 - durable prompt-history storage and flush behavior
-- pasted-text persistence outside the inline prompt buffer
+- pasted-text persistence outside the visible prompt text
 - the difference between Up-arrow history, incremental history search, and the modal history picker
 - interrupted-submit undo behavior for history entries
 
@@ -43,7 +43,7 @@ Equivalent behavior should preserve one shared history log under the Claude conf
 - timestamp
 - project identity
 - session identity
-- serialized pasted-content references
+- serialized references to hidden pasted artifacts
 
 The log is shared across sessions, so higher-level readers must decide how to filter or reorder entries for a given UX surface.
 
@@ -52,7 +52,7 @@ The log is shared across sessions, so higher-level readers must decide how to fi
 Equivalent behavior should preserve:
 
 - creating the history file before append if it does not exist
-- locking the history path before appending JSONL entries
+- locking the history file before appending line-oriented serialized entries
 - releasing the lock even when append fails
 - treating malformed historical lines as skippable read noise, not fatal corruption
 
@@ -63,11 +63,11 @@ This allows concurrent sessions to share history without requiring a database.
 Equivalent behavior should preserve two persistence modes for pasted text:
 
 - short pasted text stored inline in the history entry
-- larger pasted text stored separately in a content-addressed paste cache and referenced by hash from the history entry
+- larger pasted text stored separately in a content-addressed paste store and referenced by hash from the history entry
 
-Images do not use this same history-store path; they live in a separate image cache and are not serialized inline into prompt history.
+Images do not use this same history-store path; they live in a separate image store and are not serialized inline into prompt history.
 
-## Paste cache contract
+## Paste store contract
 
 Equivalent behavior should preserve:
 
@@ -77,7 +77,7 @@ Equivalent behavior should preserve:
 - lazy retrieval when history entries are resolved back into live pasted-content payloads
 - best-effort cleanup of stale paste files by age rather than by reference counting
 
-The cache is a resilience layer, not a perfect garbage-collected store.
+The store is a resilience layer, not a perfect garbage-collected system.
 
 ## Reference placeholders must round-trip
 
@@ -100,7 +100,7 @@ Equivalent behavior should preserve Up-arrow recall as:
 - newest first
 - current-session entries shown before older entries from other sessions
 - limited to a bounded window
-- chunk-loaded and cached so rapid repeated keypresses do not perform one disk read per step
+- chunk-loaded with reuse across repeated keypresses so rapid navigation does not perform one disk read per step
 
 This is a very different contract from generic "global shell history."
 
@@ -125,12 +125,12 @@ Equivalent behavior should preserve incremental history search as its own revers
 
 Important differences from Up-arrow navigation:
 
-- it searches a reverse stream of history entries rather than the cached Up-arrow window
+- it searches a reverse stream of history entries rather than the bounded Up-arrow recall window
 - it keeps a separate search query and original-buffer snapshot
 - accept, cancel, and execute each restore or replace prompt state differently
 - pasted contents travel with the accepted historical entry, not just the display string
 
-This is not merely a UI wrapper around the Up-arrow history cache.
+This is not merely a UI wrapper around the Up-arrow history reader.
 
 ## Modal history picker uses a third projection
 
@@ -167,4 +167,4 @@ Equivalent behavior should preserve very large pasted text being compacted into 
 - **paste amnesia**: history restores the visible placeholder text but not the hidden pasted-content payload it refers to
 - **surface drift**: Up-arrow, incremental search, and modal picker all read different history semantics by accident instead of by design
 - **mode bleed**: bash-only history traversal leaks ordinary prompt entries into the same navigation run
-- **cache thrash**: rapid history navigation re-reads disk repeatedly instead of sharing chunked loads
+- **recall thrash**: rapid history navigation re-reads disk repeatedly instead of sharing chunked loads
