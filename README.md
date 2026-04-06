@@ -20,7 +20,7 @@ This repository intentionally does not store:
 - proprietary strings, secrets, internal codenames, or implementation-only detail
 - repo-by-repo file inventories that would turn the tree into a source mirror
 
-Local analysis-only inputs such as raw source snapshots should live under hidden paths like `.analysis/` so `context-tree verify` continues to validate the tree itself rather than auxiliary research material.
+Local analysis-only inputs such as raw source snapshots should live under hidden paths like `.analysis/` so `first-tree verify` continues to validate the tree itself rather than auxiliary research material.
 
 ## Installed skill
 
@@ -38,4 +38,4 @@ bash ./.scripts/sync-first-tree-skill.sh
 The sync script refreshes both installed roots from the upstream skill and
 preserves the repo-local `.agents/skills/first-tree/progress.md`.
 After syncing, confirm that progress file still reflects reality and rerun
-`context-tree verify`.
+`first-tree verify`.

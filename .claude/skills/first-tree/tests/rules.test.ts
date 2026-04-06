@@ -17,6 +17,7 @@ import {
   makeFramework,
   makeNode,
   makeAgentsMd,
+  makeClaudeMd,
   makeMembers,
 } from "./helpers.js";
 
@@ -114,6 +115,7 @@ describe("agentInstructions rule", () => {
   it("reports legacy AGENT.md rename", () => {
     const tmp = useTmpDir();
     makeAgentsMd(tmp.path, { legacyName: true, markers: true, userContent: true });
+    makeClaudeMd(tmp.path, { markers: true, userContent: true });
     const repo = new Repo(tmp.path);
     const result = agentInstructions.evaluate(repo);
     expect(result.tasks.some((t) => t.includes("Rename `AGENT.md` to `AGENTS.md`"))).toBe(
@@ -124,6 +126,7 @@ describe("agentInstructions rule", () => {
   it("reports duplicate cleanup when both filenames exist", () => {
     const tmp = useTmpDir();
     makeAgentsMd(tmp.path, { markers: true, userContent: true });
+    makeClaudeMd(tmp.path, { markers: true, userContent: true });
     makeAgentsMd(tmp.path, { legacyName: true, markers: true, userContent: true });
     const repo = new Repo(tmp.path);
     const result = agentInstructions.evaluate(repo);
@@ -133,6 +136,7 @@ describe("agentInstructions rule", () => {
   it("reports no markers", () => {
     const tmp = useTmpDir();
     makeAgentsMd(tmp.path, { markers: false });
+    makeClaudeMd(tmp.path, { markers: true, userContent: true });
     const repo = new Repo(tmp.path);
     const result = agentInstructions.evaluate(repo);
     expect(result.tasks.some((t) => t.toLowerCase().includes("markers"))).toBe(true);
@@ -141,14 +145,24 @@ describe("agentInstructions rule", () => {
   it("reports no user content", () => {
     const tmp = useTmpDir();
     makeAgentsMd(tmp.path, { markers: true, userContent: false });
+    makeClaudeMd(tmp.path, { markers: true, userContent: true });
     const repo = new Repo(tmp.path);
     const result = agentInstructions.evaluate(repo);
     expect(result.tasks.some((t) => t.toLowerCase().includes("project-specific"))).toBe(true);
   });
 
+  it("reports missing CLAUDE.md", () => {
+    const tmp = useTmpDir();
+    makeAgentsMd(tmp.path, { markers: true, userContent: true });
+    const repo = new Repo(tmp.path);
+    const result = agentInstructions.evaluate(repo);
+    expect(result.tasks.some((t) => t.includes("CLAUDE.md is missing"))).toBe(true);
+  });
+
   it("passes with markers and user content", () => {
     const tmp = useTmpDir();
     makeAgentsMd(tmp.path, { markers: true, userContent: true });
+    makeClaudeMd(tmp.path, { markers: true, userContent: true });
     const repo = new Repo(tmp.path);
     const result = agentInstructions.evaluate(repo);
     expect(result.tasks).toEqual([]);
@@ -233,9 +247,8 @@ describe("ciValidation rule", () => {
     const result = ciValidation.evaluate(repo);
     expect(result.tasks).toHaveLength(4);
     expect(result.tasks[0]).toContain("validation workflow");
-    expect(result.tasks[0]).toContain(
-      ".agents/skills/first-tree/assets/framework/workflows/validate.yml",
-    );
+    expect(result.tasks[0]).toContain("validate.yml");
+    expect(result.tasks[0]).toContain("bundled first-tree workflow templates");
     expect(result.tasks[1]).toContain("PR reviews");
     expect(result.tasks[2]).toContain("API secret");
     expect(result.tasks[3]).toContain("CODEOWNERS");
@@ -354,19 +367,23 @@ describe("populateTree rule", () => {
     expect(result.tasks.length).toBeGreaterThanOrEqual(4);
   });
 
-  it("first task asks user whether to populate", () => {
+  it("starts with a progress checkpoint before asking whether to populate", () => {
     const tmp = useTmpDir();
     const repo = new Repo(tmp.path);
     const result = populateTree.evaluate(repo);
-    expect(result.tasks[0]).toContain("Yes");
-    expect(result.tasks[0]).toContain("No");
+    expect(result.tasks[0]).toContain("progress.md");
+    expect(result.tasks[0]).toContain("baseline coverage");
+    expect(result.tasks[1]).toContain("Yes");
+    expect(result.tasks[1]).toContain("No");
   });
 
-  it("includes sub-task parallelization instruction", () => {
+  it("includes wave-based sub-task parallelization instruction", () => {
     const tmp = useTmpDir();
     const repo = new Repo(tmp.path);
     const result = populateTree.evaluate(repo);
+    expect(result.tasks.some((t) => t.includes("wave"))).toBe(true);
     expect(result.tasks.some((t) => t.includes("sub-task") || t.includes("TaskCreate"))).toBe(true);
+    expect(result.tasks.some((t) => t.includes("root `NODE.md`"))).toBe(true);
   });
 });
 
@@ -387,6 +404,7 @@ describe("evaluateAll", () => {
     makeFramework(tmp.path);
     makeNode(tmp.path);
     makeAgentsMd(tmp.path, { markers: true, userContent: true });
+    makeClaudeMd(tmp.path, { markers: true, userContent: true });
     makeMembers(tmp.path, 1);
     mkdirSync(join(tmp.path, ".claude"), { recursive: true });
     writeFileSync(

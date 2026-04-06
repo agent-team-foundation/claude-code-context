@@ -33,7 +33,8 @@ The installed skill payload lives under `assets/framework/`.
 | `assets/framework/prompts/` | Review prompt payload |
 | `assets/framework/examples/` | Agent integration examples |
 | `assets/framework/helpers/` | Shipped helper scripts and TypeScript utilities |
-| `progress.md` | Generated in user repos to track unfinished setup or upgrade tasks |
+| `assets/framework/helpers/summarize-progress.js` | Optional onboarding checkpoint helper that summarizes `progress.md` into setup-vs-tree progress lanes |
+| `progress.md` | Generated in source/workspace skill installs; dedicated tree repos keep their task lists under `.first-tree/progress.md` |
 
 ## Framework Engine Surface
 
@@ -43,6 +44,7 @@ These skill-owned files implement the framework behavior.
 | --- | --- |
 | `engine/commands/` | Stable command entrypoints that the thin CLI imports |
 | `engine/init.ts` / `engine/publish.ts` / `engine/verify.ts` / `engine/upgrade.ts` | Command implementations for install, publish, verify, and upgrade |
+| `engine/member-seeding.ts` | Contributor discovery plus optional member-node seeding during init |
 | `engine/onboarding.ts` | Canonical onboarding text loader |
 | `engine/repo.ts` | Repo inspection, source-vs-tree heuristics, and worktree-aware git-root helpers |
 | `engine/rules/` | Situation-aware task generation after `init` |
@@ -75,6 +77,7 @@ not become the only place important maintainer knowledge lives.
 | Path | Coverage |
 | --- | --- |
 | `tests/init.test.ts` | Init scaffolding behavior |
+| `tests/member-seeding.test.ts` | Contributor discovery and member seeding behavior |
 | `tests/publish.test.ts` | Publish workflow orchestration |
 | `tests/verify.test.ts` | Verification and progress gating |
 | `tests/rules.test.ts` | Task generation text |
