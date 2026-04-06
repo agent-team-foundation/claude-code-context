@@ -6,7 +6,7 @@ soft_links: [/integrations/plugins/plugin-and-skill-model.md, /tools-and-permiss
 
 # Skill Loading Contract
 
-Skills are a prompt-layer extension mechanism, but the runtime does not load them through one uniform path. Bundled skills, file-backed local skills, plugin skills, MCP-delivered skills, and dynamically discovered nested skills each arrive through different channels, then meet again inside the shared command registry. A faithful rebuild needs those channels and their ordering to stay intact, or user-visible slash resolution, SkillTool availability, and dynamic path-triggered skills will drift.
+Skills are a prompt-layer extension mechanism, but the product does not load them through one uniform path. Bundled skills, file-backed local skills, plugin skills, MCP-delivered skills, and dynamically discovered nested skills each arrive through different channels, then meet again inside the shared command registry. A faithful rebuild needs those channels and their ordering to stay intact, or user-visible slash resolution, model skill availability, and path-triggered activation will drift.
 
 ## Scope boundary
 
@@ -23,15 +23,15 @@ It intentionally does not re-document:
 - the broader conceptual difference between skills and plugins already covered in [plugin-and-skill-model.md](plugin-and-skill-model.md)
 - model-facing and human-facing skill listing surfaces already covered in [skill-discovery-and-listing-surfaces.md](skill-discovery-and-listing-surfaces.md)
 - feature-gated discovery-tool overlays and remote discovered-skill behavior already covered in [feature-gated-remote-skill-discovery-overlay.md](feature-gated-remote-skill-discovery-overlay.md)
-- prompt-command and SkillTool execution paths already covered in [../../product-surface/prompt-command-and-skill-execution.md](../../product-surface/prompt-command-and-skill-execution.md)
+- prompt-command and model skill invocation paths already covered in [../../product-surface/prompt-command-and-skill-execution.md](../../product-surface/prompt-command-and-skill-execution.md)
 - the feature-gated skill-improvement rewrite loop already covered in [feature-gated-project-skill-improvement-loop.md](feature-gated-project-skill-improvement-loop.md)
 
-## The runtime tracks provenance and loading channel separately
+## Source class and loading channel stay separate
 
 Equivalent behavior should preserve:
 
 - bundled skills registering outside the filesystem scan
-- file-backed managed, user, project, and `--add-dir` skills all loading through the same `/skills` loader even though their provenance differs
+- file-backed managed, user, project, and `--add-dir` skills all loading through one shared skill-directory scan even though their provenance differs
 - provenance staying attached as the source class:
   - managed policy settings
   - user settings
@@ -84,7 +84,7 @@ Equivalent behavior should preserve:
 - plugin skill names being namespaced from their plugin identity instead of sharing the raw local filename namespace
 - MCP skills using `server:skill` style names, which are distinct from plain MCP prompts
 
-## Frontmatter is shared, but invocation transforms are not trivial
+## Frontmatter is shared, but invocation still depends on channel
 
 Equivalent behavior should preserve:
 
@@ -142,7 +142,7 @@ Equivalent behavior should preserve:
 
 - same-named skills from different channels staying as distinct loaded candidates until [../../product-surface/command-dispatch-and-composition.md](../../product-surface/command-dispatch-and-composition.md) applies final registry ordering and first-match resolution
 - dynamic skill discovery handing late candidates into that same command-composition phase rather than retroactively rewriting or renormalizing already loaded command records
-- user-invocable and model-invocable metadata staying attached to the loaded skill record so later slash-command UI, SkillTool filtering, and attachment surfaces can diverge without reparsing markdown sources
+- the metadata that controls user-facing versus model-facing invocation staying attached to the loaded skill record so later slash-command UI, model-skill filtering, and attachment surfaces can diverge without reparsing markdown sources
 
 ## MCP skills are a separate surface from plain MCP prompts
 
@@ -150,9 +150,9 @@ Equivalent behavior should preserve:
 
 - ordinary MCP prompts and MCP skills staying distinct even though both are delivered through MCP
 - MCP prompts being treated as prompt resources rather than as skills
-- MCP skills being discovered from MCP skill-like resources and registered into the skill surface with `loadedFrom: mcp`
-- SkillTool and skill listings being able to filter MCP skills specifically instead of conflating them with every MCP prompt
-- the exact `skill://` resource builder path remaining a known clean-room gap in this snapshot, while the surrounding call sites still make the distinction reconstruction-critical
+- MCP skills being discovered from MCP skill-like resources and registered into the skill surface with a distinct MCP-origin marker
+- model skill invocation and skill listings being able to filter MCP skills specifically instead of conflating them with every MCP prompt
+- the exact MCP-side resource-construction path remaining a known clean-room gap in this snapshot, while the surrounding behavior still makes the distinction reconstruction-critical
 
 ## Cache invalidation is multi-layered
 
