@@ -21,7 +21,7 @@ It intentionally does not re-document:
 
 - plugin discovery, validation, cache, dependency, and reload mechanics already covered in [plugin-runtime-contract.md](plugin-runtime-contract.md) and adjacent plugin leaves
 - skill loading, provenance, dynamic activation, and listing behavior already covered in [skill-loading-contract.md](skill-loading-contract.md) and the skill discovery leaves
-- slash-command and SkillTool execution after a skill has been chosen, already covered in [../../product-surface/prompt-command-and-skill-execution.md](../../product-surface/prompt-command-and-skill-execution.md)
+- slash-command and model-side skill execution after a skill has been chosen, already covered in [../../product-surface/prompt-command-and-skill-execution.md](../../product-surface/prompt-command-and-skill-execution.md)
 
 ## Plugins are installable extension bundles
 
@@ -47,7 +47,7 @@ The important invariant is that plugins are the operational extension container.
 
 Equivalent behavior should preserve:
 
-- a skill being a named unit of instructions plus invocation metadata that enters the prompt-command and SkillTool surface
+- a skill being a named unit of instructions plus invocation metadata that enters the prompt-command and model-side skill surface
 - skill identity being invocation-oriented: what the skill is called, when it should be used, what tools or model behavior it expects, and where it came from matter more than package lifecycle
 - skills being loadable from multiple channels rather than from one plugin-style install system, including:
   - bundled core skills
