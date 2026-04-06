@@ -1,4 +1,10 @@
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import {
+  existsSync,
+  lstatSync,
+  readFileSync,
+  readlinkSync,
+  writeFileSync,
+} from "node:fs";
 import { basename, join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { Repo } from "#skill/engine/repo.js";
@@ -6,21 +12,34 @@ import { runUpgrade } from "#skill/engine/upgrade.js";
 import {
   AGENT_INSTRUCTIONS_FILE,
   CLAUDE_INSTRUCTIONS_FILE,
+  FIRST_TREE_INDEX_FILE,
   FRAMEWORK_VERSION,
   INSTALLED_PROGRESS,
   LEGACY_AGENT_INSTRUCTIONS_FILE,
   SOURCE_INTEGRATION_MARKER,
+  TREE_PROGRESS,
+  TREE_VERSION,
 } from "#skill/engine/runtime/asset-loader.js";
-import { buildSourceIntegrationLine } from "#skill/engine/runtime/source-integration.js";
+import { buildSourceIntegrationBlock } from "#skill/engine/runtime/source-integration.js";
 import {
   makeAgentsMd,
+  makeClaudeMd,
   makeFramework,
   makeSourceRepo,
   makeLegacyFramework,
   makeLegacyRepoFramework,
   makeSourceSkill,
+  makeTreeMetadata,
   useTmpDir,
 } from "./helpers.js";
+
+function expectFirstTreeIndexSymlink(root: string): void {
+  const path = join(root, FIRST_TREE_INDEX_FILE);
+  expect(lstatSync(path).isSymbolicLink()).toBe(true);
+  expect(readlinkSync(path)).toBe(
+    join(".agents", "skills", "first-tree", "references", "about.md"),
+  );
+}
 
 describe("runUpgrade", () => {
   it("migrates a legacy repo to the installed skill layout", () => {
@@ -28,6 +47,7 @@ describe("runUpgrade", () => {
     const sourceDir = useTmpDir();
     makeLegacyFramework(repoDir.path, "0.1.0");
     makeAgentsMd(repoDir.path, { legacyName: true, markers: true, userContent: true });
+    makeClaudeMd(repoDir.path, { markers: true, userContent: true });
     makeSourceSkill(sourceDir.path, "0.2.0");
 
     const result = runUpgrade(new Repo(repoDir.path), {
@@ -45,6 +65,9 @@ describe("runUpgrade", () => {
     );
     expect(readFileSync(join(repoDir.path, INSTALLED_PROGRESS), "utf-8")).toContain(
       "skills/first-tree/assets/framework/templates/agents.md.template",
+    );
+    expect(readFileSync(join(repoDir.path, INSTALLED_PROGRESS), "utf-8")).toContain(
+      "skills/first-tree/assets/framework/templates/claude.md.template",
     );
   });
 
@@ -102,6 +125,25 @@ describe("runUpgrade", () => {
     expect(result).toBe(1);
   });
 
+  it("refreshes a dedicated tree repo without reinstalling the skill", () => {
+    const repoDir = useTmpDir();
+    const sourceDir = useTmpDir();
+    makeTreeMetadata(repoDir.path, "0.1.0");
+    makeAgentsMd(repoDir.path, { markers: true, userContent: true });
+    makeSourceSkill(sourceDir.path, "0.2.0");
+
+    const result = runUpgrade(new Repo(repoDir.path), {
+      sourceRoot: sourceDir.path,
+    });
+
+    expect(result).toBe(0);
+    expect(readFileSync(join(repoDir.path, TREE_VERSION), "utf-8").trim()).toBe("0.2.0");
+    expect(existsSync(join(repoDir.path, ".agents", "skills", "first-tree"))).toBe(false);
+    expect(readFileSync(join(repoDir.path, TREE_PROGRESS), "utf-8")).toContain(
+      ".first-tree/VERSION",
+    );
+  });
+
   it("refreshes source/workspace integration without writing tree progress", () => {
     const repoDir = useTmpDir();
     const sourceDir = useTmpDir();
@@ -121,17 +163,82 @@ describe("runUpgrade", () => {
       sourceRoot: sourceDir.path,
     });
 
-    const expectedLine = buildSourceIntegrationLine(
-      `${basename(repoDir.path)}-context`,
+    const expectedBlock = buildSourceIntegrationBlock(
+      `${basename(repoDir.path)}-tree`,
     );
     expect(result).toBe(0);
     expect(readFileSync(join(repoDir.path, FRAMEWORK_VERSION), "utf-8").trim()).toBe("0.2.0");
     expect(readFileSync(join(repoDir.path, AGENT_INSTRUCTIONS_FILE), "utf-8")).toContain(
-      expectedLine,
+      expectedBlock,
     );
     expect(readFileSync(join(repoDir.path, CLAUDE_INSTRUCTIONS_FILE), "utf-8")).toContain(
-      expectedLine,
+      expectedBlock,
     );
+    expectFirstTreeIndexSymlink(repoDir.path);
     expect(existsSync(join(repoDir.path, INSTALLED_PROGRESS))).toBe(false);
+  });
+
+  it("migrates a managed FIRST_TREE.md to a symlink even when the installed skill is already current", () => {
+    const repoDir = useTmpDir();
+    const sourceDir = useTmpDir();
+    makeSourceRepo(repoDir.path);
+    makeFramework(repoDir.path, "0.2.0");
+    writeFileSync(
+      join(repoDir.path, AGENT_INSTRUCTIONS_FILE),
+      `${SOURCE_INTEGRATION_MARKER} old text\n`,
+    );
+    writeFileSync(
+      join(repoDir.path, CLAUDE_INSTRUCTIONS_FILE),
+      `${SOURCE_INTEGRATION_MARKER} old text\n`,
+    );
+    writeFileSync(
+      join(repoDir.path, FIRST_TREE_INDEX_FILE),
+      [
+        "# First Tree",
+        "",
+        "<!-- BEGIN FIRST-TREE INDEX -->",
+        "legacy managed entrypoint",
+        "<!-- END FIRST-TREE INDEX -->",
+        "",
+      ].join("\n"),
+    );
+    makeSourceSkill(sourceDir.path, "0.2.0");
+
+    const result = runUpgrade(new Repo(repoDir.path), {
+      sourceRoot: sourceDir.path,
+    });
+
+    expect(result).toBe(0);
+    expectFirstTreeIndexSymlink(repoDir.path);
+    expect(existsSync(join(repoDir.path, INSTALLED_PROGRESS))).toBe(false);
+  });
+
+  it("preserves an existing legacy context binding in source/workspace integration", () => {
+    const repoDir = useTmpDir();
+    const sourceDir = useTmpDir();
+    makeSourceRepo(repoDir.path);
+    makeFramework(repoDir.path, "0.1.0");
+    const legacyTreeRepoName = `${basename(repoDir.path)}-context`;
+    writeFileSync(
+      join(repoDir.path, AGENT_INSTRUCTIONS_FILE),
+      `${buildSourceIntegrationBlock(legacyTreeRepoName)}\n`,
+    );
+    writeFileSync(
+      join(repoDir.path, CLAUDE_INSTRUCTIONS_FILE),
+      `${buildSourceIntegrationBlock(legacyTreeRepoName)}\n`,
+    );
+    makeSourceSkill(sourceDir.path, "0.2.0");
+
+    const result = runUpgrade(new Repo(repoDir.path), {
+      sourceRoot: sourceDir.path,
+    });
+
+    expect(result).toBe(0);
+    expect(readFileSync(join(repoDir.path, AGENT_INSTRUCTIONS_FILE), "utf-8")).toContain(
+      buildSourceIntegrationBlock(legacyTreeRepoName),
+    );
+    expect(readFileSync(join(repoDir.path, CLAUDE_INSTRUCTIONS_FILE), "utf-8")).toContain(
+      buildSourceIntegrationBlock(legacyTreeRepoName),
+    );
   });
 });

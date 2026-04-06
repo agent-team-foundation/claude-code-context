@@ -59,7 +59,7 @@ At that point the tree is drifting toward source mirroring instead of reconstruc
 
 ## Validation hygiene
 
-`context-tree verify` only stays meaningful when the repository visible to the validator is mostly tree content.
+`first-tree verify` only stays meaningful when the repository visible to the validator is mostly tree content.
 
 If the repo also contains:
 

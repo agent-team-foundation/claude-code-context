@@ -41,7 +41,9 @@ afterEach(() => {
 describe("thin CLI shell", () => {
   it("documents the dedicated-repo meaning of --here", () => {
     expect(USAGE).toContain("git init && first-tree init --here");
+    expect(USAGE).toContain("first-tree init --seed-members contributors");
     expect(USAGE).toContain("first-tree publish --open-pr");
+    expect(USAGE).toContain("my-org-tree");
     expect(USAGE).toContain("`--here` is for when the current repo is already the dedicated tree repo.");
   });
 

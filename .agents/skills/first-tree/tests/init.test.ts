@@ -1,4 +1,12 @@
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
+import {
+  existsSync,
+  lstatSync,
+  mkdirSync,
+  readFileSync,
+  readlinkSync,
+  writeFileSync,
+} from "node:fs";
 import { basename, dirname, join } from "node:path";
 import { describe, expect, it } from "vitest";
 import {
@@ -13,20 +21,27 @@ import {
   AGENT_INSTRUCTIONS_FILE,
   BOOTSTRAP_STATE,
   CLAUDE_INSTRUCTIONS_FILE,
+  FIRST_TREE_INDEX_FILE,
   FRAMEWORK_VERSION,
   INSTALLED_PROGRESS,
   LEGACY_AGENT_INSTRUCTIONS_FILE,
   LEGACY_PROGRESS,
+  TREE_PROGRESS,
+  TREE_VERSION,
 } from "#skill/engine/runtime/asset-loader.js";
-import { buildSourceIntegrationLine } from "#skill/engine/runtime/source-integration.js";
+import { buildSourceIntegrationBlock } from "#skill/engine/runtime/source-integration.js";
 import {
   makeGitRepo,
   useTmpDir,
   makeAgentsMd,
+  makeClaudeMd,
   makeFramework,
   makeLegacyFramework,
+  makeMembers,
+  makeNode,
   makeSourceRepo,
   makeSourceSkill,
+  makeTreeMetadata,
 } from "./helpers.js";
 
 // --- formatTaskList ---
@@ -131,6 +146,15 @@ describe("writeProgress", () => {
     writeProgress(repo, "legacy");
     expect(readFileSync(join(tmp.path, LEGACY_PROGRESS), "utf-8")).toBe("legacy");
   });
+
+  it("writes to the dedicated tree progress path when tree metadata exists", () => {
+    const tmp = useTmpDir();
+    mkdirSync(join(tmp.path, ".first-tree"), { recursive: true });
+    writeFileSync(join(tmp.path, TREE_VERSION), "0.2.0\n");
+    const repo = new Repo(tmp.path);
+    writeProgress(repo, "tree");
+    expect(readFileSync(join(tmp.path, TREE_PROGRESS), "utf-8")).toBe("tree");
+  });
 });
 
 // --- runInit — guard logic (no network) ---
@@ -139,8 +163,45 @@ const fakeGitInitializer = (root: string): void => {
   makeGitRepo(root);
 };
 
+function git(
+  args: string[],
+  cwd: string,
+): string {
+  return execFileSync("git", args, {
+    cwd,
+    encoding: "utf-8",
+    env: {
+      ...process.env,
+      GIT_AUTHOR_NAME: "Test User",
+      GIT_AUTHOR_EMAIL: "test@example.com",
+      GIT_COMMITTER_NAME: "Test User",
+      GIT_COMMITTER_EMAIL: "test@example.com",
+    },
+  }).trim();
+}
+
+function initRealGitRepo(root: string): void {
+  mkdirSync(root, { recursive: true });
+  git(["init"], root);
+  git(["config", "user.name", "Test User"], root);
+  git(["config", "user.email", "test@example.com"], root);
+}
+
+function commitAll(root: string, message: string): void {
+  git(["add", "-A"], root);
+  git(["commit", "-m", message], root);
+}
+
 function escapeRegExp(text: string): string {
   return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function expectFirstTreeIndexSymlink(root: string): void {
+  const path = join(root, FIRST_TREE_INDEX_FILE);
+  expect(lstatSync(path).isSymbolicLink()).toBe(true);
+  expect(readlinkSync(path)).toBe(
+    join(".agents", "skills", "first-tree", "references", "about.md"),
+  );
 }
 
 describe("runInit", () => {
@@ -165,15 +226,16 @@ describe("runInit", () => {
     expect(ret).toBe(0);
     expect(
       existsSync(join(repoDir.path, ".agents", "skills", "first-tree", "SKILL.md")),
-    ).toBe(true);
+    ).toBe(false);
     expect(
       existsSync(join(repoDir.path, ".claude", "skills", "first-tree", "SKILL.md")),
-    ).toBe(true);
-    expect(readFileSync(join(repoDir.path, FRAMEWORK_VERSION), "utf-8").trim()).toBe("0.2.0");
+    ).toBe(false);
+    expect(readFileSync(join(repoDir.path, TREE_VERSION), "utf-8").trim()).toBe("0.2.0");
     expect(existsSync(join(repoDir.path, "NODE.md"))).toBe(true);
     expect(existsSync(join(repoDir.path, AGENT_INSTRUCTIONS_FILE))).toBe(true);
+    expect(existsSync(join(repoDir.path, CLAUDE_INSTRUCTIONS_FILE))).toBe(true);
     expect(existsSync(join(repoDir.path, "members", "NODE.md"))).toBe(true);
-    expect(existsSync(join(repoDir.path, INSTALLED_PROGRESS))).toBe(true);
+    expect(existsSync(join(repoDir.path, TREE_PROGRESS))).toBe(true);
   });
 
   it("does not scaffold AGENTS.md when legacy AGENT.md already exists", () => {
@@ -181,6 +243,7 @@ describe("runInit", () => {
     const sourceDir = useTmpDir();
     mkdirSync(join(repoDir.path, ".git"));
     makeAgentsMd(repoDir.path, { legacyName: true, markers: true, userContent: true });
+    makeClaudeMd(repoDir.path, { markers: true, userContent: true });
     makeSourceSkill(sourceDir.path, "0.2.0");
 
     const ret = runInit(new Repo(repoDir.path), { sourceRoot: sourceDir.path });
@@ -188,7 +251,7 @@ describe("runInit", () => {
     expect(ret).toBe(0);
     expect(existsSync(join(repoDir.path, LEGACY_AGENT_INSTRUCTIONS_FILE))).toBe(true);
     expect(existsSync(join(repoDir.path, AGENT_INSTRUCTIONS_FILE))).toBe(false);
-    expect(readFileSync(join(repoDir.path, INSTALLED_PROGRESS), "utf-8")).toContain(
+    expect(readFileSync(join(repoDir.path, TREE_PROGRESS), "utf-8")).toContain(
       "Rename `AGENT.md` to `AGENTS.md`",
     );
   });
@@ -220,7 +283,7 @@ describe("runInit", () => {
 
     const treeRepo = join(
       dirname(sourceRepoDir.path),
-      `${basename(sourceRepoDir.path)}-context`,
+      `${basename(sourceRepoDir.path)}-tree`,
     );
 
     expect(ret).toBe(0);
@@ -232,20 +295,23 @@ describe("runInit", () => {
     ).toBe(true);
     expect(
       readFileSync(join(sourceRepoDir.path, AGENT_INSTRUCTIONS_FILE), "utf-8"),
-    ).toContain(buildSourceIntegrationLine(basename(treeRepo)));
+    ).toContain(buildSourceIntegrationBlock(basename(treeRepo)));
     expect(
       readFileSync(join(sourceRepoDir.path, CLAUDE_INSTRUCTIONS_FILE), "utf-8"),
-    ).toContain(buildSourceIntegrationLine(basename(treeRepo)));
+    ).toContain(buildSourceIntegrationBlock(basename(treeRepo)));
+    expectFirstTreeIndexSymlink(sourceRepoDir.path);
     expect(
       existsSync(join(treeRepo, ".agents", "skills", "first-tree", "SKILL.md")),
-    ).toBe(true);
+    ).toBe(false);
     expect(
       existsSync(join(treeRepo, ".claude", "skills", "first-tree", "SKILL.md")),
-    ).toBe(true);
+    ).toBe(false);
     expect(existsSync(join(treeRepo, "NODE.md"))).toBe(true);
     expect(existsSync(join(treeRepo, AGENT_INSTRUCTIONS_FILE))).toBe(true);
+    expect(existsSync(join(treeRepo, CLAUDE_INSTRUCTIONS_FILE))).toBe(true);
     expect(existsSync(join(treeRepo, "members", "NODE.md"))).toBe(true);
-    expect(existsSync(join(treeRepo, INSTALLED_PROGRESS))).toBe(true);
+    expect(readFileSync(join(treeRepo, TREE_VERSION), "utf-8").trim()).toBe("0.2.0");
+    expect(existsSync(join(treeRepo, TREE_PROGRESS))).toBe(true);
     expect(
       JSON.parse(readFileSync(join(treeRepo, BOOTSTRAP_STATE), "utf-8")),
     ).toEqual({
@@ -258,7 +324,7 @@ describe("runInit", () => {
     expect(existsSync(join(sourceRepoDir.path, INSTALLED_PROGRESS))).toBe(false);
   });
 
-  it("updates existing AGENTS.md and CLAUDE.md without duplicating the source integration line", () => {
+  it("updates existing AGENTS.md and CLAUDE.md without duplicating the source integration block", () => {
     const sourceRepoDir = useTmpDir();
     const sourceSkillDir = useTmpDir();
     makeSourceRepo(sourceRepoDir.path);
@@ -281,9 +347,9 @@ describe("runInit", () => {
 
     const treeRepo = join(
       dirname(sourceRepoDir.path),
-      `${basename(sourceRepoDir.path)}-context`,
+      `${basename(sourceRepoDir.path)}-tree`,
     );
-    const expectedLine = buildSourceIntegrationLine(basename(treeRepo));
+    const expectedBlock = buildSourceIntegrationBlock(basename(treeRepo));
     const agentText = readFileSync(
       join(sourceRepoDir.path, AGENT_INSTRUCTIONS_FILE),
       "utf-8",
@@ -294,11 +360,57 @@ describe("runInit", () => {
     );
 
     expect(
-      agentText.match(new RegExp(escapeRegExp(expectedLine), "g")),
+      agentText.match(new RegExp(escapeRegExp(expectedBlock), "g")),
     ).toHaveLength(1);
     expect(
-      claudeText.match(new RegExp(escapeRegExp(expectedLine), "g")),
+      claudeText.match(new RegExp(escapeRegExp(expectedBlock), "g")),
     ).toHaveLength(1);
+  });
+
+  it("does not overwrite an unmanaged FIRST_TREE.md in the source repo", () => {
+    const sourceRepoDir = useTmpDir();
+    const sourceSkillDir = useTmpDir();
+    makeSourceRepo(sourceRepoDir.path);
+    makeSourceSkill(sourceSkillDir.path, "0.2.0");
+    writeFileSync(join(sourceRepoDir.path, FIRST_TREE_INDEX_FILE), "# Custom entrypoint\n");
+
+    expect(
+      runInit(new Repo(sourceRepoDir.path), {
+        sourceRoot: sourceSkillDir.path,
+        gitInitializer: fakeGitInitializer,
+      }),
+    ).toBe(0);
+
+    expect(
+      readFileSync(join(sourceRepoDir.path, FIRST_TREE_INDEX_FILE), "utf-8"),
+    ).toBe("# Custom entrypoint\n");
+  });
+
+  it("migrates a previously managed FIRST_TREE.md to a symlink", () => {
+    const sourceRepoDir = useTmpDir();
+    const sourceSkillDir = useTmpDir();
+    makeSourceRepo(sourceRepoDir.path);
+    makeSourceSkill(sourceSkillDir.path, "0.2.0");
+    writeFileSync(
+      join(sourceRepoDir.path, FIRST_TREE_INDEX_FILE),
+      [
+        "# First Tree",
+        "",
+        "<!-- BEGIN FIRST-TREE INDEX -->",
+        "legacy managed entrypoint",
+        "<!-- END FIRST-TREE INDEX -->",
+        "",
+      ].join("\n"),
+    );
+
+    expect(
+      runInit(new Repo(sourceRepoDir.path), {
+        sourceRoot: sourceSkillDir.path,
+        gitInitializer: fakeGitInitializer,
+      }),
+    ).toBe(0);
+
+    expectFirstTreeIndexSymlink(sourceRepoDir.path);
   });
 
   it("keeps supporting in-place init with --here", () => {
@@ -316,8 +428,143 @@ describe("runInit", () => {
     expect(ret).toBe(0);
     expect(existsSync(join(sourceRepoDir.path, "NODE.md"))).toBe(true);
     expect(existsSync(join(sourceRepoDir.path, AGENT_INSTRUCTIONS_FILE))).toBe(true);
+    expect(existsSync(join(sourceRepoDir.path, CLAUDE_INSTRUCTIONS_FILE))).toBe(true);
     expect(existsSync(join(sourceRepoDir.path, "members", "NODE.md"))).toBe(true);
-    expect(existsSync(join(sourceRepoDir.path, INSTALLED_PROGRESS))).toBe(true);
+    expect(existsSync(join(sourceRepoDir.path, TREE_PROGRESS))).toBe(true);
+    expect(existsSync(join(sourceRepoDir.path, ".agents", "skills", "first-tree", "SKILL.md"))).toBe(
+      false,
+    );
+  });
+
+  it("can seed member nodes from contributor history into the dedicated tree repo", () => {
+    const sourceRepoDir = useTmpDir();
+    const sourceSkillDir = useTmpDir();
+    makeSourceRepo(sourceRepoDir.path);
+    makeSourceSkill(sourceSkillDir.path, "0.2.0");
+
+    const ret = runInit(new Repo(sourceRepoDir.path), {
+      contributorCollector: () => ({
+        contributors: [
+          {
+            owner: "alice",
+            role: "Contributor",
+            slug: "alice",
+            source: "github",
+            title: "Alice Example",
+            type: "human",
+          },
+          {
+            owner: "renovate-bot",
+            role: "Automation Contributor",
+            slug: "renovate-bot",
+            source: "git",
+            title: "Renovate Bot",
+            type: "autonomous_agent",
+          },
+        ],
+        source: "github",
+      }),
+      seedMembers: "contributors",
+      sourceRoot: sourceSkillDir.path,
+      gitInitializer: fakeGitInitializer,
+    });
+
+    const treeRepo = join(
+      dirname(sourceRepoDir.path),
+      `${basename(sourceRepoDir.path)}-tree`,
+    );
+
+    expect(ret).toBe(0);
+    expect(existsSync(join(treeRepo, "members", "alice", "NODE.md"))).toBe(true);
+    expect(existsSync(join(treeRepo, "members", "renovate-bot", "NODE.md"))).toBe(
+      true,
+    );
+    expect(readFileSync(join(treeRepo, TREE_PROGRESS), "utf-8")).toContain(
+      "Review the 2 contributor-seeded member node(s) under `members/`",
+    );
+    expect(readFileSync(join(sourceRepoDir.path, AGENT_INSTRUCTIONS_FILE), "utf-8")).toContain(
+      buildSourceIntegrationBlock(basename(treeRepo)),
+    );
+  });
+
+  it("reuses an existing sibling legacy context repo instead of creating a new tree repo", () => {
+    const sourceRepoDir = useTmpDir();
+    const sourceSkillDir = useTmpDir();
+    makeSourceRepo(sourceRepoDir.path);
+    makeSourceSkill(sourceSkillDir.path, "0.2.0");
+
+    const legacyTreeRepo = join(
+      dirname(sourceRepoDir.path),
+      `${basename(sourceRepoDir.path)}-context`,
+    );
+    mkdirSync(legacyTreeRepo, { recursive: true });
+    makeGitRepo(legacyTreeRepo);
+    makeFramework(legacyTreeRepo, "0.1.0");
+
+    const ret = runInit(new Repo(sourceRepoDir.path), {
+      sourceRoot: sourceSkillDir.path,
+      gitInitializer: fakeGitInitializer,
+    });
+
+    expect(ret).toBe(0);
+    expect(readFileSync(join(sourceRepoDir.path, AGENT_INSTRUCTIONS_FILE), "utf-8")).toContain(
+      buildSourceIntegrationBlock(basename(legacyTreeRepo)),
+    );
+    expect(
+      JSON.parse(readFileSync(join(legacyTreeRepo, BOOTSTRAP_STATE), "utf-8")),
+    ).toEqual({
+      sourceRepoName: basename(sourceRepoDir.path),
+      sourceRepoPath: `../${basename(sourceRepoDir.path)}`,
+      treeRepoName: basename(legacyTreeRepo),
+    });
+    expect(
+      existsSync(
+        join(dirname(sourceRepoDir.path), `${basename(sourceRepoDir.path)}-tree`),
+      ),
+    ).toBe(false);
+  });
+
+  it("repairs a missing source submodule when reusing a published legacy context repo", () => {
+    const rootDir = useTmpDir();
+    const sourceRoot = join(rootDir.path, "ADHD");
+    const treeRoot = join(rootDir.path, "ADHD-context");
+    const skillRoot = useTmpDir();
+
+    mkdirSync(join(sourceRoot, "src"), { recursive: true });
+    writeFileSync(
+      join(sourceRoot, "package.json"),
+      JSON.stringify({ name: "ADHD" }, null, 2),
+    );
+    writeFileSync(join(sourceRoot, "src", "index.ts"), "export const ready = true;\n");
+    initRealGitRepo(sourceRoot);
+    commitAll(sourceRoot, "chore: bootstrap source");
+
+    initRealGitRepo(treeRoot);
+    makeTreeMetadata(treeRoot, "0.2.0");
+    makeNode(treeRoot);
+    makeAgentsMd(treeRoot, { markers: true });
+    makeClaudeMd(treeRoot, { markers: true });
+    makeMembers(treeRoot);
+    git(["remote", "add", "origin", "git@github.com:acme/ADHD-context.git"], treeRoot);
+    commitAll(treeRoot, "chore: bootstrap tree");
+
+    makeSourceSkill(skillRoot.path, "0.2.0");
+
+    const ret = runInit(new Repo(sourceRoot), {
+      sourceRoot: skillRoot.path,
+    });
+
+    expect(ret).toBe(0);
+    expect(readFileSync(join(sourceRoot, ".gitmodules"), "utf-8")).toContain(
+      "path = ADHD-context",
+    );
+    expect(readFileSync(join(sourceRoot, ".gitmodules"), "utf-8")).toContain(
+      "url = git@github.com:acme/ADHD-context.git",
+    );
+    expect(git(["ls-files", "--stage", "--", "ADHD-context"], sourceRoot)).toContain(
+      "160000",
+    );
+    expect(existsSync(join(sourceRoot, "ADHD-context", "NODE.md"))).toBe(true);
   });
 });
 
@@ -328,17 +575,23 @@ describe("parseInitArgs", () => {
   });
 
   it("parses dedicated repo options", () => {
-    expect(parseInitArgs(["--tree-name", "acme-context"])).toEqual({
-      treeName: "acme-context",
+    expect(parseInitArgs(["--tree-name", "acme-tree"])).toEqual({
+      treeName: "acme-tree",
     });
-    expect(parseInitArgs(["--tree-path", "../acme-context"])).toEqual({
-      treePath: "../acme-context",
+    expect(parseInitArgs(["--tree-path", "../acme-tree"])).toEqual({
+      treePath: "../acme-tree",
+    });
+    expect(parseInitArgs(["--seed-members", "contributors"])).toEqual({
+      seedMembers: "contributors",
     });
   });
 
   it("rejects incompatible init options", () => {
-    expect(parseInitArgs(["--here", "--tree-name", "acme-context"])).toEqual({
+    expect(parseInitArgs(["--here", "--tree-name", "acme-tree"])).toEqual({
       error: "Cannot combine --here with --tree-name",
+    });
+    expect(parseInitArgs(["--seed-members", "github"])).toEqual({
+      error: "Unsupported value for --seed-members: github",
     });
   });
 });
