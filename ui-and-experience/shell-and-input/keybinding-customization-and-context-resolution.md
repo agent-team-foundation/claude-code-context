@@ -79,9 +79,9 @@ Equivalent behavior should preserve:
 - command bindings being syntactically limited to `command:` names that only use alphanumerics, colons, hyphens, and underscores
 - command bindings being warned into the `Chat` context only, because they behave like slash commands typed into the prompt
 - `voice:pushToTalk` warning against bare letter keys, since hold detection warms up slowly enough that plain letters leak into the input buffer
-- raw-JSON duplicate-key detection running before normal parsing because `JSON.parse` would silently discard earlier values inside the same object
+- raw duplicate-key detection running before ordinary parsing because standard JSON parsing would silently discard earlier values inside the same object
 - normalized duplicate-binding warnings also running across user blocks within the same context so visually different spellings of the same shortcut still conflict
-- reserved-shortcut validation catching OS, terminal, and hardcoded shortcuts that either never reach the app or are intentionally not rebindable
+- reserved-shortcut validation catching OS, terminal, and product-reserved shortcuts that either never reach the app or are intentionally not rebindable
 - the non-rebindable set including `ctrl+c`, `ctrl+d`, and `ctrl+m`
 - warning deduplication preventing the same issue from being repeated multiple times for one key and context
 
@@ -101,13 +101,13 @@ Equivalent behavior should preserve:
 - deleting `keybindings.json` resetting the runtime back to default bindings with cleared warnings
 - cleanup logic disposing the watcher and subscriptions when the app shuts down
 
-## Provider state and context registration
+## Runtime ownership and context registration
 
 Equivalent behavior should preserve:
 
-- a top-level keybinding provider that wraps the terminal app and owns the resolved binding set
-- provider state containing the merged bindings, current warnings, pending chord state, active contexts, and a registry of action handlers
-- pending-chord state existing in both a ref and React state so the resolver can read the newest value synchronously while the UI still re-renders
+- one top-level keybinding runtime wrapping the terminal app and owning the resolved binding set
+- that runtime keeping the merged bindings, current warnings, pending chord state, active contexts, and a registry of action handlers together
+- pending-chord tracking being readable synchronously by the resolver while still driving visible UI updates
 - active contexts being tracked in a mutable set for immediate priority resolution
 - components being able to register and unregister active contexts as they mount and unmount
 - that registration happening in a layout-timed effect so a newly opened surface participates in input resolution immediately
@@ -117,14 +117,14 @@ Equivalent behavior should preserve:
 
 Equivalent behavior should preserve:
 
-- local hooks resolving against three ordered sources: currently active contexts, the hook's own declared context, and `Global`
+- local shortcut consumers resolving against three ordered sources: currently active contexts, the caller's own declared context, and `Global`
 - deduplication preserving first-seen order so the highest-priority context keeps precedence
 - action lookup within the flattened binding list honoring last-write-wins semantics, which gives user overrides precedence over defaults
 - display-text lookup for help labels or UI chrome searching in reverse order for the same reason
 - context-specific bindings being able to override global ones only while their surface is active
 - handler return values being able to signal fallthrough by returning `false`, allowing later handlers to process the same event when a no-op shortcut should not consume it
-- non-React callers having a separate shortcut-display helper that shares the same resolved binding lookup without pulling React into the dependency graph
-- both React and non-React display helpers falling back to hardcoded text only as a migration safety net and logging analytics when that fallback path is used
+- non-UI callers having a separate shortcut-display helper that shares the same resolved binding lookup without pulling terminal UI machinery into the dependency graph
+- both UI and non-UI display helpers falling back to built-in text only as a migration safety net and logging analytics when that fallback path is used
 
 ## Chord behavior and early interception
 
@@ -138,9 +138,9 @@ Equivalent behavior should preserve:
 - null-unbound chords still shadowing defaults correctly, including the case where a user disables a default multi-step chord prefix
 - an early `ChordInterceptor` input handler running before child input handlers so the second step of a chord never leaks into prompt text entry
 - that interceptor swallowing started chords, canceled chords, unbound matches, and completed multi-step chords
-- single-keystroke matches still being handled by the normal per-hook handlers so existing input ordering and component-local behavior keep working
+- single-keystroke matches still being handled by the normal per-surface handlers so existing input ordering and surface-local behavior keep working
 - chord completion dispatching through the action-handler registry so only mounted handlers in currently relevant contexts are invoked
-- escape-key matching ignoring Ink's legacy meta flag quirk for escape itself
+- escape-key matching ignoring the terminal input layer's legacy meta-flag quirk for escape itself
 - alt and meta being treated as one logical terminal modifier during matching, while `super` remains distinct and only works on terminals that forward it
 
 ## Warning and diagnostic surfaces
