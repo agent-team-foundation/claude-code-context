@@ -1,7 +1,7 @@
 ---
 title: "Structured I/O and Headless Session Loop"
 owners: []
-soft_links: [/integrations/clients/sdk-control-protocol.md, /integrations/clients/sdk-hook-event-transport.md, /runtime-orchestration/unified-command-queue-and-drain.md, /collaboration-and-agents/bridge-contract.md, /platform-services/startup-service-sequencing-and-capability-gates.md, /product-surface/session-state-and-breakpoints.md]
+soft_links: [/integrations/clients/sdk-control-protocol.md, /integrations/clients/sdk-hook-event-transport.md, /runtime-orchestration/turn-flow/unified-command-queue-and-drain.md, /collaboration-and-agents/bridge-contract.md, /platform-services/startup-service-sequencing-and-capability-gates.md, /product-surface/session-state-and-breakpoints.md]
 ---
 
 # Structured I/O and Headless Session Loop
@@ -21,7 +21,7 @@ This leaf covers:
 It intentionally does not re-document:
 
 - the abstract control schema catalog already captured in [sdk-control-protocol.md](sdk-control-protocol.md)
-- queue priority and drain internals already captured in [unified-command-queue-and-drain.md](../../runtime-orchestration/unified-command-queue-and-drain.md)
+- queue priority and drain internals already captured in [unified-command-queue-and-drain.md](../../runtime-orchestration/turn-flow/unified-command-queue-and-drain.md)
 - remote pairing, bridge trust, or managed-environment policy envelopes beyond the points where they touch this transport loop
 
 ## Structured transport as the session boundary

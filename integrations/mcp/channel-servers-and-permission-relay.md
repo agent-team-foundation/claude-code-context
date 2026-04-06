@@ -1,7 +1,7 @@
 ---
 title: "Channel Servers and Permission Relay"
 owners: []
-soft_links: [/integrations/mcp/server-contract.md, /integrations/mcp/config-layering-policy-and-dedup.md, /tools-and-permissions/permission-resolution-races-and-forwarding.md, /ui-and-experience/status-line-and-footer-notification-stack.md]
+soft_links: [/integrations/mcp/server-contract.md, /integrations/mcp/config-layering-policy-and-dedup.md, /tools-and-permissions/permissions/permission-resolution-races-and-forwarding.md, /ui-and-experience/feedback-and-notifications/status-line-and-footer-notification-stack.md]
 ---
 
 # Channel Servers and Permission Relay

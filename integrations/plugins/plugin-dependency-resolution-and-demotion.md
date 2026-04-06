@@ -1,7 +1,7 @@
 ---
 title: "Plugin Dependency Resolution and Demotion"
 owners: []
-soft_links: [/integrations/plugins/plugin-source-precedence-and-cache-loading.md, /integrations/plugins/plugin-runtime-contract.md, /platform-services/auth-config-and-policy.md, /tools-and-permissions/tool-pool-assembly.md]
+soft_links: [/integrations/plugins/plugin-source-precedence-and-cache-loading.md, /integrations/plugins/plugin-runtime-contract.md, /platform-services/auth-config-and-policy.md, /tools-and-permissions/tool-catalog/tool-pool-assembly.md]
 ---
 
 # Plugin Dependency Resolution and Demotion

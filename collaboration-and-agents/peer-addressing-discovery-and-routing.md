@@ -1,7 +1,7 @@
 ---
 title: "Peer Addressing, Discovery, and Routing"
 owners: []
-soft_links: [/collaboration-and-agents/teammate-mailbox-and-permission-bridge.md, /collaboration-and-agents/bridge-transport-and-remote-control-runtime.md, /collaboration-and-agents/bridge-session-state-projection-and-command-narrowing.md, /runtime-orchestration/local-agent-task-lifecycle.md, /runtime-orchestration/session-discovery-and-lite-indexing.md, /tools-and-permissions/control-plane-tools.md, /integrations/clients/sdk-control-protocol.md]
+soft_links: [/collaboration-and-agents/teammate-mailbox-and-permission-bridge.md, /collaboration-and-agents/bridge-transport-and-remote-control-runtime.md, /collaboration-and-agents/bridge-session-state-projection-and-command-narrowing.md, /runtime-orchestration/tasks/local-agent-task-lifecycle.md, /runtime-orchestration/sessions/session-discovery-and-lite-indexing.md, /tools-and-permissions/agent-and-task-control/control-plane-tools.md, /integrations/clients/sdk-control-protocol.md]
 ---
 
 # Peer Addressing, Discovery, and Routing
@@ -20,7 +20,7 @@ This leaf covers:
 It intentionally does not re-document:
 
 - team-local mailbox transport and structured swarm control payloads, which stay in [teammate-mailbox-and-permission-bridge.md](teammate-mailbox-and-permission-bridge.md)
-- transcript-based resume discovery, which stays in [session-discovery-and-lite-indexing.md](../runtime-orchestration/session-discovery-and-lite-indexing.md)
+- transcript-based resume discovery, which stays in [session-discovery-and-lite-indexing.md](../runtime-orchestration/sessions/session-discovery-and-lite-indexing.md)
 - low-level Remote Control reconnect/auth mechanics, which stay in [bridge-transport-and-remote-control-runtime.md](bridge-transport-and-remote-control-runtime.md)
 
 ## Address namespaces and identity split

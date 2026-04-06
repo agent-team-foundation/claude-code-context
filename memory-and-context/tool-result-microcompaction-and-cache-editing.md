@@ -1,7 +1,7 @@
 ---
 title: "Tool-Result Microcompaction and Cache Editing"
 owners: []
-soft_links: [/memory-and-context/compact-path.md, /memory-and-context/context-cache-and-invalidation.md, /runtime-orchestration/query-recovery-and-continuation.md]
+soft_links: [/memory-and-context/compact-path.md, /memory-and-context/context-cache-and-invalidation.md, /runtime-orchestration/turn-flow/query-recovery-and-continuation.md]
 ---
 
 # Tool-Result Microcompaction and Cache Editing

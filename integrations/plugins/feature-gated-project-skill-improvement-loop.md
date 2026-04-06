@@ -1,7 +1,7 @@
 ---
 title: "Feature-Gated Project Skill Improvement Loop"
 owners: []
-soft_links: [/integrations/plugins/plugin-and-skill-model.md, /integrations/plugins/skill-loading-contract.md, /runtime-orchestration/query-loop.md, /ui-and-experience/feedback-surveys-and-transcript-share-escalation.md]
+soft_links: [/integrations/plugins/plugin-and-skill-model.md, /integrations/plugins/skill-loading-contract.md, /runtime-orchestration/turn-flow/query-loop.md, /ui-and-experience/feedback-and-notifications/feedback-surveys-and-transcript-share-escalation.md]
 ---
 
 # Feature-Gated Project Skill Improvement Loop
@@ -22,7 +22,7 @@ It intentionally does not re-document:
 
 - ordinary skill discovery and prompt expansion already covered in [skill-loading-contract.md](skill-loading-contract.md)
 - the broader distinction between skills and plugins already covered in [plugin-and-skill-model.md](plugin-and-skill-model.md)
-- the shared feedback-survey prompt area and numeric-response shell beyond the minimal reuse point already covered in [../../ui-and-experience/feedback-surveys-and-transcript-share-escalation.md](../../ui-and-experience/feedback-surveys-and-transcript-share-escalation.md)
+- the shared feedback-survey prompt area and numeric-response shell beyond the minimal reuse point already covered in [../../ui-and-experience/feedback-and-notifications/feedback-surveys-and-transcript-share-escalation.md](../../ui-and-experience/feedback-and-notifications/feedback-surveys-and-transcript-share-escalation.md)
 
 ## Activation model
 

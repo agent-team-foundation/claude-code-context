@@ -1,7 +1,7 @@
 ---
 title: "Interaction Modes"
 owners: []
-soft_links: [/runtime-orchestration/query-loop.md, /runtime-orchestration/app-state-and-input-routing.md, /runtime-orchestration/proactive-assistant-loop-and-brief-mode.md, /runtime-orchestration/worktree-session-lifecycle.md, /tools-and-permissions/delegation-modes.md, /tools-and-permissions/permission-mode-transitions-and-gates.md, /integrations/clients/structured-io-and-headless-session-loop.md, /collaboration-and-agents/remote-and-bridge-flows.md]
+soft_links: [/runtime-orchestration/turn-flow/query-loop.md, /runtime-orchestration/state/app-state-and-input-routing.md, /runtime-orchestration/automation/proactive-assistant-loop-and-brief-mode.md, /runtime-orchestration/sessions/worktree-session-lifecycle.md, /tools-and-permissions/agent-and-task-control/delegation-modes.md, /tools-and-permissions/permissions/permission-mode-transitions-and-gates.md, /integrations/clients/structured-io-and-headless-session-loop.md, /collaboration-and-agents/remote-and-bridge-flows.md]
 ---
 
 # Interaction Modes
@@ -20,7 +20,7 @@ It intentionally does not re-document:
 
 - headless wire-protocol details already covered in [../integrations/clients/structured-io-and-headless-session-loop.md](../integrations/clients/structured-io-and-headless-session-loop.md)
 - remote transport, bridge, and handoff mechanics already covered in [../collaboration-and-agents/remote-and-bridge-flows.md](../collaboration-and-agents/remote-and-bridge-flows.md)
-- assistant tick scheduling and brief-mode semantics already covered in [../runtime-orchestration/proactive-assistant-loop-and-brief-mode.md](../runtime-orchestration/proactive-assistant-loop-and-brief-mode.md)
+- assistant tick scheduling and brief-mode semantics already covered in [../runtime-orchestration/automation/proactive-assistant-loop-and-brief-mode.md](../runtime-orchestration/automation/proactive-assistant-loop-and-brief-mode.md)
 - worktree, delegation, and permission-mode internals beyond how they shape the visible session posture
 
 ## Startup chooses a surface first, then reuses one core runtime

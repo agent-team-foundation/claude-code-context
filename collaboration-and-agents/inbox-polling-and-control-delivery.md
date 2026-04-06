@@ -1,7 +1,7 @@
 ---
 title: "Inbox Polling and Control Delivery"
 owners: []
-soft_links: [/collaboration-and-agents/teammate-mailbox-and-permission-bridge.md, /collaboration-and-agents/peer-addressing-discovery-and-routing.md, /runtime-orchestration/turn-attachments-and-sidechannels.md, /ui-and-experience/interaction-feedback.md]
+soft_links: [/collaboration-and-agents/teammate-mailbox-and-permission-bridge.md, /collaboration-and-agents/peer-addressing-discovery-and-routing.md, /runtime-orchestration/turn-flow/turn-attachments-and-sidechannels.md, /ui-and-experience/feedback-and-notifications/interaction-feedback.md]
 ---
 
 # Inbox Polling and Control Delivery

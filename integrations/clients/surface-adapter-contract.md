@@ -1,7 +1,7 @@
 ---
 title: "Surface Adapter Contract"
 owners: []
-soft_links: [/integrations/clients/sdk-control-protocol.md, /ui-and-experience/terminal-ui.md, /collaboration-and-agents/remote-session-contract.md]
+soft_links: [/integrations/clients/sdk-control-protocol.md, /ui-and-experience/shell-and-input/terminal-ui.md, /collaboration-and-agents/remote-session-contract.md]
 ---
 
 # Surface Adapter Contract

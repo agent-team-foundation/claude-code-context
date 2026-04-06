@@ -1,7 +1,7 @@
 ---
 title: "Skill Discovery and Listing Surfaces"
 owners: []
-soft_links: [/integrations/plugins/skill-loading-contract.md, /product-surface/prompt-command-and-skill-execution.md, /product-surface/command-dispatch-and-composition.md, /ui-and-experience/terminal-ui.md]
+soft_links: [/integrations/plugins/skill-loading-contract.md, /product-surface/prompt-command-and-skill-execution.md, /product-surface/command-dispatch-and-composition.md, /ui-and-experience/shell-and-input/terminal-ui.md]
 ---
 
 # Skill Discovery and Listing Surfaces

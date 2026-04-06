@@ -1,7 +1,7 @@
 ---
 title: "Remote-Control Spawn Modes and Session Resume"
 owners: []
-soft_links: [/collaboration-and-agents/bridge-contract.md, /collaboration-and-agents/bridge-transport-and-remote-control-runtime.md, /runtime-orchestration/worktree-session-lifecycle.md, /platform-services/workspace-trust-dialog-and-persistence.md, /platform-services/interactive-startup-and-project-activation.md]
+soft_links: [/collaboration-and-agents/bridge-contract.md, /collaboration-and-agents/bridge-transport-and-remote-control-runtime.md, /runtime-orchestration/sessions/worktree-session-lifecycle.md, /platform-services/workspace-trust-dialog-and-persistence.md, /platform-services/interactive-startup-and-project-activation.md]
 ---
 
 # Remote-Control Spawn Modes and Session Resume
@@ -22,7 +22,7 @@ It intentionally does not re-document:
 
 - bridge attach, transport, reconnect, dedup, and teardown internals already captured in [bridge-transport-and-remote-control-runtime.md](bridge-transport-and-remote-control-runtime.md)
 - generic remote-session ownership, permission routing, and reconnect semantics already captured in [remote-session-contract.md](remote-session-contract.md)
-- main-session worktree posture and exit semantics already captured in [worktree-session-lifecycle.md](../runtime-orchestration/worktree-session-lifecycle.md)
+- main-session worktree posture and exit semantics already captured in [worktree-session-lifecycle.md](../runtime-orchestration/sessions/worktree-session-lifecycle.md)
 
 ## Startup eligibility and trust prerequisites
 

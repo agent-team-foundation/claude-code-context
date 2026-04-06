@@ -1,7 +1,7 @@
 ---
 title: "Elicitation Request and Completion Lifecycle"
 owners: []
-soft_links: [/integrations/mcp/server-contract.md, /integrations/mcp/connection-and-recovery-contract.md, /tools-and-permissions/tool-hook-control-plane.md, /ui-and-experience/ask-user-question-and-plan-interview-ui.md]
+soft_links: [/integrations/mcp/server-contract.md, /integrations/mcp/connection-and-recovery-contract.md, /tools-and-permissions/execution-and-hooks/tool-hook-control-plane.md, /ui-and-experience/dialogs-and-approvals/ask-user-question-and-plan-interview-ui.md]
 ---
 
 # Elicitation Request and Completion Lifecycle

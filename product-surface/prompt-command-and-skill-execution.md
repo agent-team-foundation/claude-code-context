@@ -1,7 +1,7 @@
 ---
 title: "Prompt Command and Skill Execution"
 owners: []
-soft_links: [/product-surface/command-dispatch-and-composition.md, /integrations/plugins/skill-loading-contract.md, /integrations/plugins/markdown-prompt-shell-expansion.md, /tools-and-permissions/agent-runtime-context-and-tool-shaping.md, /runtime-orchestration/unified-command-queue-and-drain.md]
+soft_links: [/product-surface/command-dispatch-and-composition.md, /integrations/plugins/skill-loading-contract.md, /integrations/plugins/markdown-prompt-shell-expansion.md, /tools-and-permissions/execution-and-hooks/agent-runtime-context-and-tool-shaping.md, /runtime-orchestration/turn-flow/unified-command-queue-and-drain.md]
 ---
 
 # Prompt Command and Skill Execution
@@ -24,7 +24,7 @@ It intentionally does not re-document:
 - model-facing and human-facing skill listing surfaces already covered in [../integrations/plugins/skill-discovery-and-listing-surfaces.md](../integrations/plugins/skill-discovery-and-listing-surfaces.md)
 - feature-gated discovery-tool overlays and remote discovered-skill follow-through already covered in [../integrations/plugins/feature-gated-remote-skill-discovery-overlay.md](../integrations/plugins/feature-gated-remote-skill-discovery-overlay.md)
 - markdown prompt compilation, placeholder substitution, and inline shell execution already covered in [../integrations/plugins/markdown-prompt-shell-expansion.md](../integrations/plugins/markdown-prompt-shell-expansion.md)
-- the post-selection worker runtime shaping once a forked prompt has already become a worker run, already covered in [../tools-and-permissions/agent-runtime-context-and-tool-shaping.md](../tools-and-permissions/agent-runtime-context-and-tool-shaping.md)
+- the post-selection worker runtime shaping once a forked prompt has already become a worker run, already covered in [../tools-and-permissions/execution-and-hooks/agent-runtime-context-and-tool-shaping.md](../tools-and-permissions/execution-and-hooks/agent-runtime-context-and-tool-shaping.md)
 
 ## One prompt-backed asset can run through several invocation surfaces
 

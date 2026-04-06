@@ -1,7 +1,7 @@
 ---
 title: "LSP Plugin and Diagnostics"
 owners: []
-soft_links: [/integrations/plugins/plugin-runtime-contract.md, /tools-and-permissions/tool-pool-assembly.md, /ui-and-experience/interaction-feedback.md]
+soft_links: [/integrations/plugins/plugin-runtime-contract.md, /tools-and-permissions/tool-catalog/tool-pool-assembly.md, /ui-and-experience/feedback-and-notifications/interaction-feedback.md]
 ---
 
 # LSP Plugin and Diagnostics
@@ -15,7 +15,7 @@ This leaf covers the end-to-end path from plugin-declared LSP server definitions
 It intentionally does not cover:
 
 - the generic plugin discovery and admission lifecycle already summarized in [plugin-runtime-contract.md](plugin-runtime-contract.md)
-- the full dynamic tool-pool model already summarized in [tool-pool-assembly.md](../../tools-and-permissions/tool-pool-assembly.md)
+- the full dynamic tool-pool model already summarized in [tool-pool-assembly.md](../../tools-and-permissions/tool-catalog/tool-pool-assembly.md)
 - the full terminal dialog hierarchy or global interaction model beyond the LSP-specific recommendation and diagnostic surfaces
 - generic MCP IDE diagnostics as a standalone subsystem, except where edit tools coordinate with LSP diagnostic refresh
 

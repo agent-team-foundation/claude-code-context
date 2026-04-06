@@ -1,7 +1,7 @@
 ---
 title: "Team Formation and Spawn Contract"
 owners: []
-soft_links: [/collaboration-and-agents/teammate-backend-and-context-bootstrap.md, /runtime-orchestration/shared-task-list-contract.md, /tools-and-permissions/control-plane-tools.md]
+soft_links: [/collaboration-and-agents/teammate-backend-and-context-bootstrap.md, /runtime-orchestration/tasks/shared-task-list-contract.md, /tools-and-permissions/agent-and-task-control/control-plane-tools.md]
 ---
 
 # Team Formation and Spawn Contract

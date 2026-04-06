@@ -1,7 +1,7 @@
 ---
 title: "SDK Control Protocol"
 owners: []
-soft_links: [/runtime-orchestration/query-loop.md, /runtime-orchestration/shared-task-control-plane-and-lifecycle-events.md, /tools-and-permissions/permission-model.md, /integrations/clients/sdk-hook-event-transport.md, /collaboration-and-agents/peer-addressing-discovery-and-routing.md]
+soft_links: [/runtime-orchestration/turn-flow/query-loop.md, /runtime-orchestration/tasks/shared-task-control-plane-and-lifecycle-events.md, /tools-and-permissions/permissions/permission-model.md, /integrations/clients/sdk-hook-event-transport.md, /collaboration-and-agents/peer-addressing-discovery-and-routing.md]
 ---
 
 # SDK Control Protocol

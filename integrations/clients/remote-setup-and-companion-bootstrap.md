@@ -1,7 +1,7 @@
 ---
 title: "Remote Setup and Companion Bootstrap"
 owners: []
-soft_links: [/integrations/clients/remote-and-managed-client-envelopes.md, /collaboration-and-agents/bridge-transport-and-remote-control-runtime.md, /collaboration-and-agents/repl-remote-control-lifecycle.md, /platform-services/auth-login-logout-and-token-lifecycle.md, /ui-and-experience/terminal-ui.md]
+soft_links: [/integrations/clients/remote-and-managed-client-envelopes.md, /collaboration-and-agents/bridge-transport-and-remote-control-runtime.md, /collaboration-and-agents/repl-remote-control-lifecycle.md, /platform-services/auth-login-logout-and-token-lifecycle.md, /ui-and-experience/shell-and-input/terminal-ui.md]
 ---
 
 # Remote Setup and Companion Bootstrap

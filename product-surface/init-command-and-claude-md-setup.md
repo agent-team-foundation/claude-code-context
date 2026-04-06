@@ -1,7 +1,7 @@
 ---
 title: "Init Command and CLAUDE.md Setup"
 owners: []
-soft_links: [/product-surface/command-dispatch-and-composition.md, /memory-and-context/instruction-sources-and-precedence.md, /ui-and-experience/startup-welcome-dashboard-and-feed-rotation.md, /ui-and-experience/interactive-setup-and-onboarding-screens.md]
+soft_links: [/product-surface/command-dispatch-and-composition.md, /memory-and-context/instruction-sources-and-precedence.md, /ui-and-experience/startup-and-onboarding/startup-welcome-dashboard-and-feed-rotation.md, /ui-and-experience/startup-and-onboarding/interactive-setup-and-onboarding-screens.md]
 ---
 
 # Init Command and CLAUDE.md Setup
@@ -69,7 +69,7 @@ Equivalent behavior should preserve:
 - a workspace-state-driven onboarding model where empty workspaces nudge project creation/clone, while non-empty workspaces nudge `/init`/`CLAUDE.md`
 - `/init`, `/terminal-setup`, and real user-prompt submission each re-running the completion check rather than blindly flipping a completion bit
 - the feed stopping only when the workspace's currently enabled onboarding steps are actually satisfied
-- that workspace onboarding feed remaining distinct from the earlier pre-REPL setup screens described in [../ui-and-experience/interactive-setup-and-onboarding-screens.md](../ui-and-experience/interactive-setup-and-onboarding-screens.md)
+- that workspace onboarding feed remaining distinct from the earlier pre-REPL setup screens described in [../ui-and-experience/startup-and-onboarding/interactive-setup-and-onboarding-screens.md](../ui-and-experience/startup-and-onboarding/interactive-setup-and-onboarding-screens.md)
 
 ## Failure modes
 

@@ -1,7 +1,7 @@
 ---
 title: "Consumer Privacy Policy Flow"
 owners: []
-soft_links: [/platform-services/privacy-level-resolution.md, /platform-services/auth-config-and-policy.md, /ui-and-experience/interactive-setup-and-onboarding-screens.md, /product-surface/feedback-and-issue-commands.md]
+soft_links: [/platform-services/privacy-level-resolution.md, /platform-services/auth-config-and-policy.md, /ui-and-experience/startup-and-onboarding/interactive-setup-and-onboarding-screens.md, /product-surface/feedback-and-issue-commands.md]
 ---
 
 # Consumer Privacy Policy Flow

@@ -1,7 +1,7 @@
 ---
 title: "Team Memory Sync and Secret Guardrails"
 owners: []
-soft_links: [/platform-services/sync-and-managed-state.md, /memory-and-context/memory-layers.md, /memory-and-context/durable-memory-recall-and-auto-memory.md, /tools-and-permissions/path-and-filesystem-safety.md]
+soft_links: [/platform-services/sync-and-managed-state.md, /memory-and-context/memory-layers.md, /memory-and-context/durable-memory-recall-and-auto-memory.md, /tools-and-permissions/filesystem-and-shell/path-and-filesystem-safety.md]
 ---
 
 # Team Memory Sync and Secret Guardrails

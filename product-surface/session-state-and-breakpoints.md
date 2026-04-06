@@ -1,7 +1,7 @@
 ---
 title: "Session State and Breakpoints"
 owners: []
-soft_links: [/runtime-orchestration/state-machines-and-failures.md, /runtime-orchestration/session-reset-and-state-preservation.md, /runtime-orchestration/app-state-and-input-routing.md, /tools-and-permissions/permission-mode-transitions-and-gates.md, /collaboration-and-agents/remote-session-live-control-loop.md, /ui-and-experience/focused-dialog-and-overlay-arbitration.md]
+soft_links: [/runtime-orchestration/state/state-machines-and-failures.md, /runtime-orchestration/sessions/session-reset-and-state-preservation.md, /runtime-orchestration/state/app-state-and-input-routing.md, /tools-and-permissions/permissions/permission-mode-transitions-and-gates.md, /collaboration-and-agents/remote-session-live-control-loop.md, /ui-and-experience/dialogs-and-approvals/focused-dialog-and-overlay-arbitration.md]
 ---
 
 # Session State and Breakpoints

@@ -1,7 +1,7 @@
 ---
 title: "Turn-End Auto-Memory Extraction"
 owners: []
-soft_links: [/memory-and-context/durable-memory-recall-and-auto-memory.md, /runtime-orchestration/turn-assembly-and-recovery.md, /runtime-orchestration/stop-hook-orchestration-and-turn-end-bookkeeping.md]
+soft_links: [/memory-and-context/durable-memory-recall-and-auto-memory.md, /runtime-orchestration/turn-flow/turn-assembly-and-recovery.md, /runtime-orchestration/turn-flow/stop-hook-orchestration-and-turn-end-bookkeeping.md]
 ---
 
 # Turn-End Auto-Memory Extraction

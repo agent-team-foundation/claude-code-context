@@ -1,7 +1,7 @@
 ---
 title: "Workspace Trust Dialog and Persistence"
 owners: []
-soft_links: [/platform-services/trust-and-capability-hydration.md, /platform-services/interactive-startup-and-project-activation.md, /platform-services/auth-config-and-policy.md, /platform-services/bootstrap-and-service-failures.md, /collaboration-and-agents/remote-and-bridge-flows.md, /integrations/plugins/plugin-management-and-marketplace-flows.md, /tools-and-permissions/permission-model.md]
+soft_links: [/platform-services/trust-and-capability-hydration.md, /platform-services/interactive-startup-and-project-activation.md, /platform-services/auth-config-and-policy.md, /platform-services/bootstrap-and-service-failures.md, /collaboration-and-agents/remote-and-bridge-flows.md, /integrations/plugins/plugin-management-and-marketplace-flows.md, /tools-and-permissions/permissions/permission-model.md]
 ---
 
 # Workspace Trust Dialog and Persistence

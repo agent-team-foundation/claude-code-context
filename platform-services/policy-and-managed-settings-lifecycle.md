@@ -1,7 +1,7 @@
 ---
 title: "Policy and Managed Settings Lifecycle"
 owners: []
-soft_links: [/platform-services/sync-and-managed-state.md, /platform-services/auth-config-and-policy.md, /tools-and-permissions/permission-model.md]
+soft_links: [/platform-services/sync-and-managed-state.md, /platform-services/auth-config-and-policy.md, /tools-and-permissions/permissions/permission-model.md]
 ---
 
 # Policy and Managed Settings Lifecycle

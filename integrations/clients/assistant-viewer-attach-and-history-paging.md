@@ -1,7 +1,7 @@
 ---
 title: "Feature-Gated Persistent Assistant Viewer Attach and History Paging"
 owners: []
-soft_links: [/collaboration-and-agents/remote-session-contract.md, /runtime-orchestration/proactive-assistant-loop-and-brief-mode.md, /runtime-orchestration/task-registry-and-visibility.md, /integrations/clients/remote-and-managed-client-envelopes.md, /integrations/clients/remote-setup-and-companion-bootstrap.md, /integrations/clients/remote-session-message-adaptation-and-viewer-state.md]
+soft_links: [/collaboration-and-agents/remote-session-contract.md, /runtime-orchestration/automation/proactive-assistant-loop-and-brief-mode.md, /runtime-orchestration/tasks/task-registry-and-visibility.md, /integrations/clients/remote-and-managed-client-envelopes.md, /integrations/clients/remote-setup-and-companion-bootstrap.md, /integrations/clients/remote-session-message-adaptation-and-viewer-state.md]
 ---
 
 # Feature-Gated Persistent Assistant Viewer Attach and History Paging

@@ -1,7 +1,7 @@
 ---
 title: "Feature-Gated Remote Skill Discovery Overlay"
 owners: []
-soft_links: [/integrations/plugins/skill-discovery-and-listing-surfaces.md, /product-surface/prompt-command-and-skill-execution.md, /runtime-orchestration/turn-attachments-and-sidechannels.md, /runtime-orchestration/query-loop.md]
+soft_links: [/integrations/plugins/skill-discovery-and-listing-surfaces.md, /product-surface/prompt-command-and-skill-execution.md, /runtime-orchestration/turn-flow/turn-attachments-and-sidechannels.md, /runtime-orchestration/turn-flow/query-loop.md]
 ---
 
 # Feature-Gated Remote Skill Discovery Overlay

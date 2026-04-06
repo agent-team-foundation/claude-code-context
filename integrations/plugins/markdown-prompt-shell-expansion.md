@@ -1,7 +1,7 @@
 ---
 title: "Markdown Prompt Shell Expansion"
 owners: []
-soft_links: [/integrations/plugins/skill-loading-contract.md, /integrations/plugins/plugin-runtime-contract.md, /tools-and-permissions/shell-execution-and-backgrounding.md, /tools-and-permissions/permission-model.md, /product-surface/review-and-pr-automation-commands.md]
+soft_links: [/integrations/plugins/skill-loading-contract.md, /integrations/plugins/plugin-runtime-contract.md, /tools-and-permissions/filesystem-and-shell/shell-execution-and-backgrounding.md, /tools-and-permissions/permissions/permission-model.md, /product-surface/review-and-pr-automation-commands.md]
 ---
 
 # Markdown Prompt Shell Expansion
@@ -22,8 +22,8 @@ It intentionally does not re-document:
 
 - the broader skill discovery and indexing lifecycle already captured in [skill-loading-contract.md](skill-loading-contract.md)
 - generic plugin admission, caching, and marketplace behavior already captured in [plugin-runtime-contract.md](plugin-runtime-contract.md)
-- ordinary model-initiated shell tool execution already captured in [shell-execution-and-backgrounding.md](../../tools-and-permissions/shell-execution-and-backgrounding.md)
-- the general permission engine outside this prompt-expansion path already captured in [permission-model.md](../../tools-and-permissions/permission-model.md)
+- ordinary model-initiated shell tool execution already captured in [shell-execution-and-backgrounding.md](../../tools-and-permissions/filesystem-and-shell/shell-execution-and-backgrounding.md)
+- the general permission engine outside this prompt-expansion path already captured in [permission-model.md](../../tools-and-permissions/permissions/permission-model.md)
 - the higher-level user-facing review and PR command contracts that merely reuse this expansion pipeline, already captured in [review-and-pr-automation-commands.md](../../product-surface/review-and-pr-automation-commands.md)
 
 ## Markdown-backed commands are compiled at invocation time, not stored as static text

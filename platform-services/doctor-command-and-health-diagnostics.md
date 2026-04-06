@@ -1,7 +1,7 @@
 ---
 title: "Doctor Command and Health Diagnostics"
 owners: []
-soft_links: [/product-surface/command-surface.md, /platform-services/bootstrap-and-service-failures.md, /ui-and-experience/interaction-feedback.md, /ui-and-experience/keybinding-customization-and-context-resolution.md]
+soft_links: [/product-surface/command-surface.md, /platform-services/bootstrap-and-service-failures.md, /ui-and-experience/feedback-and-notifications/interaction-feedback.md, /ui-and-experience/shell-and-input/keybinding-customization-and-context-resolution.md]
 ---
 
 # Doctor Command and Health Diagnostics

@@ -1,7 +1,7 @@
 ---
 title: "Compact Path"
 owners: []
-soft_links: [/product-surface/command-execution-archetypes.md, /runtime-orchestration/state-machines-and-failures.md, /memory-and-context/compaction-and-dream.md]
+soft_links: [/product-surface/command-execution-archetypes.md, /runtime-orchestration/state/state-machines-and-failures.md, /memory-and-context/compaction-and-dream.md]
 ---
 
 # Compact Path

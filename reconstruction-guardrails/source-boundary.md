@@ -1,7 +1,7 @@
 ---
 title: "Source Boundary"
 owners: []
-soft_links: [/memory-and-context/context-bootstrap.md, /runtime-orchestration/build-profiles.md]
+soft_links: [/memory-and-context/context-bootstrap.md, /runtime-orchestration/state/build-profiles.md]
 ---
 
 # Source Boundary

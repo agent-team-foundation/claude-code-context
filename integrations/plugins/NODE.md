@@ -1,7 +1,7 @@
 ---
 title: "Plugins and Skills"
 owners: []
-soft_links: [/ui-and-experience/terminal-ui.md, /tools-and-permissions/tool-families.md]
+soft_links: [/ui-and-experience/shell-and-input/terminal-ui.md, /tools-and-permissions/tool-catalog/tool-families.md]
 ---
 
 # Plugins and Skills

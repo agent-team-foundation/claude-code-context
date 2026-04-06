@@ -1,7 +1,7 @@
 ---
 title: "Multi-Agent Topology"
 owners: []
-soft_links: [/tools-and-permissions/delegation-modes.md, /runtime-orchestration/task-model.md, /collaboration-and-agents/peer-addressing-discovery-and-routing.md]
+soft_links: [/tools-and-permissions/agent-and-task-control/delegation-modes.md, /runtime-orchestration/tasks/task-model.md, /collaboration-and-agents/peer-addressing-discovery-and-routing.md]
 ---
 
 # Multi-Agent Topology

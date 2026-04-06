@@ -1,7 +1,7 @@
 ---
 title: "Memory Management and Context Inspection"
 owners: []
-soft_links: [/product-surface/command-surface.md, /memory-and-context/instruction-sources-and-precedence.md, /memory-and-context/context-cache-and-invalidation.md, /memory-and-context/compact-path.md, /integrations/clients/sdk-control-protocol.md, /ui-and-experience/system-feedback-lines.md]
+soft_links: [/product-surface/command-surface.md, /memory-and-context/instruction-sources-and-precedence.md, /memory-and-context/context-cache-and-invalidation.md, /memory-and-context/compact-path.md, /integrations/clients/sdk-control-protocol.md, /ui-and-experience/feedback-and-notifications/system-feedback-lines.md]
 ---
 
 # Memory Management and Context Inspection

@@ -1,7 +1,7 @@
 ---
 title: "Session Utility Commands"
 owners: []
-soft_links: [/runtime-orchestration/resume-path.md, /runtime-orchestration/session-artifacts-and-sharing.md, /runtime-orchestration/session-discovery-and-lite-indexing.md, /ui-and-experience/conversation-export-dialog.md, /ui-and-experience/resume-picker-search-preview-and-filters.md]
+soft_links: [/runtime-orchestration/sessions/resume-path.md, /runtime-orchestration/sessions/session-artifacts-and-sharing.md, /runtime-orchestration/sessions/session-discovery-and-lite-indexing.md, /ui-and-experience/dialogs-and-approvals/conversation-export-dialog.md, /ui-and-experience/transcript-and-history/resume-picker-search-preview-and-filters.md]
 ---
 
 # Session Utility Commands
@@ -18,9 +18,9 @@ This leaf covers:
 
 It intentionally does not re-document:
 
-- transcript rehydration, snapshot restoration, reset lineage, and remote resume internals already covered in [../runtime-orchestration/resume-path.md](../runtime-orchestration/resume-path.md)
-- picker-only search, preview, rename, and filter UX already covered in [../ui-and-experience/resume-picker-search-preview-and-filters.md](../ui-and-experience/resume-picker-search-preview-and-filters.md)
-- `/export` dialog mode transitions, filename-entry UI, and clipboard-versus-file chooser behavior already covered in [../ui-and-experience/conversation-export-dialog.md](../ui-and-experience/conversation-export-dialog.md)
+- transcript rehydration, snapshot restoration, reset lineage, and remote resume internals already covered in [../runtime-orchestration/sessions/resume-path.md](../runtime-orchestration/sessions/resume-path.md)
+- picker-only search, preview, rename, and filter UX already covered in [../ui-and-experience/transcript-and-history/resume-picker-search-preview-and-filters.md](../ui-and-experience/transcript-and-history/resume-picker-search-preview-and-filters.md)
+- `/export` dialog mode transitions, filename-entry UI, and clipboard-versus-file chooser behavior already covered in [../ui-and-experience/dialogs-and-approvals/conversation-export-dialog.md](../ui-and-experience/dialogs-and-approvals/conversation-export-dialog.md)
 
 ## Session metadata commands mutate live identity, not just disk
 

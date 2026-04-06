@@ -1,7 +1,7 @@
 ---
 title: "Compaction and Dream"
 owners: []
-soft_links: [/runtime-orchestration/query-loop.md, /collaboration-and-agents/multi-agent-topology.md, /runtime-orchestration/dream-task-visibility.md]
+soft_links: [/runtime-orchestration/turn-flow/query-loop.md, /collaboration-and-agents/multi-agent-topology.md, /runtime-orchestration/tasks/dream-task-visibility.md]
 ---
 
 # Compaction and Dream

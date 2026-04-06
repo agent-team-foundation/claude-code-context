@@ -1,7 +1,7 @@
 ---
 title: "Remote Session Live Control Loop"
 owners: []
-soft_links: [/collaboration-and-agents/remote-session-contract.md, /collaboration-and-agents/remote-session-subscription-auth-and-reconnect.md, /collaboration-and-agents/bridge-transport-and-remote-control-runtime.md, /tools-and-permissions/permission-decision-pipeline.md, /integrations/clients/sdk-control-protocol.md, /integrations/clients/structured-io-and-headless-session-loop.md]
+soft_links: [/collaboration-and-agents/remote-session-contract.md, /collaboration-and-agents/remote-session-subscription-auth-and-reconnect.md, /collaboration-and-agents/bridge-transport-and-remote-control-runtime.md, /tools-and-permissions/permissions/permission-decision-pipeline.md, /integrations/clients/sdk-control-protocol.md, /integrations/clients/structured-io-and-headless-session-loop.md]
 ---
 
 # Remote Session Live Control Loop

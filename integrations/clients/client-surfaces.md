@@ -1,7 +1,7 @@
 ---
 title: "Client Surfaces"
 owners: []
-soft_links: [/runtime-orchestration/query-loop.md, /ui-and-experience/interaction-feedback.md]
+soft_links: [/runtime-orchestration/turn-flow/query-loop.md, /ui-and-experience/feedback-and-notifications/interaction-feedback.md]
 ---
 
 # Client Surfaces

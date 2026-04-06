@@ -1,7 +1,7 @@
 ---
 title: "Auto-Dream Consolidation and Locking"
 owners: []
-soft_links: [/memory-and-context/compaction-and-dream.md, /memory-and-context/durable-memory-recall-and-auto-memory.md, /runtime-orchestration/dream-task-visibility.md, /memory-and-context/memory-management-and-context-inspection.md]
+soft_links: [/memory-and-context/compaction-and-dream.md, /memory-and-context/durable-memory-recall-and-auto-memory.md, /runtime-orchestration/tasks/dream-task-visibility.md, /memory-and-context/memory-management-and-context-inspection.md]
 ---
 
 # Auto-Dream Consolidation and Locking
@@ -20,7 +20,7 @@ This leaf covers:
 It intentionally does not re-document:
 
 - the broader durable-memory storage model already covered in [durable-memory-recall-and-auto-memory.md](durable-memory-recall-and-auto-memory.md)
-- the UI task shell for dream inspection already covered in [../runtime-orchestration/dream-task-visibility.md](../runtime-orchestration/dream-task-visibility.md)
+- the UI task shell for dream inspection already covered in [../runtime-orchestration/tasks/dream-task-visibility.md](../runtime-orchestration/tasks/dream-task-visibility.md)
 - the wide compaction-versus-consolidation framing already covered in [compaction-and-dream.md](compaction-and-dream.md)
 - the `/memory` dialog's toggle and status row behavior already covered in [memory-management-and-context-inspection.md](memory-management-and-context-inspection.md)
 

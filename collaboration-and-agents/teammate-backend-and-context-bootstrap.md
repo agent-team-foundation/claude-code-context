@@ -1,7 +1,7 @@
 ---
 title: "Teammate Backend and Context Bootstrap"
 owners: []
-soft_links: [/collaboration-and-agents/worker-execution-boundaries.md, /runtime-orchestration/session-artifacts-and-sharing.md, /platform-services/bootstrap-and-service-failures.md]
+soft_links: [/collaboration-and-agents/worker-execution-boundaries.md, /runtime-orchestration/sessions/session-artifacts-and-sharing.md, /platform-services/bootstrap-and-service-failures.md]
 ---
 
 # Teammate Backend and Context Bootstrap

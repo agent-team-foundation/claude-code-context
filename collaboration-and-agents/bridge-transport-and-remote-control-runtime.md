@@ -1,7 +1,7 @@
 ---
 title: "Bridge Transport and Remote-Control Runtime"
 owners: []
-soft_links: [/collaboration-and-agents/bridge-contract.md, /collaboration-and-agents/remote-session-contract.md, /collaboration-and-agents/remote-control-spawn-modes-and-session-resume.md, /collaboration-and-agents/repl-remote-control-lifecycle.md, /collaboration-and-agents/peer-addressing-discovery-and-routing.md, /integrations/clients/structured-io-and-headless-session-loop.md, /runtime-orchestration/state-machines-and-failures.md]
+soft_links: [/collaboration-and-agents/bridge-contract.md, /collaboration-and-agents/remote-session-contract.md, /collaboration-and-agents/remote-control-spawn-modes-and-session-resume.md, /collaboration-and-agents/repl-remote-control-lifecycle.md, /collaboration-and-agents/peer-addressing-discovery-and-routing.md, /integrations/clients/structured-io-and-headless-session-loop.md, /runtime-orchestration/state/state-machines-and-failures.md]
 ---
 
 # Bridge Transport and Remote-Control Runtime

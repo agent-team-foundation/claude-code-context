@@ -1,7 +1,7 @@
 ---
 title: "Opt-In Doc Maintenance Background Agent"
 owners: []
-soft_links: [/platform-services/background-housekeeping-and-deferred-maintenance.md, /runtime-orchestration/query-loop.md, /tools-and-permissions/path-and-filesystem-safety.md, /integrations/plugins/feature-gated-project-skill-improvement-loop.md]
+soft_links: [/platform-services/background-housekeeping-and-deferred-maintenance.md, /runtime-orchestration/turn-flow/query-loop.md, /tools-and-permissions/filesystem-and-shell/path-and-filesystem-safety.md, /integrations/plugins/feature-gated-project-skill-improvement-loop.md]
 ---
 
 # Opt-In Doc Maintenance Background Agent

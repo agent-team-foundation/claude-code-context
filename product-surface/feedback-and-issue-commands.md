@@ -1,7 +1,7 @@
 ---
 title: "Feedback and Issue Commands"
 owners: []
-soft_links: [/ui-and-experience/feedback-surveys-and-transcript-share-escalation.md, /runtime-orchestration/build-profiles.md, /platform-services/consumer-privacy-policy-flow.md, /platform-services/auth-config-and-policy.md]
+soft_links: [/ui-and-experience/feedback-and-notifications/feedback-surveys-and-transcript-share-escalation.md, /runtime-orchestration/state/build-profiles.md, /platform-services/consumer-privacy-policy-flow.md, /platform-services/auth-config-and-policy.md]
 ---
 
 # Feedback and Issue Commands
@@ -18,7 +18,7 @@ This leaf covers:
 
 It intentionally does not re-document:
 
-- the full survey state machine already covered in [../ui-and-experience/feedback-surveys-and-transcript-share-escalation.md](../ui-and-experience/feedback-surveys-and-transcript-share-escalation.md)
+- the full survey state machine already covered in [../ui-and-experience/feedback-and-notifications/feedback-surveys-and-transcript-share-escalation.md](../ui-and-experience/feedback-and-notifications/feedback-surveys-and-transcript-share-escalation.md)
 - generic prompt-area rendering and notification stacking already covered in the UI domain
 
 ## `/feedback` is the public manual feedback lane

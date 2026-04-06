@@ -1,7 +1,7 @@
 ---
 title: "Provider Model Mapping and Capability Gates"
 owners: []
-soft_links: [/platform-services/provider-specific-api-clients-and-auth-routing.md, /product-surface/model-and-behavior-controls.md, /runtime-orchestration/api-request-assembly-retry-and-prompt-cache-stability.md, /platform-services/claude-ai-limits-and-extra-usage-state.md]
+soft_links: [/platform-services/provider-specific-api-clients-and-auth-routing.md, /product-surface/model-and-behavior-controls.md, /runtime-orchestration/turn-flow/api-request-assembly-retry-and-prompt-cache-stability.md, /platform-services/claude-ai-limits-and-extra-usage-state.md]
 ---
 
 # Provider Model Mapping and Capability Gates
@@ -21,7 +21,7 @@ It intentionally does not re-document:
 
 - the user-facing `/model`, `/fast`, and `/effort` command surface already covered in [../product-surface/model-and-behavior-controls.md](../product-surface/model-and-behavior-controls.md)
 - raw provider-client auth construction already covered in [provider-specific-api-clients-and-auth-routing.md](provider-specific-api-clients-and-auth-routing.md)
-- turn assembly and retry policy already covered in [../runtime-orchestration/api-request-assembly-retry-and-prompt-cache-stability.md](../runtime-orchestration/api-request-assembly-retry-and-prompt-cache-stability.md)
+- turn assembly and retry policy already covered in [../runtime-orchestration/turn-flow/api-request-assembly-retry-and-prompt-cache-stability.md](../runtime-orchestration/turn-flow/api-request-assembly-retry-and-prompt-cache-stability.md)
 
 ## One canonical catalog, many runtime IDs
 
