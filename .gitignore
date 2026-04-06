@@ -1,3 +1,6 @@
 /claude-code-main
 /.analysis/
+.obsidian/
+/.agents/
+/.claude/
 .DS_Store

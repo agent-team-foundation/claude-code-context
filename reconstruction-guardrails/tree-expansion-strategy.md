@@ -57,16 +57,4 @@ Stop deepening a node when the next facts would mostly become:
 
 At that point the tree is drifting toward source mirroring instead of reconstruction guidance.
 
-## Validation hygiene
-
-`first-tree verify` only stays meaningful when the repository visible to the validator is mostly tree content.
-
-If the repo also contains:
-
-- raw source snapshots used only for analysis
-- synced skill artifacts or other maintenance payloads
-- helper scripts that are not part of the tree itself
-
-then those assets should eventually move to hidden paths or external analysis workspaces. Otherwise the validator will correctly demand `NODE.md` coverage for material that is not intended to be part of the reconstruction tree.
-
-For this repository, validator cleanliness is therefore a structural follow-up item, not just a documentation polish step.
+Structural cleanup follows the same rule: when a domain `NODE.md` stops being easy to scan, split it into subdomains and remove redundant summaries instead of layering more overview text on top.

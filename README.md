@@ -1,41 +1,13 @@
 ---
 title: "claude-code-context"
 owners: [bingran-you]
-soft_links: [/NODE.md, /reconstruction-guardrails]
+soft_links: [/NODE.md, /about.md]
 ---
 
 # claude-code-context
 
-Context Tree for reconstructing Claude Code from capability, architecture, and behavior specifications without mirroring source code.
+Context Tree for a clean-room reconstruction of Claude Code.
 
-Start with [NODE.md](NODE.md). This repository intentionally stores:
+Start with [NODE.md](NODE.md). Use [about.md](about.md) for the clean-room boundary and repository purpose.
 
-- product behavior and user-visible capability boundaries
-- runtime, tool, memory, integration, and collaboration contracts
-- reconstruction guidance for building an equivalent system from scratch
-
-This repository intentionally does not store:
-
-- source files, source snippets, or prompt bodies copied from the analyzed codebase
-- proprietary strings, secrets, internal codenames, or implementation-only detail
-- repo-by-repo file inventories that would turn the tree into a source mirror
-
-Local analysis-only inputs such as raw source snapshots should live under hidden paths like `.analysis/` so `first-tree verify` continues to validate the tree itself rather than auxiliary research material.
-
-## Installed skill
-
-This repo keeps the installed `first-tree` skill in the hidden user-tree roots:
-
-- `.claude/skills/first-tree`
-- `.agents/skills/first-tree`
-
-To sync manually, run:
-
-```bash
-bash ./.scripts/sync-first-tree-skill.sh
-```
-
-The sync script refreshes both installed roots from the upstream skill and
-preserves the repo-local `.agents/skills/first-tree/progress.md`.
-After syncing, confirm that progress file still reflects reality and rerun
-`first-tree verify`.
+Analysis-only inputs such as local source snapshots should live under hidden paths like `.analysis/` so the tree remains focused on reconstruction knowledge rather than research payloads.
