@@ -22,7 +22,7 @@ It intentionally does not re-document:
 
 - ordinary skill loading, filesystem discovery, and registry ordering already covered in [skill-loading-contract.md](skill-loading-contract.md)
 - static model-facing skill listings and the human `/skills` dialog already covered in [skill-discovery-and-listing-surfaces.md](skill-discovery-and-listing-surfaces.md)
-- ordinary local SkillTool and prompt-command execution already covered in [../../product-surface/prompt-command-and-skill-execution.md](../../product-surface/prompt-command-and-skill-execution.md)
+- ordinary local model-side skill execution and prompt-command execution already covered in [../../product-surface/prompt-command-and-skill-execution.md](../../product-surface/prompt-command-and-skill-execution.md)
 - hidden ranking, retrieval, transport, or storage details that are not visible in this snapshot
 
 ## The overlay fills gaps instead of replacing visible skills
@@ -39,7 +39,7 @@ Equivalent behavior should preserve:
 
 Equivalent behavior should preserve:
 
-- the main session system prompt adding explicit discovery guidance only when both SkillTool and the discovery tool are enabled
+- the main session system prompt adding explicit discovery guidance only when both the model-side skill-invocation surface and the discovery tool are enabled
 - that guidance teaching the model that relevant skills may arrive automatically as `"Skills relevant to your task"` reminders
 - the same guidance being added again on the subagent prompt-enhancement path, because subagents do not reuse the main-session system-prompt assembly path
 - workers therefore understanding discovery reminders even when they encounter them only after spawn-time prompt enhancement
@@ -68,7 +68,7 @@ Equivalent behavior should preserve:
 
 - discovered skills entering the conversation as attachment-style system reminders rather than silently mutating the root system prompt
 - the rendered reminder format being a short `"Skills relevant to your task"` block with skill names and descriptions
-- those reminders instructing the model to invoke the surfaced skill through SkillTool for full instructions rather than treating the reminder text as the full skill body
+- those reminders instructing the model to invoke the surfaced skill through the model-side skill surface for full instructions rather than treating the reminder text as the full skill body
 - discovery attachments joining the same post-tool sidechannel lane as other structured enrichments, so they affect the next recursive request rather than a separate conversation
 
 ## Discovered-skill state is session-scoped

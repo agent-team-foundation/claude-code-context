@@ -21,34 +21,34 @@ It intentionally does not re-document:
 
 - skill discovery from disk, plugins, MCP, or dynamic nested paths already covered in [skill-loading-contract.md](skill-loading-contract.md)
 - feature-gated discovery-tool timing, discovery reminders, and remote discovered-skill follow-through already covered in [feature-gated-remote-skill-discovery-overlay.md](feature-gated-remote-skill-discovery-overlay.md)
-- prompt-command and SkillTool execution after a skill has been chosen, already covered in [../../product-surface/prompt-command-and-skill-execution.md](../../product-surface/prompt-command-and-skill-execution.md)
+- prompt-command and model-side skill execution after a skill has been chosen, already covered in [../../product-surface/prompt-command-and-skill-execution.md](../../product-surface/prompt-command-and-skill-execution.md)
 - generic command-registry precedence and collision rules already covered in [../../product-surface/command-dispatch-and-composition.md](../../product-surface/command-dispatch-and-composition.md)
 
 ## The model and the human do not receive the same skill catalog
 
 Equivalent behavior should preserve:
 
-- the model-facing skill surface being delivered through SkillTool instructions plus later skill-listing attachments rather than through the `/skills` dialog
-- the human-facing `/skills` dialog being an interactive local JSX surface over the current command registry rather than a model-visible prompt payload
+- the model-facing skill surface being delivered through model-side skill-invocation instructions plus later skill-listing attachments rather than through the `/skills` dialog
+- the human-facing `/skills` dialog being an interactive local dialog surface over the current command registry rather than a model-visible prompt payload
 - headless or bridge-adjacent skill summaries using yet another filtered view for system-init and analytics-style inventories
 - these surfaces intentionally disagreeing about which skills are worth showing, because discoverability, prompt budget, and direct invocability are different concerns
 
-## The SkillTool prompt teaches invocation, not the full inventory
+## The model-side skill prompt teaches invocation, not the full inventory
 
 Equivalent behavior should preserve:
 
-- the SkillTool prompt teaching that slash-command-style requests correspond to skills
+- the model-side skill prompt teaching that slash-command-style requests correspond to skills
 - the prompt treating matching skill use as mandatory before the model writes an ordinary response about that task
 - the prompt forbidding the model from mentioning a skill without actually calling the tool
-- the prompt telling the model not to use SkillTool for built-in CLI commands
-- the prompt teaching the model to recognize command-loading metadata tags so it does not reload a skill that is already active in the current turn
-- the actual list of available skills arriving separately through the attachment path instead of being hardcoded into the static tool prompt
+- the prompt telling the model not to use model-side skill invocation for built-in commands
+- the prompt teaching the model to recognize skill-loading status tags so it does not reload a skill that is already active in the current turn
+- the actual list of available skills arriving separately through the attachment path instead of being baked into the static invocation instructions
 
 ## Model-facing skill listings are filtered and budgeted
 
 Equivalent behavior should preserve:
 
-- model-facing listings being generated only when the current tool surface actually includes SkillTool
+- model-facing listings being generated only when the current model-side skill-invocation surface is actually present
 - the base local model-facing set coming from prompt commands that are model-invocable, non-built-in, and sufficiently descriptive to be discoverable
 - bundled skills and legacy command-backed skills staying eligible even when they rely on auto-derived descriptions, while ordinary plugin or MCP prompt commands need explicit description-style metadata to qualify
 - plain MCP prompts staying out of the model-facing skill list while MCP skills are unioned in as skills
@@ -83,7 +83,7 @@ The important invariant is that skill discovery stays prompt-cheap without letti
 
 Equivalent behavior should preserve:
 
-- `/skills` opening a local JSX dialog instead of starting a model turn
+- `/skills` opening a local dialog instead of starting a model turn
 - the dialog filtering to prompt commands loaded from skill directories, deprecated commands directories, plugins, and MCP
 - bundled skills not being shown in this dialog even though they remain important in the model-facing discovery surface
 - dialog sections being rendered in explicit user-facing groups for project skills, user skills, policy-managed skills, plugin skills, and MCP skills
@@ -99,7 +99,7 @@ Equivalent behavior should preserve:
 
 Equivalent behavior should preserve:
 
-- some skill-count and system-init surfaces using a broader slash-command skill filter than the model-facing SkillTool list
+- some skill-count and system-init surfaces using a broader slash-command skill filter than the model-facing skill-invocation list
 - that broader filter still excluding built-in commands while allowing skills that matter for slash-oriented inventories even if they are not part of the model's eager listing
 - skill discoverability metrics and summaries therefore not being assumed to match the exact model-invocable list one-for-one
 
