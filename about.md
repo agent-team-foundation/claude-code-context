@@ -15,4 +15,4 @@ The answer is not "all files" or "all strings." It is the durable knowledge that
 - where the important state boundaries and failure modes live
 - what product and safety constraints cut across domains
 
-This tree is therefore a clean-room reconstruction spec. It captures the minimum durable knowledge required to make correct design decisions, while excluding original source expression and implementation-only detail.
+This tree is therefore a clean-room reconstruction spec. It captures the minimum durable knowledge required to make correct design decisions, while excluding original source expression, repo-local implementation detail, and tooling noise that would turn the tree into a source mirror.

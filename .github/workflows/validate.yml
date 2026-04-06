@@ -4,11 +4,8 @@ on:
   pull_request:
     paths:
       - "**/*.md"
-      - ".agents/skills/first-tree/**"
-      - ".claude/skills/first-tree/**"
-      - ".claude/settings.json"
       - ".github/workflows/validate.yml"
-      - ".scripts/sync-first-tree-skill.sh"
+      - ".first-tree/**"
 
 jobs:
   validate:

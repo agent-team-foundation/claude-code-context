@@ -36,7 +36,3 @@ tree describes.
 See [AGENTS.md](AGENTS.md) for agent instructions — the before/during/after workflow, ownership model, and tree maintenance.
 
 See [about.md](about.md) for background — the mission of this repo and the clean-room boundary it enforces.
-
-See the installed framework documentation:
-- [principles.md](.agents/skills/first-tree/references/principles.md) — core principles with examples
-- [ownership-and-naming.md](.agents/skills/first-tree/references/ownership-and-naming.md) — node naming and ownership model
