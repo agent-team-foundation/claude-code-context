@@ -31,6 +31,7 @@ Equivalent behavior should preserve a staged shell-analysis boundary before ordi
 - the parse outcome must distinguish:
   - clean simple-command decomposition
   - parse unavailable fallback
+  - parser-aborted or resource-limited failure that still counts as unsafe for structural trust
   - too-complex or unsupported structure that must stay interactive
 - unsupported syntax, parser differentials, hidden substitutions, or dynamic control-flow constructs must fail closed into `ask`, not be approximated into a potentially unsafe argv
 
@@ -54,6 +55,16 @@ That primary path should also preserve these safety properties:
 
 This path is not a sandbox. Its job is to decide whether downstream permission logic can safely reason about the command structure.
 
+## Heredoc handling stays narrow and explicit
+
+Equivalent behavior should preserve heredoc-specific trust boundaries:
+
+- literal heredoc forms may keep narrow safe handling when the body is treated as inert text
+- heredoc forms that still perform substitutions or hide runtime expansion must not be treated as statically trustworthy
+- multiline shell content should therefore not be auto-approved merely because its leading command token looked familiar
+
+This distinction matters because heredocs otherwise create an easy path to hide dynamic shell behavior behind a superficially ordinary command prefix.
+
 ## Legacy parsing remains a compatibility fallback
 
 Equivalent behavior should preserve a fallback path for builds or environments where the richer Bash parser is unavailable or intentionally disabled:
@@ -71,6 +82,7 @@ Equivalent behavior should preserve parsed shell structure being reused by sever
 
 - shell-rule evaluation over compound commands and later subcommands
 - command-aware path and redirection extraction
+- hook-style matching and other permission-side inspection that need stable subcommand boundaries
 - semantic deny checks for risky wrappers or shell-evaluation primitives
 - compound-command permission suggestions that may need one rule per actionable subcommand
 - shell UI affordances that need a stable editable prefix or concise command summary
@@ -111,6 +123,16 @@ Equivalent behavior should preserve several important asymmetries:
 - worker, headless, and no-prompt contexts cannot depend on local shell UI even when the same underlying parse or suggestion logic exists
 
 A faithful rebuild should therefore avoid flattening all shell tools into one parser or one auto-approval policy.
+
+## Read-only classification is downstream of trusted decomposition
+
+Equivalent behavior should preserve shell read-only classification as a prepared semantic view, not a raw string tag:
+
+- overlap-safe read-only classification should depend on trusted command decomposition, not only on the first visible executable name
+- cwd-changing, redirected-output, argument-forwarding, or repository-shaping constructs must be able to keep a command out of the read-only bucket even when the surface verb looks harmless
+- the same classification can then be reused by concurrency gating, collapsed read/search rendering, and other execution-preparation behavior
+
+This is another reason shell parsing is a cross-cutting contract rather than an isolated parser detail.
 
 ## Worker and leader approval paths reuse the same prechecks
 

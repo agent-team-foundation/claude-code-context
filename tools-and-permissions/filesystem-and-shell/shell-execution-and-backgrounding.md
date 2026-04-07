@@ -1,7 +1,7 @@
 ---
 title: "Shell Execution and Backgrounding"
 owners: []
-soft_links: [/runtime-orchestration/tasks/task-model.md, /runtime-orchestration/tasks/monitor-task-families-and-watch-lifecycle.md, /tools-and-permissions/execution-and-hooks/tool-batching-and-streaming-execution.md, /tools-and-permissions/execution-and-hooks/tool-execution-state-machine.md]
+soft_links: [/tools-and-permissions/filesystem-and-shell/shell-command-parsing-and-classifier-flow.md, /runtime-orchestration/tasks/task-model.md, /runtime-orchestration/tasks/monitor-task-families-and-watch-lifecycle.md, /tools-and-permissions/execution-and-hooks/tool-batching-and-streaming-execution.md, /tools-and-permissions/execution-and-hooks/tool-execution-state-machine.md]
 ---
 
 # Shell Execution and Backgrounding
@@ -92,6 +92,7 @@ Important asymmetries to preserve:
 
 - Bash uses a synchronous shell-specific read-only check and exposes that directly as its concurrency-safe predicate
 - PowerShell's synchronous read-only check is deliberately conservative; the richer parsed-AST read-only allow path happens later in permission evaluation, so some truly read-only PowerShell commands may still serialize
+- read-only classification should remain tied to shell-aware decomposition, so redirects, cwd changes, forwarded subcommands, or other write-shaped structure can keep an otherwise familiar command out of overlap-safe execution
 
 ## Display heuristics
 
