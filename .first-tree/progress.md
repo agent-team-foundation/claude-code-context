@@ -1,15 +1,14 @@
-# Context Tree Migration — legacy installed-skill tree -> dedicated tree metadata
+# Context Tree Upgrade — v0.1.1 -> v0.2
 
 ## Tree Metadata
-- [x] Review any repo docs, hooks, or automation that still assume the dedicated tree repo keeps local `.agents/skills/first-tree/` or `.claude/skills/first-tree/` copies
 - [x] Replace any stale `context-tree` CLI command references in repo-specific docs, scripts, workflows, or agent config with `first-tree`
 
 ## Agent Instructions
-- [x] Compare the framework section in `AGENTS.md` with the current `first-tree` template and update the text between the markers if needed
-- [x] Compare the framework section in `CLAUDE.md` with the current `first-tree` template and update the text between the markers if needed
+- [x] Compare the framework section in `AGENTS.md` with the bundled template (run `first-tree init --help` to see what templates ship) and update the text between the markers if needed
+- [x] Compare the framework section in `CLAUDE.md` with the bundled template and update the text between the markers if needed
 
 ## Verification
-- [x] `.first-tree/VERSION` reads `0.1.1`
+- [x] `.first-tree/VERSION` reads `0.2`
 - [x] `first-tree verify` passes
 
 ---

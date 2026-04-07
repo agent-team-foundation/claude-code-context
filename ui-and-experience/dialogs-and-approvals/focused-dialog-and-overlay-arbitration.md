@@ -1,7 +1,7 @@
 ---
 title: "Focused Dialog and Overlay Arbitration"
 owners: []
-soft_links: [/ui-and-experience/dialogs-and-approvals/permission-prompt-shell-and-worker-states.md, /ui-and-experience/shell-and-input/workspace-search-and-open-overlays.md, /ui-and-experience/shell-and-input/prompt-history-picker-dialog.md, /ui-and-experience/startup-and-onboarding/low-priority-recommendation-and-upsell-dialogs.md, /ui-and-experience/shell-and-input/terminal-runtime-and-fullscreen-interaction.md]
+soft_links: [/ui-and-experience/dialogs-and-approvals/permission-prompt-shell-and-worker-states.md, /ui-and-experience/shell-and-input/workspace-search-and-open-overlays.md, /ui-and-experience/shell-and-input/prompt-history-picker-dialog.md, /ui-and-experience/startup-and-onboarding/low-priority-recommendation-and-upsell-dialogs.md, /ui-and-experience/startup-and-onboarding/session-cost-threshold-acknowledgement.md, /ui-and-experience/shell-and-input/terminal-runtime-and-fullscreen-interaction.md, /runtime-orchestration/turn-flow/advisor-and-thinking-lifecycle.md]
 ---
 
 # Focused Dialog and Overlay Arbitration

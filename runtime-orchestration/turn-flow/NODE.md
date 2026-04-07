@@ -9,6 +9,7 @@ This subdomain captures what happens inside one active model turn: request shapi
 
 Relevant leaves:
 
+- **[advisor-and-thinking-lifecycle.md](advisor-and-thinking-lifecycle.md)** — How advanced reasoning posture, per-turn thinking overrides, advisor-side server tools, and model-switch cleanup interact inside one turn.
 - **[query-loop.md](query-loop.md)** — The streaming turn engine and its recovery paths.
 - **[api-request-assembly-retry-and-prompt-cache-stability.md](api-request-assembly-retry-and-prompt-cache-stability.md)** — How one turn becomes one or more model requests, including tool filtering, retry/fallback policy, and prompt-cache break control.
 - **[query-recovery-and-continuation.md](query-recovery-and-continuation.md)** — The recovery ladder for compaction, overflow, truncation, and continuation.

@@ -1,7 +1,7 @@
 ---
 title: "Turn Assembly and Recovery"
 owners: []
-soft_links: [/memory-and-context/context-bootstrap.md, /tools-and-permissions/tool-catalog/tool-pool-assembly.md, /memory-and-context/compact-path.md]
+soft_links: [/memory-and-context/context-bootstrap.md, /tools-and-permissions/tool-catalog/tool-pool-assembly.md, /memory-and-context/compact-path.md, /runtime-orchestration/turn-flow/advisor-and-thinking-lifecycle.md]
 ---
 
 # Turn Assembly and Recovery

@@ -1,7 +1,7 @@
 ---
 title: "Query Recovery and Continuation"
 owners: []
-soft_links: [/runtime-orchestration/turn-flow/turn-assembly-and-recovery.md, /memory-and-context/compact-path.md, /tools-and-permissions/execution-and-hooks/tool-batching-and-streaming-execution.md]
+soft_links: [/runtime-orchestration/turn-flow/turn-assembly-and-recovery.md, /runtime-orchestration/turn-flow/advisor-and-thinking-lifecycle.md, /memory-and-context/compact-path.md, /tools-and-permissions/execution-and-hooks/tool-batching-and-streaming-execution.md]
 ---
 
 # Query Recovery and Continuation
