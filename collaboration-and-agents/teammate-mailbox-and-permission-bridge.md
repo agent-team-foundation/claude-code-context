@@ -1,7 +1,7 @@
 ---
 title: "Teammate Mailbox and Permission Bridge"
 owners: []
-soft_links: [/collaboration-and-agents/worker-execution-boundaries.md, /collaboration-and-agents/in-process-teammate-lifecycle.md, /collaboration-and-agents/peer-addressing-discovery-and-routing.md, /tools-and-permissions/permissions/permission-model.md, /ui-and-experience/feedback-and-notifications/interaction-feedback.md]
+soft_links: [/collaboration-and-agents/worker-execution-boundaries.md, /collaboration-and-agents/in-process-teammate-lifecycle.md, /collaboration-and-agents/peer-addressing-discovery-and-routing.md, /tools-and-permissions/permissions/permission-model.md, /tools-and-permissions/filesystem-and-shell/shell-command-parsing-and-classifier-flow.md, /ui-and-experience/feedback-and-notifications/interaction-feedback.md]
 ---
 
 # Teammate Mailbox and Permission Bridge
@@ -62,6 +62,7 @@ Equivalent behavior should preserve:
 - registration of the leader's live permission queue and permission-context setter into module-level bridge state
 - worker permission prompts that reuse the same tool-specific approval UI the leader sees, including worker identity badges
 - bash classifier auto-approval before asking the leader when classifier confidence is sufficient
+- unresolved shell asks forwarding only after that speculative local classifier path has had a chance to win, so the leader is not bothered for requests that could already have been auto-approved safely
 - propagation of accepted permission updates back into the leader's shared permission context
 - preservation of the leader's own mode when applying those updates, so a worker's transformed context cannot overwrite coordinator or leader mode
 
