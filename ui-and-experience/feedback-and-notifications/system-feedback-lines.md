@@ -1,7 +1,7 @@
 ---
 title: "System Feedback Lines"
 owners: []
-soft_links: [/ui-and-experience/feedback-and-notifications/interaction-feedback.md, /ui-and-experience/background-and-teamwork/background-task-summary-labels.md, /ui-and-experience/feedback-and-notifications/idle-return-and-away-summary.md, /runtime-orchestration/turn-flow/query-recovery-and-continuation.md, /memory-and-context/session-memory.md, /collaboration-and-agents/remote-and-bridge-flows.md]
+soft_links: [/ui-and-experience/feedback-and-notifications/interaction-feedback.md, /ui-and-experience/background-and-teamwork/background-task-summary-labels.md, /ui-and-experience/feedback-and-notifications/idle-return-and-away-summary.md, /runtime-orchestration/turn-flow/query-recovery-and-continuation.md, /runtime-orchestration/turn-flow/advisor-and-thinking-lifecycle.md, /memory-and-context/session-memory.md, /collaboration-and-agents/remote-and-bridge-flows.md]
 ---
 
 # System Feedback Lines

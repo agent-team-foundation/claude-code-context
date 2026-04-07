@@ -1,7 +1,7 @@
 ---
 title: "Provider Model Mapping and Capability Gates"
 owners: []
-soft_links: [/platform-services/provider-specific-api-clients-and-auth-routing.md, /product-surface/model-and-behavior-controls.md, /runtime-orchestration/turn-flow/api-request-assembly-retry-and-prompt-cache-stability.md, /platform-services/claude-ai-limits-and-extra-usage-state.md]
+soft_links: [/platform-services/provider-specific-api-clients-and-auth-routing.md, /product-surface/model-and-behavior-controls.md, /runtime-orchestration/turn-flow/api-request-assembly-retry-and-prompt-cache-stability.md, /runtime-orchestration/turn-flow/advisor-and-thinking-lifecycle.md, /platform-services/claude-ai-limits-and-extra-usage-state.md]
 ---
 
 # Provider Model Mapping and Capability Gates

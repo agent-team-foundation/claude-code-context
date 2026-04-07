@@ -1,7 +1,7 @@
 ---
 title: "Session Cost Threshold Acknowledgement"
 owners: []
-soft_links: [/platform-services/usage-analytics-and-migrations.md, /platform-services/auth-login-logout-and-token-lifecycle.md, /platform-services/claude-ai-limits-and-extra-usage-state.md, /ui-and-experience/feedback-and-notifications/status-line-and-footer-notification-stack.md]
+soft_links: [/platform-services/usage-analytics-and-migrations.md, /platform-services/auth-login-logout-and-token-lifecycle.md, /platform-services/claude-ai-limits-and-extra-usage-state.md, /ui-and-experience/feedback-and-notifications/status-line-and-footer-notification-stack.md, /ui-and-experience/dialogs-and-approvals/focused-dialog-and-overlay-arbitration.md, /runtime-orchestration/turn-flow/advisor-and-thinking-lifecycle.md]
 ---
 
 # Session Cost Threshold Acknowledgement

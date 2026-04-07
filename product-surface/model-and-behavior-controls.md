@@ -1,12 +1,18 @@
 ---
 title: "Model and Behavior Controls"
 owners: []
-soft_links: [/product-surface/command-surface.md, /product-surface/command-execution-archetypes.md, /platform-services/auth-config-and-policy.md, /platform-services/policy-and-managed-settings-lifecycle.md, /platform-services/settings-change-detection-and-runtime-reload.md, /ui-and-experience/shell-and-input/voice-mode-and-hold-to-talk-dictation.md]
+soft_links: [/product-surface/command-surface.md, /product-surface/command-execution-archetypes.md, /platform-services/auth-config-and-policy.md, /platform-services/policy-and-managed-settings-lifecycle.md, /platform-services/settings-change-detection-and-runtime-reload.md, /ui-and-experience/shell-and-input/voice-mode-and-hold-to-talk-dictation.md, /runtime-orchestration/turn-flow/advisor-and-thinking-lifecycle.md]
 ---
 
 # Model and Behavior Controls
 
-Claude Code exposes a cluster of commands that look lightweight on the surface but actually control how the runtime chooses models, budgets reasoning effort, enables premium speed paths, and styles session behavior. A faithful rebuild should treat `/model`, `/effort`, `/fast`, `/theme`, `/color`, and `/output-style` as one control plane over session and settings state, not as unrelated toggles.
+Claude Code exposes a cluster of commands and toggles that look lightweight on
+the surface but actually control how the runtime chooses models, budgets
+reasoning effort, optionally configures an advisor-side reviewer model, enables
+premium speed paths, and styles session behavior. A faithful rebuild should
+treat `/model`, `/effort`, `/advisor`, `/fast`, `/theme`, `/color`, and
+`/output-style` plus the thinking toggle as one control plane over session and
+settings state, not as unrelated toggles.
 
 ## Scope boundary
 
@@ -15,6 +21,7 @@ This leaf covers:
 - user-facing model and behavior control commands and their visible command contracts
 - the model-resolution stack that decides which main model the session actually uses
 - fast-mode and effort precedence rules that can override or reshape user requests
+- the visible command surface for advisor-model configuration and session-level thinking posture
 - theme, prompt-color, and output-style behavior controls that sit in the same command family
 
 It intentionally does not re-document:
@@ -22,6 +29,7 @@ It intentionally does not re-document:
 - the full command registry or family taxonomy already covered in [command-surface.md](command-surface.md)
 - the full settings reload pipeline already covered in [settings-change-detection-and-runtime-reload.md](../platform-services/settings-change-detection-and-runtime-reload.md)
 - deeper auth, entitlement, or policy backends beyond the ways they gate these controls
+- the deeper request-time advisor/thinking lifecycle already covered in [../runtime-orchestration/turn-flow/advisor-and-thinking-lifecycle.md](../runtime-orchestration/turn-flow/advisor-and-thinking-lifecycle.md)
 
 ## Shared control-plane rule
 
@@ -125,6 +133,28 @@ Equivalent behavior should preserve:
   3. model default
 - unsupported `max` effort being clamped down to a supported level rather than being passed through blindly
 
+## `/advisor` and thinking posture controls
+
+Equivalent behavior should preserve:
+
+- the advisor model being a separate session or settings choice from the main
+  model, not a synonym for switching the whole session to a stronger model
+- advisor configuration exposing status, set-by-name, and unset behavior when
+  that surface is enabled in the current build
+- advisor configuration being hideable entirely when the current entitlement,
+  rollout, or provider path does not allow user configuration
+- setting an advisor model validating both that the chosen advisor model is
+  legal and that the current main model can actually call the advisor path
+- the command surface distinguishing "advisor configured" from "advisor active
+  on the current main model"
+- session-level thinking posture being adjustable without pretending it is the
+  same control as effort
+- session-level thinking toggle state, persisted "always thinking" preference,
+  and one-turn ultrathink-style escalation remaining distinct concepts
+- the visible control plane delegating the deeper request-time consequences of
+  those settings to the turn-runtime contract rather than re-implementing them
+  ad hoc in command handlers
+
 ## Model-specific effort defaults
 
 Equivalent behavior should preserve:
@@ -168,6 +198,8 @@ Equivalent behavior should preserve:
 - **1M false availability**: million-context variants appear selectable even when the account lacks the required extra-usage posture
 - **fast-mode impossible combo**: the session keeps fast mode on for an unsupported model, or fails to auto-switch when enabling fast mode from an unsupported base model
 - **effort override invisibility**: `CLAUDE_CODE_EFFORT_LEVEL` wins, but the command surface still claims the user's requested effort is active
+- **advisor/main-model confusion**: the UI claims advisor is enabled without
+  telling the user that the current main model cannot invoke it
 - **state-loss on churn**: unrelated settings reload wipes a session-only effort or fast-mode nuance that should have remained live
 - **teammate color leak**: swarm teammates can self-assign colors and diverge from leader-managed identity
 - **output-style split-brain**: the deprecated slash command pretends to mutate the current session even though the runtime only honors output-style changes on the next launch
