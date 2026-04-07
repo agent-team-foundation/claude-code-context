@@ -1,7 +1,7 @@
 ---
 title: "Permission Prompt Shell and Worker States"
 owners: []
-soft_links: [/ui-and-experience/feedback-and-notifications/interaction-feedback.md, /tools-and-permissions/permissions/permission-model.md, /tools-and-permissions/permissions/permission-decision-pipeline.md, /collaboration-and-agents/teammate-mailbox-and-permission-bridge.md, /runtime-orchestration/tasks/monitor-task-families-and-watch-lifecycle.md]
+soft_links: [/ui-and-experience/feedback-and-notifications/interaction-feedback.md, /tools-and-permissions/permissions/permission-model.md, /tools-and-permissions/permissions/permission-decision-pipeline.md, /tools-and-permissions/filesystem-and-shell/shell-command-parsing-and-classifier-flow.md, /collaboration-and-agents/teammate-mailbox-and-permission-bridge.md, /runtime-orchestration/tasks/monitor-task-families-and-watch-lifecycle.md]
 ---
 
 # Permission Prompt Shell and Worker States
@@ -61,6 +61,16 @@ Equivalent behavior should preserve:
 - moving focus away from an untouched feedback field collapsing input mode automatically, while typed content keeps the field logically active until submission or explicit cancel
 - feedback being trimmed before submission, with blank feedback treated as absent rather than forwarded as an empty string
 - individual options being able to bind direct key actions that submit the same decision without manual list navigation
+
+## Bash prompts are parser-aware and classifier-aware
+
+Equivalent behavior should preserve:
+
+- compound Bash prompts reusing backend-computed subcommand suggestions instead of inventing one broad prefix from the whole raw command
+- non-compound Bash prompts being able to seed an editable rule prefix from a cheap synchronous heuristic and then refine it if richer parsing finishes before the user edits
+- classifier-checking state showing as a real transient prompt state rather than as invisible background work
+- meaningful user interaction after a short grace window canceling the speculative auto-approve attempt so the dialog truly becomes user-owned
+- successful classifier auto-approval transitioning through a short explicit approved state before the dialog disappears, so the user can see why the queue advanced
 
 ## Cancellation and hint semantics
 

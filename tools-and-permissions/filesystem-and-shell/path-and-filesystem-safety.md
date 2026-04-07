@@ -1,7 +1,7 @@
 ---
 title: "Path and Filesystem Safety"
 owners: []
-soft_links: [/tools-and-permissions/permissions/permission-model.md, /tools-and-permissions/permissions/permission-decision-pipeline.md, /memory-and-context/context-cache-and-invalidation.md]
+soft_links: [/tools-and-permissions/permissions/permission-model.md, /tools-and-permissions/permissions/permission-decision-pipeline.md, /tools-and-permissions/filesystem-and-shell/shell-command-parsing-and-classifier-flow.md, /memory-and-context/context-cache-and-invalidation.md]
 ---
 
 # Path and Filesystem Safety
@@ -112,6 +112,9 @@ Required behavior:
 - treat read-only `sed` forms as reads rather than writes
 - if a compound Bash command changes directories and then performs a write or a redirection, require manual approval because relative paths can no longer be trusted against the original cwd
 - dangerous `rm` or `rmdir` targets should force an ask with no persistent allow suggestion
+- when richer shell structure is available, command boundaries and redirect extraction should prefer that parsed structure over best-effort string splitting
+- process substitution, dynamically computed redirect targets, or other shell constructs whose file targets are not statically literal must escalate to approval instead of pretending the path was known
+- redirection validation should stay tied to the original command structure, so display-oriented wrapper stripping does not accidentally drop a write target from safety review
 
 When an AST is available, validation should prefer parsed argv spans over string re-parsing so quoting edge cases do not silently skip path checks.
 

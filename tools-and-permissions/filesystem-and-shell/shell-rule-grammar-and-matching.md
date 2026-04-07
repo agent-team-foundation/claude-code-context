@@ -1,7 +1,7 @@
 ---
 title: "Shell Rule Grammar and Matching"
 owners: []
-soft_links: [/tools-and-permissions/permissions/permission-rule-loading-and-persistence.md, /tools-and-permissions/permissions/permission-decision-pipeline.md, /tools-and-permissions/agent-and-task-control/control-plane-tools.md]
+soft_links: [/tools-and-permissions/filesystem-and-shell/shell-command-parsing-and-classifier-flow.md, /tools-and-permissions/permissions/permission-rule-loading-and-persistence.md, /tools-and-permissions/permissions/permission-decision-pipeline.md, /tools-and-permissions/agent-and-task-control/control-plane-tools.md]
 ---
 
 # Shell Rule Grammar and Matching
@@ -86,6 +86,8 @@ A correct rebuild should preserve these protections:
 - hook-style matchers should inspect subcommands, not only the whole raw string
 - allow/ask/deny decisions must still be able to fire when a risky subcommand appears later in a compound shell command
 - PowerShell pipelines and multi-statement commands should evaluate per subcommand so a harmless first stage does not silently bless a harmful later stage
+- when richer parsed shell structure is available, compound-command matching should treat that parsed structure as authoritative and leave string-prefix heuristics to the UI fallback path
+- even when a command is too complex for full structural trust, earlier exact deny or ask evidence that is still trustworthy should not be weakened into a generic undecided result
 
 ## Auto-allow exclusions
 

@@ -1,7 +1,7 @@
 ---
 title: "Permission Decision Pipeline"
 owners: []
-soft_links: [/tools-and-permissions/permissions/permission-model.md, /tools-and-permissions/agent-and-task-control/delegation-modes.md, /ui-and-experience/feedback-and-notifications/interaction-feedback.md]
+soft_links: [/tools-and-permissions/permissions/permission-model.md, /tools-and-permissions/filesystem-and-shell/shell-command-parsing-and-classifier-flow.md, /tools-and-permissions/agent-and-task-control/delegation-modes.md, /ui-and-experience/feedback-and-notifications/interaction-feedback.md]
 ---
 
 # Permission Decision Pipeline
@@ -65,6 +65,7 @@ Important payload fields include:
 - rule or directory suggestions that the UI may persist
 - structured reason metadata for logging and explanation
 - optional content blocks or feedback that should accompany the decision
+- optional deferred auto-approval metadata for shell requests whose classifier check has not finished yet
 
 If a rebuild drops the rewritten-input path, later approval flows will appear to succeed while still executing the wrong command or path.
 
@@ -106,6 +107,17 @@ Equivalent behavior should distinguish at least three cases:
 - if the classifier's own transcript is too large, fall back to manual approval instead of retrying the classifier forever
 - if the classifier service is unavailable, configuration may choose fail-closed or fail-open behavior
 - if prompting is impossible in a headless context, repeated denial states should abort the worker rather than loop uselessly
+
+## Speculative Bash classifier on ordinary ask paths
+
+Equivalent behavior should preserve a shell-specific shortcut that is separate from session-wide auto mode:
+
+- some interactive Bash asks may carry pending classifier work even when the broader session is not in auto mode
+- that pending classifier work should travel as part of the ask result so queue UIs, worker forwarding, and bridge flows can all observe the same speculative state
+- that classifier check should begin asynchronously after the request is queued, not by blocking the whole permission path before any UI exists
+- hooks, local user action, bridge responses, and classifier approval must race under a resolve-once guard so only one path can win
+- a short grace window should keep accidental immediate input from canceling the classifier prematurely, while real user interaction should disable the auto-approve attempt
+- builds or sessions where the Bash classifier is unavailable should bypass this shortcut cleanly and continue with the normal ask flow
 
 ## Stage 2: resolving `ask`
 
