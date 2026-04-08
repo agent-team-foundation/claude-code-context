@@ -1,7 +1,7 @@
 ---
 title: "Structured I/O and Headless Session Loop"
 owners: []
-soft_links: [/integrations/clients/sdk-control-protocol.md, /integrations/clients/sdk-hook-event-transport.md, /runtime-orchestration/turn-flow/unified-command-queue-and-drain.md, /collaboration-and-agents/bridge-contract.md, /platform-services/startup-service-sequencing-and-capability-gates.md, /product-surface/session-state-and-breakpoints.md]
+soft_links: [/integrations/clients/sdk-control-protocol.md, /runtime-orchestration/turn-flow/structured-output-enforcement-and-artifact-projection.md, /integrations/clients/sdk-hook-event-transport.md, /runtime-orchestration/turn-flow/unified-command-queue-and-drain.md, /collaboration-and-agents/bridge-contract.md, /platform-services/startup-service-sequencing-and-capability-gates.md, /product-surface/session-state-and-breakpoints.md]
 ---
 
 # Structured I/O and Headless Session Loop
@@ -81,6 +81,7 @@ Equivalent behavior should preserve:
 - managed-settings waiters being started earlier in shared startup, with headless plugin install joining both managed-settings completion and any remote user-settings download before plugin enablement, marketplaces, or related MCP diffs are treated as authoritative
 - resume, rewind, agent restore, and hook-injected initial-user-message paths being able to alter the first headless turn before the main run loop begins
 - initialize requests being the one place where stdin-provided system prompts, appended prompts, JSON schemas, hooks, and SDK-defined agents are merged into the live runtime configuration
+- headless structured-output schemas activating an internal completion-enforcement path rather than merely changing pretty-print formatting
 - initialize responses returning the currently invocable command catalog, agent catalog, output styles, model list, account snapshot, process identity, and fast-mode state from the actual live runtime rather than from a static SDK manifest
 - agent-defined initial prompts still entering through the structured input path, even when the host is streaming JSON rather than passing a single prompt string
 - synchronous plugin-install mode being able to hold the first query until plugin refresh completes, while async install continues in the background and later refreshes commands, agents, hooks, and MCP state in place
@@ -95,6 +96,7 @@ Equivalent behavior should preserve:
 - result messages being temporarily held back while certain background agents are still alive, so clients do not interpret the session as complete before deferred follow-up output has surfaced
 - the runtime transitioning to idle only after pending internal-event flushes have completed, then draining any late SDK state or task bookend events before truly going quiescent
 - non-stream output modes retaining only the final user-visible result, while verbose stream-json mode can emit the full typed event stream
+- final success payloads being able to carry a dedicated structured-output field in addition to ordinary text, so hosts do not need to scrape transcript attachments for the machine-readable answer
 - optional output transforms being able to replace the raw assistant stream with streamlined summaries or prompt suggestions without changing underlying session semantics
 
 ## Replay, partial output, and client-visible lifecycle

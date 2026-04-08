@@ -23,9 +23,15 @@ Equivalent behavior should also preserve two different initialization surfaces:
 Reconstruction requirements:
 
 - Session initialization must return a discoverable catalog of commands, agents, models, output styles, and account or entitlement context.
+- Headless initialization must also be able to carry structured-output schema requests that activate an internal completion-enforcement path rather than a mere display option.
 - Clients must be able to interrupt a running turn, switch models or reasoning behavior, and query runtime state such as context usage or MCP connection health.
 - Permission requests must be externalizable. A host client should be able to receive a structured approval request, present it in its own UI, and send back the resulting mode or decision without changing core safety semantics.
 - The runtime must emit typed lifecycle events rather than raw log text. Important event families include session start and end, tool execution, permission prompts and denials, subagent lifecycle, compaction, task lifecycle, worktree lifecycle, config changes, and file or instruction updates. Task lifecycle in particular should follow the shared task control-plane contract rather than ad hoc terminal parsing.
 - Schemas and generated types should stay aligned so SDK builders can validate payloads at runtime while also generating stable client libraries.
+
+Equivalent protocol parity should also preserve:
+
+- success results being allowed to carry both human-facing text and a separate structured-output payload
+- a dedicated terminal error subtype for structured-output retry exhaustion, so hosts can distinguish schema-enforcement failure from generic execution failure
 
 The key design constraint is semantic parity: the SDK surface should not be a second implementation of Claude Code. It should be another transport over the same command model, permission model, task model, and memory lifecycle.
