@@ -1,7 +1,7 @@
 ---
 title: "Build Profiles"
 owners: []
-soft_links: [/integrations/clients/client-surfaces.md, /reconstruction-guardrails/source-boundary.md, /platform-services/provider-model-mapping-and-capability-gates.md, /platform-services/startup-service-sequencing-and-capability-gates.md, /runtime-orchestration/turn-flow/advisor-and-thinking-lifecycle.md, /runtime-orchestration/automation/proactive-assistant-loop-and-brief-mode.md, /ui-and-experience/shell-and-input/voice-mode-and-hold-to-talk-dictation.md, /ui-and-experience/background-and-teamwork/companion-surface.md]
+soft_links: [/integrations/clients/client-surfaces.md, /reconstruction-guardrails/source-boundary.md, /platform-services/provider-model-mapping-and-capability-gates.md, /platform-services/startup-service-sequencing-and-capability-gates.md, /product-surface/auxiliary-local-command-surfaces.md, /runtime-orchestration/turn-flow/advisor-and-thinking-lifecycle.md, /runtime-orchestration/automation/proactive-assistant-loop-and-brief-mode.md, /ui-and-experience/shell-and-input/voice-mode-and-hold-to-talk-dictation.md, /ui-and-experience/background-and-teamwork/companion-surface.md]
 ---
 
 # Build Profiles
@@ -49,6 +49,8 @@ Representative capability families include:
 
 - persistent assistant and proactive postures
 - companion or side-surface rendering
+- local-only or celebratory side surfaces that stay outside the main
+  transcript contract
 - voice dictation and push-to-talk handling
 - remote planning, review, and viewer-attached flows
 - richer transcript actions and classifier-driven posture changes
