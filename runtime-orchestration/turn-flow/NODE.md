@@ -12,6 +12,7 @@ Relevant leaves:
 - **[advisor-and-thinking-lifecycle.md](advisor-and-thinking-lifecycle.md)** — How advanced reasoning posture, per-turn thinking overrides, advisor-side server tools, and model-switch cleanup interact inside one turn.
 - **[query-loop.md](query-loop.md)** — The streaming turn engine and its recovery paths.
 - **[api-request-assembly-retry-and-prompt-cache-stability.md](api-request-assembly-retry-and-prompt-cache-stability.md)** — How one turn becomes one or more model requests, including tool filtering, retry/fallback policy, and prompt-cache break control.
+- **[structured-output-enforcement-and-artifact-projection.md](structured-output-enforcement-and-artifact-projection.md)** — How headless structured-output schemas, hidden completion tools, stop-hook enforcement, attachment persistence, and SDK result projection stay aligned.
 - **[query-recovery-and-continuation.md](query-recovery-and-continuation.md)** — The recovery ladder for compaction, overflow, truncation, and continuation.
 - **[turn-assembly-and-recovery.md](turn-assembly-and-recovery.md)** — The full turn envelope from context assembly through tool batches, recovery branches, and persistence.
 - **[turn-attachments-and-sidechannels.md](turn-attachments-and-sidechannels.md)** — The post-tool attachment drain, queued prompts, memory/skill sidechannels, and recursion control signals.

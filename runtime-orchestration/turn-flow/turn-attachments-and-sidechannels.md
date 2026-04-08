@@ -1,7 +1,7 @@
 ---
 title: "Turn Attachments and Sidechannels"
 owners: []
-soft_links: [/memory-and-context/memory-layers.md, /collaboration-and-agents/worker-execution-boundaries.md, /runtime-orchestration/tasks/task-model.md]
+soft_links: [/memory-and-context/memory-layers.md, /collaboration-and-agents/worker-execution-boundaries.md, /runtime-orchestration/turn-flow/structured-output-enforcement-and-artifact-projection.md, /runtime-orchestration/tasks/task-model.md]
 ---
 
 # Turn Attachments and Sidechannels
@@ -88,6 +88,16 @@ Equivalent behavior should support structured outputs that:
 - carry mode-transition reminders or other runtime state notices into later iterations
 
 These are part of the turn control plane, not just decoration.
+
+## Structured-output artifacts are attachment-shaped, not free text
+
+Equivalent behavior should preserve:
+
+- structured-output completion data entering the turn record as a dedicated attachment-style artifact
+- that artifact being persisted through the same attachment recording path as other durable turn sidechannels
+- later SDK or headless result projection being allowed to read from that attachment artifact instead of trying to reconstruct structured output from assistant prose
+
+This keeps machine-readable completion data durable without forcing it into user-facing transcript text.
 
 ## Dynamic tool refresh
 

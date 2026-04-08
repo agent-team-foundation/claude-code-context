@@ -1,7 +1,7 @@
 ---
 title: "Tool Hook Control Plane"
 owners: []
-soft_links: [/tools-and-permissions/execution-and-hooks/tool-execution-state-machine.md, /tools-and-permissions/permissions/permission-resolution-races-and-forwarding.md, /runtime-orchestration/turn-flow/turn-attachments-and-sidechannels.md, /memory-and-context/compact-path.md]
+soft_links: [/tools-and-permissions/execution-and-hooks/tool-execution-state-machine.md, /tools-and-permissions/permissions/permission-resolution-races-and-forwarding.md, /runtime-orchestration/turn-flow/structured-output-enforcement-and-artifact-projection.md, /runtime-orchestration/turn-flow/turn-attachments-and-sidechannels.md, /memory-and-context/compact-path.md]
 ---
 
 # Tool Hook Control Plane
@@ -44,6 +44,8 @@ Hook outputs should support structured control fields, including:
 - updated tool input
 - additional context
 - event-specific outputs (for example, MCP output rewrites or elicitation decisions)
+
+Session-scoped function hooks may also enforce required completion contracts, such as insisting that a headless structured-output request cannot end successfully until its internal completion tool has been called.
 
 For permission behavior, aggregate precedence should remain `deny` over `ask` over `allow`.
 

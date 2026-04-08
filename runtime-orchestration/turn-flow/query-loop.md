@@ -1,7 +1,7 @@
 ---
 title: "Query Loop"
 owners: []
-soft_links: [/runtime-orchestration/turn-flow/turn-assembly-and-recovery.md, /runtime-orchestration/turn-flow/unified-command-queue-and-drain.md, /memory-and-context/memory-layers.md, /tools-and-permissions/tool-catalog/tool-families.md, /integrations/clients/sdk-control-protocol.md]
+soft_links: [/runtime-orchestration/turn-flow/turn-assembly-and-recovery.md, /runtime-orchestration/turn-flow/structured-output-enforcement-and-artifact-projection.md, /runtime-orchestration/turn-flow/unified-command-queue-and-drain.md, /memory-and-context/memory-layers.md, /tools-and-permissions/tool-catalog/tool-families.md, /integrations/clients/sdk-control-protocol.md]
 ---
 
 # Query Loop
@@ -74,6 +74,8 @@ A correct rebuild should distinguish at least:
 - reaching a configured budget ceiling for the turn
 - structured-output exhaustion where repeated retries still fail to satisfy the requested schema
 - user interruption, unrecoverable permission/tool failure, or unrecoverable API failure
+
+Structured-output exhaustion matters especially because some headless requests can complete through a hidden structured-output artifact even when little or no user-facing assistant text was produced.
 
 These terminals matter because SDK and headless callers react differently to them, and some of them are surfaced as explicit user-facing errors instead of silent loop shutdown.
 
