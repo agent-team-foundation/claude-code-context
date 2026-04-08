@@ -1,7 +1,7 @@
 ---
 title: "Agent Runtime Context and Tool Shaping"
 owners: []
-soft_links: [/tools-and-permissions/tool-catalog/agent-definition-loading-and-precedence.md, /tools-and-permissions/agent-and-task-control/agent-tool-launch-routing.md, /collaboration-and-agents/worker-execution-boundaries.md, /integrations/mcp/mcp-surface-state-assembly-and-live-refresh.md, /integrations/plugins/plugin-and-skill-model.md]
+soft_links: [/tools-and-permissions/tool-catalog/agent-definition-loading-and-precedence.md, /tools-and-permissions/agent-and-task-control/agent-tool-launch-routing.md, /collaboration-and-agents/worker-execution-boundaries.md, /integrations/mcp/mcp-surface-state-assembly-and-live-refresh.md, /integrations/plugins/plugin-and-skill-model.md, /integrations/plugins/skill-loading-contract.md]
 ---
 
 # Agent Runtime Context and Tool Shaping
@@ -57,6 +57,7 @@ Equivalent behavior should preserve:
 
 - worker execution wrapping app-state access so the worker sees a derived permission posture without mutating the parent's live session state
 - agent frontmatter `permissionMode` overriding the inherited mode only when the parent is not already in a stronger or more centralized control mode such as bypass, accept-edits, or transcript-classifier-driven auto mode
+- the edit-capable default used to assemble a fresh worker tool pool staying separate from approval-mode inheritance, so an unspecified agent can get an edit-capable surface without forcibly switching the worker into `acceptEdits`
 - async workers that cannot surface dialogs marking permission prompts as unavailable so approvals fail closed instead of hanging on invisible UI
 - async workers that can surface dialogs still waiting for automated checks before interrupting the user with a prompt
 - bubble-style permission behavior staying interactive even when the worker itself is async
@@ -100,9 +101,11 @@ Equivalent behavior should preserve:
 - admin-trusted built-in, plugin, or managed-policy agent sources being able to keep their approved hook surface even when user-controlled hook customization is locked down
 - agent-scoped stop-style hooks being rewritten to the subagent-specific lifecycle event rather than pretending the worker is the main session
 - registered agent hooks being cleared when that worker finishes
-- agent frontmatter skills resolving late against the currently loaded prompt-command catalog, including plugin-namespaced resolution paths
+- agent frontmatter skills resolving late against the current local prompt-command catalog by exact match first, then plugin-qualified fallback, then suffix matching for plugin-namespaced skills
 - missing skills or non-prompt skills degrading with warnings instead of blocking the worker entirely
+- that preload path in this snapshot not consulting the live MCP-skill overlay, so agent-declared preloads behave as local prompt selections rather than arbitrary MCP-skill lookups
 - preloaded skills entering the worker transcript as explicit meta user messages with loading metadata, not as invisible prompt concatenation
+- preloaded skill bodies being expanded before the final worker context exists, using the parent or session context rather than the worker's eventual worktree override or agent-scoped MCP additions
 - agent-scoped MCP servers being additive to the parent's MCP client set rather than replacing it
 - named MCP references reusing shared clients, while inline MCP definitions create worker-owned dynamic clients
 - plugin-only MCP policy blocking user-controlled frontmatter MCP additions while still allowing admin-trusted agent sources to contribute approved MCP servers
@@ -123,5 +126,7 @@ Equivalent behavior should preserve:
 - **permission leak**: parent session approvals or live tool restrictions bleed into the worker in the wrong direction, changing what the worker can actually do
 - **cache-break fork**: an inherited-context child recomputes tools, thinking, or system prompt bytes and loses the parent's cache-stable prefix
 - **hidden-prompt deadlock**: a background worker waits on a permission dialog it has no path to display
+- **tool-mode conflation**: rebuilds treat the fresh worker tool-pool default as a forced runtime approval-mode switch and change prompt UX the agent never requested
+- **preload context drift**: agent-declared skill preloads resolve against the wrong catalog or the final worker-local MCP or worktree context, so the loaded guidance differs from the observed product
 - **extension trust inversion**: user-controlled agents gain hooks or MCP authority that should be reserved for admin-trusted sources, or trusted plugin agents lose approved capabilities
 - **context bloat**: read-only workers inherit bulky instruction or repository-status context that they cannot act on, wasting tokens and obscuring the bounded-worker model

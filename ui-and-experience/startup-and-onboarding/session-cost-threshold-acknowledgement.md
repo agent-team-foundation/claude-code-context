@@ -19,10 +19,10 @@ This leaf covers:
 
 It intentionally does not re-document:
 
-- Claude.ai subscriber limit and extra-usage state already covered in [../platform-services/claude-ai-limits-and-extra-usage-state.md](../platform-services/claude-ai-limits-and-extra-usage-state.md)
+- Claude.ai subscriber limit and extra-usage state already covered in [../../platform-services/claude-ai-limits-and-extra-usage-state.md](../../platform-services/claude-ai-limits-and-extra-usage-state.md)
 - the broader status line surface that reuses the same cost totals, already covered in [status-line-and-footer-notification-stack.md](status-line-and-footer-notification-stack.md)
-- general auth and account metadata flows beyond the billing-access gate already covered in [../platform-services/auth-login-logout-and-token-lifecycle.md](../platform-services/auth-login-logout-and-token-lifecycle.md)
-- the deeper session-ledger pricing, unknown-cost fallback, and save/restore rules already covered in [../platform-services/session-cost-accounting-and-restoration.md](../platform-services/session-cost-accounting-and-restoration.md)
+- general auth and account metadata flows beyond the billing-access gate already covered in [../../platform-services/auth-login-logout-and-token-lifecycle.md](../../platform-services/auth-login-logout-and-token-lifecycle.md)
+- the deeper session-ledger pricing, unknown-cost fallback, and save/restore rules already covered in [../../platform-services/session-cost-accounting-and-restoration.md](../../platform-services/session-cost-accounting-and-restoration.md)
 
 ## One shared session-cost source
 

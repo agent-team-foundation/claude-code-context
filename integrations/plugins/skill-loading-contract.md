@@ -1,7 +1,7 @@
 ---
 title: "Skill Loading Contract"
 owners: []
-soft_links: [/integrations/plugins/plugin-and-skill-model.md, /tools-and-permissions/tool-catalog/tool-families.md, /product-surface/command-execution-archetypes.md]
+soft_links: [/integrations/plugins/plugin-and-skill-model.md, /tools-and-permissions/tool-catalog/tool-families.md, /tools-and-permissions/execution-and-hooks/agent-runtime-context-and-tool-shaping.md, /product-surface/command-dispatch-and-composition.md, /product-surface/command-execution-archetypes.md]
 ---
 
 # Skill Loading Contract
@@ -130,11 +130,11 @@ Equivalent behavior should preserve:
 - startup-visible unconditional skills being separated from conditional `paths` skills
 - conditional `paths` skills being stored but withheld from the active command list until matching file paths are touched
 - path activation using cwd-relative matching and ignoring files outside the cwd boundary
-- activation being one-way for the current session once a conditional skill has matched
+- activation being sticky until an explicit session or cache reset or source reload, rather than being reevaluated from scratch on every turn
 - nested `.claude/skills` directories being discoverable dynamically by walking upward from touched file paths toward cwd
-- nested skill discovery caching both hits and misses so repeated file operations do not restat the same directories forever
+- nested skill discovery caching both hits and misses in the checked-directory set so repeated file operations do not restat the same directories forever
 - directories whose containing path is gitignored being skipped from dynamic skill discovery
-- deeper nested skill directories overriding shallower dynamic ones when they collide by name
+- deeper nested skill directories overriding shallower dynamic ones when they collide by name inside the dynamic overlay
 
 ## Loading must preserve per-skill identity until command composition
 
@@ -142,6 +142,7 @@ Equivalent behavior should preserve:
 
 - same-named skills from different channels staying as distinct loaded candidates until [../../product-surface/command-dispatch-and-composition.md](../../product-surface/command-dispatch-and-composition.md) applies final registry ordering and first-match resolution
 - dynamic skill discovery handing late candidates into that same command-composition phase rather than retroactively rewriting or renormalizing already loaded command records
+- the dynamic overlay itself being allowed to replace shallower dynamic entries by name, while final command composition still refuses to displace an already-visible base command of the same internal name
 - the metadata that controls user-facing versus model-facing invocation staying attached to the loaded skill record so later slash-command UI, model-skill filtering, and attachment surfaces can diverge without reparsing markdown sources
 
 ## MCP skills are a separate surface from plain MCP prompts
@@ -159,7 +160,9 @@ Equivalent behavior should preserve:
 Equivalent behavior should preserve:
 
 - dynamic skill discovery firing a lightweight signal that clears command memoization without wiping the dynamic skill state it just added
-- on-disk skill edits going through a stronger watcher path that clears the ordinary skill and command caches after debounce
+- conditional-skill activation using that same lightweight invalidation path, so newly matched skills become visible without reparsing every source
+- on-disk skill edits going through a stronger watcher path that clears the ordinary skill caches, command caches, and sent-skill announcement state after debounce
+- broader session cache clears also resetting remembered dynamic directories plus pending and already-activated conditional-skill state, keeping dynamic discovery session-scoped rather than durable project metadata
 - feature-flag or enablement refreshes being able to invalidate memoized command visibility without pretending the underlying skill files changed
 - late skill activation therefore becoming visible promptly without forcing a full session restart
 

@@ -224,6 +224,12 @@ changed tiers.
 - **catalog drift**: provider strings become the source of truth and the runtime loses its canonical family model
 - **blocking discovery**: Bedrock startup waits for profile enumeration before any model can resolve
 - **override blindness**: custom provider deployment IDs cannot be mapped back to canonical IDs, so allowlists and capability checks stop working
+- **precedence inversion**: live capability metadata or defaults overrule an
+  explicit local tier override or explicit `1m` posture
 - **allowlist widening**: a family alias remains wildcarded even though the admin added a specific narrowing entry
 - **false capability claims**: a feature gate checks only model family and ignores provider, exposing unsupported features on Bedrock or Vertex
 - **fallback mismatch**: validation fails on third-party backends without suggesting the provider-appropriate older model line
+- **child-tier downgrade**: a subagent or skill alias resolves to the provider
+  default instead of the parent's already chosen tier
+- **region drift**: a Bedrock child model loses or rewrites the parent's
+  region prefix and silently routes to a different inference region

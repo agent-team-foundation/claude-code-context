@@ -32,19 +32,17 @@ It should instead:
 
 This is the contract that lets the product scale to large MCP tool inventories without exploding prompt size.
 
-## Tool-schema bytes are session-stable, with per-request overlays layered later
+## Tool-schema bytes must stay stable for shared-prefix requests
 
 Equivalent behavior should preserve:
 
-- caching each tool's rendered base schema for the lifetime of a session so
-  mid-session feature-flag flips, prompt drift, or repeated prompt rendering do
-  not churn the serialized tool bytes
-- including any embedded JSON schema in that cache key, so tools that reuse one
-  name across different structured schemas do not accidentally inherit stale
-  bytes
-- treating request-time fields such as `defer_loading` and cache-control
-  markers as overlays on top of that cached base schema rather than as reasons
-  to rebuild the whole tool body
+- one stable rendered schema shape for each effective tool body within a
+  session or shared-prefix request lineage
+- embedded JSON schema differences being treated as true schema differences even
+  when the visible tool name stays the same
+- request-time fields such as `defer_loading` and cache markers behaving like
+  overlays on top of that stable base shape instead of causing unrelated byte
+  churn
 - building the final API tool array only after that stable base plus
   per-request overlay layering is complete
 
@@ -205,6 +203,8 @@ Equivalent behavior should preserve:
 
 - a non-streaming fallback with its own timeout ceiling
 - carrying forward overload-attempt accounting so streaming plus fallback do not silently double the allowed retry budget
+- preserving the same logical request shape and usage-accounting contract across
+  the fallback path instead of treating fallback as an unrelated side query
 - explicit stream cleanup, including canceling response bodies, so native buffers do not leak after aborted or failed requests
 
 Without this, long-lived sessions either wedge during backend trouble or leak memory over time.
@@ -212,7 +212,11 @@ Without this, long-lived sessions either wedge during backend trouble or leak me
 ## Failure modes
 
 - **cache-key drift**: semantically identical turns produce different header or beta sets and lose prompt reuse
+- **fork-tail pollution**: fire-and-forget helper forks mark their private tail
+  as cacheable and contaminate the shared foreground prefix
 - **tool-set desync**: discovered deferred tools are available in transcript history but missing from the actual request schemas
 - **model-switch breakage**: unsupported search or advisor artifacts survive a model change and trigger request rejection
+- **false cache alarms**: compaction or cache-edit deletions are reported as
+  accidental prompt drift instead of expected baseline resets
 - **retry amplification**: background or auxiliary calls retry aggressively during overload and worsen service pressure
 - **fallback resource leaks**: failed streaming attempts keep sockets or native buffers alive after recovery
