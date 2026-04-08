@@ -17,3 +17,4 @@ Relevant leaves:
 - **[sandbox-selection-and-bypass-guards.md](sandbox-selection-and-bypass-guards.md)** — How sandbox selection, excluded commands, policy-gated overrides, and Windows refusal paths interact.
 - **[config-permission-and-sandbox-admin-surfaces.md](config-permission-and-sandbox-admin-surfaces.md)** — Registry-backed config mutation on eligible builds, plus permission browser, denied-command retry, and sandbox admin surfaces.
 - **[yolo-classifier-contracts.md](yolo-classifier-contracts.md)** — Testable contracts for the YOLO (auto mode) classifier, including transcript building, XML parsing, and two-stage classifier behavior.
+- **[e2e-permission-testing-contracts.md](e2e-permission-testing-contracts.md)** — Testable contracts for E2E permission testing using TestingPermissionTool, including test scenarios and environment gating patterns.
