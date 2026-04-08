@@ -1,7 +1,7 @@
 ---
 title: "API Request Assembly, Retry, and Prompt-Cache Stability"
 owners: []
-soft_links: [/runtime-orchestration/turn-flow/query-loop.md, /runtime-orchestration/turn-flow/query-recovery-and-continuation.md, /tools-and-permissions/tool-catalog/deferred-tool-discovery-and-tool-search.md, /memory-and-context/tool-result-microcompaction-and-cache-editing.md, /platform-services/claude-ai-limits-and-extra-usage-state.md]
+soft_links: [/runtime-orchestration/turn-flow/query-loop.md, /runtime-orchestration/turn-flow/query-recovery-and-continuation.md, /tools-and-permissions/tool-catalog/deferred-tool-discovery-and-tool-search.md, /memory-and-context/tool-result-microcompaction-and-cache-editing.md, /platform-services/claude-ai-limits-and-extra-usage-state.md, /runtime-orchestration/automation/prompt-suggestion-and-speculation.md, /memory-and-context/context-cache-and-invalidation.md]
 ---
 
 # API Request Assembly, Retry, and Prompt-Cache Stability
@@ -31,6 +31,25 @@ It should instead:
 - keep tool search alive when MCP servers are still connecting, even if no deferred tools are currently available
 
 This is the contract that lets the product scale to large MCP tool inventories without exploding prompt size.
+
+## Tool-schema bytes are session-stable, with per-request overlays layered later
+
+Equivalent behavior should preserve:
+
+- caching each tool's rendered base schema for the lifetime of a session so
+  mid-session feature-flag flips, prompt drift, or repeated prompt rendering do
+  not churn the serialized tool bytes
+- including any embedded JSON schema in that cache key, so tools that reuse one
+  name across different structured schemas do not accidentally inherit stale
+  bytes
+- treating request-time fields such as `defer_loading` and cache-control
+  markers as overlays on top of that cached base schema rather than as reasons
+  to rebuild the whole tool body
+- building the final API tool array only after that stable base plus
+  per-request overlay layering is complete
+
+This is part of prompt-cache correctness, not just a performance optimization:
+identical turns must serialize to identical tool-schema bytes.
 
 ## Schema building versus transcript visibility
 
@@ -68,6 +87,66 @@ Prompt-cache behavior is guarded by several stability rules:
 - overage-state changes must be observable for diagnostics without forcing a mid-session TTL flip that would blow away a large cached prefix
 
 The product does not just detect cache breaks. It also explains whether they came from prompt changes, beta/header changes, model changes, cache-scope changes, or likely server-side eviction.
+
+## Stable system-prompt segmentation and one-marker cache writes
+
+Equivalent behavior should preserve:
+
+- system-prompt assembly splitting into a small fixed set of semantic blocks:
+  attribution, CLI prefix, cache-stable core content, and any dynamic suffix
+- global-scope system caching being used only when the request has no
+  user-specific MCP tool section that would poison a shared cache prefix
+- falling back to organization-scoped system caching when user-specific tool
+  sections must render
+- exactly one message-level cache marker in a given request
+- fire-and-forget helper forks that skip cache writes moving that one marker
+  back to the last shared-prefix message instead of leaving the fork's private
+  tail in the cache
+- cache-edit deletion inserts and cache-reference blocks being positioned
+  relative to that single marker so the provider can delete or reuse the right
+  prefix safely
+
+The rebuild target is not simply "use prompt caching." It is one precise marker
+strategy that preserves reuse without polluting the cache with disposable fork
+tails.
+
+## Cache-safe helper forks must reuse the parent request shape
+
+Equivalent behavior should preserve:
+
+- post-turn helpers such as prompt suggestion, speculation, side questions, or
+  memory extractors reusing a saved cache-safe envelope from the parent turn
+- that saved envelope carrying the parent system prompt, user context, system
+  context, effective tool set, model, live transcript prefix, and inherited
+  thinking posture
+- helper forks being free to change only client-side controls such as abort
+  handles, transcript suppression, permission callbacks, or cache-write
+  suppression when they want to preserve cache sharing
+- helper forks avoiding request-shape changes such as different effort,
+  max-output ceilings, tools, or thinking posture when cache reuse is the goal
+
+These helper paths are deliberately parasitic on the parent cache prefix. If a
+rebuild treats them as ordinary side queries with their own request shape, they
+become much more expensive and change parent-session cache behavior.
+
+## Cache-break diagnostics distinguish expected resets from real drift
+
+Equivalent behavior should preserve diagnostics that can separate:
+
+- prompt or tool-byte changes
+- model changes
+- beta or extra-body changes
+- effective effort changes
+- global cache strategy changes
+- expected cache-read drops after cache-edit deletions
+- expected baseline resets after compaction
+- likely 5-minute or 1-hour TTL expiry when the prompt stayed unchanged
+- likely server-side eviction or routing disagreement when the prompt stayed
+  unchanged and the gap remained below TTL
+
+The goal is not just "did the cache miss?" but "was that miss caused by client
+drift, an intentional reset, ordinary TTL expiry, or likely provider-side
+behavior?"
 
 ## Sticky header latches
 

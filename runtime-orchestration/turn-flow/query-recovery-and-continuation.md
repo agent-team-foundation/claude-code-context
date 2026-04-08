@@ -86,10 +86,11 @@ Prompt overflow prefers collapse draining before full reactive compaction becaus
 
 Output truncation follows a different ladder:
 
-1. if the request used the default capped output limit, retry the same request once with an escalated cap
-2. if truncation happens again, append a meta continuation nudge and recurse
-3. allow at most 3 continuation nudges in one turn
-4. if truncation still persists, surface the withheld error
+1. if the request used the runtime's lower default output cap rather than an explicit override, retry the same request once with the larger ordinary cap for that model family
+2. that escalation retry must stay inside the same request shape, with no meta continuation text inserted yet
+3. only if truncation happens again, append a meta continuation nudge and recurse
+4. allow at most 3 continuation nudges in one turn
+5. if truncation still persists, surface the withheld error
 
 The continuation nudge must tell the model to resume directly from the interruption point rather than recap or apologize.
 
@@ -98,10 +99,31 @@ The continuation nudge must tell the model to resume directly from the interrupt
 After recoverable API errors are exhausted or absent:
 
 - blocking stop-hook output can append structured blocking messages and recurse
-- token-budget logic can append a continuation nudge and recurse when the turn is still making progress
+- token-budget logic can append a continuation nudge and recurse only while the
+  turn is still materially incomplete and still adding meaningful new output
 - both of these branches must preserve the live trajectory rather than starting a fresh turn
 
 Stop-hook retries must not reset the reactive-compaction guard, or prompt-overflow failures can spin forever.
+
+### Token-budget continuation must stop on diminishing returns
+
+Equivalent behavior should preserve token-budget continuation as a distinct
+branch from max-output-token recovery.
+
+That branch should preserve:
+
+- applying only to the main foreground turn rather than every subagent or side
+  query
+- continuing while aggregate turn tokens remain below a near-complete threshold
+  rather than blindly spending the entire remaining budget
+- using the change in newly produced turn tokens across continuations as a
+  stop signal, not just the absolute remaining budget
+- treating multiple low-yield continuation steps in a row as diminishing
+  returns and stopping early even if nominal budget remains
+- logging that early-stop reason distinctly from ordinary completion
+
+A rebuild that only checks "budget left yes or no" will continue too long and
+miss the product's deliberate early-stop posture.
 
 ## API-error handling boundary
 
@@ -116,3 +138,4 @@ If the model never produced a valid assistant response, the runtime should skip 
 - **retry loops**: collapse, reactive compact, or stop-hook branches re-enter without a one-shot guard
 - **fallback corruption**: a model fallback leaves behind tool results tied to abandoned tool IDs
 - **continuation recap drift**: output-limit recovery restarts the answer instead of continuing the same thought
+- **diminishing-return churn**: token-budget continuation keeps nudging after the turn has stopped adding meaningful new output

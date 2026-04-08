@@ -1,7 +1,7 @@
 ---
 title: "Provider Model Mapping and Capability Gates"
 owners: []
-soft_links: [/platform-services/provider-specific-api-clients-and-auth-routing.md, /product-surface/model-and-behavior-controls.md, /runtime-orchestration/turn-flow/api-request-assembly-retry-and-prompt-cache-stability.md, /runtime-orchestration/turn-flow/advisor-and-thinking-lifecycle.md, /platform-services/claude-ai-limits-and-extra-usage-state.md]
+soft_links: [/platform-services/provider-specific-api-clients-and-auth-routing.md, /product-surface/model-and-behavior-controls.md, /runtime-orchestration/turn-flow/api-request-assembly-retry-and-prompt-cache-stability.md, /runtime-orchestration/turn-flow/advisor-and-thinking-lifecycle.md, /platform-services/claude-ai-limits-and-extra-usage-state.md, /tools-and-permissions/execution-and-hooks/agent-runtime-context-and-tool-shaping.md, /integrations/plugins/skill-loading-contract.md]
 ---
 
 # Provider Model Mapping and Capability Gates
@@ -44,6 +44,27 @@ Equivalent behavior should preserve provider-aware built-in defaults:
 
 This is not a bug or rollout artifact. It is part of the supported contract.
 
+## Effective capability resolution is layered
+
+Equivalent behavior should preserve a precedence order rather than one generic
+"does this model support X?" table.
+
+That layered resolution includes:
+
+- explicit local or operator-declared capability overrides winning over family
+  heuristics when a provider has pinned one exact runtime string for a public
+  tier
+- explicit user posture such as a `[1m]` selection or a local hard context cap
+  taking precedence for local context-window decisions
+- cached live capability metadata, when the current provider and build expose
+  it, being allowed to raise or lower max input or max output ceilings without
+  changing the user-facing canonical model choice
+- static provider-family defaults and experiment-driven expansion filling the
+  gap when no stronger signal exists
+
+Without this layering, rebuilds either ignore hard local intent or act as if a
+live capability probe can overrule an explicit model selection.
+
 ## Bedrock model discovery is live and asynchronous
 
 Bedrock has an extra discovery layer.
@@ -57,6 +78,24 @@ Equivalent behavior should preserve:
 - not blocking startup on that profile fetch
 
 A rebuild that requires discovery to finish before any model resolution will change startup behavior.
+
+## Third-party capability support can be operator-declared per pinned tier
+
+Equivalent behavior should preserve a narrow override path for third-party
+providers:
+
+- one provider can pin exact runtime IDs for its public Opus, Sonnet, or Haiku
+  defaults
+- those pinned IDs can carry explicit declarations for capability classes such
+  as thinking, adaptive thinking, effort, max effort, or interleaved thinking
+- those declarations override the usual provider-family heuristic for that
+  exact pinned tier only
+- custom deployment IDs that do not match one of those pinned tiers still fall
+  back to canonical-family and provider heuristics unless another stronger
+  normalization signal exists
+
+This is how a third-party operator can expose a capability earlier or later than
+the generic family rule without forking the whole model catalog.
 
 ## Settings overrides target canonical IDs
 
@@ -122,6 +161,22 @@ Important examples include:
 
 The same family name is not enough. A capability may exist on first-party and Foundry, but still be unavailable on Bedrock or Vertex.
 
+## Context and output ceilings accept stronger live hints, but keep canonical identity
+
+Equivalent behavior should preserve:
+
+- explicit `[1m]` selection immediately opting into the larger local context
+  posture when the chosen family supports it
+- global or operator hard caps still being able to reduce that effective window
+- live capability metadata, when available, being consulted before
+  experiment-only expansions for max input and max output ceilings
+- context-window and max-output calculations staying keyed to canonical family
+  identity even when the live runtime string is an override, inference profile,
+  ARN, or custom deployment identifier
+
+The runtime therefore keeps two truths at once: one canonical identity for
+product behavior and one provider-local runtime string for transport.
+
 ## Beta and header selection is also provider-aware
 
 Equivalent behavior should preserve provider-specific beta/header choices, including:
@@ -143,6 +198,26 @@ Equivalent behavior should preserve downstream consumers doing feature checks, U
 - a region-prefixed Bedrock model ID
 
 Otherwise the same model behaves differently depending on whether it came from a built-in mapping or an override.
+
+## Subagents and skills inherit the resolved tier, not just the family alias
+
+Equivalent behavior should preserve:
+
+- `inherit` reusing the parent thread's effective runtime model after any
+  mode-specific remapping, rather than re-running ordinary provider defaults
+- bare child aliases such as `opus`, `sonnet`, or `haiku` reusing the parent's
+  exact runtime string when the parent is already on that tier
+- skill-level model overrides carrying the parent's `[1m]` suffix forward only
+  when the target family actually supports 1M context
+- Bedrock child aliases inheriting the parent's cross-region inference-profile
+  prefix so subagents stay in the same allowed region
+- explicit child model strings that already encode a different region or
+  provider-local runtime ID being respected instead of silently overwritten by
+  parent inheritance
+
+Without this contract, child work can downgrade to a provider default, lose 1M
+posture, or jump to a different Bedrock region even though the parent never
+changed tiers.
 
 ## Failure modes
 

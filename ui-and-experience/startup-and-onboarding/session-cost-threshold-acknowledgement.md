@@ -1,7 +1,7 @@
 ---
 title: "Session Cost Threshold Acknowledgement"
 owners: []
-soft_links: [/platform-services/usage-analytics-and-migrations.md, /platform-services/auth-login-logout-and-token-lifecycle.md, /platform-services/claude-ai-limits-and-extra-usage-state.md, /ui-and-experience/feedback-and-notifications/status-line-and-footer-notification-stack.md, /ui-and-experience/dialogs-and-approvals/focused-dialog-and-overlay-arbitration.md, /runtime-orchestration/turn-flow/advisor-and-thinking-lifecycle.md]
+soft_links: [/platform-services/usage-analytics-and-migrations.md, /platform-services/auth-login-logout-and-token-lifecycle.md, /platform-services/claude-ai-limits-and-extra-usage-state.md, /ui-and-experience/feedback-and-notifications/status-line-and-footer-notification-stack.md, /ui-and-experience/dialogs-and-approvals/focused-dialog-and-overlay-arbitration.md, /runtime-orchestration/turn-flow/advisor-and-thinking-lifecycle.md, /platform-services/session-cost-accounting-and-restoration.md]
 ---
 
 # Session Cost Threshold Acknowledgement
@@ -22,6 +22,7 @@ It intentionally does not re-document:
 - Claude.ai subscriber limit and extra-usage state already covered in [../platform-services/claude-ai-limits-and-extra-usage-state.md](../platform-services/claude-ai-limits-and-extra-usage-state.md)
 - the broader status line surface that reuses the same cost totals, already covered in [status-line-and-footer-notification-stack.md](status-line-and-footer-notification-stack.md)
 - general auth and account metadata flows beyond the billing-access gate already covered in [../platform-services/auth-login-logout-and-token-lifecycle.md](../platform-services/auth-login-logout-and-token-lifecycle.md)
+- the deeper session-ledger pricing, unknown-cost fallback, and save/restore rules already covered in [../platform-services/session-cost-accounting-and-restoration.md](../platform-services/session-cost-accounting-and-restoration.md)
 
 ## One shared session-cost source
 
@@ -30,6 +31,9 @@ Equivalent behavior should preserve:
 - one session-scoped total-cost accumulator reused by the threshold dialog, status line, query-budget checks, and end-of-process cost summaries instead of separate counters per surface
 - cost accumulation covering both the primary model response and any advisor-side usage that is intentionally folded into session spend
 - per-model usage breakdown and total cost moving together, so the session total always matches the more detailed usage accounting
+- the acknowledgement reading whatever the shared ledger currently knows, even
+  when some model pricing had to fall back to an approximate unknown-model
+  tier, rather than maintaining its own corrected counter
 - saving the active session's current cost snapshot before switching to another session, then resetting local counters before restoring the target session's saved totals
 - restoring spend only when resuming the same saved session identity, so unrelated sessions do not inherit each other's cost history
 - auth resets such as fresh login clearing this cost state instead of letting one identity inherit another identity's prior spend totals
