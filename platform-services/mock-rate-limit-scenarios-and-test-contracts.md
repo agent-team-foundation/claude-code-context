@@ -1,7 +1,7 @@
 ---
 title: "Mock Rate Limit Scenarios and Test Contracts"
 owners: [bingran-you]
-soft_links: [/platform-services/claude-ai-limits-and-extra-usage-state.md]
+soft_links: [/platform-services/claude-ai-limits-and-extra-usage-state.md, /reconstruction-guardrails/verification-and-native-test-oracles/native-test-derived-asset-provenance-and-acceptance-rules.md]
 native_source: services/mockRateLimits.ts
 verification_status: native_test_derived
 ---

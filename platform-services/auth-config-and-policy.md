@@ -1,7 +1,7 @@
 ---
 title: "Auth, Config, and Policy"
 owners: []
-soft_links: [/integrations/mcp/server-contract.md, /collaboration-and-agents/remote-and-bridge-flows.md]
+soft_links: [/integrations/mcp/server-contract.md, /collaboration-and-agents/remote-and-bridge-flows.md, /platform-services/settings-schema-compatibility-and-invalid-field-preservation.md]
 ---
 
 # Auth, Config, and Policy

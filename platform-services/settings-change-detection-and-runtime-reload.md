@@ -1,7 +1,7 @@
 ---
 title: "Settings Change Detection and Runtime Reload"
 owners: []
-soft_links: [/platform-services/policy-and-managed-settings-lifecycle.md, /platform-services/sync-and-managed-state.md, /tools-and-permissions/permissions/permission-rule-loading-and-persistence.md, /tools-and-permissions/permissions/sandbox-selection-and-bypass-guards.md, /integrations/plugins/plugin-runtime-contract.md, /ui-and-experience/shell-and-input/keybinding-customization-and-context-resolution.md]
+soft_links: [/platform-services/policy-and-managed-settings-lifecycle.md, /platform-services/sync-and-managed-state.md, /tools-and-permissions/permissions/permission-rule-loading-and-persistence.md, /tools-and-permissions/permissions/sandbox-selection-and-bypass-guards.md, /integrations/plugins/plugin-runtime-contract.md, /ui-and-experience/shell-and-input/keybinding-customization-and-context-resolution.md, /platform-services/settings-schema-compatibility-and-invalid-field-preservation.md]
 ---
 
 # Settings Change Detection and Runtime Reload

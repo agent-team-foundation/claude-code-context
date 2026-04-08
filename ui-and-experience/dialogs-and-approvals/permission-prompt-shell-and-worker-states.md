@@ -1,7 +1,7 @@
 ---
 title: "Permission Prompt Shell and Worker States"
 owners: []
-soft_links: [/ui-and-experience/feedback-and-notifications/interaction-feedback.md, /tools-and-permissions/permissions/permission-model.md, /tools-and-permissions/permissions/permission-decision-pipeline.md, /tools-and-permissions/filesystem-and-shell/shell-command-parsing-and-classifier-flow.md, /collaboration-and-agents/teammate-mailbox-and-permission-bridge.md, /runtime-orchestration/tasks/monitor-task-families-and-watch-lifecycle.md]
+soft_links: [/ui-and-experience/feedback-and-notifications/interaction-feedback.md, /tools-and-permissions/permissions/permission-model.md, /tools-and-permissions/permissions/permission-decision-pipeline.md, /tools-and-permissions/filesystem-and-shell/shell-command-parsing-and-classifier-flow.md, /collaboration-and-agents/teammate-mailbox-and-permission-bridge.md, /runtime-orchestration/tasks/monitor-task-families-and-watch-lifecycle.md, /reconstruction-guardrails/verification-and-native-test-oracles/test-seams-reset-hooks-and-injected-dependencies.md]
 ---
 
 # Permission Prompt Shell and Worker States
@@ -26,6 +26,7 @@ Equivalent behavior should preserve:
 - file edit and file write requests using diff-oriented file dialogs, while glob, grep, and file-read requests share a filesystem prompt
 - bash and PowerShell each using shell-specific approval surfaces rather than a generic tool card
 - enter-plan and exit-plan requests using plan-specific renderers, and notebook edit, web fetch, skill, and ask-user requests each getting their own specialized surface
+- approval-oriented end-to-end harnesses reusing that same router and dialog shell, so a test-only approval probe still validates ordinary prompt behavior instead of a separate fake UI
 - review-artifact, workflow, and monitor permission UIs being feature-gated and falling back to the generic renderer when their specialized implementation is unavailable
 - unknown tools still rendering through a safe fallback prompt instead of failing to surface approval state
 

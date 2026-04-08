@@ -1,7 +1,7 @@
 ---
 title: "SSH Remote Session and Auth Proxy"
 owners: []
-soft_links: [/integrations/clients/direct-connect-session-bootstrap-and-environment-selection.md, /integrations/clients/remote-session-message-adaptation-and-viewer-state.md, /product-surface/startup-entrypoint-routing-and-session-handoff.md, /platform-services/provider-specific-api-clients-and-auth-routing.md]
+soft_links: [/integrations/clients/direct-connect-session-bootstrap-and-environment-selection.md, /integrations/clients/remote-session-message-adaptation-and-viewer-state.md, /product-surface/startup-entrypoint-routing-and-session-handoff.md, /platform-services/provider-specific-api-clients-and-auth-routing.md, /reconstruction-guardrails/verification-and-native-test-oracles/test-seams-reset-hooks-and-injected-dependencies.md]
 ---
 
 # SSH Remote Session and Auth Proxy

@@ -1,7 +1,7 @@
 ---
 title: "YOLO Classifier Contracts"
 owners: [bingran-you]
-soft_links: [/tools-and-permissions/permissions/permission-decision-pipeline.md, /tools-and-permissions/permissions/permission-model.md]
+soft_links: [/tools-and-permissions/permissions/permission-decision-pipeline.md, /tools-and-permissions/permissions/permission-model.md, /reconstruction-guardrails/verification-and-native-test-oracles/native-test-derived-asset-provenance-and-acceptance-rules.md]
 native_source: utils/permissions/yoloClassifier.ts
 verification_status: native_test_derived
 ---

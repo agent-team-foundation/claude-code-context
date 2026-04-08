@@ -1,7 +1,7 @@
 ---
 title: "Startup Service Sequencing and Capability Gates"
 owners: []
-soft_links: [/platform-services/interactive-startup-and-project-activation.md, /platform-services/policy-and-managed-settings-lifecycle.md, /platform-services/trust-and-capability-hydration.md, /platform-services/bootstrap-and-service-failures.md, /platform-services/user-settings-sync-contract.md, /platform-services/usage-analytics-and-migrations.md, /integrations/clients/structured-io-and-headless-session-loop.md]
+soft_links: [/platform-services/interactive-startup-and-project-activation.md, /platform-services/policy-and-managed-settings-lifecycle.md, /platform-services/trust-and-capability-hydration.md, /platform-services/bootstrap-and-service-failures.md, /platform-services/user-settings-sync-contract.md, /platform-services/usage-analytics-and-migrations.md, /integrations/clients/structured-io-and-headless-session-loop.md, /reconstruction-guardrails/verification-and-native-test-oracles/test-environment-fixtures-and-ci-fail-closed-policy.md]
 ---
 
 # Startup Service Sequencing and Capability Gates

@@ -1,7 +1,7 @@
 ---
 title: "Usage, Analytics, and Migrations"
 owners: []
-soft_links: [/platform-services/startup-service-sequencing-and-capability-gates.md, /platform-services/bootstrap-and-service-failures.md, /platform-services/claude-ai-limits-and-extra-usage-state.md, /product-surface/interaction-modes.md, /runtime-orchestration/state/build-profiles.md]
+soft_links: [/platform-services/startup-service-sequencing-and-capability-gates.md, /platform-services/bootstrap-and-service-failures.md, /platform-services/claude-ai-limits-and-extra-usage-state.md, /product-surface/interaction-modes.md, /runtime-orchestration/state/build-profiles.md, /reconstruction-guardrails/verification-and-native-test-oracles/test-environment-fixtures-and-ci-fail-closed-policy.md]
 ---
 
 # Usage, Analytics, and Migrations
@@ -59,6 +59,7 @@ Equivalent behavior should preserve:
 - heavier telemetry initialization waiting until trust-gated environment/config effects are ready
 - some telemetry paths deferring further until remote managed settings have loaded, so org-controlled env/config overlays affect telemetry posture before it starts
 - privacy or essential-traffic posture being able to suppress outbound analytics work without suppressing the whole product
+- test posture being able to suppress telemetry and adjacent feedback-style side effects entirely, so automated runs do not emit nonessential traffic or pick up timing noise from support systems
 - telemetry or diagnostics failure remaining non-fatal to the interactive session
 
 ## Local migrations evolve persisted behavior

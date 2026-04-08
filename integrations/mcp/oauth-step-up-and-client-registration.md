@@ -1,7 +1,7 @@
 ---
 title: "OAuth, Step-Up, and Client Registration"
 owners: []
-soft_links: [/integrations/mcp/server-contract.md, /integrations/mcp/config-layering-policy-and-dedup.md, /platform-services/auth-config-and-policy.md, /integrations/clients/structured-io-and-headless-session-loop.md]
+soft_links: [/integrations/mcp/server-contract.md, /integrations/mcp/config-layering-policy-and-dedup.md, /platform-services/auth-config-and-policy.md, /integrations/clients/structured-io-and-headless-session-loop.md, /integrations/mcp/federated-auth-conformance-and-idp-test-seeding.md]
 ---
 
 # OAuth, Step-Up, and Client Registration
