@@ -1,7 +1,7 @@
 ---
 title: "Agent Definition Loading and Precedence"
 owners: []
-soft_links: [/tools-and-permissions/agent-and-task-control/agent-tool-launch-routing.md, /collaboration-and-agents/worker-execution-boundaries.md, /integrations/plugins/plugin-and-skill-model.md, /memory-and-context/durable-memory-recall-and-auto-memory.md]
+soft_links: [/tools-and-permissions/agent-and-task-control/agent-tool-launch-routing.md, /collaboration-and-agents/worker-execution-boundaries.md, /integrations/plugins/plugin-and-skill-model.md, /integrations/plugins/skill-loading-contract.md, /memory-and-context/durable-memory-recall-and-auto-memory.md]
 ---
 
 # Agent Definition Loading and Precedence
@@ -58,7 +58,8 @@ Equivalent behavior should preserve:
 - the loader returning both the full discovered list and the deduplicated active list
 - color and other display metadata being initialized only after the active set is known
 - later launch-time filtering still being able to remove otherwise-active agents based on caller restrictions such as allowed agent types, denied tools, or required MCP-server availability
-- runtime support for `requiredMcpServers` style filtering existing even when the authoring path for that field is only partially visible in this snapshot
+- `requiredMcpServers` style filtering matching case-insensitive server-name patterns against MCP servers that actually expose tools, not merely configured client names
+- chooser-time and launch-time rechecks for that MCP requirement existing even when the authoring path for the field is only partially visible in this snapshot
 
 ## Markdown and JSON agents share the same core behavioral fields
 
@@ -81,6 +82,7 @@ Equivalent behavior should preserve:
   - `hooks`
   - per-agent MCP server specs for custom agents
 - `model: inherit` being a real normalized setting rather than freeform text
+- `skills` acting as a list of prompt-command skills to preload later, not as a second embedded prompt format to validate eagerly at file-parse time
 - tool semantics preserving the difference between:
   - missing `tools`, which means ordinary tool availability
   - empty `tools`, which means intentionally no tools
@@ -125,12 +127,19 @@ Equivalent behavior should preserve:
 
 ## Known source gap
 
-This source snapshot shows runtime and UI references that anticipate additional agent-source shapes, but it does not show an active disk-backed `localSettings` agent ingestion path. Rebuilds should therefore treat that source as unconfirmed rather than required until stronger evidence appears.
+This source snapshot shows runtime and UI references that anticipate additional agent-source shapes, but it does not show:
+
+- an active disk-backed `localSettings` agent ingestion path
+- a confirmed public authoring path that actually populates `requiredMcpServers`, even though runtime filters for that field are visible
+
+Rebuilds should therefore treat both surfaces as unconfirmed authoring inputs until stronger evidence appears.
 
 ## Failure modes
 
 - **catalog flattening**: all agent sources are treated as one folder read, erasing source-class precedence and plugin restrictions
 - **nearest-dir assumption**: project agent collisions are resolved by an invented "closest directory wins" rule even though the observed catalog is order-dependent instead
+- **phantom MCP gate**: availability filtering keys off configured server names instead of authenticated tool-bearing MCP surfaces, or invents a public `requiredMcpServers` authoring path the snapshot does not confirm
 - **plugin escalation**: plugin agent files are allowed to add per-agent hooks, MCP servers, or permission modes that user-authored agents alone were meant to control
+- **eager skill freeze**: agent `skills` are treated as parse-time file references instead of late-resolved preload names, so plugin-namespaced or later-loaded skills stop resolving correctly
 - **memory dead-end**: memory-enabled agents do not gain the file tools needed to make that memory path usable
 - **loader fragility**: one malformed agent file tears down the whole catalog instead of degrading to built-ins or surviving definitions
