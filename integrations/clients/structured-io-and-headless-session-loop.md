@@ -1,7 +1,7 @@
 ---
 title: "Structured I/O and Headless Session Loop"
 owners: []
-soft_links: [/integrations/clients/sdk-control-protocol.md, /runtime-orchestration/turn-flow/structured-output-enforcement-and-artifact-projection.md, /integrations/clients/sdk-hook-event-transport.md, /runtime-orchestration/turn-flow/unified-command-queue-and-drain.md, /collaboration-and-agents/bridge-contract.md, /platform-services/startup-service-sequencing-and-capability-gates.md, /product-surface/session-state-and-breakpoints.md]
+soft_links: [/integrations/clients/sdk-control-protocol.md, /runtime-orchestration/turn-flow/structured-output-enforcement-and-artifact-projection.md, /integrations/clients/sdk-hook-event-transport.md, /runtime-orchestration/turn-flow/unified-command-queue-and-drain.md, /collaboration-and-agents/bridge-contract.md, /platform-services/startup-service-sequencing-and-capability-gates.md, /product-surface/session-state-and-breakpoints.md, /reconstruction-guardrails/verification-and-native-test-oracles/test-environment-fixtures-and-ci-fail-closed-policy.md]
 ---
 
 # Structured I/O and Headless Session Loop

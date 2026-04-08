@@ -1,7 +1,7 @@
 ---
 title: "Tool Pool Assembly"
 owners: []
-soft_links: [/integrations/mcp/connection-and-recovery-contract.md, /tools-and-permissions/permissions/permission-model.md, /runtime-orchestration/turn-flow/turn-assembly-and-recovery.md]
+soft_links: [/integrations/mcp/connection-and-recovery-contract.md, /tools-and-permissions/permissions/permission-model.md, /runtime-orchestration/turn-flow/turn-assembly-and-recovery.md, /reconstruction-guardrails/verification-and-native-test-oracles/test-seams-reset-hooks-and-injected-dependencies.md]
 ---
 
 # Tool Pool Assembly
@@ -32,6 +32,7 @@ This layered assembly is essential because "which tools exist" is part of the se
 - built-in tools should win on name collisions with extension tools
 - server-prefix deny rules must be able to remove an entire MCP namespace
 - special helper tools may exist in the runtime without being exposed like ordinary user tools
+- test-only or compatibility helper tools may be admitted only under narrow postures such as test mode, but they should still flow through the same catalog, enablement, and exposure rules instead of bypassing tool-pool assembly entirely
 - some surfaces need the merged tool set, while other logic only needs built-ins
 - a rebuild should preserve the distinction between the exhaustive catalog and the currently exposed pool
 

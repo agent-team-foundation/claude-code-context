@@ -1,7 +1,7 @@
 ---
 title: "Tool Families"
 owners: []
-soft_links: [/integrations/mcp/server-contract.md, /runtime-orchestration/tasks/task-model.md, /tools-and-permissions/agent-and-task-control/control-plane-tools.md, /tools-and-permissions/agent-and-task-control/task-and-team-control-tool-contracts.md, /tools-and-permissions/permissions/config-permission-and-sandbox-admin-surfaces.md]
+soft_links: [/integrations/mcp/server-contract.md, /runtime-orchestration/tasks/task-model.md, /tools-and-permissions/agent-and-task-control/control-plane-tools.md, /tools-and-permissions/agent-and-task-control/task-and-team-control-tool-contracts.md, /tools-and-permissions/permissions/config-permission-and-sandbox-admin-surfaces.md, /reconstruction-guardrails/verification-and-native-test-oracles/test-seams-reset-hooks-and-injected-dependencies.md]
 ---
 
 # Tool Families
@@ -27,3 +27,5 @@ Across all families, tools should share a common contract:
 - results that can be stitched back into the same conversation turn
 
 The important reconstruction point is that not all tools act on the outside world. Some mutate the runtime's own work graph, settings, or approval posture, and those families still need the same schema, observability, and safety guarantees.
+
+Helper or test-only tools can still exist in the catalog, but they should be treated as admission- and posture-sensitive helper surfaces rather than as a separate public product family.

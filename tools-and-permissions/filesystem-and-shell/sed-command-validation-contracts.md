@@ -1,7 +1,7 @@
 ---
 title: "Sed Command Validation Contracts"
 owners: [bingran-you]
-soft_links: [/tools-and-permissions/filesystem-and-shell/shell-command-parsing-and-classifier-flow.md, /tools-and-permissions/permissions/permission-decision-pipeline.md]
+soft_links: [/tools-and-permissions/filesystem-and-shell/shell-command-parsing-and-classifier-flow.md, /tools-and-permissions/permissions/permission-decision-pipeline.md, /reconstruction-guardrails/verification-and-native-test-oracles/native-test-derived-asset-provenance-and-acceptance-rules.md]
 native_source: tools/BashTool/sedValidation.ts
 verification_status: native_test_derived
 ---
