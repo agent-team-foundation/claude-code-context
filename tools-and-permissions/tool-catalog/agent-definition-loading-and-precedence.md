@@ -1,7 +1,7 @@
 ---
 title: "Agent Definition Loading and Precedence"
 owners: []
-soft_links: [/tools-and-permissions/agent-and-task-control/agent-tool-launch-routing.md, /collaboration-and-agents/worker-execution-boundaries.md, /integrations/plugins/plugin-and-skill-model.md, /integrations/plugins/skill-loading-contract.md, /memory-and-context/durable-memory-recall-and-auto-memory.md]
+soft_links: [/product-surface/agent-management-surface.md, /tools-and-permissions/agent-and-task-control/agent-tool-launch-routing.md, /collaboration-and-agents/worker-execution-boundaries.md, /integrations/plugins/plugin-and-skill-model.md, /integrations/plugins/skill-loading-contract.md, /memory-and-context/durable-memory-recall-and-auto-memory.md]
 ---
 
 # Agent Definition Loading and Precedence
@@ -127,12 +127,15 @@ Equivalent behavior should preserve:
 
 ## Known source gap
 
-This source snapshot shows runtime and UI references that anticipate additional agent-source shapes, but it does not show:
+This source snapshot shows a partially wider agent-source surface than the active precedence path alone:
 
-- an active disk-backed `localSettings` agent ingestion path
-- a confirmed public authoring path that actually populates `requiredMcpServers`, even though runtime filters for that field are visible
+- the broader settings taxonomy and `/agents` UI explicitly know about `localSettings`
+- file utilities can derive, save, update, and delete `localSettings` agent paths
+- the observed public create wizard still offers only project and user destinations
+- the active precedence reducer shown in this snapshot still enumerates built-in, plugin, user, project, flag, and managed winners without naming `localSettings`
+- a confirmed public authoring path that actually populates `requiredMcpServers` is still not visible, even though runtime filters for that field are visible
 
-Rebuilds should therefore treat both surfaces as unconfirmed authoring inputs until stronger evidence appears.
+Rebuilds should therefore treat `localSettings` as a real but only partially evidenced source class in this snapshot, and treat public `requiredMcpServers` authoring as still unconfirmed.
 
 ## Failure modes
 
