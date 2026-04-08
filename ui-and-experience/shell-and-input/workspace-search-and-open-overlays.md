@@ -1,7 +1,7 @@
 ---
 title: "Workspace Search and Open Overlays"
 owners: []
-soft_links: [/ui-and-experience/shell-and-input/prompt-composer-and-queued-command-shell.md, /product-surface/command-surface.md, /tools-and-permissions/filesystem-and-shell/path-and-filesystem-safety.md]
+soft_links: [/ui-and-experience/shell-and-input/prompt-composer-and-queued-command-shell.md, /ui-and-experience/shell-and-input/shared-file-suggestion-sources-and-refresh.md, /product-surface/command-surface.md, /tools-and-permissions/filesystem-and-shell/path-and-filesystem-safety.md]
 ---
 
 # Workspace Search and Open Overlays
@@ -19,6 +19,7 @@ This leaf covers:
 It intentionally does not re-document:
 
 - ordinary inline slash-command or file-completion dropdowns already covered in [prompt-composer-and-queued-command-shell.md](prompt-composer-and-queued-command-shell.md)
+- the shared file-suggestion inventory, command override, and cache-refresh contract already covered in [shared-file-suggestion-sources-and-refresh.md](shared-file-suggestion-sources-and-refresh.md)
 - resume-style browsing surfaces that work over sessions rather than workspace files
 - low-level filesystem permission policy beyond the fact that both overlays preview files under the active workspace root
 
@@ -38,6 +39,7 @@ Equivalent behavior should preserve:
 Equivalent behavior should preserve:
 
 - quick-open searching the workspace's file suggestions rather than scanning transcript history or session metadata
+- quick-open inheriting the shared file-suggestion source rather than defining its own file inventory or ranking model
 - an empty query showing an explicit "start typing" empty state instead of dumping the current directory contents
 - directory rows being filtered out so the result list always represents selectable files
 - displayed paths being normalized into one portable slash-based form before rendering or insertion, so cross-platform path formatting stays stable
