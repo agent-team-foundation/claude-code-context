@@ -15,3 +15,4 @@ Relevant leaves:
 - **[plan-mode-approval-surfaces.md](plan-mode-approval-surfaces.md)** — How enter-plan and exit-plan approvals present plans, collect feedback, choose execution modes, and hand plan acceptance back into the session loop.
 - **[conversation-export-dialog.md](conversation-export-dialog.md)** — How `/export` chooses clipboard versus file delivery, handles filename editing/back-navigation, and keeps export feedback aligned.
 - **[diff-dialog-and-turn-history-navigation.md](diff-dialog-and-turn-history-navigation.md)** — How `/diff` opens a modal overlay, combines working-tree changes with per-turn edit history, paginates file lists, and branches detail rendering.
+- **[structured-diff-rendering-and-highlight-fallback.md](structured-diff-rendering-and-highlight-fallback.md)** — How diff hunks choose syntax-aware versus fallback rendering, preserve conservative word-diff behavior, and split fullscreen gutters for clean selection.
