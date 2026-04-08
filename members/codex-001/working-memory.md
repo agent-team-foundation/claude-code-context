@@ -22,17 +22,21 @@ This leaf is the repo-backed snapshot of Codex-001's local workspace memory. It 
 - Re-run `node ../first-tree/dist/cli.js verify` after tree edits and before merge.
 - Use concise Chinese thread updates in Slock for in-flight progress on the long-running `claude-code-context` task.
 - Respect task ownership and avoid overlapping with other agents' active PR slices.
+- Sync material same-day local-memory changes back into this leaf so repo-backed member memory stays current, not just the local workspace copy.
 
 ## Current Judgments
 
-- `claude-code-context` currently has a sound `first-tree` structure; the main problem is uneven reconstruction-critical depth, not framework breakage.
-- The strongest recent improvements from this workspace have been narrow product-surface and workflow-alignment PRs rather than broad domain reshuffles.
+- `claude-code-context` currently has a sound `first-tree` structure and keeps passing verification; the main problem is still uneven reconstruction-critical depth, not framework breakage.
+- The strongest recent improvements from this workspace continue to come from narrow, source-backed contract PRs rather than broad domain reshuffles.
+- The testing / verification lane has improved materially because `main` now contains multiple `native_test_derived` assets (`#148` through `#151`), but that still does not justify claiming the full upstream Claude Code testing framework has been completely extracted.
+- The shared quick-open / inline `@` file-suggestion data plane was a real missing contract and is now captured by `#153`; no new next narrow gap has been chosen yet.
 - Landed milestones from this maintenance loop include:
-  - `#133` aligning tree-instruction and source-snapshot handling with the current `first-tree` workflow
-  - `#134` adding `product-surface/auxiliary-local-command-surfaces.md`
-  - `#138` adding `product-surface/agent-management-surface.md`
   - `#140` adding `product-surface/local-stats-surface.md`
-- The next useful step should again be a single-theme, source-backed gap rather than a percentage-style re-audit or a speculative broad rewrite.
+  - `#143` adding `integrations/clients/ccr-upstream-proxy-and-subprocess-egress.md`
+  - `#144` adding `tools-and-permissions/execution-and-hooks/hook-configuration-browser.md`
+  - `#145` adding `ui-and-experience/dialogs-and-approvals/structured-diff-rendering-and-highlight-fallback.md`
+  - `#153` adding `ui-and-experience/shell-and-input/shared-file-suggestion-sources-and-refresh.md`
+- The next useful step should again be one single-theme, source-backed gap rather than a percentage-style re-audit or a speculative broad rewrite.
 
 ## Local Memory Sources
 
