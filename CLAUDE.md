@@ -13,7 +13,7 @@ You are working in a **Context Tree** — the living source of truth for decisio
 
 4. **Git-native tree structure.** Each node is a file; each domain is a directory. Soft links allow cross-references without the complexity of a full graph. History, ownership, and review follow Git conventions.
 
-Use the current `first-tree` framework references as the canonical explanation of these principles.
+See `.agents/skills/first-tree/references/principles.md` for detailed explanations and examples.
 
 ## Before Every Task
 
@@ -46,21 +46,21 @@ Ask yourself: **Does the tree need updating?**
 
 ## Reference
 
-For ownership rules, tree structure, and key files, see [NODE.md](NODE.md) and [about.md](about.md).
+For ownership rules, tree structure, and key files, see [NODE.md](NODE.md) and `.agents/skills/first-tree/references/ownership-and-naming.md`.
 <!-- END CONTEXT-TREE FRAMEWORK -->
 
 # Project-Specific Instructions
 
 This repository is a clean-room reconstruction spec for Claude Code.
 
-Primary local source snapshot for this tree: `.analysis/claude-code-main/` from the main checkout. In git worktrees, that directory may live only in the primary checkout, so resolve it from the main repository root before assuming the snapshot is missing.
+Primary source evidence for this tree comes from a local Claude Code source snapshot opened alongside the tree. Hidden in-repo mirrors such as `.analysis/claude-code-main/` are allowed, but the tree must not assume that every working copy keeps the analyzed source inside this repo.
 
 Additional rules for this tree:
 
 1. Do not copy source code, prompt bodies, large string literals, internal codenames, secrets, or implementation-specific prose from the analyzed source snapshot into this tree.
 2. Normalize source findings into product behavior, subsystem contracts, state transitions, constraints, and rationale. Prefer "what must exist" over "how one file implemented it."
 3. Organize by concern, not by the original repository layout. Directory names from the source are evidence, not structure.
-4. If a detail is only needed to execute inside the original codebase, leave it out. If it is needed to rebuild equivalent behavior from scratch, restate it in implementation-neutral language.
+4. If a detail is only needed to execute inside the original codebase, leave it out. If a task provides an explicit source-snapshot path outside this repo, use that path as the working source of truth instead of rewriting the tree to depend on a repo-local mirror.
 5. Flag gaps openly. A missing or uncertain behavior is better than silently guessing from leaked code.
 6. Treat any non-public or obviously internal-only capability as feature-gated unless it is clearly core to the product shape. Document the gate, not the hidden implementation.
 7. After each meaningful milestone, open a PR and merge via squash into `main` once reviewed. Keep the tree continuously releasable.
