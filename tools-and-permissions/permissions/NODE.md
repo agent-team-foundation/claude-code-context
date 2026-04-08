@@ -16,3 +16,4 @@ Relevant leaves:
 - **[permission-resolution-races-and-forwarding.md](permission-resolution-races-and-forwarding.md)** — Single-winner ask-resolution races across dialog, bridge, mailbox, channel relay, hooks, classifier, and abort paths.
 - **[sandbox-selection-and-bypass-guards.md](sandbox-selection-and-bypass-guards.md)** — How sandbox selection, excluded commands, policy-gated overrides, and Windows refusal paths interact.
 - **[config-permission-and-sandbox-admin-surfaces.md](config-permission-and-sandbox-admin-surfaces.md)** — Registry-backed config mutation on eligible builds, plus permission browser, denied-command retry, and sandbox admin surfaces.
+- **[yolo-classifier-contracts.md](yolo-classifier-contracts.md)** — Testable contracts for the YOLO (auto mode) classifier, including transcript building, XML parsing, and two-stage classifier behavior.
