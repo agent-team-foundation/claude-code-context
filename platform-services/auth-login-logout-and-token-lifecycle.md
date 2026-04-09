@@ -24,6 +24,7 @@ It intentionally does not re-document:
 - the full auth-source precedence and provider-selection rules already summarized in [auth-config-and-policy.md](auth-config-and-policy.md)
 - the remote managed settings and policy service internals already covered in [policy-and-managed-settings-lifecycle.md](policy-and-managed-settings-lifecycle.md)
 - the full bridge or remote-session transport model beyond the auth handoff points already named in [remote-and-bridge-flows.md](../collaboration-and-agents/remote-and-bridge-flows.md)
+- the standalone launcher and setup-token command wrappers beyond the limited-scope auth semantics captured in [native-install-update-and-setup-token-cli-flows.md](native-install-update-and-setup-token-cli-flows.md)
 
 ## Shared lifecycle rule
 
