@@ -2,11 +2,15 @@
 title: "Test Framework Overview"
 owners: [bingran-you]
 soft_links:
+  - /reconstruction-guardrails/verification-and-native-test-oracles/test-runtime-mode-and-determinism.md
   - /reconstruction-guardrails/verification-and-native-test-oracles/test-environment-fixtures-and-ci-fail-closed-policy.md
+  - /reconstruction-guardrails/verification-and-native-test-oracles/test-lane-coverage-map.md
+  - /reconstruction-guardrails/verification-and-native-test-oracles/e2e-harness-reality-boundaries.md
   - /reconstruction-guardrails/verification-and-native-test-oracles/test-seams-reset-hooks-and-injected-dependencies.md
   - /reconstruction-guardrails/verification-and-native-test-oracles/native-test-derived-asset-provenance-and-acceptance-rules.md
   - /platform-services/mock-rate-limit-scenarios-and-test-contracts.md
   - /tools-and-permissions/filesystem-and-shell/sed-command-validation-contracts.md
+  - /tools-and-permissions/permissions/e2e-permission-testing-contracts.md
   - /tools-and-permissions/permissions/yolo-classifier-contracts.md
   - /platform-services/settings-schema-compatibility-and-invalid-field-preservation.md
   - /integrations/mcp/federated-auth-conformance-and-idp-test-seeding.md
@@ -14,18 +18,18 @@ soft_links:
 
 # Test Framework Overview
 
-The current Claude Code snapshot does not expose one self-contained `tests/` or runner manifest that answers everything. What it does expose is a layered testing architecture that spans runtime posture, fixtures, dedicated end-to-end harnesses, conformance-sensitive auth flows, and domain-owned contract oracles.
+The current Claude Code snapshot does not expose one self-contained `tests/` directory or runner manifest that answers everything. What it does expose is a layered testing architecture that spans runtime posture, fixtures, dedicated end-to-end harnesses, conformance-sensitive auth flows, and domain-owned contract oracles.
 
 ## Confirmed layers
 
-The snapshot clearly shows all of these verification layers:
+The snapshot provides direct signals for all of these verification layer families, even though it does not expose every upstream runner entrypoint:
 
 - a script-wrapped suite entry layer, because at least one compatibility contract is tied to a named `npm run test:file ...` path rather than to a raw helper invocation
 - ordinary module-level regression lanes, including `.test.ts`-style coverage
 - integration lanes, including `.int.test.ts` behavior for cross-component runtime state
 - end-to-end coverage for permission prompts and remote-control plumbing
 - conformance-sensitive auth coverage for federated MCP and XAA-style flows
-- runtime test posture via `NODE_ENV=test`
+- a supported test runtime posture via `NODE_ENV=test`
 - fixture and VCR-style replay for API-dependent scenarios
 - module-state isolation through exported reset, seed, and cleanup helpers for caches, watchers, registries, and other sticky services
 - domain-owned contract assets derived from upstream-native tests
@@ -42,6 +46,8 @@ A faithful rebuild should preserve these tiers as distinct concerns:
 
 Collapsing all of those into one broad suite would lose one of the main architectural signals in the current product: different behaviors are protected by different oracles.
 
+The subsystem mapping behind those tiers is spelled out in [test-lane-coverage-map.md](test-lane-coverage-map.md).
+
 ## Runner boundary
 
 The tree can safely claim:
@@ -49,10 +55,12 @@ The tree can safely claim:
 - there is a script-oriented entry layer
 - the product code is written to coexist with a Bun-flavored module-mocking environment
 - the visible framework depends on more than a generic "run tests" command
+- the end-to-end harnesses that are visible are designed to preserve real approval, transport, and credential paths rather than UI-only fakes
 
 The tree should not overclaim:
 
 - the exact full upstream runner manifest
+- the exhaustive upstream lane inventory
 - the complete CI orchestration or sharding plan
 - the full top-level command matrix for every lane
 

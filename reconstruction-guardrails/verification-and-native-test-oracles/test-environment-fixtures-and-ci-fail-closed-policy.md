@@ -2,6 +2,7 @@
 title: "Test Environment, Fixtures, and CI Fail-Closed Policy"
 owners: [bingran-you]
 soft_links:
+  - /reconstruction-guardrails/verification-and-native-test-oracles/test-runtime-mode-and-determinism.md
   - /platform-services/startup-service-sequencing-and-capability-gates.md
   - /platform-services/usage-analytics-and-migrations.md
   - /integrations/clients/structured-io-and-headless-session-loop.md
@@ -25,9 +26,15 @@ The important point is not one specific branch. It is that the runtime treats te
 
 ## Fixture replay is a first-class oracle
 
-The snapshot exposes a VCR-style replay layer for API-dependent behavior.
+The snapshot exposes more than one fixture family for API-adjacent behavior.
 
-That layer preserves:
+Equivalent behavior should preserve:
+
+- a generic fixture helper for deterministic caching of arbitrary expensive or externalized test oracles
+- message-replay fixtures for API response and streaming behavior
+- token-count fixtures for API-adjacent counting paths that still need deterministic replay semantics
+
+Across those families, the shared contract preserves:
 
 - explicit activation in test posture
 - hash-based fixture naming from normalized inputs
@@ -45,6 +52,16 @@ Equivalent behavior should preserve:
 
 This is one of the most important stability contracts in the visible framework. It keeps network-backed tests deterministic and makes fixture refresh a deliberate maintenance act.
 
+## Recording lifecycle must stay deliberate
+
+Equivalent behavior should preserve:
+
+- replay as the default posture once a fixture exists
+- explicit record or refresh intent instead of incidental overwrites
+- the ability for different API-adjacent callers to reuse the same fixture policy rather than inventing lane-specific caching rules
+
+The important clean-room point is that recording is maintenance, not a side effect of ordinary CI execution.
+
 ## Transcript and hash stability matter
 
 The broader runtime also treats transcript shape as part of fixture stability.
@@ -52,6 +69,8 @@ The broader runtime also treats transcript shape as part of fixture stability.
 Equivalent behavior should preserve:
 
 - careful normalization before hashing
+- dehydration of machine-specific paths, config-home locations, and similar environment-local values
+- placeholder treatment for incidental UUIDs, timestamps, counters, and other unstable runtime identifiers
 - avoidance of unnecessary transcript-shape churn in replay-sensitive flows
 - deterministic identity or placeholder handling where raw runtime IDs would otherwise destabilize recordings
 
@@ -62,6 +81,7 @@ The visible testing architecture therefore depends on transcript semantics, not 
 If a clean-room rebuild keeps external API-backed tests, it should preserve all of these:
 
 - a dedicated test posture
+- multiple fixture families when different API-adjacent callers need different oracle shapes
 - deterministic fixture hashing and hydration
 - fail-closed CI behavior for missing recordings
 - explicit recording refresh
@@ -69,6 +89,7 @@ If a clean-room rebuild keeps external API-backed tests, it should preserve all 
 ## Failure modes
 
 - **test-production blur**: automated tests still emit nonessential production side effects
+- **layer collapse**: token-count or other API-adjacent lanes bypass the shared fixture policy and drift from replay behavior used elsewhere
 - **machine-bound fixtures**: path, cwd, or tempdir differences cause needless cache misses
 - **silent CI rewrite**: missing fixtures regenerate during CI and hide behavioral drift
 - **hash instability**: transcript or input normalization changes break recordings even when behavior did not meaningfully change

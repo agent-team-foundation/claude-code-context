@@ -4,6 +4,7 @@ owners: [bingran-you]
 soft_links:
   - /tools-and-permissions/tool-catalog/tool-families.md
   - /tools-and-permissions/tool-catalog/tool-pool-assembly.md
+  - /tools-and-permissions/permissions/permission-decision-pipeline.md
   - /ui-and-experience/dialogs-and-approvals/permission-prompt-shell-and-worker-states.md
   - /integrations/clients/ssh-remote-session-and-auth-proxy.md
   - /integrations/clients/structured-io-and-headless-session-loop.md
@@ -21,6 +22,7 @@ The current Claude Code build does not rely only on coarse top-down black-box te
 The snapshot shows several recurring seam patterns:
 
 - targeted dependency injection where module-spy boilerplate would otherwise be brittle or cyclic
+- module-boundary indirection that keeps replacement, spying, or late binding viable across cyclic or feature-gated imports
 - helper functions explicitly exported for testing, especially around parsing, serialization, cache placement, and runtime edge behavior
 - reset or clear hooks for stateful services and caches
 - admission-sensitive helper surfaces that only exist under test posture
@@ -35,6 +37,16 @@ These seams are not random internal conveniences. They reveal the kinds of behav
 - stateful caches and watchers
 - parser and serializer edge cases
 - resume- and transcript-sensitive flows
+
+## Import and module-boundary discipline is part of testability
+
+Equivalent behavior should preserve:
+
+- narrow dependency seams where a core flow would otherwise force repetitive per-module spying
+- import structures that keep live bindings or late binding available when cycles, feature gates, or mock replacement would otherwise make tests brittle
+- the ability to replace or observe one collaborator without changing the rest of the production topology
+
+This is an architectural testing rule, not just a style preference. In the visible snapshot, import indirection and targeted DI are both used to keep real modules testable under modern ESM-style mocking constraints.
 
 ## Resettable singleton state is part of the seam contract
 
