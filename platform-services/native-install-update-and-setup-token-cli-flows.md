@@ -76,7 +76,8 @@ Equivalent behavior should preserve:
   instead of forcing the user to run a second command manually
 - repair not short-circuiting the rest of the update flow when a newer native
   version is still available
-- up-to-date states being explicit, while available updates end in a concrete
+- up-to-date states being explicit when the shipped native build is already at
+  the newest observed release, while available updates still end in a concrete
   success summary such as `Successfully updated from X to version Y`
 
 The rebuild target is not merely "check if a version differs." It is a
@@ -105,9 +106,9 @@ Equivalent behavior should preserve:
 - a TTY/raw-mode requirement because the flow expects interactive browser or
   manual-code handoff
 - a welcome banner before browser launch
-- a warning when another auth source is already configured, clarifying that this
-  flow will create an additional OAuth token rather than replacing the main
-  session
+- a warning only when another auth source is already configured, clarifying
+  that this flow will create an additional OAuth token rather than replacing
+  the main session
 - browser-open first, followed by a manual fallback URL and pasted-code prompt
   if the browser does not complete the flow quickly
 - the resulting token being treated as limited-scope material, not as a signal
