@@ -6,6 +6,7 @@ soft_links:
   - /reconstruction-guardrails/verification-and-native-test-oracles/e2e-harness-reality-boundaries.md
   - /platform-services/settings-schema-compatibility-and-invalid-field-preservation.md
   - /platform-services/settings-change-detection-and-runtime-reload.md
+  - /ui-and-experience/transcript-and-history/transcript-search-and-less-style-navigation.md
   - /runtime-orchestration/sessions/session-artifacts-and-sharing.md
   - /tools-and-permissions/permissions/e2e-permission-testing-contracts.md
   - /integrations/clients/ssh-remote-session-and-auth-proxy.md
@@ -22,7 +23,7 @@ The visible fast lanes protect narrow, local contracts such as:
 
 - parser and serializer edge cases
 - shell and permission safety heuristics
-- transcript-search or render-fidelity extraction boundaries
+- transcript-search render-fidelity boundaries, where the index must track visible transcript text closely enough to avoid phantom hits
 - sticky singleton cleanup and helper-state reset behavior
 
 These lanes should stay cheap, isolated, and able to run without the full product startup graph.
@@ -32,7 +33,7 @@ These lanes should stay cheap, isolated, and able to run without the full produc
 The visible integration-oriented lanes protect cross-component runtime behavior such as:
 
 - startup sequencing and async service readiness
-- managed settings cache visibility and hot-reload invalidation
+- managed settings cache visibility, including first-visibility invalidation of stale merged settings in headless or early-read paths
 - watcher and promise state that can be poisoned by one subsystem and observed by another
 - resume-sensitive session artifacts and related persistence boundaries
 
@@ -43,6 +44,7 @@ These lanes need more real runtime wiring than a pure regression test, but they 
 The visible end-to-end lanes protect workflows where the real orchestration path matters, including:
 
 - permission prompt routing and user decision flow
+- permission semantics staying lockstep across local dialogs, worker forwarding, bridge replies, and hook-mediated approval outcomes
 - worker or remote approval forwarding
 - SSH or remote-control plumbing where local UI and remote execution are split
 - auth-proxy and transcript-adaptation behavior that spans transport boundaries

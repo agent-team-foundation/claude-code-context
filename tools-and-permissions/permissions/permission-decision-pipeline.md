@@ -17,6 +17,18 @@ Reconstruction should preserve two distinct stages:
 
 The policy result may also carry rewritten input, explanatory metadata, and persistence suggestions. Later stages must preserve those payloads.
 
+## One semantic contract across every surface
+
+Equivalent behavior should preserve one permission meaning for `allow`, `deny`, and `ask` across:
+
+- the interactive REPL path
+- headless or SDK-hosted execution
+- bridge or remote-session approval forwarding
+- worker-to-leader forwarded approvals
+- hook-mediated approval or rejection paths
+
+This is more than shared vocabulary. The same decision payload, rewritten input, and stop-or-continue semantics must survive every surface transition without being reinterpreted into a different local policy.
+
 ## Stage 1: static policy order
 
 The base permission engine evaluates in this order:
@@ -130,6 +142,12 @@ When the policy engine still returns `ask`, the runtime resolves it through a la
 
 Aborts and cancellations should resolve through this permission context instead of throwing uncontrolled exceptions through the turn loop.
 
+Equivalent behavior should also preserve:
+
+- externalized approval surfaces returning the same final `allow` or `deny` semantics as the local dialog path rather than inventing a second remote-only decision shape
+- hook-provided `allow` signals not skipping downstream deny or ask gates that still apply after the hook stage
+- any winning approval or denial path committing execution at most once, even if remote responses, hook completions, or local UI actions arrive close together
+
 ## Explanatory messaging
 
 User-facing approval prompts vary by reason.
@@ -153,3 +171,4 @@ Without this distinction, users cannot tell whether they are overriding their ow
 - **auto-mode deadloop**: repeated classifier denials never escalate to human review
 - **headless ambiguity**: a worker that cannot prompt neither aborts nor returns a deterministic deny
 - **explanation collapse**: every approval prompt looks the same and users cannot distinguish rule, hook, classifier, or path reasons
+- **surface skew**: REPL, headless, remote, or worker-forwarded approval paths interpret the same `allow` or `deny` result differently

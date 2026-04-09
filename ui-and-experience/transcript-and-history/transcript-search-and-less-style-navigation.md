@@ -1,7 +1,7 @@
 ---
 title: "Transcript Search and Less-Style Navigation"
 owners: []
-soft_links: [/ui-and-experience/shell-and-input/terminal-runtime-and-fullscreen-interaction.md, /ui-and-experience/dialogs-and-approvals/diff-dialog-and-turn-history-navigation.md, /ui-and-experience/feedback-and-notifications/interaction-feedback.md]
+soft_links: [/ui-and-experience/shell-and-input/terminal-runtime-and-fullscreen-interaction.md, /ui-and-experience/dialogs-and-approvals/diff-dialog-and-turn-history-navigation.md, /ui-and-experience/feedback-and-notifications/interaction-feedback.md, /reconstruction-guardrails/verification-and-native-test-oracles/test-lane-coverage-map.md]
 ---
 
 # Transcript Search and Less-Style Navigation
@@ -54,6 +54,18 @@ Equivalent behavior should preserve:
 - a committed query remaining active after manual scroll, so the next `n` or `N` can re-establish exact positioning without forcing the user to reopen `/`
 - wraparound protection preventing endless loops when every engine-level match turns out to be non-renderable or phantom after layout
 
+## The search index must follow rendered transcript text
+
+Equivalent behavior should preserve:
+
+- index text being derived from what transcript mode actually renders, not from model-facing serialization that may contain hidden wrappers, system reminders, or other non-visible payload text
+- tool-owned search extractors, when present, describing the transcript-visible rendering of a tool result rather than the internal block payload sent back to the model
+- the index excluding sentinel text that later renders as a different visible label, because counting the raw sentinel would create phantom hits
+- visibly rendered attachment-derived text, such as queued prompts or surfaced memory content, still entering the search index even when it did not originate as an ordinary chat bubble
+- unknown tool-result shapes being allowed to under-count rather than claim text that never renders on screen
+
+This is an important oracle boundary in the visible test posture: under-count is a tolerable approximation, but indexed-not-rendered text is a correctness bug because it breaks count-versus-highlight trust.
+
 ## Commit, cancel, resize, and transcript exit all diverge deliberately
 
 Equivalent behavior should preserve:
@@ -80,3 +92,5 @@ Equivalent behavior should preserve:
 - **stale highlight**: resize or manual scroll leaves the current-match marker painted on the wrong row
 - **dead query persistence**: a no-match commit keeps a badge and `n/N` state that can no longer navigate
 - **chrome self-match**: the search bar highlights its own query text and misreports the only visible match
+- **phantom index drift**: search counts text from hidden reminders, raw tool payload wrappers, or sentinel strings that the transcript never visibly renders
+- **visible-but-unsearchable content**: rendered queued prompts, memories, or tool summaries appear on screen but do not enter the index

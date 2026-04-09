@@ -66,6 +66,7 @@ Equivalent behavior should preserve:
 
 - the detector resetting the merged-settings cache exactly once before notifying subscribers
 - all notification paths, including programmatic ones, going through that same reset-and-emit function
+- a newly visible settings layer, especially remote managed settings, invalidating any previously merged snapshot that was computed while that layer was still absent
 - listeners reading fresh merged settings after notification instead of each listener defensively clearing the cache again
 - the architectural invariant that one settings notification should produce one fresh disk or cache read, not one re-read per subscriber
 
@@ -125,6 +126,7 @@ Equivalent behavior should preserve:
 
 - settings-change detector startup being deferred until after the earliest render-critical initialization, so watcher setup does not block first paint
 - remote managed settings loading beginning after core init enables safe config reading, with results applied later through hot reload when they arrive
+- early reads in headless, SDK, bridge, or command-dispatch setup not being allowed to permanently cache the "remote layer absent" view once that layer later becomes available
 - headless remote user-settings download starting early enough to overlap with MCP and tool setup, while still entering the same detector pipeline when applied
 - the first interactive mount checking whether a managed-settings race already changed permission availability before the subscriber existed
 - cleanup shutting down watchers, deletion timers, and machine-settings poll timers when the process disposes
@@ -149,6 +151,7 @@ Equivalent behavior should also preserve the boundary that some neighboring hot-
 - **false deletion**: delete-and-recreate writes are treated as real deletes and temporarily wipe settings from the live runtime
 - **hook-veto bypass**: config-change hooks report a blocking result, but the reload still lands in app state
 - **interactive-headless drift**: the TUI and headless SDK path stop sharing the same apply function and begin to diverge on permission, effort, or fast-mode behavior
+- **poisoned early read**: a headless or pre-action code path observes merged settings before remote managed settings become visible, and that stale snapshot survives after the overlay arrives
 - **permission-context drift**: settings JSON updates, but live permission rules or bypass-disable posture are not resynced
 - **env drift**: auth helpers or config-driven environment variables keep using stale values after settings.env changes
 - **startup race leak**: remote managed settings arrive before the interactive subscriber exists and a restricted mode, such as bypass disablement, never gets reconciled
