@@ -2,6 +2,7 @@
 title: "Test Framework Overview"
 owners: [bingran-you]
 soft_links:
+  - /reconstruction-guardrails/verification-and-native-test-oracles/real-cli-e2e-scenario-corpus.md
   - /reconstruction-guardrails/verification-and-native-test-oracles/test-runtime-mode-and-determinism.md
   - /reconstruction-guardrails/verification-and-native-test-oracles/test-environment-fixtures-and-ci-fail-closed-policy.md
   - /reconstruction-guardrails/verification-and-native-test-oracles/test-lane-coverage-map.md
@@ -19,6 +20,8 @@ soft_links:
 # Test Framework Overview
 
 The current Claude Code snapshot does not expose one self-contained `tests/` directory or runner manifest that answers everything. What it does expose is a layered testing architecture that spans runtime posture, fixtures, dedicated end-to-end harnesses, conformance-sensitive auth flows, and domain-owned contract oracles.
+
+This domain also keeps a live-observed black-box oracle set in [real-cli-e2e-scenario-corpus.md](real-cli-e2e-scenario-corpus.md). That corpus complements the source-snapshot-derived framework view here by recording what a real working CLI actually does when exercised through its public entrypoints.
 
 ## Confirmed layers
 
