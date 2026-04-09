@@ -2,6 +2,7 @@
 title: "Test Framework Overview"
 owners: [bingran-you]
 soft_links:
+  - /reconstruction-guardrails/verification-and-native-test-oracles/real-cli-e2e-scenario-corpus.md
   - /reconstruction-guardrails/verification-and-native-test-oracles/test-runtime-mode-and-determinism.md
   - /reconstruction-guardrails/verification-and-native-test-oracles/test-environment-fixtures-and-ci-fail-closed-policy.md
   - /reconstruction-guardrails/verification-and-native-test-oracles/test-lane-coverage-map.md
@@ -19,6 +20,8 @@ soft_links:
 # Test Framework Overview
 
 The current Claude Code snapshot does not expose one self-contained `tests/` directory or runner manifest that answers everything. What it does expose is a layered testing architecture that spans runtime posture, fixtures, dedicated end-to-end harnesses, conformance-sensitive auth flows, and domain-owned contract oracles.
+
+This domain also keeps a live-observed black-box oracle set in [real-cli-e2e-scenario-corpus.md](real-cli-e2e-scenario-corpus.md). That corpus complements the source-snapshot-derived framework view here by recording what a real working CLI actually does when exercised through its public entrypoints.
 
 ## Confirmed layers
 
@@ -66,6 +69,7 @@ The tree can safely claim:
 - there is a script-oriented entry layer, including at least one single-file lane
 - the product code is written to coexist with a Bun-flavored module-mocking environment
 - the visible framework depends on more than a generic "run tests" command
+- public CLI verification has to include the installed or packaged entrypoint path, not only raw source-module invocation, because wrapper/runtime dependency resolution can change dispatch and help behavior even when the underlying command implementation is nominally the same
 - a shared preload or reset layer exists to clean module state between same-shard tests
 - sharded execution exists, including at least one Windows-specific shard
 - coverage output exists as a generated artifact, even though the exact coverage driver and thresholds remain hidden

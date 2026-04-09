@@ -14,5 +14,6 @@ Use these leaves before adding any new knowledge:
 - **[rebuild-standard.md](rebuild-standard.md)** — The bar a node must clear to be useful for a clean-room implementation.
 - **[knowledge-lifecycle.md](knowledge-lifecycle.md)** — How extracted knowledge moves from observation to durable tree state, and how bad knowledge is detected.
 - **[rebuild-phasing.md](rebuild-phasing.md)** — Implementation order for a clean-room rebuild, including what must ship together.
+- **[verification-and-acceptance-strategy.md](verification-and-acceptance-strategy.md)** — How to prove a rewrite actually matches Claude Code using tests, state round-trips, and direct CLI comparison.
 - **[tree-expansion-strategy.md](tree-expansion-strategy.md)** — How this repository should deepen from high-level coverage into reconstruction-ready subsystem contracts over repeated passes.
 - **[verification-and-native-test-oracles/](verification-and-native-test-oracles/NODE.md)** — How cross-domain test framework knowledge, fixture oracles, and native-test-derived contract assets should be normalized without becoming a source mirror.
