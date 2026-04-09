@@ -32,6 +32,8 @@ A pending permission can be resolved by several channels:
 
 All of these must converge through the same single-winner guard.
 
+They must also preserve the same semantic outcomes. A bridge reply, hook decision, or leader-forwarded response cannot mean something weaker or stronger than the equivalent local allow or deny.
+
 ## Forwarding contracts
 
 Equivalent behavior should preserve distinct forwarding paths:
@@ -51,6 +53,7 @@ Once any resolver wins, the runtime should:
 - cancel sibling remote prompts where supported
 - clear classifier in-progress indicators
 - clear worker pending-request markers
+- prevent duplicate execution when a late remote or hook response arrives after the winning path already resumed the tool
 
 Without this, stale prompts or stale listeners can leak into later tool calls.
 
@@ -65,3 +68,4 @@ Late responses for unknown request IDs should be safely ignored. This includes m
 - **stale remote UI**: remote prompt stays open after local approval already executed
 - **worker dead-wait**: worker callback registers after sending request and misses fast leader reply
 - **abort desync**: abort path resolves locally but leaves forwarded requests active
+- **semantic split**: forwarded or hook-resolved approvals clear the prompt but do not behave like the normal local allow or deny path

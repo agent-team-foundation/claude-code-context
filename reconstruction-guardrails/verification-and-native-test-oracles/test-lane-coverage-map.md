@@ -44,6 +44,7 @@ These lanes need more real runtime wiring than a pure regression test, but they 
 The visible end-to-end lanes protect workflows where the real orchestration path matters, including:
 
 - permission prompt routing and user decision flow
+- permission semantics staying lockstep across local dialogs, worker forwarding, bridge replies, and hook-mediated approval outcomes
 - worker or remote approval forwarding
 - SSH or remote-control plumbing where local UI and remote execution are split
 - auth-proxy and transcript-adaptation behavior that spans transport boundaries

@@ -40,6 +40,7 @@ Across those families, the shared contract preserves:
 - hash-based fixture naming from normalized inputs
 - replay from a configurable fixture root
 - rehydration back into runtime-shaped results rather than raw text blobs
+- replayed results still participating in the same downstream usage, cost, or accounting paths that live responses would drive
 - input dehydration and path normalization so equivalent tests keep hitting the same recordings across machines
 
 ## CI must fail closed on missing recordings
@@ -73,6 +74,7 @@ Equivalent behavior should preserve:
 - placeholder treatment for incidental UUIDs, timestamps, counters, and other unstable runtime identifiers
 - avoidance of unnecessary transcript-shape churn in replay-sensitive flows
 - deterministic identity or placeholder handling where raw runtime IDs would otherwise destabilize recordings
+- fresh per-run runtime identity where reused recorded IDs would otherwise cause resume or storage layers to treat distinct replayed responses as duplicates
 
 The visible testing architecture therefore depends on transcript semantics, not only on a file cache.
 
@@ -93,3 +95,5 @@ If a clean-room rebuild keeps external API-backed tests, it should preserve all 
 - **machine-bound fixtures**: path, cwd, or tempdir differences cause needless cache misses
 - **silent CI rewrite**: missing fixtures regenerate during CI and hide behavioral drift
 - **hash instability**: transcript or input normalization changes break recordings even when behavior did not meaningfully change
+- **usage-blind replay**: fixtures reproduce visible output but stop exercising the cost or usage paths that live responses update
+- **resume dedupe pollution**: recorded identities are replayed too literally and later resume or storage layers collapse distinct runs into one response
