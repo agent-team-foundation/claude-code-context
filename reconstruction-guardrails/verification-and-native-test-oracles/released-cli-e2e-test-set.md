@@ -21,13 +21,13 @@ soft_links:
 
 Source-derived contracts are still the primary clean-room evidence for this tree, but they are not enough on their own for end-to-end rebuild work. A released CLI can be exercised directly, and its public runtime behavior becomes a second kind of oracle: not hidden implementation, but what a real user actually experiences.
 
-This leaf captures that public-runtime oracle set from a local macOS run of the shipped `claude` CLI on April 9, 2026.
+This leaf captures that public-runtime oracle set from a local macOS run of the shipped `claude` CLI on April 9, 2026. The current authoritative released binary on this machine reported version `2.1.98 (Claude Code)`.
 
 ## Snapshot and evidence boundary
 
-Final authoritative evidence in this leaf comes from the native Mach-O binary at `~/.local/bin/claude`, which reported version `2.1.96 (Claude Code)`.
+Final authoritative evidence in this leaf comes from the native Mach-O binary at `~/.local/bin/claude`, which now reports version `2.1.98 (Claude Code)`.
 
-An earlier pass on this machine discovered an older `2.1.89` rewrite-backed shim in `~/.local/share/claude/versions/2.1.89`. That shim is not the right oracle for the shipped native CLI. Do not treat shim-era results as authoritative for released behavior.
+Earlier same-day passes on this machine also surfaced a `2.1.96` native build and an older `2.1.89` rewrite-backed shim in `~/.local/share/claude/versions/2.1.89`. Those older identities are useful only as historical nuance. Do not treat shim-era results as authoritative for the current shipped native CLI.
 
 The test set below records only public behavior that was directly observed from the shipped CLI:
 
@@ -62,12 +62,12 @@ The practical reconstruction rule is that provider-backed local testing on this 
 
 ## Provider-backed local root-flag matrix
 
-The table below is the practical E2E matrix for the `claude --help` root surface as observed on native `2.1.96`.
+The table below is the practical E2E matrix for the `claude --help` root surface as observed on the current native release family.
 
 | Root surface | Status | Observed contract |
 | --- | --- | --- |
 | `--help` | `PASS` | Enumerated the public root flags and command families. |
-| `--version` | `PASS` | Reported `2.1.96 (Claude Code)`. |
+| `--version` | `PASS` | Reported `2.1.98 (Claude Code)`. |
 | `-p, --print` | `PASS` | Headless one-shot prompt path worked in both text and JSON envelopes. |
 | `--bare` | `PASS` | Reduced startup surface and still worked with Foundry-backed prompts. |
 | `--model` | `PASS` | `--model sonnet` resolved and returned successful prompts. |
