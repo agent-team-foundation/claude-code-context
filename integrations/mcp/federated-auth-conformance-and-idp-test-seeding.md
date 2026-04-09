@@ -6,6 +6,7 @@ soft_links:
   - /integrations/mcp/server-contract.md
   - /platform-services/auth-config-and-policy.md
   - /reconstruction-guardrails/verification-and-native-test-oracles/test-seams-reset-hooks-and-injected-dependencies.md
+  - /reconstruction-guardrails/verification-and-native-test-oracles/e2e-harness-reality-boundaries.md
 ---
 
 # Federated Auth Conformance and IdP Test Seeding

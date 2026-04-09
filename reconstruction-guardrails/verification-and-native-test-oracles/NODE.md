@@ -16,7 +16,10 @@ This subdomain captures cross-cutting knowledge about how the observed Claude Co
 Relevant leaves:
 
 - **[test-framework-overview.md](test-framework-overview.md)** — The layered shape of the current test system, including the visible tier model and the boundary between confirmed and inferred runner details.
+- **[test-runtime-mode-and-determinism.md](test-runtime-mode-and-determinism.md)** — How `NODE_ENV=test` behaves as a supported runtime posture, including in-memory config behavior, reduced side effects, and deterministic test-only branches.
 - **[test-environment-fixtures-and-ci-fail-closed-policy.md](test-environment-fixtures-and-ci-fail-closed-policy.md)** — How test posture suppresses side effects, how fixture replay works, and why missing recordings fail closed in CI.
+- **[test-lane-coverage-map.md](test-lane-coverage-map.md)** — Which subsystem contracts are guarded by fast regression, integration, end-to-end, conformance, and compatibility lanes, without overclaiming the hidden runner layout.
+- **[e2e-harness-reality-boundaries.md](e2e-harness-reality-boundaries.md)** — Which end-to-end harnesses may shorten setup but still need to preserve real permission, transport, auth-proxy, and credential-cache paths.
 - **[test-seams-reset-hooks-and-injected-dependencies.md](test-seams-reset-hooks-and-injected-dependencies.md)** — The narrow seams the product uses to keep hard behaviors testable without turning the whole runtime into a debug harness.
 - **[native-test-derived-asset-provenance-and-acceptance-rules.md](native-test-derived-asset-provenance-and-acceptance-rules.md)** — How native test knowledge should be normalized into clean-room contract assets and how those assets should be linked back to their owning domains.
 - **[evidence-levels-and-missing-artifacts.md](evidence-levels-and-missing-artifacts.md)** — What this source snapshot proves, what it only strongly suggests, and which missing artifacts still block exact runner-level reproduction.
