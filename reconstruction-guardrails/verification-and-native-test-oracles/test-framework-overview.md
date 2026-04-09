@@ -34,6 +34,17 @@ The snapshot provides direct signals for all of these verification layer familie
 - module-state isolation through exported reset, seed, and cleanup helpers for caches, watchers, registries, and other sticky services
 - domain-owned contract assets derived from upstream-native tests
 
+## Visible entry and layout anchors
+
+Even without the hidden top-level manifest, the snapshot still exposes several concrete anchors for the test framework:
+
+- a script-wrapped single-file compatibility path, which names `test/utils/settings/backward-compatibility.test.ts` directly
+- a Bun-flavored test environment for at least part of the suite, because product-owned comments describe behavior under `bun test`
+- a shared `test/preload.ts` setup layer that clears memoized hooks, plugin registries, and other sticky caches between tests that share one process or shard
+- a visible mix of family naming conventions: `test/utils/...`, `.test.ts`, `.test.tsx`, `.int.test.ts`, and non-`test/utils` families such as daemon, shell, task, and registry-focused contracts
+
+These anchors do not reveal the full upstream file tree, but they do prove that the framework is not one undifferentiated runner with ad hoc cases.
+
 ## Stable tier model
 
 A faithful rebuild should preserve these tiers as distinct concerns:
@@ -52,9 +63,12 @@ The subsystem mapping behind those tiers is spelled out in [test-lane-coverage-m
 
 The tree can safely claim:
 
-- there is a script-oriented entry layer
+- there is a script-oriented entry layer, including at least one single-file lane
 - the product code is written to coexist with a Bun-flavored module-mocking environment
 - the visible framework depends on more than a generic "run tests" command
+- a shared preload or reset layer exists to clean module state between same-shard tests
+- sharded execution exists, including at least one Windows-specific shard
+- coverage output exists as a generated artifact, even though the exact coverage driver and thresholds remain hidden
 - the end-to-end harnesses that are visible are designed to preserve real approval, transport, and credential paths rather than UI-only fakes
 
 The tree should not overclaim:
