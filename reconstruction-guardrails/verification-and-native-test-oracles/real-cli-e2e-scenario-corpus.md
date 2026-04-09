@@ -131,6 +131,7 @@ Soft assertions should avoid overfitting to:
 
 - Entry: in a brand-new directory, run one headless prompt with `--no-session-persistence`, then immediately run `claude -p -c ...`.
 - Expect: the second command behaves like no saved session exists for that directory.
+- Observed reality: that non-persistent mode only severs local session save and later continuation semantics. It does not imply a cold provider-side prompt cache. Repeating the same headless command, even with an explicit `--session-id`, can still shift usage from cache-creation into cache-read fields across independent invocations.
 - Failure signal: ephemeral sessions still leak into the resume index or can be discovered by `-c`.
 - Why it matters: automation-grade ephemeral runs need a true non-persistent mode.
 
