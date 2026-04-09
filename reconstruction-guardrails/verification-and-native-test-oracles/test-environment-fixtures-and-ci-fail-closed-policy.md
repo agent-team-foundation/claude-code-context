@@ -37,8 +37,11 @@ Equivalent behavior should preserve:
 Across those families, the shared contract preserves:
 
 - explicit activation in test posture
+- JSON recordings under a `fixtures/` subtree
 - hash-based fixture naming from normalized inputs
+- more than one naming family, including generic name-plus-hash fixtures, transcript-derived API replay fixtures, and dedicated token-count fixtures
 - replay from a configurable fixture root
+- fixture roots coming from explicit test configuration rather than from hardcoded machine-local paths
 - rehydration back into runtime-shaped results rather than raw text blobs
 - replayed results still participating in the same downstream usage, cost, or accounting paths that live responses would drive
 - input dehydration and path normalization so equivalent tests keep hitting the same recordings across machines
@@ -84,6 +87,7 @@ If a clean-room rebuild keeps external API-backed tests, it should preserve all 
 
 - a dedicated test posture
 - multiple fixture families when different API-adjacent callers need different oracle shapes
+- a configurable fixture root and committed `fixtures/` subtree rather than machine-local scratch files
 - deterministic fixture hashing and hydration
 - fail-closed CI behavior for missing recordings
 - explicit recording refresh

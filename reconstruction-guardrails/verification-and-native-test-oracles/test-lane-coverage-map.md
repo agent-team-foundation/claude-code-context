@@ -63,6 +63,18 @@ The visible compatibility lanes protect durable public formats rather than trans
 
 The clearest current example is settings evolution, where additive schema change, invalid-field preservation, and backward compatibility must remain guarded even as the runtime evolves.
 
+## Visible family anchors
+
+The snapshot does not expose the full test tree, but it does expose representative names that anchor the lane map:
+
+- fast regression or fidelity anchors such as `test/utils/transcriptSearch.renderFidelity.test.tsx`, `toolSearchText.test.tsx`, `test/utils/powershell/dangerousCmdlets.test.ts`, `bash/prefix.test.ts`, `spawn.test.ts`, `validate.test.ts`, `officialRegistry.test.ts`, `backgroundShells.test.ts`, and `diskOutput.test.ts`
+- an integration anchor in `managedSettingsHeadless.int.test.ts`
+- a compatibility anchor in `test/utils/settings/backward-compatibility.test.ts`
+- a sandbox-boundary anchor in `test/utils/sandbox/webfetch-preapproved-separation.test.ts`
+- end-to-end permission, bridge, and remote-transport lanes being exposed more through harness-capable product surfaces than through visible test filenames in this snapshot
+
+These names are evidence anchors, not a claim that the full upstream test tree is now visible.
+
 ## Reconstruction rule
 
 A faithful rebuild should preserve:
