@@ -69,6 +69,7 @@ The tree can safely claim:
 - there is a script-oriented entry layer, including at least one single-file lane
 - the product code is written to coexist with a Bun-flavored module-mocking environment
 - the visible framework depends on more than a generic "run tests" command
+- public CLI verification has to include the installed or packaged entrypoint path, not only raw source-module invocation, because wrapper/runtime dependency resolution can change dispatch and help behavior even when the underlying command implementation is nominally the same
 - a shared preload or reset layer exists to clean module state between same-shard tests
 - sharded execution exists, including at least one Windows-specific shard
 - coverage output exists as a generated artifact, even though the exact coverage driver and thresholds remain hidden
