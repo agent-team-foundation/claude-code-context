@@ -203,3 +203,13 @@ Equivalent behavior should preserve:
 - **state-loss on churn**: unrelated settings reload wipes a session-only effort or fast-mode nuance that should have remained live
 - **teammate color leak**: swarm teammates can self-assign colors and diverge from leader-managed identity
 - **output-style split-brain**: the deprecated slash command pretends to mutate the current session even though the runtime only honors output-style changes on the next launch
+
+## Test Design
+
+In the observed source, product-surface behavior is verified through command-focused integration tests and CLI-visible end-to-end checks.
+
+Equivalent coverage should prove:
+
+- parsing, dispatch, flag composition, and mode selection preserve the public contract for this surface
+- downstream runtime, tool, and session services receive the correct shaping when this surface is used from interactive and headless entrypoints
+- user-visible output, exit behavior, and help or error routing remain correct through the packaged CLI path rather than only direct module calls

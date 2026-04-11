@@ -65,3 +65,13 @@ This is the load-bearing logic that makes the companion feel like a coherent par
 - **bubble clipping**: fullscreen mode renders the bubble inside a clipped region and silently hides the companion's reaction text
 - **assistant-companion cross-talk**: the model never receives the hidden companion intro and keeps narrating over direct companion interactions
 - **mute split-brain**: the sprite disappears but the hidden companion attachment or footer affordance keeps acting as if the companion were still active
+
+## Test Design
+
+In the observed source, background and teamwork UI behavior is verified through state-to-view regressions, live-update integration tests, and multi-agent interaction scenarios.
+
+Equivalent coverage should prove:
+
+- row, detail, summary, and status-derivation logic render the same meaning from task and teammate state snapshots
+- polling, mailbox updates, progress streaming, and navigation state stay coherent across live runtime changes and reset hooks between cases
+- users can still follow work, inspect details, and switch teammate context through the real interactive surfaces without stale or duplicated UI state

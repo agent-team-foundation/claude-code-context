@@ -170,3 +170,13 @@ Equivalent behavior should preserve:
 - **completion rivalry**: placeholder suggestions, ghost text, dropdown suggestions, and footer navigation all compete for the same keystroke without a stable priority order
 - **layout thrash**: large pastes or unstable suggestion widths force repeated terminal reflow and repaint churn
 - **busy-submit duplication**: direct submit and queued submit diverge, so images, references, or slash-command handling behave differently depending on whether the session was busy
+
+## Test Design
+
+In the observed source, shell-and-input behavior is verified through deterministic key-sequence regressions, store-backed integration coverage, and interactive terminal end-to-end checks.
+
+Equivalent coverage should prove:
+
+- input reducers, keybinding resolution, history state, and prompt composition preserve the invariants documented above
+- queue, history, suggestion, and terminal-runtime coupling behave correctly with real stores, temp files, and reset hooks between cases
+- multiline entry, fullscreen behavior, pickers, and suggestion surfaces work through the packaged interactive shell instead of only through isolated render helpers

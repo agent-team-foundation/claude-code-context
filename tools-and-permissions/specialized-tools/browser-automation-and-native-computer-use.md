@@ -126,3 +126,13 @@ Equivalent behavior should preserve:
 - **dialog deadlock**: native computer-use approval leaves prompt input active or cannot be aborted, trapping the session mid-tool
 - **lock leak**: the exclusive desktop lock survives a completed or aborted turn and blocks the next session from acquiring computer use
 - **cleanup drift**: hidden apps or global Escape hooks survive beyond the computer-use turn and affect unrelated later work
+
+## Test Design
+
+In the observed source, specialized-tool behavior is verified through narrow schema regressions, subsystem integration tests, and surface-realistic end-to-end probes.
+
+Equivalent coverage should prove:
+
+- capability gates, input validation, and refusal rules remain stable for the edge cases that this tool family is expected to handle
+- each tool still works correctly at the real subsystem boundary it touches, including browser, web, interview, or native-control style integrations when applicable
+- ordinary tool-pool invocation preserves the visible success, rejection, contention, and cleanup behavior without relying on bespoke test backdoors

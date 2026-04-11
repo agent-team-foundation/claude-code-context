@@ -75,3 +75,13 @@ The important contract is that these effects happen from state diffs, not from s
 - **routing dead-end**: a viewed worker disappears and input keeps targeting a non-existent recipient
 - **metadata leak**: internal-only permission or planning states surface verbatim to remote clients
 - **stale persistence**: settings change in memory but auth, environment, or model override caches are not refreshed
+
+## Test Design
+
+In the observed source, runtime-state behavior is verified through reducer-style regressions, hydration and projection integration tests, and mode-sensitive acceptance flows.
+
+Equivalent coverage should prove:
+
+- state transitions, build-profile resolution, and failure handling preserve the explicit invariants documented in this leaf
+- startup hydration, reload, persistence, and cross-surface projection avoid stale-state bleed across services and UI consumers
+- the visible gating or mode behavior remains stable after restart, reload, reconnect, or profile changes

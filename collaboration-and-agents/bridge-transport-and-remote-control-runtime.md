@@ -126,3 +126,13 @@ Equivalent behavior should preserve:
 - **echo re-execution**: outbound or inbound UUID dedup is missing, causing the runtime to re-inject its own traffic or duplicate replayed prompts
 - **teardown loss**: archive or result delivery is attempted after close, so the session never records a clean terminal event and may linger as stale remote work
 - **pointer drift**: reconnect or periodic pointer refresh writes the wrong session or environment pair, making the next resume attach to an archived session or the wrong environment
+
+## Test Design
+
+In the observed source, collaboration behavior is verified through protocol and state-machine regressions, bridge-aware integration coverage, and multi-agent or remote end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- agent lifecycle, routing, mailbox, subscription, and control-state transitions preserve the contracts documented in this leaf
+- bridge transport, projection, permission forwarding, reconnect, and transcript continuity behave correctly with resettable peers and deterministic state seeds
+- observable teamwork behavior remains correct when users drive the product through real teammate, pane, or remote-session surfaces

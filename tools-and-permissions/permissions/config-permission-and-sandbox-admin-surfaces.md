@@ -61,3 +61,13 @@ When mutation is allowed, equivalent behavior should support at least a narrow p
 - **write-without-reload**: persisted config changes do not update the live runtime
 - **unsafe sandbox mutation**: users can change local sandbox behavior despite policy lock
 - **retry dead-end**: denied permission history is visible but cannot be promoted back into a fresh attempt
+
+## Test Design
+
+In the observed source, permission behavior is verified through decision-matrix regressions, prompt-routing integration coverage, and approval-focused end-to-end flows.
+
+Equivalent coverage should prove:
+
+- mode resolution, rule precedence, and fail-closed safety edges choose the expected permission outcome for each tool request
+- prompt routing, forwarding, sandbox selection, and persisted rule loading behave correctly across foreground, worker, and remote-capable contexts
+- visible ask, grant, deny, cancel, and queue-advance behavior still flows through the real permission shell rather than a test-only shortcut

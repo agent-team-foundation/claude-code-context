@@ -81,3 +81,13 @@ Equivalent behavior should preserve:
 - **unsupported-stop lie**: callers report that a task was stopped even though no registered handler existed for that family
 - **premature parse close**: a nonterminal task-status payload is misread as terminal and closes the task too early
 - **terminal drift**: a task that already reached terminal state still accepts writes, injected prompts, or fresh progress updates
+
+## Test Design
+
+In the observed source, task behavior is verified through lifecycle regressions, registry-backed integration tests, and concurrency-sensitive foreground or background scenarios.
+
+Equivalent coverage should prove:
+
+- state transitions for launch, running, streaming, cancellation, completion, and failure remain deterministic and resettable between cases
+- task registries, monitor families, shared-control events, and persisted output compose correctly across main-session and worker contexts
+- users can still observe, foreground, stop, and inspect task output through the same surfaces they use in normal interactive or automated runs

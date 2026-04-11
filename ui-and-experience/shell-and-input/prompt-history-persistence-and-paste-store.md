@@ -168,3 +168,13 @@ Equivalent behavior should preserve very large pasted text being compacted into 
 - **surface drift**: Up-arrow, incremental search, and modal picker all read different history semantics by accident instead of by design
 - **mode bleed**: bash-only history traversal leaks ordinary prompt entries into the same navigation run
 - **recall thrash**: rapid history navigation re-reads disk repeatedly instead of sharing chunked loads
+
+## Test Design
+
+In the observed source, shell-and-input behavior is verified through deterministic key-sequence regressions, store-backed integration coverage, and interactive terminal end-to-end checks.
+
+Equivalent coverage should prove:
+
+- input reducers, keybinding resolution, history state, and prompt composition preserve the invariants documented above
+- queue, history, suggestion, and terminal-runtime coupling behave correctly with real stores, temp files, and reset hooks between cases
+- multiline entry, fullscreen behavior, pickers, and suggestion surfaces work through the packaged interactive shell instead of only through isolated render helpers

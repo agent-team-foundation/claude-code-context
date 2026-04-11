@@ -84,3 +84,13 @@ Equivalent behavior should preserve:
 - **transport over-coupling**: notifier throws into UI call paths and interrupts turn completion
 - **wrong terminal fallback**: Apple Terminal behavior ignores profile bell semantics and either spams sound or never surfaces alerts
 - **channel drift**: explicit user channel preference is ignored and runtime always uses auto detection
+
+## Test Design
+
+In the observed source, feedback and notification behavior is verified through event-to-message regressions, runtime-backed integration tests, and terminal-visible interaction scenarios.
+
+Equivalent coverage should prove:
+
+- message selection, prioritization, suppression, and summarization rules preserve the user-facing semantics documented here
+- status lines, hook feedback, away summaries, and notification stacks stay in sync with real runtime events and reset cleanly between cases
+- the observable terminal text and ordering remain correct for users rather than only the internal event log or analytics stream

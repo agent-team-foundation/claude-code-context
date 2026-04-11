@@ -75,3 +75,13 @@ A clean-room rebuild should preserve:
 - **branch collapse**: distinct warning, overage, model-specific, or disabled-credit states all map to one generic mock
 - **header drift**: mock responses no longer exercise the same downstream parsing branches as live quota data
 - **stale residue**: one scenario leaves behind timing or claim state that corrupts the next test
+
+## Test Design
+
+In the observed source, platform-service behavior is verified through sequencing-sensitive integration tests, deterministic state regressions, and CLI-visible service flows.
+
+Equivalent coverage should prove:
+
+- config resolution, policy gates, persistence, and service startup ordering preserve the contracts and failure handling described above
+- provider-backed or OS-bound branches use fixtures, seeded stores, or narrow seams so auth, update, telemetry, and trust behavior stays reproducible
+- users still encounter the expected startup, settings, trust, diagnostics, and account-state behavior through the real CLI surface

@@ -74,3 +74,13 @@ Cached microcompact state is reset after compaction and after time-based content
 - **duplicate deletion refs**: repeated deletes in pinned/new blocks create API instability
 - **false boundary accounting**: boundary emitted without real server-side deleted-token delta
 - **stale-state deletions**: time-based content mutation without cached-MC reset
+
+## Test Design
+
+In the observed source, memory and context behavior is verified through deterministic transformation regressions, persistence-aware integration tests, and continuity-focused conversation scenarios.
+
+Equivalent coverage should prove:
+
+- selection, compaction, extraction, and invalidation rules preserve the invariants and bounded-resource behavior documented above
+- cache state, memory layers, session persistence, and rehydration paths compose correctly across resume, compact, and recovery flows
+- visible context continuity still matches the product contract when deterministic fixtures or replay replace live upstream variability

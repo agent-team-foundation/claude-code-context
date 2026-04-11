@@ -53,3 +53,13 @@ Equivalent behavior should preserve:
 - **dead scheduler flag**: schedule creation succeeds but never enables the local watcher loop that actually fires tasks
 - **ownership leak**: teammate-scoped list or delete paths can view or mutate another agent's scheduled jobs
 - **gate-mismatch failure**: disabling durable persistence turns valid durable requests into hard validation errors instead of runtime downgrade to session-only
+
+## Test Design
+
+In the observed source, agent and task-control behavior is verified through tool-contract regressions, shared-state integration tests, and interactive or automation control scenarios.
+
+Equivalent coverage should prove:
+
+- input shaping, launch routing, legacy-bridge rules, and control semantics stay aligned across the tool contracts described here
+- shared team or task state, forwarded control, and scheduling boundaries behave correctly across main sessions, workers, and delegated flows
+- users and clients can still spawn, steer, stop, list, and inspect work through the same real control surfaces the product exposes

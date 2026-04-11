@@ -69,3 +69,13 @@ Late responses for unknown request IDs should be safely ignored. This includes m
 - **worker dead-wait**: worker callback registers after sending request and misses fast leader reply
 - **abort desync**: abort path resolves locally but leaves forwarded requests active
 - **semantic split**: forwarded or hook-resolved approvals clear the prompt but do not behave like the normal local allow or deny path
+
+## Test Design
+
+In the observed source, permission behavior is verified through decision-matrix regressions, prompt-routing integration coverage, and approval-focused end-to-end flows.
+
+Equivalent coverage should prove:
+
+- mode resolution, rule precedence, and fail-closed safety edges choose the expected permission outcome for each tool request
+- prompt routing, forwarding, sandbox selection, and persisted rule loading behave correctly across foreground, worker, and remote-capable contexts
+- visible ask, grant, deny, cancel, and queue-advance behavior still flows through the real permission shell rather than a test-only shortcut

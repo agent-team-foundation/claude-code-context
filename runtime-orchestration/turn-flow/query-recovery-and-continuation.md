@@ -139,3 +139,13 @@ If the model never produced a valid assistant response, the runtime should skip 
 - **fallback corruption**: a model fallback leaves behind tool results tied to abandoned tool IDs
 - **continuation recap drift**: output-limit recovery restarts the answer instead of continuing the same thought
 - **diminishing-return churn**: token-budget continuation keeps nudging after the turn has stopped adding meaningful new output
+
+## Test Design
+
+In the observed source, turn-flow behavior is verified through a mix of deterministic module tests, resume-sensitive integration coverage, and CLI-visible end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- pre-query mutation, continuation branches, and typed terminal outcomes stay stable under test posture
+- tool results, compaction, queued-command replay, and transcript persistence still compose correctly inside one logical turn
+- interactive and structured-I/O paths surface the same visible outcome when interruption, permission denial, or recovery branches occur

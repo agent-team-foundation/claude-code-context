@@ -65,3 +65,13 @@ Equivalent behavior should preserve:
 - **sleep-loop drift**: shell tools allow naive top-level polling loops instead of steering users toward explicit background work or the monitor tool
 - **orphan watchers**: worker teardown forgets monitor-MCP or shell-monitor cleanup and leaves long-lived watch processes behind
 - **renderer coupling**: missing specialized monitor UI breaks permission approval or detail inspection instead of degrading to the generic path
+
+## Test Design
+
+In the observed source, task behavior is verified through lifecycle regressions, registry-backed integration tests, and concurrency-sensitive foreground or background scenarios.
+
+Equivalent coverage should prove:
+
+- state transitions for launch, running, streaming, cancellation, completion, and failure remain deterministic and resettable between cases
+- task registries, monitor families, shared-control events, and persisted output compose correctly across main-session and worker contexts
+- users can still observe, foreground, stop, and inspect task output through the same surfaces they use in normal interactive or automated runs

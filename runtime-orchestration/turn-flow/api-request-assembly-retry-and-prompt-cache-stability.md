@@ -220,3 +220,13 @@ Without this, long-lived sessions either wedge during backend trouble or leak me
   accidental prompt drift instead of expected baseline resets
 - **retry amplification**: background or auxiliary calls retry aggressively during overload and worsen service pressure
 - **fallback resource leaks**: failed streaming attempts keep sockets or native buffers alive after recovery
+
+## Test Design
+
+In the observed source, turn-flow behavior is verified through a mix of deterministic module tests, resume-sensitive integration coverage, and CLI-visible end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- pre-query mutation, continuation branches, and typed terminal outcomes stay stable under test posture
+- tool results, compaction, queued-command replay, and transcript persistence still compose correctly inside one logical turn
+- interactive and structured-I/O paths surface the same visible outcome when interruption, permission denial, or recovery branches occur

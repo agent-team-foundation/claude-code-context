@@ -73,3 +73,13 @@ Equivalent behavior should preserve:
 - **phase confusion**: grace-period deferral and post-grace enforcement are swapped
 - **domain-exclusion leak**: users who must stay opted out are shown a writable toggle
 - **forced-flow regression**: `/privacy-settings` inherits startup reminder suppression and refuses to open when explicitly requested
+
+## Test Design
+
+In the observed source, platform-service behavior is verified through sequencing-sensitive integration tests, deterministic state regressions, and CLI-visible service flows.
+
+Equivalent coverage should prove:
+
+- config resolution, policy gates, persistence, and service startup ordering preserve the contracts and failure handling described above
+- provider-backed or OS-bound branches use fixtures, seeded stores, or narrow seams so auth, update, telemetry, and trust behavior stays reproducible
+- users still encounter the expected startup, settings, trust, diagnostics, and account-state behavior through the real CLI surface

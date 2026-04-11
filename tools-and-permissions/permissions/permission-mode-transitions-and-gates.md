@@ -117,3 +117,13 @@ This is the bridge between multi-agent execution and one shared approval UX.
 - **gate race**: an asynchronous availability check reverts a user's newer mode choice
 - **silent downgrade**: leaving automatic mode discards stripped rules instead of restoring them
 - **external leakage**: worker-only internal mode names surface into remote metadata or persisted defaults
+
+## Test Design
+
+In the observed source, permission behavior is verified through decision-matrix regressions, prompt-routing integration coverage, and approval-focused end-to-end flows.
+
+Equivalent coverage should prove:
+
+- mode resolution, rule precedence, and fail-closed safety edges choose the expected permission outcome for each tool request
+- prompt routing, forwarding, sandbox selection, and persisted rule loading behave correctly across foreground, worker, and remote-capable contexts
+- visible ask, grant, deny, cancel, and queue-advance behavior still flows through the real permission shell rather than a test-only shortcut

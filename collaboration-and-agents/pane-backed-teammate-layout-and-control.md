@@ -78,3 +78,13 @@ Equivalent behavior should preserve:
 - **dead-anchor drift**: native pane creation keeps targeting a stale session and stops being able to spawn new workers
 - **orphaned pane**: team metadata is deleted but the actual pane keeps running after leader shutdown
 - **capability lie**: UI exposes hide or show actions on a backend that cannot actually park panes safely
+
+## Test Design
+
+In the observed source, collaboration behavior is verified through protocol and state-machine regressions, bridge-aware integration coverage, and multi-agent or remote end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- agent lifecycle, routing, mailbox, subscription, and control-state transitions preserve the contracts documented in this leaf
+- bridge transport, projection, permission forwarding, reconnect, and transcript continuity behave correctly with resettable peers and deterministic state seeds
+- observable teamwork behavior remains correct when users drive the product through real teammate, pane, or remote-session surfaces

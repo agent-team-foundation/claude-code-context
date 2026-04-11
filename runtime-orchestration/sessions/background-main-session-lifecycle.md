@@ -114,3 +114,13 @@ The runtime should:
 - **double completion**: a foregrounded task still emits a model-facing completion notification
 - **scope leakage**: background task loses its agent-scoped caches or skill state during `/clear`
 - **identity collapse**: main-session work is reconstructed as an ordinary subagent task and loses its distinct routing or notification behavior
+
+## Test Design
+
+In the observed source, session behavior is verified through persistence-focused integration tests, deterministic state-shaping regressions, and resume-oriented end-to-end flows.
+
+Equivalent coverage should prove:
+
+- identifiers, checkpoints, artifacts, and persisted metadata survive restarts, forks, rewinds, and discovery scans without state drift
+- storage, attachment, and remote-restoration paths compose correctly with the runtime services that read or mutate session state
+- visible continue, resume, fork, restore, and sharing behavior matches the packaged CLI and remote surfaces rather than only direct module calls

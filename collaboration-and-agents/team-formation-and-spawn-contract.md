@@ -71,3 +71,13 @@ Equivalent behavior should preserve:
 - **double first prompt**: an in-process teammate receives its initial instructions both directly and through the mailbox
 - **orphaned team state**: the team file is deleted or cleared in memory while panes or task rows keep running
 - **unsafe teardown**: cleanup removes a team whose non-lead members still appear active, leaving live workers with no durable coordination state
+
+## Test Design
+
+In the observed source, collaboration behavior is verified through protocol and state-machine regressions, bridge-aware integration coverage, and multi-agent or remote end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- agent lifecycle, routing, mailbox, subscription, and control-state transitions preserve the contracts documented in this leaf
+- bridge transport, projection, permission forwarding, reconnect, and transcript continuity behave correctly with resettable peers and deterministic state seeds
+- observable teamwork behavior remains correct when users drive the product through real teammate, pane, or remote-session surfaces

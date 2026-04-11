@@ -172,3 +172,13 @@ Without this distinction, users cannot tell whether they are overriding their ow
 - **headless ambiguity**: a worker that cannot prompt neither aborts nor returns a deterministic deny
 - **explanation collapse**: every approval prompt looks the same and users cannot distinguish rule, hook, classifier, or path reasons
 - **surface skew**: REPL, headless, remote, or worker-forwarded approval paths interpret the same `allow` or `deny` result differently
+
+## Test Design
+
+In the observed source, permission behavior is verified through decision-matrix regressions, prompt-routing integration coverage, and approval-focused end-to-end flows.
+
+Equivalent coverage should prove:
+
+- mode resolution, rule precedence, and fail-closed safety edges choose the expected permission outcome for each tool request
+- prompt routing, forwarding, sandbox selection, and persisted rule loading behave correctly across foreground, worker, and remote-capable contexts
+- visible ask, grant, deny, cancel, and queue-advance behavior still flows through the real permission shell rather than a test-only shortcut

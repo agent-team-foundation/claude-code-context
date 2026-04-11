@@ -22,3 +22,13 @@ The transport and rendering may vary by surface, but the following must stay ali
 - session identity and resume behavior
 - permission and trust decisions
 - user-understandable feedback for progress, errors, and approvals
+
+## Test Design
+
+In the observed source, client-integration behavior is verified through adapter regressions, transport-aware integration tests, and public-surface end-to-end flows.
+
+Equivalent coverage should prove:
+
+- message shaping, history or state projection, and surface-specific envelope rules stay stable across the client contracts described here
+- auth proxying, environment selection, reconnect, and remote-session coordination behave correctly at the real process or transport boundary
+- packaged client entrypoints still expose the same visible behavior as direct source invocation, especially for structured I/O and remote viewers

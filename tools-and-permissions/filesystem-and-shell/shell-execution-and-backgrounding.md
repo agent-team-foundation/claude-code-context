@@ -114,3 +114,13 @@ PowerShell preserves one extra continuation behavior: when a conversational inte
 - **completion race leak**: the user sees both a completed result and a redundant background-task notification
 - **false concurrency**: a shell command is treated as overlap-safe even though its read-only heuristic was only partial
 - **collapsed mislabeling**: mixed read-write pipelines get summarized like harmless reads
+
+## Test Design
+
+In the observed source, filesystem and shell behavior is verified through deterministic parser regressions, tempdir-backed integration tests, and safety-oriented command scenarios.
+
+Equivalent coverage should prove:
+
+- command parsing, classifier shaping, path resolution, and edit semantics preserve the contracts and fail-closed rules documented above
+- sandbox choice, cwd handling, temporary files, notebooks, and persisted edits behave correctly against real filesystem state rather than mock-only substitutes
+- ambiguous or dangerous inputs surface the expected refusal or approval path instead of being silently approximated into execution

@@ -29,3 +29,13 @@ Reconstruction requirements:
 - In builds where a direct `/share`-style command is hidden, stubbed, or feature-gated, the topology should still preserve the concept of session sharing as an optional capability rather than a guaranteed baseline surface.
 
 The key clean-room insight is that session continuity comes from a bundle of artifacts. Transcript text alone is not enough to recreate the user-visible state of a prior Claude Code session.
+
+## Test Design
+
+In the observed source, session behavior is verified through persistence-focused integration tests, deterministic state-shaping regressions, and resume-oriented end-to-end flows.
+
+Equivalent coverage should prove:
+
+- identifiers, checkpoints, artifacts, and persisted metadata survive restarts, forks, rewinds, and discovery scans without state drift
+- storage, attachment, and remote-restoration paths compose correctly with the runtime services that read or mutate session state
+- visible continue, resume, fork, restore, and sharing behavior matches the packaged CLI and remote surfaces rather than only direct module calls

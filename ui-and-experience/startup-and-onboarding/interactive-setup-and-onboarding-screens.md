@@ -100,3 +100,13 @@ Equivalent behavior should preserve:
 - **post-trust drift**: MCP/include/policy/auth startup dialogs are postponed until after ordinary prompt usage begins
 - **terminal-setup orphaning**: onboarding shows terminal guidance but never reuses the real setup capability or completion flags
 - **first-run amnesia**: onboarding completion is not persisted, so the user keeps seeing setup screens every launch
+
+## Test Design
+
+In the observed source, startup and onboarding behavior is verified through state-driven rendering regressions, startup-sequencing integration tests, and first-run acceptance flows.
+
+Equivalent coverage should prove:
+
+- welcome, recommendation, upsell, and acknowledgement surfaces appear only under the conditions documented in this leaf
+- account, usage, settings, and startup-service state compose correctly so onboarding decisions are deterministic and resettable in tests
+- users can move from these surfaces into a live session cleanly through the real packaged startup path

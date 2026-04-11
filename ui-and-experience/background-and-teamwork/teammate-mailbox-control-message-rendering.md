@@ -109,3 +109,13 @@ Equivalent behavior should preserve:
 - **authorization-display confusion**: a visible plan-approval response is treated as trusted control state even though only team-lead responses may change permission mode
 - **attachment-versus-transcript drift**: one path shows raw teammate bodies while the other is supposed to show compressed summaries, but a rebuild accidentally forces both through the same formatter
 - **transcript flattening**: plain teammate rows always show full bodies and let swarm chatter overwhelm the main conversation
+
+## Test Design
+
+In the observed source, background and teamwork UI behavior is verified through state-to-view regressions, live-update integration tests, and multi-agent interaction scenarios.
+
+Equivalent coverage should prove:
+
+- row, detail, summary, and status-derivation logic render the same meaning from task and teammate state snapshots
+- polling, mailbox updates, progress streaming, and navigation state stay coherent across live runtime changes and reset hooks between cases
+- users can still follow work, inspect details, and switch teammate context through the real interactive surfaces without stale or duplicated UI state

@@ -99,3 +99,13 @@ The surrounding startup sequencing, first-render boundary, and cwd-sensitive set
 - **stale entitlement client**: experiment or entitlement fetches keep using pre-trust auth posture
 - **approval collapse**: trust acceptance implicitly activates MCP servers or external includes without their own review step
 - **telemetry misboot**: observability starts before trusted env configuration and helper state are available
+
+## Test Design
+
+In the observed source, platform-service behavior is verified through sequencing-sensitive integration tests, deterministic state regressions, and CLI-visible service flows.
+
+Equivalent coverage should prove:
+
+- config resolution, policy gates, persistence, and service startup ordering preserve the contracts and failure handling described above
+- provider-backed or OS-bound branches use fixtures, seeded stores, or narrow seams so auth, update, telemetry, and trust behavior stays reproducible
+- users still encounter the expected startup, settings, trust, diagnostics, and account-state behavior through the real CLI surface

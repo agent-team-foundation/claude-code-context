@@ -70,3 +70,13 @@ If these are merged, a viewer-only client will either show phantom local tasks o
 - **visibility drift**: one surface hides or shows a task based on stale data while another surface still treats it as active
 - **mutable terminal tasks**: finished tasks keep accepting progress writes and the UI cannot trust their history
 - **remote-local confusion**: remote background work is incorrectly reconstructed from local task records
+
+## Test Design
+
+In the observed source, task behavior is verified through lifecycle regressions, registry-backed integration tests, and concurrency-sensitive foreground or background scenarios.
+
+Equivalent coverage should prove:
+
+- state transitions for launch, running, streaming, cancellation, completion, and failure remain deterministic and resettable between cases
+- task registries, monitor families, shared-control events, and persisted output compose correctly across main-session and worker contexts
+- users can still observe, foreground, stop, and inspect task output through the same surfaces they use in normal interactive or automated runs

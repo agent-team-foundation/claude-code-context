@@ -126,3 +126,13 @@ Equivalent behavior should preserve:
 - **lifecycle skew**: merged or mid-turn-consumed commands are marked started but never completed, or duplicate deliveries close the wrong UUID
 - **sleep churn**: deferred notifications are filtered incorrectly and either never wake a waiting turn or keep waking it immediately in a loop
 - **orphan replay duplication**: duplicate permission or reconnect messages re-enqueue unresolved work that already executed once
+
+## Test Design
+
+In the observed source, turn-flow behavior is verified through a mix of deterministic module tests, resume-sensitive integration coverage, and CLI-visible end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- pre-query mutation, continuation branches, and typed terminal outcomes stay stable under test posture
+- tool results, compaction, queued-command replay, and transcript persistence still compose correctly inside one logical turn
+- interactive and structured-I/O paths surface the same visible outcome when interruption, permission denial, or recovery branches occur

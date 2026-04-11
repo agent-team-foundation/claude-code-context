@@ -264,3 +264,13 @@ The current REPL integration passes `focusMode: false`, so a reconstruction of t
 - **finalize wipeout**: finalize-related close or error events trigger generic cleanup before the accumulated transcript has been read
 - **unsupported-language breakage**: the client forwards arbitrary configured language strings to the backend, causing avoidable connection failures instead of a controlled English fallback
 - **dead shortcut hinting**: the footer or `/voice` success text hardcodes `Space` and drifts from the user's resolved push-to-talk binding
+
+## Test Design
+
+In the observed source, shell-and-input behavior is verified through deterministic key-sequence regressions, store-backed integration coverage, and interactive terminal end-to-end checks.
+
+Equivalent coverage should prove:
+
+- input reducers, keybinding resolution, history state, and prompt composition preserve the invariants documented above
+- queue, history, suggestion, and terminal-runtime coupling behave correctly with real stores, temp files, and reset hooks between cases
+- multiline entry, fullscreen behavior, pickers, and suggestion surfaces work through the packaged interactive shell instead of only through isolated render helpers

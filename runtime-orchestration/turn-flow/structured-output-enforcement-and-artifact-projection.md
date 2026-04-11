@@ -111,3 +111,13 @@ Without this distinction, a rebuild will either underuse native support or wrong
 - **empty-response false error**: a valid structured-output completion with no user-facing prose is misclassified as execution failure
 - **capability coupling**: the agentic headless schema path is wrongly tied to provider-native structured-output support and breaks on unsupported backends
 - **retry blur**: structured-output exhaustion collapses into a generic failure type and downstream clients cannot tell what actually failed
+
+## Test Design
+
+In the observed source, turn-flow behavior is verified through a mix of deterministic module tests, resume-sensitive integration coverage, and CLI-visible end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- pre-query mutation, continuation branches, and typed terminal outcomes stay stable under test posture
+- tool results, compaction, queued-command replay, and transcript persistence still compose correctly inside one logical turn
+- interactive and structured-I/O paths surface the same visible outcome when interruption, permission denial, or recovery branches occur

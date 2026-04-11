@@ -26,3 +26,13 @@ Second, the product needs durable consolidation:
 The broad distinction belongs here. The exact auto-dream trigger, lock, and forked-worker contract lives in [auto-dream-consolidation-and-locking.md](auto-dream-consolidation-and-locking.md).
 
 The design point is not merely "summarize when long." It is "keep sessions responsive while preserving durable knowledge quality over time."
+
+## Test Design
+
+In the observed source, memory and context behavior is verified through deterministic transformation regressions, persistence-aware integration tests, and continuity-focused conversation scenarios.
+
+Equivalent coverage should prove:
+
+- selection, compaction, extraction, and invalidation rules preserve the invariants and bounded-resource behavior documented above
+- cache state, memory layers, session persistence, and rehydration paths compose correctly across resume, compact, and recovery flows
+- visible context continuity still matches the product contract when deterministic fixtures or replay replace live upstream variability

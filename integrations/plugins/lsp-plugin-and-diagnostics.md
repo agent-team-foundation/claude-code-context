@@ -171,3 +171,13 @@ Equivalent behavior should preserve:
 - **diagnostic starvation**: edits never clear delivered-diagnostic memory, so legitimately new post-edit diagnostics are suppressed as duplicates
 - **recommendation thrash**: the same plugin suggestion reappears endlessly because ignore counters, never-suggest entries, or per-session suppression are not honored
 - **false recommendation**: Claude recommends an LSP plugin whose binary is not installed, creating an install path that still leaves the user without a working server
+
+## Test Design
+
+In the observed source, plugin behavior is verified through registry regressions, loading-boundary integration tests, and management-surface end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- discovery, precedence, dependency resolution, feature gating, and skill exposure preserve the plugin contracts documented here
+- hot reload, settings coupling, packaged servers, and cache invalidation behave correctly with resettable registries and on-disk plugin state
+- the visible install, list, enablement, and runtime-exposure behavior stays aligned with the public plugin surfaces rather than private helper APIs

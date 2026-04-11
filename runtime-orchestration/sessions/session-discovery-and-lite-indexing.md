@@ -67,3 +67,13 @@ This separation is load-bearing: the same session store supports fast browsing, 
 - **pagination starvation**: a paginated reader stops after `limit` raw files instead of `limit` visible sessions, producing sparse or empty pages
 - **title precedence drift**: generated titles overwrite explicit user titles in discovery surfaces
 - **cross-worktree confusion**: the runtime finds a session file but loses which checkout it belongs to, so resume retargets the wrong repo
+
+## Test Design
+
+In the observed source, session behavior is verified through persistence-focused integration tests, deterministic state-shaping regressions, and resume-oriented end-to-end flows.
+
+Equivalent coverage should prove:
+
+- identifiers, checkpoints, artifacts, and persisted metadata survive restarts, forks, rewinds, and discovery scans without state drift
+- storage, attachment, and remote-restoration paths compose correctly with the runtime services that read or mutate session state
+- visible continue, resume, fork, restore, and sharing behavior matches the packaged CLI and remote surfaces rather than only direct module calls

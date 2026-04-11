@@ -87,3 +87,13 @@ Equivalent behavior should preserve:
 - **copy drift**: the cursor copies collapsed labels or wrapper markup instead of the underlying user-visible content
 - **selection drift**: streaming transcript growth causes the cursor to jump to a different row or disappear off-screen
 - **exit dead-end**: escaping an expanded selection takes too many presses and interferes with normal interrupt behavior
+
+## Test Design
+
+In the observed source, transcript and history behavior is verified through projection regressions, artifact-backed integration tests, and history-navigation end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- projection, filtering, search, selection, and restore behavior preserve the transcript contracts and cursor semantics documented here
+- session artifacts, previews, exports, and restore paths compose correctly with real message stores and persisted history state
+- users can navigate, resume, export, and restore history through the real product surface without replay duplication or state loss

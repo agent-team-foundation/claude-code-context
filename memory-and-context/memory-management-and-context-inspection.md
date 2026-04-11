@@ -195,3 +195,13 @@ Equivalent behavior should preserve:
 - **surface split-brain**: interactive `/context`, headless `/context`, and `get_context_usage` each implement their own accounting path and disagree about the same session
 - **deferred-tool inflation**: available-on-demand MCP or built-in tools are counted as already loaded, making the context budget look fuller than the model actually sees
 - **status mismatch**: `/context` percentages and the main status line diverge because one uses API usage totals while the other only uses local estimates
+
+## Test Design
+
+In the observed source, memory and context behavior is verified through deterministic transformation regressions, persistence-aware integration tests, and continuity-focused conversation scenarios.
+
+Equivalent coverage should prove:
+
+- selection, compaction, extraction, and invalidation rules preserve the invariants and bounded-resource behavior documented above
+- cache state, memory layers, session persistence, and rehydration paths compose correctly across resume, compact, and recovery flows
+- visible context continuity still matches the product contract when deterministic fixtures or replay replace live upstream variability

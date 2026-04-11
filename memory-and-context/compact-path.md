@@ -39,3 +39,13 @@ Compaction is one of the defining hard problems in a long-lived coding agent. A 
 - **repeated failures leading to circuit-breaker shutdown**
 
 The clean-room lesson is that compaction is a first-class recovery system, not just a convenience feature.
+
+## Test Design
+
+In the observed source, memory and context behavior is verified through deterministic transformation regressions, persistence-aware integration tests, and continuity-focused conversation scenarios.
+
+Equivalent coverage should prove:
+
+- selection, compaction, extraction, and invalidation rules preserve the invariants and bounded-resource behavior documented above
+- cache state, memory layers, session persistence, and rehydration paths compose correctly across resume, compact, and recovery flows
+- visible context continuity still matches the product contract when deterministic fixtures or replay replace live upstream variability

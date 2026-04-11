@@ -104,3 +104,13 @@ This is important because the raw validation error does not explain the real cau
 - **pool spam**: every pool change re-announces the whole deferred catalog and destroys cache stability
 - **schema-not-sent confusion**: deferred-tool validation errors look like ordinary type mistakes and do not teach the model to reload the schema
 - **connecting-server blind spot**: search reports "nothing found" without explaining that the relevant integration is still connecting
+
+## Test Design
+
+In the observed source, tool-catalog behavior is verified through deterministic assembly regressions, cache-aware integration coverage, and availability-oriented surface checks.
+
+Equivalent coverage should prove:
+
+- discovery, precedence, filtering, and ordering logic preserve the catalog contracts described in this leaf
+- deferred loading, refresh, and contributions from built-ins, agents, plugins, and MCP sources behave correctly with resettable caches and registries
+- visible tool availability and ordering stay stable enough for prompt caching, search, and client expectations to remain consistent across sessions

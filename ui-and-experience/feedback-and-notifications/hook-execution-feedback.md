@@ -71,3 +71,13 @@ Equivalent behavior should preserve:
 - **tool-progress conflation**: hook progress is mixed into ordinary tool progress and obscures the actual tool state
 - **stop-hook double surfacing**: stop-hook attachments render alongside stop-hook summaries and duplicate the same completion or failure story
 - **spinner drift**: the REPL suffix keeps reading an old stop-hook batch or ignores custom status text and shows the wrong execution state
+
+## Test Design
+
+In the observed source, feedback and notification behavior is verified through event-to-message regressions, runtime-backed integration tests, and terminal-visible interaction scenarios.
+
+Equivalent coverage should prove:
+
+- message selection, prioritization, suppression, and summarization rules preserve the user-facing semantics documented here
+- status lines, hook feedback, away summaries, and notification stacks stay in sync with real runtime events and reset cleanly between cases
+- the observable terminal text and ordering remain correct for users rather than only the internal event log or analytics stream

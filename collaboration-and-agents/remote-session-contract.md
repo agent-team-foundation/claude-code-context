@@ -53,3 +53,13 @@ The local-side message adapter and viewer-state projection contract is detailed 
 - **permission request stranded**: remote work cannot proceed because approval cannot be delivered
 - **resume mismatch**: remote state no longer matches local repo, branch, or session expectations
 - **replay duplication**: history replay and live adaptation both render the same user-originated content
+
+## Test Design
+
+In the observed source, collaboration behavior is verified through protocol and state-machine regressions, bridge-aware integration coverage, and multi-agent or remote end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- agent lifecycle, routing, mailbox, subscription, and control-state transitions preserve the contracts documented in this leaf
+- bridge transport, projection, permission forwarding, reconnect, and transcript continuity behave correctly with resettable peers and deterministic state seeds
+- observable teamwork behavior remains correct when users drive the product through real teammate, pane, or remote-session surfaces

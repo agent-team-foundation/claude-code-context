@@ -94,3 +94,13 @@ This is a different plane from swarm mailbox control traffic: queueable prompt i
 - **protocol bleed**: structured team-control payloads are allowed onto cross-session routes and become meaningless or dangerous prompt text
 - **reply breakage**: the UI normalizes or prettifies the sender address and destroys the exact token needed for a correct reply
 - **startup race**: the local peer address is published only after hooks or attached clients already snapshotted environment state
+
+## Test Design
+
+In the observed source, collaboration behavior is verified through protocol and state-machine regressions, bridge-aware integration coverage, and multi-agent or remote end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- agent lifecycle, routing, mailbox, subscription, and control-state transitions preserve the contracts documented in this leaf
+- bridge transport, projection, permission forwarding, reconnect, and transcript continuity behave correctly with resettable peers and deterministic state seeds
+- observable teamwork behavior remains correct when users drive the product through real teammate, pane, or remote-session surfaces

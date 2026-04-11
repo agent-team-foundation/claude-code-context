@@ -82,3 +82,13 @@ Equivalent behavior should preserve:
 - **unbounded buffer**: missing subscribers cause hook-event retention to grow without limit
 - **execution/transport coupling**: subscribing to hook events changes hook execution behavior instead of only delivery
 - **transcript confusion**: hook progress is mixed into ordinary conversation output and loses its structured meaning
+
+## Test Design
+
+In the observed source, client-integration behavior is verified through adapter regressions, transport-aware integration tests, and public-surface end-to-end flows.
+
+Equivalent coverage should prove:
+
+- message shaping, history or state projection, and surface-specific envelope rules stay stable across the client contracts described here
+- auth proxying, environment selection, reconnect, and remote-session coordination behave correctly at the real process or transport boundary
+- packaged client entrypoints still expose the same visible behavior as direct source invocation, especially for structured I/O and remote viewers

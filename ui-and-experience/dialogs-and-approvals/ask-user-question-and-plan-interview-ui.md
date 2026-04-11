@@ -114,3 +114,13 @@ Equivalent behavior should preserve:
 - **footer ambiguity**: plan mode forgets to add the second footer action and cannot distinguish “keep interviewing” from “finish the plan now”
 - **annotation loss**: selected preview snippets or notes never make it into accepted answer annotations, so Claude loses the rationale the user supplied during review
 - **attachment loss**: pasted images appear in the UI but are not carried through the final allow or reject callback
+
+## Test Design
+
+In the observed source, dialog and approval behavior is verified through focused rendering or view-model regressions, store-backed integration tests, and interactive acceptance flows.
+
+Equivalent coverage should prove:
+
+- focus, overlay arbitration, diff navigation, structured rendering, and approval routing preserve the invariants documented in this leaf
+- dialog state remains correctly coupled to permission, plan, session, and transcript stores without timing-dependent leaks
+- users can actually reach, dismiss, accept, deny, export, or navigate these surfaces through the packaged interactive UI

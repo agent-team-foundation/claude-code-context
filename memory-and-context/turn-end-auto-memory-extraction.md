@@ -65,3 +65,13 @@ A drain API waits (with timeout) for in-flight extraction promises, including tr
 - **permission escape**: extractor writes outside allowed memory directory
 - **shutdown loss**: process exits before in-flight extraction settles
 - **duplicate authoring**: main-agent memory writes and extractor writes conflict in the same range
+
+## Test Design
+
+In the observed source, memory and context behavior is verified through deterministic transformation regressions, persistence-aware integration tests, and continuity-focused conversation scenarios.
+
+Equivalent coverage should prove:
+
+- selection, compaction, extraction, and invalidation rules preserve the invariants and bounded-resource behavior documented above
+- cache state, memory layers, session persistence, and rehydration paths compose correctly across resume, compact, and recovery flows
+- visible context continuity still matches the product contract when deterministic fixtures or replay replace live upstream variability

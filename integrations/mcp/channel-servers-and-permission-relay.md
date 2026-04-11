@@ -73,3 +73,13 @@ When channel gating changes mid-session (for example, auth or policy transitions
 - **capability confusion**: ordinary channel servers accidentally become permission surfaces
 - **stale-approval replay**: old relay replies can still resolve new permission requests
 - **payload flood**: inbound channel messages bypass structured queue controls and overwhelm local input flow
+
+## Test Design
+
+In the observed source, MCP behavior is verified through contract regressions, seeded or fixture-backed integration flows, and connection-realistic end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- config layering, server lifecycle, permission relay, and resource projection preserve the contracts described in this leaf
+- auth, OAuth step-up, federated identity, and recovery branches can be exercised deterministically without depending on unstable live infrastructure
+- users still see the expected MCP connection, gating, refresh, and failure behavior through the real runtime surfaces

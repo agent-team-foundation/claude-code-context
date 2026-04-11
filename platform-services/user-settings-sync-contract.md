@@ -85,3 +85,13 @@ The key clean-room point is that sync can influence later activation surfaces, n
 - **reload miss**: synced files land on disk but the live runtime never refreshes the caches or downstream state that depend on them
 - **echo loop**: synced settings writes trigger the watcher as if they were external edits and replay indefinitely
 - **oversize surprise**: large remote artifacts are written blindly and destabilize local settings or memory handling
+
+## Test Design
+
+In the observed source, platform-service behavior is verified through sequencing-sensitive integration tests, deterministic state regressions, and CLI-visible service flows.
+
+Equivalent coverage should prove:
+
+- config resolution, policy gates, persistence, and service startup ordering preserve the contracts and failure handling described above
+- provider-backed or OS-bound branches use fixtures, seeded stores, or narrow seams so auth, update, telemetry, and trust behavior stays reproducible
+- users still encounter the expected startup, settings, trust, diagnostics, and account-state behavior through the real CLI surface

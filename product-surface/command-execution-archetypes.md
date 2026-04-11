@@ -71,3 +71,13 @@ Equivalent behavior should preserve:
 - **UI leak across surfaces**: local modal commands remain reachable from bridge or remote clients that cannot satisfy their UI assumptions
 - **hidden live-state patches**: integration-management commands tweak process memory without going through shared refresh or reconnect paths
 - **delegation split-brain**: background or remote command variants stop folding status and results back into the owning local session
+
+## Test Design
+
+In the observed source, product-surface behavior is verified through command-focused integration tests and CLI-visible end-to-end checks.
+
+Equivalent coverage should prove:
+
+- parsing, dispatch, flag composition, and mode selection preserve the public contract for this surface
+- downstream runtime, tool, and session services receive the correct shaping when this surface is used from interactive and headless entrypoints
+- user-visible output, exit behavior, and help or error routing remain correct through the packaged CLI path rather than only direct module calls

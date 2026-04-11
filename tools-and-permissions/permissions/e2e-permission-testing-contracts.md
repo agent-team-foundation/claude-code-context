@@ -71,3 +71,13 @@ Equivalent end-to-end coverage should be able to prove at least:
 - **fake dialog coverage**: tests bypass the normal permission shell and therefore stop proving real user behavior
 - **side-effect pollution**: the harness action itself mutates unrelated runtime state and makes permission tests flaky
 - **queue drift**: grant, deny, or cancel paths leave stale approval rows or waiting state behind
+
+## Test Design
+
+In the observed source, permission behavior is verified through decision-matrix regressions, prompt-routing integration coverage, and approval-focused end-to-end flows.
+
+Equivalent coverage should prove:
+
+- mode resolution, rule precedence, and fail-closed safety edges choose the expected permission outcome for each tool request
+- prompt routing, forwarding, sandbox selection, and persisted rule loading behave correctly across foreground, worker, and remote-capable contexts
+- visible ask, grant, deny, cancel, and queue-advance behavior still flows through the real permission shell rather than a test-only shortcut

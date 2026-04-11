@@ -156,3 +156,13 @@ Equivalent behavior should also preserve the boundary that some neighboring hot-
 - **env drift**: auth helpers or config-driven environment variables keep using stale values after settings.env changes
 - **startup race leak**: remote managed settings arrive before the interactive subscriber exists and a restricted mode, such as bypass disablement, never gets reconciled
 - **overeager or missed plugin reload**: plugin hooks reload on every policy tick, or fail to reload because the change detector watches the wrong subset of settings
+
+## Test Design
+
+In the observed source, platform-service behavior is verified through sequencing-sensitive integration tests, deterministic state regressions, and CLI-visible service flows.
+
+Equivalent coverage should prove:
+
+- config resolution, policy gates, persistence, and service startup ordering preserve the contracts and failure handling described above
+- provider-backed or OS-bound branches use fixtures, seeded stores, or narrow seams so auth, update, telemetry, and trust behavior stays reproducible
+- users still encounter the expected startup, settings, trust, diagnostics, and account-state behavior through the real CLI surface

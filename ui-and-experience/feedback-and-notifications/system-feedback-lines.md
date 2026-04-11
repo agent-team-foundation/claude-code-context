@@ -72,3 +72,13 @@ Equivalent behavior should preserve:
 - **silent hook blockage**: stop hooks block continuation or fail, but the summary path is suppressed as if nothing unusual happened
 - **memory-path opacity**: memory-saved rows expose only vague counts with no clickable path breakdown
 - **bridge handoff ambiguity**: remote-control activation lacks its destination link or upgrade nudge and leaves the user unsure where to continue
+
+## Test Design
+
+In the observed source, feedback and notification behavior is verified through event-to-message regressions, runtime-backed integration tests, and terminal-visible interaction scenarios.
+
+Equivalent coverage should prove:
+
+- message selection, prioritization, suppression, and summarization rules preserve the user-facing semantics documented here
+- status lines, hook feedback, away summaries, and notification stacks stay in sync with real runtime events and reset cleanly between cases
+- the observable terminal text and ordering remain correct for users rather than only the internal event log or analytics stream

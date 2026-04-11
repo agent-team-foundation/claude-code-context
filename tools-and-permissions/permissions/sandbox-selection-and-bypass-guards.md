@@ -71,3 +71,13 @@ Sandbox behavior should remain visible after execution. Equivalent implementatio
 - **exclusion confusion**: excluded commands are mistaken for a true security allow and weaken the permission model
 - **normalization gap**: wrapper or env-prefixed commands miss excluded-command matching and behave inconsistently
 - **invisible sandbox failure**: users cannot tell whether a command failed because of the shell itself or because the sandbox blocked it
+
+## Test Design
+
+In the observed source, permission behavior is verified through decision-matrix regressions, prompt-routing integration coverage, and approval-focused end-to-end flows.
+
+Equivalent coverage should prove:
+
+- mode resolution, rule precedence, and fail-closed safety edges choose the expected permission outcome for each tool request
+- prompt routing, forwarding, sandbox selection, and persisted rule loading behave correctly across foreground, worker, and remote-capable contexts
+- visible ask, grant, deny, cancel, and queue-advance behavior still flows through the real permission shell rather than a test-only shortcut

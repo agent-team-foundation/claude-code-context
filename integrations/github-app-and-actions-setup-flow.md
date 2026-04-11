@@ -100,3 +100,13 @@ Equivalent behavior should preserve:
 - **secret-only branch leak**: the skip-workflow path still creates a branch or compare page even though no workflow file changed
 - **browser handoff dead-end**: compare-page or install-page launch failure leaves no printable fallback or next-step guidance
 - **tip spam**: setup-attempt counters are not persisted, so install tips for GitHub or Slack keep resurfacing across later sessions
+
+## Test Design
+
+In the observed source, integration behavior is verified through lifecycle regressions, boundary-aware integration coverage, and setup or handshake scenarios exercised through public entrypoints.
+
+Equivalent coverage should prove:
+
+- bootstrap, activation, and teardown rules remain stable at the subsystem boundaries described in this leaf
+- auth, provisioning, deploy, or companion coordination paths behave correctly when multiple product surfaces participate
+- the user-visible setup and handoff behavior is proven through real entrypoints instead of source-only helpers

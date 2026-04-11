@@ -110,3 +110,13 @@ Equivalent behavior should preserve:
 - **MCP flattening**: plain MCP prompts leak into skill listings, or MCP skills lose their server-scoped identity
 - **delta spam**: resume, reload, or MCP-refresh paths keep re-announcing the same skills instead of sending only new names
 - **budget drift**: description fitting ignores the shared budget rules and either wastes prompt space or silently drops too much guidance for non-bundled skills
+
+## Test Design
+
+In the observed source, plugin behavior is verified through registry regressions, loading-boundary integration tests, and management-surface end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- discovery, precedence, dependency resolution, feature gating, and skill exposure preserve the plugin contracts documented here
+- hot reload, settings coupling, packaged servers, and cache invalidation behave correctly with resettable registries and on-disk plugin state
+- the visible install, list, enablement, and runtime-exposure behavior stays aligned with the public plugin surfaces rather than private helper APIs

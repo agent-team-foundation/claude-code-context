@@ -156,3 +156,13 @@ Equivalent behavior should preserve:
 - **expiry drift**: recurring jobs either never age out or disappear before their promised final fire
 - **missed-task prompt injection**: catch-up prompts are surfaced raw without the confirm-first wrapper and fenced body
 - **store confusion**: deletion, listing, or scheduler firing loses track of whether an id lives on disk or only in session memory
+
+## Test Design
+
+In the observed source, automation behavior is verified through deterministic scheduler regressions, stateful integration coverage, and public-surface workflow scenarios.
+
+Equivalent coverage should prove:
+
+- due-time calculation, jitter, speculation, and recovery logic remain deterministic under test posture and explicit clock control
+- durable task state, ownership locks, prompt injection, and cross-session coordination compose correctly with the task and session subsystems
+- user-visible cron, review, proactive, and remote-planning behavior works through the real automation surfaces instead of a bypass harness

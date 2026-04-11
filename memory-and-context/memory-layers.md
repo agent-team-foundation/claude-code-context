@@ -54,3 +54,13 @@ Equivalent behavior should preserve:
 - **worktree divergence**: two worktrees of the same repo accumulate separate repo-scoped durable memories
 - **snapshot clobber**: project-provided agent-memory snapshots silently overwrite user-owned memory instead of becoming an explicit initialization or update flow
 - **mode leak**: bare/simple sessions keep auto-loading ambient memory surfaces that those modes were meant to suppress
+
+## Test Design
+
+In the observed source, memory and context behavior is verified through deterministic transformation regressions, persistence-aware integration tests, and continuity-focused conversation scenarios.
+
+Equivalent coverage should prove:
+
+- selection, compaction, extraction, and invalidation rules preserve the invariants and bounded-resource behavior documented above
+- cache state, memory layers, session persistence, and rehydration paths compose correctly across resume, compact, and recovery flows
+- visible context continuity still matches the product contract when deterministic fixtures or replay replace live upstream variability

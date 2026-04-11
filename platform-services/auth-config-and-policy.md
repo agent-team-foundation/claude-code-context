@@ -20,3 +20,13 @@ The reconstructed platform should support:
 This node is the umbrella contract for the more specific plugin, MCP, remote, and sync leaves in adjacent domains.
 
 This domain governs whether a feature is merely implemented or actually available in a given environment.
+
+## Test Design
+
+In the observed source, platform-service behavior is verified through sequencing-sensitive integration tests, deterministic state regressions, and CLI-visible service flows.
+
+Equivalent coverage should prove:
+
+- config resolution, policy gates, persistence, and service startup ordering preserve the contracts and failure handling described above
+- provider-backed or OS-bound branches use fixtures, seeded stores, or narrow seams so auth, update, telemetry, and trust behavior stays reproducible
+- users still encounter the expected startup, settings, trust, diagnostics, and account-state behavior through the real CLI surface

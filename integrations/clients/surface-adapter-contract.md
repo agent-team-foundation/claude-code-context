@@ -59,3 +59,13 @@ This matters because transport location and execution location are related but s
 - **bootstrap opacity**: the user cannot tell which capabilities are active on the current surface
 - **reconnect identity loss**: resume appears to work, but the surface is actually attached to a different logical session
 - **presentation coupling**: the runtime cannot operate unless one specific terminal UI implementation is present
+
+## Test Design
+
+In the observed source, client-integration behavior is verified through adapter regressions, transport-aware integration tests, and public-surface end-to-end flows.
+
+Equivalent coverage should prove:
+
+- message shaping, history or state projection, and surface-specific envelope rules stay stable across the client contracts described here
+- auth proxying, environment selection, reconnect, and remote-session coordination behave correctly at the real process or transport boundary
+- packaged client entrypoints still expose the same visible behavior as direct source invocation, especially for structured I/O and remote viewers

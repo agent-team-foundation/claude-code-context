@@ -174,3 +174,13 @@ Equivalent behavior should preserve:
 - **transcript-share drift**: uploads omit subagent transcripts or raw JSONL data, skip redaction, or lose the durable `don't ask again` dismissal bit
 - **double escalation**: auto-run issue and the ordinary follow-up affordance can both fire from one bad rating cycle
 - **banner overreach**: the issue-flag banner appears in MCP-heavy or externally orchestrated sessions where `/issue` nudging would be noisy or misleading
+
+## Test Design
+
+In the observed source, feedback and notification behavior is verified through event-to-message regressions, runtime-backed integration tests, and terminal-visible interaction scenarios.
+
+Equivalent coverage should prove:
+
+- message selection, prioritization, suppression, and summarization rules preserve the user-facing semantics documented here
+- status lines, hook feedback, away summaries, and notification stacks stay in sync with real runtime events and reset cleanly between cases
+- the observable terminal text and ordering remain correct for users rather than only the internal event log or analytics stream

@@ -52,3 +52,13 @@ A faithful rebuild should keep several state transitions coordinated even though
 - **Artifact relink failure**: preserved background work survives a reset logically but keeps writing to dead transcript bindings.
 
 The runtime should prefer recoverable branching over hard failure whenever session continuity can be preserved.
+
+## Test Design
+
+In the observed source, runtime-state behavior is verified through reducer-style regressions, hydration and projection integration tests, and mode-sensitive acceptance flows.
+
+Equivalent coverage should prove:
+
+- state transitions, build-profile resolution, and failure handling preserve the explicit invariants documented in this leaf
+- startup hydration, reload, persistence, and cross-surface projection avoid stale-state bleed across services and UI consumers
+- the visible gating or mode behavior remains stable after restart, reload, reconnect, or profile changes

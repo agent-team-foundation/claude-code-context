@@ -80,3 +80,13 @@ Equivalent behavior should preserve:
 - **traffic misclassification**: Anthropic, GitHub, or package-registry traffic is routed through the upstream relay and breaks a path that should have stayed direct
 - **handshake byte loss**: CONNECT requests that coalesce with early TLS bytes lose data while the WebSocket handshake is still opening
 - **retry dead end**: startup deletes the token file before the relay is actually ready, so a transient bootstrap failure cannot recover on supervisor restart
+
+## Test Design
+
+In the observed source, client-integration behavior is verified through adapter regressions, transport-aware integration tests, and public-surface end-to-end flows.
+
+Equivalent coverage should prove:
+
+- message shaping, history or state projection, and surface-specific envelope rules stay stable across the client contracts described here
+- auth proxying, environment selection, reconnect, and remote-session coordination behave correctly at the real process or transport boundary
+- packaged client entrypoints still expose the same visible behavior as direct source invocation, especially for structured I/O and remote viewers

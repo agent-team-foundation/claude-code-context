@@ -105,3 +105,13 @@ A correct rebuild should preserve:
 - **authority spoof**: non-leader messages are allowed to change plan state or permission mode
 - **processed-queue leak**: messages already surfaced mid-turn never leave the local inbox queue and keep reappearing as if they were new
 - **shutdown half-reconcile**: the backend pane dies, but team membership, shared-task ownership, or running-task state is left behind
+
+## Test Design
+
+In the observed source, collaboration behavior is verified through protocol and state-machine regressions, bridge-aware integration coverage, and multi-agent or remote end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- agent lifecycle, routing, mailbox, subscription, and control-state transitions preserve the contracts documented in this leaf
+- bridge transport, projection, permission forwarding, reconnect, and transcript continuity behave correctly with resettable peers and deterministic state seeds
+- observable teamwork behavior remains correct when users drive the product through real teammate, pane, or remote-session surfaces

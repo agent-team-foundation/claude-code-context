@@ -160,3 +160,13 @@ Equivalent behavior should preserve:
 - **stale visibility**: auth or feature changes do not refresh eligibility and enablement checks, so the slash surface lags behind the real runtime
 - **invocation confusion**: user-only and model-only invocation controls are treated as the same flag, breaking the split between user slash use and model skill use
 - **bridge UI leak**: local modal commands remain callable over bridge or remote clients that cannot satisfy their UI assumptions
+
+## Test Design
+
+In the observed source, product-surface behavior is verified through command-focused integration tests and CLI-visible end-to-end checks.
+
+Equivalent coverage should prove:
+
+- parsing, dispatch, flag composition, and mode selection preserve the public contract for this surface
+- downstream runtime, tool, and session services receive the correct shaping when this surface is used from interactive and headless entrypoints
+- user-visible output, exit behavior, and help or error routing remain correct through the packaged CLI path rather than only direct module calls

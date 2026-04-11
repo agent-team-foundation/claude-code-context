@@ -96,3 +96,13 @@ That persistence model should preserve:
 - **stale registration reuse**: a fresh auth attempt reuses broken prior client-registration state
 - **provider-leak logging**: raw OAuth callback parameters are written to logs or diagnostics
 - **remote callback dead end**: browser-hosted or remote users have no manual path to complete the auth handshake
+
+## Test Design
+
+In the observed source, MCP behavior is verified through contract regressions, seeded or fixture-backed integration flows, and connection-realistic end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- config layering, server lifecycle, permission relay, and resource projection preserve the contracts described in this leaf
+- auth, OAuth step-up, federated identity, and recovery branches can be exercised deterministically without depending on unstable live infrastructure
+- users still see the expected MCP connection, gating, refresh, and failure behavior through the real runtime surfaces

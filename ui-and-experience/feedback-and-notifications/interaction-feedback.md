@@ -26,3 +26,13 @@ That requires more than one message row:
 - persistent but low-noise footer indicators for auth, updater, memory, sandbox, or voice state
 - compact background-task surfaces that explain what is still running without reopening every transcript
 - recovery messages that distinguish local failure, remote degradation, compaction, and user-cancelled stops
+
+## Test Design
+
+In the observed source, feedback and notification behavior is verified through event-to-message regressions, runtime-backed integration tests, and terminal-visible interaction scenarios.
+
+Equivalent coverage should prove:
+
+- message selection, prioritization, suppression, and summarization rules preserve the user-facing semantics documented here
+- status lines, hook feedback, away summaries, and notification stacks stay in sync with real runtime events and reset cleanly between cases
+- the observable terminal text and ordering remain correct for users rather than only the internal event log or analytics stream

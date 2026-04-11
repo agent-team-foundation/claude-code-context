@@ -127,3 +127,13 @@ Equivalent behavior should preserve:
 - **policy lie**: disabled or managed-only hook postures still look runnable or editable from the browser
 - **catalog collapse**: `/hooks` is rebuilt as a thin settings-file viewer and loses session hooks, plugin hooks, or other registered runtime entries
 - **execution coupling**: the browser starts owning hook runtime semantics instead of reusing the separate hook control-plane contract
+
+## Test Design
+
+In the observed source, execution and hook behavior is verified through explicit state-machine regressions, queue-aware integration coverage, and real tool-invocation scenarios.
+
+Equivalent coverage should prove:
+
+- batching, streaming, hook admission, cancellation, and completion events preserve the sequencing guarantees documented in this leaf
+- runtime context shaping, side-effect control, and hook-triggered follow-up work compose correctly with real registries, timers, and reset hooks
+- the visible progress, notification, and post-tool behavior remains stable when the runtime executes tools through ordinary paths

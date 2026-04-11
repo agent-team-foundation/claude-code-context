@@ -134,3 +134,13 @@ Equivalent behavior should preserve:
 - **stale hint clobbering**: resolving one pending plugin hint clears a newer hint that arrived while the first marketplace lookup was still in flight
 - **dead-end install success**: a recommendation reports success but fails to enable or register the plugin for the next startup
 - **impossible upsell**: desktop or remote callouts surface on unsupported or unauthenticated sessions where the recommended action cannot succeed
+
+## Test Design
+
+In the observed source, startup and onboarding behavior is verified through state-driven rendering regressions, startup-sequencing integration tests, and first-run acceptance flows.
+
+Equivalent coverage should prove:
+
+- welcome, recommendation, upsell, and acknowledgement surfaces appear only under the conditions documented in this leaf
+- account, usage, settings, and startup-service state compose correctly so onboarding decisions are deterministic and resettable in tests
+- users can move from these surfaces into a live session cleanly through the real packaged startup path

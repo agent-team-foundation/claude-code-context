@@ -97,3 +97,13 @@ Equivalent behavior should preserve:
 - **compaction false death**: a transient session-not-found close during compaction is treated as permanent and the viewer gives up too early
 - **pre-connect loop**: a socket that never authenticated successfully still retries forever because reconnect logic ignores whether the session was ever connected
 - **split-path confusion**: outbound user messages are sent over the subscribe socket or interrupts are sent as chat input, breaking protocol expectations
+
+## Test Design
+
+In the observed source, collaboration behavior is verified through protocol and state-machine regressions, bridge-aware integration coverage, and multi-agent or remote end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- agent lifecycle, routing, mailbox, subscription, and control-state transitions preserve the contracts documented in this leaf
+- bridge transport, projection, permission forwarding, reconnect, and transcript continuity behave correctly with resettable peers and deterministic state seeds
+- observable teamwork behavior remains correct when users drive the product through real teammate, pane, or remote-session surfaces

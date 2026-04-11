@@ -74,3 +74,13 @@ Equivalent behavior should preserve:
 - **false lossless restore**: confirmation is skipped even though meaningful assistant output or file changes would be discarded
 - **partial restore amnesia**: text comes back but input mode or pasted images do not
 - **overclaimed code rewind**: the UI implies bash or manual edits will be undone even though only tracked file-history edits are restorable
+
+## Test Design
+
+In the observed source, transcript and history behavior is verified through projection regressions, artifact-backed integration tests, and history-navigation end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- projection, filtering, search, selection, and restore behavior preserve the transcript contracts and cursor semantics documented here
+- session artifacts, previews, exports, and restore paths compose correctly with real message stores and persisted history state
+- users can navigate, resume, export, and restore history through the real product surface without replay duplication or state loss

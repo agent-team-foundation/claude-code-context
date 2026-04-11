@@ -77,3 +77,13 @@ Equivalent behavior should preserve:
 - **helper overshare**: support-only commands become visible in help, SDK bootstrap, or bridge inventories
 - **half-installed experience**: a plugin-backed local experience is exposed before its prerequisites can be checked or repaired coherently
 - **dismissal breakage**: leaving the local surface mutates the main conversation state instead of returning the user to the unchanged primary shell
+
+## Test Design
+
+In the observed source, product-surface behavior is verified through command-focused integration tests and CLI-visible end-to-end checks.
+
+Equivalent coverage should prove:
+
+- parsing, dispatch, flag composition, and mode selection preserve the public contract for this surface
+- downstream runtime, tool, and session services receive the correct shaping when this surface is used from interactive and headless entrypoints
+- user-visible output, exit behavior, and help or error routing remain correct through the packaged CLI path rather than only direct module calls

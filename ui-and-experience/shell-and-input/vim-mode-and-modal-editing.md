@@ -206,3 +206,13 @@ Equivalent behavior should preserve these intentional limits:
 - **range bugs**: operator ranges ignore inclusive motions, linewise expansion, grapheme boundaries, or image placeholders and end up deleting malformed text
 - **UI invisibility**: the live mode stops flowing into the footer or status line, making modal state hard to read during normal use
 - **false parity claims**: a rebuild advertises "Vim mode" but omits the actual modal parser, replay memory, or register behavior and delivers only a shallow shortcut theme
+
+## Test Design
+
+In the observed source, shell-and-input behavior is verified through deterministic key-sequence regressions, store-backed integration coverage, and interactive terminal end-to-end checks.
+
+Equivalent coverage should prove:
+
+- input reducers, keybinding resolution, history state, and prompt composition preserve the invariants documented above
+- queue, history, suggestion, and terminal-runtime coupling behave correctly with real stores, temp files, and reset hooks between cases
+- multiline entry, fullscreen behavior, pickers, and suggestion surfaces work through the packaged interactive shell instead of only through isolated render helpers

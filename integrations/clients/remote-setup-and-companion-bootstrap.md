@@ -114,3 +114,13 @@ Equivalent behavior should preserve:
 - **bootstrap false-positive**: install or extension checks mark a companion surface ready even though the local OS or subscription cannot actually complete the flow
 - **disconnect overreach**: closing bridge pairing persists a global opt-out for users who were only temporarily auto-connected by settings or rollout state
 - **status drift**: the pairing dialog shows a stale connect URL, wrong session phase, or missing QR state because it no longer reflects the live bridge app state
+
+## Test Design
+
+In the observed source, client-integration behavior is verified through adapter regressions, transport-aware integration tests, and public-surface end-to-end flows.
+
+Equivalent coverage should prove:
+
+- message shaping, history or state projection, and surface-specific envelope rules stay stable across the client contracts described here
+- auth proxying, environment selection, reconnect, and remote-session coordination behave correctly at the real process or transport boundary
+- packaged client entrypoints still expose the same visible behavior as direct source invocation, especially for structured I/O and remote viewers

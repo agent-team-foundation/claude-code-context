@@ -81,3 +81,13 @@ Equivalent behavior should preserve:
 - **title collision drift**: branch names only check the current directory and miss same-repo worktree sessions, causing ambiguous duplicate fork titles in resume search
 - **resume split-brain**: the fork transcript is written, but the live REPL does not actually switch sessions, leaving messages to append to the wrong session file
 - **no-way-back UX**: success output switches into the fork without preserving an obvious route to the original session
+
+## Test Design
+
+In the observed source, session behavior is verified through persistence-focused integration tests, deterministic state-shaping regressions, and resume-oriented end-to-end flows.
+
+Equivalent coverage should prove:
+
+- identifiers, checkpoints, artifacts, and persisted metadata survive restarts, forks, rewinds, and discovery scans without state drift
+- storage, attachment, and remote-restoration paths compose correctly with the runtime services that read or mutate session state
+- visible continue, resume, fork, restore, and sharing behavior matches the packaged CLI and remote surfaces rather than only direct module calls

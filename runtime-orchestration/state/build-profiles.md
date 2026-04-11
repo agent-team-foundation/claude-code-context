@@ -155,3 +155,13 @@ Equivalent public documentation should:
   exposure, so the session keeps stale gated behavior
 - **source-mirroring drift**: internal flag names are documented instead of the
   architectural seams and user-visible consequences they control
+
+## Test Design
+
+In the observed source, runtime-state behavior is verified through reducer-style regressions, hydration and projection integration tests, and mode-sensitive acceptance flows.
+
+Equivalent coverage should prove:
+
+- state transitions, build-profile resolution, and failure handling preserve the explicit invariants documented in this leaf
+- startup hydration, reload, persistence, and cross-surface projection avoid stale-state bleed across services and UI consumers
+- the visible gating or mode behavior remains stable after restart, reload, reconnect, or profile changes

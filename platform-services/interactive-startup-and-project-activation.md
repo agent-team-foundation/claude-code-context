@@ -98,3 +98,13 @@ This is how one codebase supports multiple entry surfaces without silently drift
 - **first-render stall**: optional prefetches, detectors, or plugin startup checks run too early and make the terminal feel hung before the user can act
 - **post-shutdown drift**: trust rejection or another early-exit path starts graceful shutdown, but later activation phases keep running anyway
 - **mode-branch skew**: bare, print, resume, or worktree startup paths silently skip or duplicate steps that the rest of the runtime assumes already happened
+
+## Test Design
+
+In the observed source, platform-service behavior is verified through sequencing-sensitive integration tests, deterministic state regressions, and CLI-visible service flows.
+
+Equivalent coverage should prove:
+
+- config resolution, policy gates, persistence, and service startup ordering preserve the contracts and failure handling described above
+- provider-backed or OS-bound branches use fixtures, seeded stores, or narrow seams so auth, update, telemetry, and trust behavior stays reproducible
+- users still encounter the expected startup, settings, trust, diagnostics, and account-state behavior through the real CLI surface

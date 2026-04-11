@@ -51,3 +51,13 @@ Equivalent behavior should preserve:
 - **redirect domain leak**: a cross-host redirect is silently followed without re-evaluating permissions for the destination host
 - **tool-family collapse**: fetch, search, and authenticated browser control are merged into one generic web tool and lose their different safety and capability boundaries
 - **provider drift**: web search is offered under providers or model envelopes that cannot actually execute it
+
+## Test Design
+
+In the observed source, specialized-tool behavior is verified through narrow schema regressions, subsystem integration tests, and surface-realistic end-to-end probes.
+
+Equivalent coverage should prove:
+
+- capability gates, input validation, and refusal rules remain stable for the edge cases that this tool family is expected to handle
+- each tool still works correctly at the real subsystem boundary it touches, including browser, web, interview, or native-control style integrations when applicable
+- ordinary tool-pool invocation preserves the visible success, rejection, contention, and cleanup behavior without relying on bespoke test backdoors

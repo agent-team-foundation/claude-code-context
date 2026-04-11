@@ -99,3 +99,13 @@ Equivalent behavior should preserve:
 - **feedback loss**: moving focus or leaving input mode drops guidance that should have been submitted with the decision
 - **sticky-footer leak**: a long plan leaves fullscreen footer controls mounted after the prompt is gone
 - **attention split**: streaming transcript motion or another overlay keeps competing with the permission prompt instead of yielding focus
+
+## Test Design
+
+In the observed source, dialog and approval behavior is verified through focused rendering or view-model regressions, store-backed integration tests, and interactive acceptance flows.
+
+Equivalent coverage should prove:
+
+- focus, overlay arbitration, diff navigation, structured rendering, and approval routing preserve the invariants documented in this leaf
+- dialog state remains correctly coupled to permission, plan, session, and transcript stores without timing-dependent leaks
+- users can actually reach, dismiss, accept, deny, export, or navigate these surfaces through the packaged interactive UI

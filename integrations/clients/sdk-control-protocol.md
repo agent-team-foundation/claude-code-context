@@ -35,3 +35,13 @@ Equivalent protocol parity should also preserve:
 - a dedicated terminal error subtype for structured-output retry exhaustion, so hosts can distinguish schema-enforcement failure from generic execution failure
 
 The key design constraint is semantic parity: the SDK surface should not be a second implementation of Claude Code. It should be another transport over the same command model, permission model, task model, and memory lifecycle.
+
+## Test Design
+
+In the observed source, client-integration behavior is verified through adapter regressions, transport-aware integration tests, and public-surface end-to-end flows.
+
+Equivalent coverage should prove:
+
+- message shaping, history or state projection, and surface-specific envelope rules stay stable across the client contracts described here
+- auth proxying, environment selection, reconnect, and remote-session coordination behave correctly at the real process or transport boundary
+- packaged client entrypoints still expose the same visible behavior as direct source invocation, especially for structured I/O and remote viewers

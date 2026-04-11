@@ -80,3 +80,13 @@ This is how later resume can understand the fresh post-reset session correctly.
 - **under-clearing**: old transcript metadata, file history, or MCP runtime state bleeds into the fresh session
 - **dangling output**: preserved tasks keep writing to pre-reset transcript paths
 - **resume drift**: the regenerated session loses mode or worktree context that future resume depends on
+
+## Test Design
+
+In the observed source, session behavior is verified through persistence-focused integration tests, deterministic state-shaping regressions, and resume-oriented end-to-end flows.
+
+Equivalent coverage should prove:
+
+- identifiers, checkpoints, artifacts, and persisted metadata survive restarts, forks, rewinds, and discovery scans without state drift
+- storage, attachment, and remote-restoration paths compose correctly with the runtime services that read or mutate session state
+- visible continue, resume, fork, restore, and sharing behavior matches the packaged CLI and remote surfaces rather than only direct module calls

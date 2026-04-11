@@ -75,3 +75,13 @@ Equivalent behavior should allow:
 - **false precision**: touched-file state is treated as exhaustive even though shell-mediated writes can be missed
 - **lock wedged**: a killed or failed dream run does not rewind the consolidation lock and future runs never retry
 - **double rollback**: both the kill path and the outer failure path rewind the lock for the same aborted run
+
+## Test Design
+
+In the observed source, task behavior is verified through lifecycle regressions, registry-backed integration tests, and concurrency-sensitive foreground or background scenarios.
+
+Equivalent coverage should prove:
+
+- state transitions for launch, running, streaming, cancellation, completion, and failure remain deterministic and resettable between cases
+- task registries, monitor families, shared-control events, and persisted output compose correctly across main-session and worker contexts
+- users can still observe, foreground, stop, and inspect task output through the same surfaces they use in normal interactive or automated runs

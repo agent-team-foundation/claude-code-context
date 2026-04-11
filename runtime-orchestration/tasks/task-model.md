@@ -78,3 +78,13 @@ This separation matters because Claude Code mixes interactive foreground work wi
 - **type collapse**: main-session background work becomes indistinguishable from ordinary local-agent work
 - **double start**: replacement or resume emits a second lifecycle-start event for the same logical task
 - **closeout leak**: completion and explicit stop both notify because `notified` is not treated as the barrier
+
+## Test Design
+
+In the observed source, task behavior is verified through lifecycle regressions, registry-backed integration tests, and concurrency-sensitive foreground or background scenarios.
+
+Equivalent coverage should prove:
+
+- state transitions for launch, running, streaming, cancellation, completion, and failure remain deterministic and resettable between cases
+- task registries, monitor families, shared-control events, and persisted output compose correctly across main-session and worker contexts
+- users can still observe, foreground, stop, and inspect task output through the same surfaces they use in normal interactive or automated runs

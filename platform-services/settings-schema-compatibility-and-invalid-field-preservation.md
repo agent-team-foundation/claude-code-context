@@ -51,3 +51,13 @@ The test lane is the oracle, but the contract itself is a platform behavior.
 - **destructive cleanup**: invalid or unknown fields are removed from disk and users lose the information needed to repair them
 - **all-or-nothing rejection**: one malformed rule causes the whole settings file to become unusable when narrower preservation was possible
 - **testless drift**: schema evolution continues without compatibility tests defending the user-facing contract
+
+## Test Design
+
+In the observed source, platform-service behavior is verified through sequencing-sensitive integration tests, deterministic state regressions, and CLI-visible service flows.
+
+Equivalent coverage should prove:
+
+- config resolution, policy gates, persistence, and service startup ordering preserve the contracts and failure handling described above
+- provider-backed or OS-bound branches use fixtures, seeded stores, or narrow seams so auth, update, telemetry, and trust behavior stays reproducible
+- users still encounter the expected startup, settings, trust, diagnostics, and account-state behavior through the real CLI surface

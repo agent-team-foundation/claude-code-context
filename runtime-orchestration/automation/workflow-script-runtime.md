@@ -74,3 +74,13 @@ Without this cleanup discipline, killed workflows accumulate orphaned worktrees 
 - **progress snapshot thrash**: clients receive full workflow-state blobs instead of delta batches and cannot stably rebuild phase progress
 - **control loss**: workflow detail forgets skip or retry controls for individual agents and turns a recoverable multi-agent workflow into a kill-only task
 - **worktree leak**: workflow crash paths leave behind throwaway worktrees that no longer match cleanup rules and accumulate indefinitely
+
+## Test Design
+
+In the observed source, automation behavior is verified through deterministic scheduler regressions, stateful integration coverage, and public-surface workflow scenarios.
+
+Equivalent coverage should prove:
+
+- due-time calculation, jitter, speculation, and recovery logic remain deterministic under test posture and explicit clock control
+- durable task state, ownership locks, prompt injection, and cross-session coordination compose correctly with the task and session subsystems
+- user-visible cron, review, proactive, and remote-planning behavior works through the real automation surfaces instead of a bypass harness

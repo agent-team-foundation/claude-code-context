@@ -109,3 +109,13 @@ The durable contract is:
 - **summary clobber**: a later progress update erases the background summary text
 - **transcript reset**: retained messages or queued prompts disappear during in-session task replacement
 - **blocked readback**: terminal state waits on slow cleanup work and leaves task output readers hanging
+
+## Test Design
+
+In the observed source, task behavior is verified through lifecycle regressions, registry-backed integration tests, and concurrency-sensitive foreground or background scenarios.
+
+Equivalent coverage should prove:
+
+- state transitions for launch, running, streaming, cancellation, completion, and failure remain deterministic and resettable between cases
+- task registries, monitor families, shared-control events, and persisted output compose correctly across main-session and worker contexts
+- users can still observe, foreground, stop, and inspect task output through the same surfaces they use in normal interactive or automated runs

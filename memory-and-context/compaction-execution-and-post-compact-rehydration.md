@@ -91,3 +91,13 @@ Compaction paths also reset prompt-cache-break baselines and re-append session m
 - **rehydration loss**: plan/skill/tool delta state not restored after summary
 - **cross-thread cache corruption**: subagent compaction resets main-thread module state
 - **cache false positives**: post-compact cache read drops misclassified as unexpected breaks
+
+## Test Design
+
+In the observed source, memory and context behavior is verified through deterministic transformation regressions, persistence-aware integration tests, and continuity-focused conversation scenarios.
+
+Equivalent coverage should prove:
+
+- selection, compaction, extraction, and invalidation rules preserve the invariants and bounded-resource behavior documented above
+- cache state, memory layers, session persistence, and rehydration paths compose correctly across resume, compact, and recovery flows
+- visible context continuity still matches the product contract when deterministic fixtures or replay replace live upstream variability

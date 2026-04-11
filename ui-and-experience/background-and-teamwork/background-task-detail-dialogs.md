@@ -93,3 +93,13 @@ Equivalent behavior should preserve:
 - **unbounded readback**: shell or remote detail tries to load whole logs instead of bounded tails or message windows and freezes the terminal
 - **review wording drift**: compact remote-review progress and full review detail disagree about stage names or count semantics
 - **transcript-noise regression**: remote detail or dream detail lets progress noise or tool-only turns crowd out the newest meaningful human-readable output
+
+## Test Design
+
+In the observed source, background and teamwork UI behavior is verified through state-to-view regressions, live-update integration tests, and multi-agent interaction scenarios.
+
+Equivalent coverage should prove:
+
+- row, detail, summary, and status-derivation logic render the same meaning from task and teammate state snapshots
+- polling, mailbox updates, progress streaming, and navigation state stay coherent across live runtime changes and reset hooks between cases
+- users can still follow work, inspect details, and switch teammate context through the real interactive surfaces without stale or duplicated UI state

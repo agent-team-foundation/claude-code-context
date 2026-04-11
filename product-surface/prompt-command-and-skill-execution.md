@@ -134,3 +134,13 @@ The ordering matters. If the session-level write for slash-command `allowedTools
 - **coordinator overload**: coordinator mode loads full skill bodies and permission metadata into the main thread instead of delegating to workers
 - **queue bypass**: detached assistant-mode forked slash commands write directly into the transcript instead of re-entering through the hidden queue path, breaking attribution and follow-up semantics
 - **MCP prompt confusion**: plain MCP prompts are treated as SkillTool-usable skills, collapsing the boundary between prompt resources and true skills
+
+## Test Design
+
+In the observed source, product-surface behavior is verified through command-focused integration tests and CLI-visible end-to-end checks.
+
+Equivalent coverage should prove:
+
+- parsing, dispatch, flag composition, and mode selection preserve the public contract for this surface
+- downstream runtime, tool, and session services receive the correct shaping when this surface is used from interactive and headless entrypoints
+- user-visible output, exit behavior, and help or error routing remain correct through the packaged CLI path rather than only direct module calls

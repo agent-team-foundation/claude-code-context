@@ -19,3 +19,13 @@ The UI layer should provide:
 - reusable component primitives that keep the interface consistent across commands and tools
 
 The key requirement is composability. New commands and tools should be able to reuse the same rendering primitives for progress, approval, and result display, while the terminal runtime layer handles capability negotiation and redraw mechanics underneath.
+
+## Test Design
+
+In the observed source, shell-and-input behavior is verified through deterministic key-sequence regressions, store-backed integration coverage, and interactive terminal end-to-end checks.
+
+Equivalent coverage should prove:
+
+- input reducers, keybinding resolution, history state, and prompt composition preserve the invariants documented above
+- queue, history, suggestion, and terminal-runtime coupling behave correctly with real stores, temp files, and reset hooks between cases
+- multiline entry, fullscreen behavior, pickers, and suggestion surfaces work through the packaged interactive shell instead of only through isolated render helpers

@@ -122,3 +122,13 @@ Equivalent behavior should preserve:
 - **frontmatter corruption**: the rewrite path emits only a patch fragment or rewrites metadata that should have been preserved exactly
 - **foreground blockage**: applying a suggestion blocks the main conversation loop or fails hard when the side-channel model or filesystem write errors out
 - **vanishing proposal**: the UI loses the pending suggestion because app state is cleared before the hook keeps a local copy for rendering
+
+## Test Design
+
+In the observed source, plugin behavior is verified through registry regressions, loading-boundary integration tests, and management-surface end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- discovery, precedence, dependency resolution, feature gating, and skill exposure preserve the plugin contracts documented here
+- hot reload, settings coupling, packaged servers, and cache invalidation behave correctly with resettable registries and on-disk plugin state
+- the visible install, list, enablement, and runtime-exposure behavior stays aligned with the public plugin surfaces rather than private helper APIs

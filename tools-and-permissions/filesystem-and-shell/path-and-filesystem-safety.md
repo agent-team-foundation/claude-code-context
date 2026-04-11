@@ -145,3 +145,13 @@ When sandboxing is enabled, sandbox write-allowlisted directories act as an extr
 - **deny downgrade**: an unparseable or unknown parameter path falls back to ask instead of honoring an explicit deny rule
 - **overbroad suggestion**: the runtime suggests granting all of `.claude` when only one skill subtree was needed
 - **optional-write confusion**: network-fetch cmdlets are treated as mandatory disk writers even when no output path was supplied
+
+## Test Design
+
+In the observed source, filesystem and shell behavior is verified through deterministic parser regressions, tempdir-backed integration tests, and safety-oriented command scenarios.
+
+Equivalent coverage should prove:
+
+- command parsing, classifier shaping, path resolution, and edit semantics preserve the contracts and fail-closed rules documented above
+- sandbox choice, cwd handling, temporary files, notebooks, and persisted edits behave correctly against real filesystem state rather than mock-only substitutes
+- ambiguous or dangerous inputs surface the expected refusal or approval path instead of being silently approximated into execution

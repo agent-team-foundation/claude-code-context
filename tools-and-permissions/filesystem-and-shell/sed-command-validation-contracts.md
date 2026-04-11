@@ -71,3 +71,13 @@ Without this oracle, a rebuild will usually be either too permissive or too anno
 - **rewrite overgrant**: in-place or file-writing programs inherit the same trust as stdout-only inspection
 - **syntax blind spot**: tricky `sed` forms sneak past because the allow path only checks the happy case
 - **parser overfitting**: the rebuild copies one implementation's helper functions but misses the behavioral safety boundary they were defending
+
+## Test Design
+
+In the observed source, filesystem and shell behavior is verified through deterministic parser regressions, tempdir-backed integration tests, and safety-oriented command scenarios.
+
+Equivalent coverage should prove:
+
+- command parsing, classifier shaping, path resolution, and edit semantics preserve the contracts and fail-closed rules documented above
+- sandbox choice, cwd handling, temporary files, notebooks, and persisted edits behave correctly against real filesystem state rather than mock-only substitutes
+- ambiguous or dangerous inputs surface the expected refusal or approval path instead of being silently approximated into execution

@@ -174,3 +174,13 @@ Equivalent behavior should preserve:
 - **dynamic override bug**: nested dynamic skills replace already-visible base commands even though the observed runtime only inserts missing names
 - **unsafe shell expansion**: remote MCP skills are allowed to execute inline shell bodies like local skills
 - **stale visibility**: dynamic or conditional skill activation never invalidates command caches, so touched-path skills remain undiscoverable until restart
+
+## Test Design
+
+In the observed source, plugin behavior is verified through registry regressions, loading-boundary integration tests, and management-surface end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- discovery, precedence, dependency resolution, feature gating, and skill exposure preserve the plugin contracts documented here
+- hot reload, settings coupling, packaged servers, and cache invalidation behave correctly with resettable registries and on-disk plugin state
+- the visible install, list, enablement, and runtime-exposure behavior stays aligned with the public plugin surfaces rather than private helper APIs

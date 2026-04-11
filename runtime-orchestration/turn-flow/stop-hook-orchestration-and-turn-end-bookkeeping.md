@@ -64,3 +64,13 @@ If hook infrastructure itself fails, runtime emits a diagnostic warning message 
 - **missed cleanup**: turn-end cleanup paths skipped on abort/error exits
 - **subagent/main-thread lock corruption**: subagent cleanup mutates shared main-thread computer-use lock state
 - **silent hook failure**: hook runtime errors disappear without user-visible diagnostics
+
+## Test Design
+
+In the observed source, turn-flow behavior is verified through a mix of deterministic module tests, resume-sensitive integration coverage, and CLI-visible end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- pre-query mutation, continuation branches, and typed terminal outcomes stay stable under test posture
+- tool results, compaction, queued-command replay, and transcript persistence still compose correctly inside one logical turn
+- interactive and structured-I/O paths surface the same visible outcome when interruption, permission denial, or recovery branches occur

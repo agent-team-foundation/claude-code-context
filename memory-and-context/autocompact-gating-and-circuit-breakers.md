@@ -54,3 +54,13 @@ When automatic compaction is off, the runtime enforces a hard blocking limit to 
 - **retry storm**: repeated autocompact failures without a breaker
 - **deadlock paths**: autocompact allowed inside compaction/memory workers
 - **recovery starvation**: hard preempt blocks reactive recovery branches
+
+## Test Design
+
+In the observed source, memory and context behavior is verified through deterministic transformation regressions, persistence-aware integration tests, and continuity-focused conversation scenarios.
+
+Equivalent coverage should prove:
+
+- selection, compaction, extraction, and invalidation rules preserve the invariants and bounded-resource behavior documented above
+- cache state, memory layers, session persistence, and rehydration paths compose correctly across resume, compact, and recovery flows
+- visible context continuity still matches the product contract when deterministic fixtures or replay replace live upstream variability

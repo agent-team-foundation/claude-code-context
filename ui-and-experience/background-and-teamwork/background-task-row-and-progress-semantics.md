@@ -75,3 +75,13 @@ Equivalent behavior should preserve:
 - **activity-precedence inversion**: teammate rows show stale work summaries even though stop, approval, or idle states should dominate the one-line description
 - **count-animation mismatch**: review counters either jump abruptly despite being live and motion-enabled, or remain frozen because the animation clock and snap rules are not coordinated
 - **redundant footer echo**: the generic tasks footer remains visible even though the spinner tree already exposes every teammate-only background task
+
+## Test Design
+
+In the observed source, background and teamwork UI behavior is verified through state-to-view regressions, live-update integration tests, and multi-agent interaction scenarios.
+
+Equivalent coverage should prove:
+
+- row, detail, summary, and status-derivation logic render the same meaning from task and teammate state snapshots
+- polling, mailbox updates, progress streaming, and navigation state stay coherent across live runtime changes and reset hooks between cases
+- users can still follow work, inspect details, and switch teammate context through the real interactive surfaces without stale or duplicated UI state

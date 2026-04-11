@@ -86,3 +86,13 @@ These terminals matter because SDK and headless callers react differently to the
 - **orphaned tool call**: a streamed tool use never receives a matching result after interruption or recovery
 - **leaked intermediate error**: a recoverable max-output/context failure is exposed as terminal before the recovery ladder finishes
 - **terminal collapse**: max-turn, max-budget, structured-output exhaustion, and generic failure all become one indistinguishable error path
+
+## Test Design
+
+In the observed source, turn-flow behavior is verified through a mix of deterministic module tests, resume-sensitive integration coverage, and CLI-visible end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- pre-query mutation, continuation branches, and typed terminal outcomes stay stable under test posture
+- tool results, compaction, queued-command replay, and transcript persistence still compose correctly inside one logical turn
+- interactive and structured-I/O paths surface the same visible outcome when interruption, permission denial, or recovery branches occur

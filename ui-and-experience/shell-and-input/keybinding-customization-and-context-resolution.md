@@ -164,3 +164,13 @@ Equivalent behavior should preserve:
 - **priority inversion**: a modal or focused surface fails to register its context in time and `Global` shortcuts fire when local ones should win
 - **diagnostic invisibility**: parse or reserved-shortcut warnings fall back to defaults silently, leaving users with broken customizations and no `/doctor` breadcrumb
 - **label drift**: UI help text keeps showing fallback shortcut labels after customization, so displayed instructions no longer match the keys that actually fire
+
+## Test Design
+
+In the observed source, shell-and-input behavior is verified through deterministic key-sequence regressions, store-backed integration coverage, and interactive terminal end-to-end checks.
+
+Equivalent coverage should prove:
+
+- input reducers, keybinding resolution, history state, and prompt composition preserve the invariants documented above
+- queue, history, suggestion, and terminal-runtime coupling behave correctly with real stores, temp files, and reset hooks between cases
+- multiline entry, fullscreen behavior, pickers, and suggestion surfaces work through the packaged interactive shell instead of only through isolated render helpers

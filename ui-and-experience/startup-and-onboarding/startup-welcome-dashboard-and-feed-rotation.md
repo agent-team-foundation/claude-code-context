@@ -113,3 +113,13 @@ Equivalent behavior should preserve:
 - **feed priority inversion**: upsell feed displaces onboarding feed when onboarding is still active
 - **layout drift**: right-column feeds compute independent widths and visually jitter
 - **notice coupling**: startup notices are hardcoded into logo rendering instead of coming from active notice definitions
+
+## Test Design
+
+In the observed source, startup and onboarding behavior is verified through state-driven rendering regressions, startup-sequencing integration tests, and first-run acceptance flows.
+
+Equivalent coverage should prove:
+
+- welcome, recommendation, upsell, and acknowledgement surfaces appear only under the conditions documented in this leaf
+- account, usage, settings, and startup-service state compose correctly so onboarding decisions are deterministic and resettable in tests
+- users can move from these surfaces into a live session cleanly through the real packaged startup path

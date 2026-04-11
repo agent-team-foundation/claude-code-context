@@ -88,3 +88,13 @@ Equivalent behavior should preserve:
 - **teleport misclassification**: ordinary rejection is mistaken for "send the plan back locally" because sentinel parsing is missing
 - **stale cleanup**: an older failed poll clears the URL or state for a newer relaunched remote-planning session
 - **orphaned planner**: local failure after bootstrap leaves the remote session running with no poller or stop path
+
+## Test Design
+
+In the observed source, automation behavior is verified through deterministic scheduler regressions, stateful integration coverage, and public-surface workflow scenarios.
+
+Equivalent coverage should prove:
+
+- due-time calculation, jitter, speculation, and recovery logic remain deterministic under test posture and explicit clock control
+- durable task state, ownership locks, prompt injection, and cross-session coordination compose correctly with the task and session subsystems
+- user-visible cron, review, proactive, and remote-planning behavior works through the real automation surfaces instead of a bypass harness

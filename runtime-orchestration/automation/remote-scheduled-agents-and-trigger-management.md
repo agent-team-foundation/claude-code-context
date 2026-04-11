@@ -101,3 +101,13 @@ Equivalent behavior should preserve:
 - **connector drift**: arbitrary local MCP servers are treated as remotely attachable even though the remote surface only knows how to reuse specific cloud-connected connectors
 - **timezone ambiguity**: the system stores UTC cron without confirming the user's local-time intent
 - **fake delete**: the CLI pretends to support deletion even though the observed surface keeps deletion in the web control plane
+
+## Test Design
+
+In the observed source, automation behavior is verified through deterministic scheduler regressions, stateful integration coverage, and public-surface workflow scenarios.
+
+Equivalent coverage should prove:
+
+- due-time calculation, jitter, speculation, and recovery logic remain deterministic under test posture and explicit clock control
+- durable task state, ownership locks, prompt injection, and cross-session coordination compose correctly with the task and session subsystems
+- user-visible cron, review, proactive, and remote-planning behavior works through the real automation surfaces instead of a bypass harness

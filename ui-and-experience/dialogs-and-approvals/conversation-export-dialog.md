@@ -67,3 +67,13 @@ Equivalent behavior should preserve:
 - **shortcut theft**: filename entry is active, but global confirmation bindings still consume ordinary typing
 - **raw-artifact leakage**: export writes internal transcript envelopes rather than the user-facing plain-text rendering
 - **naming mismatch**: direct-argument export and dialog-driven export normalize filenames differently and surprise users
+
+## Test Design
+
+In the observed source, dialog and approval behavior is verified through focused rendering or view-model regressions, store-backed integration tests, and interactive acceptance flows.
+
+Equivalent coverage should prove:
+
+- focus, overlay arbitration, diff navigation, structured rendering, and approval routing preserve the invariants documented in this leaf
+- dialog state remains correctly coupled to permission, plan, session, and transcript stores without timing-dependent leaks
+- users can actually reach, dismiss, accept, deny, export, or navigate these surfaces through the packaged interactive UI

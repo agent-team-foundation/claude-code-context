@@ -78,3 +78,13 @@ Equivalent behavior should preserve:
 - **trust-order inversion**: analytics or usage-prefetch calls start before trust-gated env/config state is ready
 - **privacy regression**: telemetry-suppressed or essential-traffic sessions still make nonessential support calls
 - **migration skew**: stored settings evolve only partially and later services observe incompatible generations of the same local state
+
+## Test Design
+
+In the observed source, platform-service behavior is verified through sequencing-sensitive integration tests, deterministic state regressions, and CLI-visible service flows.
+
+Equivalent coverage should prove:
+
+- config resolution, policy gates, persistence, and service startup ordering preserve the contracts and failure handling described above
+- provider-backed or OS-bound branches use fixtures, seeded stores, or narrow seams so auth, update, telemetry, and trust behavior stays reproducible
+- users still encounter the expected startup, settings, trust, diagnostics, and account-state behavior through the real CLI surface

@@ -112,3 +112,13 @@ Equivalent behavior should preserve:
 - **permission desync**: remote permission cancellation does not remove the local approval row, leaving the viewer with an answerable prompt the server no longer wants
 - **init spam**: direct-connect or SSH surfaces print a fresh "session initialized" row every turn because repeated init payloads are not deduplicated
 - **viewer takeover**: a viewer-only client is allowed to rename or interrupt the remotely owned session
+
+## Test Design
+
+In the observed source, client-integration behavior is verified through adapter regressions, transport-aware integration tests, and public-surface end-to-end flows.
+
+Equivalent coverage should prove:
+
+- message shaping, history or state projection, and surface-specific envelope rules stay stable across the client contracts described here
+- auth proxying, environment selection, reconnect, and remote-session coordination behave correctly at the real process or transport boundary
+- packaged client entrypoints still expose the same visible behavior as direct source invocation, especially for structured I/O and remote viewers

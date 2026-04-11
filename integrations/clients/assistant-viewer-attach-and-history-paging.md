@@ -68,3 +68,13 @@ This split is load-bearing: the viewer is interactive, but it is not the owner o
 - **phantom task list**: remote background work is reconstructed from local task state and shows tasks that do not actually exist in the viewer process
 - **unsafe takeover**: the viewer is allowed to rename or interrupt a remotely owned assistant session
 - **stale-auth reconnect**: attach succeeds once but later reconnects fail because the client cached a single bearer token instead of refreshing on demand
+
+## Test Design
+
+In the observed source, client-integration behavior is verified through adapter regressions, transport-aware integration tests, and public-surface end-to-end flows.
+
+Equivalent coverage should prove:
+
+- message shaping, history or state projection, and surface-specific envelope rules stay stable across the client contracts described here
+- auth proxying, environment selection, reconnect, and remote-session coordination behave correctly at the real process or transport boundary
+- packaged client entrypoints still expose the same visible behavior as direct source invocation, especially for structured I/O and remote viewers

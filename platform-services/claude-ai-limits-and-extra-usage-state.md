@@ -109,3 +109,13 @@ Equivalent behavior should preserve:
 - **admin-request dead end**: Team or Enterprise non-billing users are pushed into billing URLs they cannot use, or are allowed to request impossible spend-cap states
 - **1M access drift**: model gating ignores the cached extra-usage posture and exposes million-context variants to subscriber accounts that should not have them
 - **cache-policy split brain**: overage transitions silently change prompt-cache TTL behavior without the runtime tracking or explaining the break
+
+## Test Design
+
+In the observed source, platform-service behavior is verified through sequencing-sensitive integration tests, deterministic state regressions, and CLI-visible service flows.
+
+Equivalent coverage should prove:
+
+- config resolution, policy gates, persistence, and service startup ordering preserve the contracts and failure handling described above
+- provider-backed or OS-bound branches use fixtures, seeded stores, or narrow seams so auth, update, telemetry, and trust behavior stays reproducible
+- users still encounter the expected startup, settings, trust, diagnostics, and account-state behavior through the real CLI surface

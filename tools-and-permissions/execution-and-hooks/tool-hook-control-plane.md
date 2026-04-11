@@ -71,3 +71,13 @@ Some hook events run outside normal REPL message exposure. Equivalent behavior s
 - **context loss**: additional context or rewritten input is dropped between hook layer and executor
 - **orphaned async hook**: background hook survives without lifecycle tracking and cleanup
 - **execution stall**: one broken hook blocks unrelated hook execution or deadlocks hot paths
+
+## Test Design
+
+In the observed source, execution and hook behavior is verified through explicit state-machine regressions, queue-aware integration coverage, and real tool-invocation scenarios.
+
+Equivalent coverage should prove:
+
+- batching, streaming, hook admission, cancellation, and completion events preserve the sequencing guarantees documented in this leaf
+- runtime context shaping, side-effect control, and hook-triggered follow-up work compose correctly with real registries, timers, and reset hooks
+- the visible progress, notification, and post-tool behavior remains stable when the runtime executes tools through ordinary paths

@@ -151,3 +151,13 @@ The bridge transports unresolved approval state. It does not create a second she
 - **fallback equivalence myth**: a degraded parser is treated as equally authoritative as the AST-backed path
 - **classifier race leak**: auto-approval wins after the user or another channel already took ownership of the same request
 - **build skew**: external or disabled-classifier builds still assume speculative approval will run and therefore leave shell asks in a broken waiting state
+
+## Test Design
+
+In the observed source, filesystem and shell behavior is verified through deterministic parser regressions, tempdir-backed integration tests, and safety-oriented command scenarios.
+
+Equivalent coverage should prove:
+
+- command parsing, classifier shaping, path resolution, and edit semantics preserve the contracts and fail-closed rules documented above
+- sandbox choice, cwd handling, temporary files, notebooks, and persisted edits behave correctly against real filesystem state rather than mock-only substitutes
+- ambiguous or dangerous inputs surface the expected refusal or approval path instead of being silently approximated into execution

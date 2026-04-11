@@ -71,3 +71,13 @@ The important contract is that leaving a worktree is not just `cd ..`. It is a c
 - **wrong-target tooling**: statusline, IDE open, or exit flows keep acting on the original checkout even though the session is operating in the worktree
 - **unsafe deletion**: removal treats unknown git state as clean and destroys work that should have required an explicit discard confirmation
 - **scope leak**: the exit tool starts mutating any worktree on disk instead of only the worktree posture owned by the current session
+
+## Test Design
+
+In the observed source, session behavior is verified through persistence-focused integration tests, deterministic state-shaping regressions, and resume-oriented end-to-end flows.
+
+Equivalent coverage should prove:
+
+- identifiers, checkpoints, artifacts, and persisted metadata survive restarts, forks, rewinds, and discovery scans without state drift
+- storage, attachment, and remote-restoration paths compose correctly with the runtime services that read or mutate session state
+- visible continue, resume, fork, restore, and sharing behavior matches the packaged CLI and remote surfaces rather than only direct module calls

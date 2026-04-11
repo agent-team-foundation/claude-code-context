@@ -69,3 +69,13 @@ The leader's identity should remain distinct from subordinate teammate identity 
 - **assignment drift**: owner changes do not notify the new owner, so swarm routing falls out of sync
 - **split team queues**: leader and teammates accidentally write to different task lists
 - **multi-team leader**: one leader session silently controls more than one active team
+
+## Test Design
+
+In the observed source, agent and task-control behavior is verified through tool-contract regressions, shared-state integration tests, and interactive or automation control scenarios.
+
+Equivalent coverage should prove:
+
+- input shaping, launch routing, legacy-bridge rules, and control semantics stay aligned across the tool contracts described here
+- shared team or task state, forwarded control, and scheduling boundaries behave correctly across main sessions, workers, and delegated flows
+- users and clients can still spawn, steer, stop, list, and inspect work through the same real control surfaces the product exposes

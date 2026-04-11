@@ -113,3 +113,13 @@ Equivalent behavior should preserve:
 - **clean-tree false positive**: live diff fetch failure is surfaced as a clean working tree even when the repository is not actually clean
 - **historical-context mismatch**: rebuilds assume stored per-turn file snapshots exist, but the real product enriches turn diffs from the file's current on-disk contents
 - **navigation flattening**: left and right keys stop meaning different things in list versus detail mode, making source switching and back-navigation feel wrong
+
+## Test Design
+
+In the observed source, dialog and approval behavior is verified through focused rendering or view-model regressions, store-backed integration tests, and interactive acceptance flows.
+
+Equivalent coverage should prove:
+
+- focus, overlay arbitration, diff navigation, structured rendering, and approval routing preserve the invariants documented in this leaf
+- dialog state remains correctly coupled to permission, plan, session, and transcript stores without timing-dependent leaks
+- users can actually reach, dismiss, accept, deny, export, or navigate these surfaces through the packaged interactive UI

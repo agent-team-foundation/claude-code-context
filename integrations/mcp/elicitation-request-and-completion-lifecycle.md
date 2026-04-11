@@ -75,3 +75,13 @@ This keeps terminal and SDK behavior aligned without inventing a separate busine
 - **URL dead-wait**: completion notifications do not clear waiting-state UI
 - **stale completion match**: completion from one request resolves a different pending elicitation
 - **hook bypass**: post-response hooks are skipped, breaking policy or audit workflows
+
+## Test Design
+
+In the observed source, MCP behavior is verified through contract regressions, seeded or fixture-backed integration flows, and connection-realistic end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- config layering, server lifecycle, permission relay, and resource projection preserve the contracts described in this leaf
+- auth, OAuth step-up, federated identity, and recovery branches can be exercised deterministically without depending on unstable live infrastructure
+- users still see the expected MCP connection, gating, refresh, and failure behavior through the real runtime surfaces

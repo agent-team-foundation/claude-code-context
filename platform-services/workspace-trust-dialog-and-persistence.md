@@ -100,3 +100,13 @@ Equivalent behavior should preserve:
 - **false-result caching**: a pre-trust false result is memoized too aggressively, so accepting trust mid-session does not unlock trust-gated features
 - **risk-signal blind spots**: project-provided Bash-capable prompts or helper commands are omitted from the pre-trust risk model
 - **bridge bypass**: a headless or bridge path starts executing project-controlled behavior without first requiring previously persisted trust
+
+## Test Design
+
+In the observed source, platform-service behavior is verified through sequencing-sensitive integration tests, deterministic state regressions, and CLI-visible service flows.
+
+Equivalent coverage should prove:
+
+- config resolution, policy gates, persistence, and service startup ordering preserve the contracts and failure handling described above
+- provider-backed or OS-bound branches use fixtures, seeded stores, or narrow seams so auth, update, telemetry, and trust behavior stays reproducible
+- users still encounter the expected startup, settings, trust, diagnostics, and account-state behavior through the real CLI surface

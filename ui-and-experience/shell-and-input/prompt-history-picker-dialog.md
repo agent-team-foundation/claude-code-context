@@ -72,3 +72,13 @@ Equivalent behavior should preserve:
 - **paste loss**: the picker shows the right visible prompt but fails to rehydrate the hidden pasted-content payload behind it
 - **ranking noise**: loose fuzzy matches outrank obvious substring hits and make the picker feel unpredictable
 - **overlay bleed**: the picker is on screen, but prompt or footer keybindings still react underneath it
+
+## Test Design
+
+In the observed source, shell-and-input behavior is verified through deterministic key-sequence regressions, store-backed integration coverage, and interactive terminal end-to-end checks.
+
+Equivalent coverage should prove:
+
+- input reducers, keybinding resolution, history state, and prompt composition preserve the invariants documented above
+- queue, history, suggestion, and terminal-runtime coupling behave correctly with real stores, temp files, and reset hooks between cases
+- multiline entry, fullscreen behavior, pickers, and suggestion surfaces work through the packaged interactive shell instead of only through isolated render helpers

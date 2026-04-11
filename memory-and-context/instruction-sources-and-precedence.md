@@ -117,3 +117,13 @@ When the active cwd is a nested worktree inside a larger canonical repository, c
 - **unsafe include activation**: external files become trusted before workspace approval
 - **eager overreach**: path-conditioned rules are injected globally and drown out more relevant context
 - **flattened provenance**: included material loses its parent relationship, making audits and reload hooks ambiguous
+
+## Test Design
+
+In the observed source, memory and context behavior is verified through deterministic transformation regressions, persistence-aware integration tests, and continuity-focused conversation scenarios.
+
+Equivalent coverage should prove:
+
+- selection, compaction, extraction, and invalidation rules preserve the invariants and bounded-resource behavior documented above
+- cache state, memory layers, session persistence, and rehydration paths compose correctly across resume, compact, and recovery flows
+- visible context continuity still matches the product contract when deterministic fixtures or replay replace live upstream variability

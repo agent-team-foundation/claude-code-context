@@ -29,3 +29,13 @@ Across all families, tools should share a common contract:
 The important reconstruction point is that not all tools act on the outside world. Some mutate the runtime's own work graph, settings, or approval posture, and those families still need the same schema, observability, and safety guarantees.
 
 Helper or test-only tools can still exist in the catalog, but they should be treated as admission- and posture-sensitive helper surfaces rather than as a separate public product family.
+
+## Test Design
+
+In the observed source, tool-catalog behavior is verified through deterministic assembly regressions, cache-aware integration coverage, and availability-oriented surface checks.
+
+Equivalent coverage should prove:
+
+- discovery, precedence, filtering, and ordering logic preserve the catalog contracts described in this leaf
+- deferred loading, refresh, and contributions from built-ins, agents, plugins, and MCP sources behave correctly with resettable caches and registries
+- visible tool availability and ordering stay stable enough for prompt caching, search, and client expectations to remain consistent across sessions

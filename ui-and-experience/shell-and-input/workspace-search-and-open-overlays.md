@@ -81,3 +81,13 @@ Equivalent behavior should preserve:
 - **search flicker**: incoming workspace-search chunks replace the entire list and make counts or focus jump around during typing
 - **reference drift**: insert actions replace the whole prompt or omit needed spacing, corrupting the user's in-progress draft
 - **silent truncation**: the workspace-search backend caps results, but the UI fails to indicate that more matches existed
+
+## Test Design
+
+In the observed source, shell-and-input behavior is verified through deterministic key-sequence regressions, store-backed integration coverage, and interactive terminal end-to-end checks.
+
+Equivalent coverage should prove:
+
+- input reducers, keybinding resolution, history state, and prompt composition preserve the invariants documented above
+- queue, history, suggestion, and terminal-runtime coupling behave correctly with real stores, temp files, and reset hooks between cases
+- multiline entry, fullscreen behavior, pickers, and suggestion surfaces work through the packaged interactive shell instead of only through isolated render helpers

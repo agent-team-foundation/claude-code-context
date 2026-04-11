@@ -130,3 +130,13 @@ Equivalent behavior should preserve:
 - **transport drift**: the remote-stream variant and local-stdio variant stop sharing the same request registry, so one surface learns behaviors the other cannot reproduce
 - **remote resume amnesia**: worker external metadata is not restored before initial message loading, so resumed remote sessions lose model, permission, or pending-action context
 - **idle timeout breakage**: keep-alive signaling is missing or leaks into the visible message stream instead of staying a transport-only health frame
+
+## Test Design
+
+In the observed source, client-integration behavior is verified through adapter regressions, transport-aware integration tests, and public-surface end-to-end flows.
+
+Equivalent coverage should prove:
+
+- message shaping, history or state projection, and surface-specific envelope rules stay stable across the client contracts described here
+- auth proxying, environment selection, reconnect, and remote-session coordination behave correctly at the real process or transport boundary
+- packaged client entrypoints still expose the same visible behavior as direct source invocation, especially for structured I/O and remote viewers

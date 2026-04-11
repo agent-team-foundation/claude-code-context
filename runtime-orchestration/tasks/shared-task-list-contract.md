@@ -83,3 +83,13 @@ A correct rebuild should preserve:
 - **busy-check race**: one worker acquires multiple unresolved tasks because agent-busy validation was not atomic
 - **blocked-task pickup**: auto-claim ignores unresolved blockers and starts downstream work too early
 - **watcher churn**: the filesystem watcher is recreated every turn and eventually deadlocks or misses updates
+
+## Test Design
+
+In the observed source, task behavior is verified through lifecycle regressions, registry-backed integration tests, and concurrency-sensitive foreground or background scenarios.
+
+Equivalent coverage should prove:
+
+- state transitions for launch, running, streaming, cancellation, completion, and failure remain deterministic and resettable between cases
+- task registries, monitor families, shared-control events, and persisted output compose correctly across main-session and worker contexts
+- users can still observe, foreground, stop, and inspect task output through the same surfaces they use in normal interactive or automated runs

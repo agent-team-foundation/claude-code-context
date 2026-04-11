@@ -112,3 +112,13 @@ Equivalent behavior should:
 - **false review completion**: hook-based remote review is marked done during a transient idle gap
 - **duplicate closeout**: stop and poll completion both notify because terminal state was not re-checked after async polling
 - **wrong artifact surface**: the local model is told to read a raw remote log instead of receiving parsed review or planning output
+
+## Test Design
+
+In the observed source, session behavior is verified through persistence-focused integration tests, deterministic state-shaping regressions, and resume-oriented end-to-end flows.
+
+Equivalent coverage should prove:
+
+- identifiers, checkpoints, artifacts, and persisted metadata survive restarts, forks, rewinds, and discovery scans without state drift
+- storage, attachment, and remote-restoration paths compose correctly with the runtime services that read or mutate session state
+- visible continue, resume, fork, restore, and sharing behavior matches the packaged CLI and remote surfaces rather than only direct module calls

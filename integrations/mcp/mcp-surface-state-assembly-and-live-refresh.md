@@ -127,3 +127,13 @@ Equivalent behavior should preserve:
 - **cache race overwrite**: prompt and resource refreshes reuse stale per-server caches and let an older refresh clobber a newer command set
 - **ghost plugin server**: disabled or removed plugin-backed MCP servers leave tools or commands in state after `/reload-plugins`
 - **surface conflation**: MCP prompts are treated as SkillTool-invocable skills everywhere instead of staying distinct from the MCP-skill subset
+
+## Test Design
+
+In the observed source, MCP behavior is verified through contract regressions, seeded or fixture-backed integration flows, and connection-realistic end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- config layering, server lifecycle, permission relay, and resource projection preserve the contracts described in this leaf
+- auth, OAuth step-up, federated identity, and recovery branches can be exercised deterministically without depending on unstable live infrastructure
+- users still see the expected MCP connection, gating, refresh, and failure behavior through the real runtime surfaces

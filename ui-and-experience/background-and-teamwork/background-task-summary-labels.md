@@ -57,3 +57,13 @@ Equivalent behavior should preserve:
 - **shell-monitor collapse**: monitoring work gets hidden inside generic shell counts so users cannot tell whether the background system is executing commands or watching long-lived processes
 - **remote urgency leak**: every single remote session gets a planning-style CTA even when no user action is required
 - **surface wording split**: footer and transcript summarize the same task set with different nouns or icon conventions
+
+## Test Design
+
+In the observed source, background and teamwork UI behavior is verified through state-to-view regressions, live-update integration tests, and multi-agent interaction scenarios.
+
+Equivalent coverage should prove:
+
+- row, detail, summary, and status-derivation logic render the same meaning from task and teammate state snapshots
+- polling, mailbox updates, progress streaming, and navigation state stay coherent across live runtime changes and reset hooks between cases
+- users can still follow work, inspect details, and switch teammate context through the real interactive surfaces without stale or duplicated UI state

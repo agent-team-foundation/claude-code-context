@@ -58,3 +58,13 @@ Equivalent behavior should preserve:
 - **MCP dead-end**: an agent launches without the required authenticated tool servers and fails mid-task
 - **background cancel leak**: pressing escape on the parent turn kills workers that were meant to keep running independently
 - **worktree orphaning**: short-lived isolated checkouts are left behind or, worse, deleted even though the child produced changes
+
+## Test Design
+
+In the observed source, agent and task-control behavior is verified through tool-contract regressions, shared-state integration tests, and interactive or automation control scenarios.
+
+Equivalent coverage should prove:
+
+- input shaping, launch routing, legacy-bridge rules, and control semantics stay aligned across the tool contracts described here
+- shared team or task state, forwarded control, and scheduling boundaries behave correctly across main sessions, workers, and delegated flows
+- users and clients can still spawn, steer, stop, list, and inspect work through the same real control surfaces the product exposes

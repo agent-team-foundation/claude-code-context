@@ -42,3 +42,13 @@ Review is not one feature path. It has at least two important variants: a local 
 - **verification timeout**: remote or local evidence gathering exceeds acceptable time or budget
 
 Rebuilders should treat review as an orchestration pattern layered on top of the normal query loop and optional remote delegation.
+
+## Test Design
+
+In the observed source, automation behavior is verified through deterministic scheduler regressions, stateful integration coverage, and public-surface workflow scenarios.
+
+Equivalent coverage should prove:
+
+- due-time calculation, jitter, speculation, and recovery logic remain deterministic under test posture and explicit clock control
+- durable task state, ownership locks, prompt injection, and cross-session coordination compose correctly with the task and session subsystems
+- user-visible cron, review, proactive, and remote-planning behavior works through the real automation surfaces instead of a bypass harness

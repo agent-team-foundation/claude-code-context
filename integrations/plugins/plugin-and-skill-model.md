@@ -104,3 +104,13 @@ Equivalent behavior should preserve:
 - **default-capability conflation**: shipped bundled skills and shipped built-in plugins are merged into one undifferentiated default-extension bucket
 - **policy drift**: plugin-delivered skills survive after the containing plugin is disabled or blocked, or plugin trust checks are bypassed because the payload is mislabeled as "just a skill"
 - **surface conflation**: plugin-management UX and skill-discovery UX are treated as one inventory even though one manages capability containers and the other selects task guidance
+
+## Test Design
+
+In the observed source, plugin behavior is verified through registry regressions, loading-boundary integration tests, and management-surface end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- discovery, precedence, dependency resolution, feature gating, and skill exposure preserve the plugin contracts documented here
+- hot reload, settings coupling, packaged servers, and cache invalidation behave correctly with resettable registries and on-disk plugin state
+- the visible install, list, enablement, and runtime-exposure behavior stays aligned with the public plugin surfaces rather than private helper APIs

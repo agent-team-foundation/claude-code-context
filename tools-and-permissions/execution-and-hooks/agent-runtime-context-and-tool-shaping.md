@@ -130,3 +130,13 @@ Equivalent behavior should preserve:
 - **preload context drift**: agent-declared skill preloads resolve against the wrong catalog or the final worker-local MCP or worktree context, so the loaded guidance differs from the observed product
 - **extension trust inversion**: user-controlled agents gain hooks or MCP authority that should be reserved for admin-trusted sources, or trusted plugin agents lose approved capabilities
 - **context bloat**: read-only workers inherit bulky instruction or repository-status context that they cannot act on, wasting tokens and obscuring the bounded-worker model
+
+## Test Design
+
+In the observed source, execution and hook behavior is verified through explicit state-machine regressions, queue-aware integration coverage, and real tool-invocation scenarios.
+
+Equivalent coverage should prove:
+
+- batching, streaming, hook admission, cancellation, and completion events preserve the sequencing guarantees documented in this leaf
+- runtime context shaping, side-effect control, and hook-triggered follow-up work compose correctly with real registries, timers, and reset hooks
+- the visible progress, notification, and post-tool behavior remains stable when the runtime executes tools through ordinary paths

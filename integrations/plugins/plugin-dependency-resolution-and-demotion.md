@@ -58,3 +58,13 @@ Disable/uninstall operations should warn when other enabled plugins depend on th
 - **silent breakage**: unsatisfied dependencies do not generate user-visible errors
 - **settings corruption**: load-time demotion writes persistent settings unexpectedly
 - **teardown deadlock**: uninstall is blocked by reverse dependencies and cannot remove a broken plugin
+
+## Test Design
+
+In the observed source, plugin behavior is verified through registry regressions, loading-boundary integration tests, and management-surface end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- discovery, precedence, dependency resolution, feature gating, and skill exposure preserve the plugin contracts documented here
+- hot reload, settings coupling, packaged servers, and cache invalidation behave correctly with resettable registries and on-disk plugin state
+- the visible install, list, enablement, and runtime-exposure behavior stays aligned with the public plugin surfaces rather than private helper APIs

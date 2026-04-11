@@ -74,3 +74,13 @@ These are not equal-priority notifications. They share one late-position band th
 - **hidden blocker**: a blocking approval exists, but the viewport or scroll position leaves it off-screen
 - **overlay leakage**: prompt-local overlays leave composer or footer handlers active underneath
 - **priority inversion**: low-priority onboarding/recommendation UI appears while a higher-priority blocking dialog should have focus
+
+## Test Design
+
+In the observed source, dialog and approval behavior is verified through focused rendering or view-model regressions, store-backed integration tests, and interactive acceptance flows.
+
+Equivalent coverage should prove:
+
+- focus, overlay arbitration, diff navigation, structured rendering, and approval routing preserve the invariants documented in this leaf
+- dialog state remains correctly coupled to permission, plan, session, and transcript stores without timing-dependent leaks
+- users can actually reach, dismiss, accept, deny, export, or navigate these surfaces through the packaged interactive UI

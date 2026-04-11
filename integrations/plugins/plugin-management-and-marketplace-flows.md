@@ -196,3 +196,13 @@ Equivalent behavior should preserve:
 - **refresh skew**: commands refresh but MCP and LSP state do not, so the extension surface disagrees with itself after `/reload-plugins`
 - **cache ghosting**: marketplace or plugin caches survive source changes and keep returning stale manifests, versions, or "not found" outcomes
 - **config dead-end**: plugins that require user configuration install successfully but never divert into the follow-up options flow, leaving them half-usable
+
+## Test Design
+
+In the observed source, plugin behavior is verified through registry regressions, loading-boundary integration tests, and management-surface end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- discovery, precedence, dependency resolution, feature gating, and skill exposure preserve the plugin contracts documented here
+- hot reload, settings coupling, packaged servers, and cache invalidation behave correctly with resettable registries and on-disk plugin state
+- the visible install, list, enablement, and runtime-exposure behavior stays aligned with the public plugin surfaces rather than private helper APIs

@@ -97,3 +97,13 @@ Equivalent behavior should preserve:
 - **remote-edit confusion**: setup attempts mutate server-side editor config when local-machine edits are required
 - **enter-priority regression**: submission fires before multiline newline insertion on modifier or backslash paths
 - **carriage-return drift**: SSH/coalesced input sequences are interpreted as literal text or accidental submit events
+
+## Test Design
+
+In the observed source, shell-and-input behavior is verified through deterministic key-sequence regressions, store-backed integration coverage, and interactive terminal end-to-end checks.
+
+Equivalent coverage should prove:
+
+- input reducers, keybinding resolution, history state, and prompt composition preserve the invariants documented above
+- queue, history, suggestion, and terminal-runtime coupling behave correctly with real stores, temp files, and reset hooks between cases
+- multiline entry, fullscreen behavior, pickers, and suggestion surfaces work through the packaged interactive shell instead of only through isolated render helpers

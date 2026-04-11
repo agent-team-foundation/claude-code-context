@@ -121,3 +121,13 @@ They should not invent hidden ranking, retrieval, transport, or storage details 
 - **guessed remote execution**: a remotely discovered skill can be invoked without prior discovery, so the model can call hidden names by guesswork
 - **local-remote conflation**: remotely discovered skills are run through ordinary local prompt compilation and accidentally gain shell expansion or argument interpolation
 - **state drift**: discovered-skill state is never cleared, or is cleared too aggressively, so later turns either lose legitimate discovery context or accumulate stale names forever
+
+## Test Design
+
+In the observed source, plugin behavior is verified through registry regressions, loading-boundary integration tests, and management-surface end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- discovery, precedence, dependency resolution, feature gating, and skill exposure preserve the plugin contracts documented here
+- hot reload, settings coupling, packaged servers, and cache invalidation behave correctly with resettable registries and on-disk plugin state
+- the visible install, list, enablement, and runtime-exposure behavior stays aligned with the public plugin surfaces rather than private helper APIs

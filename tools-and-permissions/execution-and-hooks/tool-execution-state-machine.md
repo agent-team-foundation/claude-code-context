@@ -38,3 +38,13 @@ Tool use is a controlled lifecycle, not a direct function call.
 - **Path escape or destructive intent**: command semantics force rejection or input rewriting.
 - **Stale tool pool**: the runtime and current integrations disagree on which tools exist.
 - **Collapsed visibility**: a tool runs, but the UI does not surface enough progress or output for the user to trust it.
+
+## Test Design
+
+In the observed source, execution and hook behavior is verified through explicit state-machine regressions, queue-aware integration coverage, and real tool-invocation scenarios.
+
+Equivalent coverage should prove:
+
+- batching, streaming, hook admission, cancellation, and completion events preserve the sequencing guarantees documented in this leaf
+- runtime context shaping, side-effect control, and hook-triggered follow-up work compose correctly with real registries, timers, and reset hooks
+- the visible progress, notification, and post-tool behavior remains stable when the runtime executes tools through ordinary paths

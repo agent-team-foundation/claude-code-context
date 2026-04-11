@@ -104,3 +104,13 @@ The product contract is that MCP extends Claude Code, not that it escapes Claude
 - **connected-but-dead UX**: a server counts as active as soon as transport opens, even though auth or surface enumeration never completed
 - **append-only surfacing**: reconnects and `list_changed` refreshes keep stacking stale tools, prompts, or resources instead of replacing one server's slice
 - **interaction exile**: OAuth, elicitation, or needs-auth recovery flows live outside the normal permission and user-interaction model
+
+## Test Design
+
+In the observed source, MCP behavior is verified through contract regressions, seeded or fixture-backed integration flows, and connection-realistic end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- config layering, server lifecycle, permission relay, and resource projection preserve the contracts described in this leaf
+- auth, OAuth step-up, federated identity, and recovery branches can be exercised deterministically without depending on unstable live infrastructure
+- users still see the expected MCP connection, gating, refresh, and failure behavior through the real runtime surfaces

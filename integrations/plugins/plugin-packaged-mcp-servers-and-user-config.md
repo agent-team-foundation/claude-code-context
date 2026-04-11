@@ -69,3 +69,13 @@ Key invariant: enabled manual config wins over plugin-config duplicates; disable
 - **partial-load crash**: one malformed server config aborts all plugin MCP server loading
 - **dedup miss**: same endpoint appears as both manual and plugin server, duplicating tools
 - **dedup overreach**: disabled manual server suppresses the only runnable plugin equivalent
+
+## Test Design
+
+In the observed source, plugin behavior is verified through registry regressions, loading-boundary integration tests, and management-surface end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- discovery, precedence, dependency resolution, feature gating, and skill exposure preserve the plugin contracts documented here
+- hot reload, settings coupling, packaged servers, and cache invalidation behave correctly with resettable registries and on-disk plugin state
+- the visible install, list, enablement, and runtime-exposure behavior stays aligned with the public plugin surfaces rather than private helper APIs

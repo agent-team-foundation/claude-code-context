@@ -146,3 +146,13 @@ Rebuilds should therefore treat `localSettings` as a real but only partially evi
 - **eager skill freeze**: agent `skills` are treated as parse-time file references instead of late-resolved preload names, so plugin-namespaced or later-loaded skills stop resolving correctly
 - **memory dead-end**: memory-enabled agents do not gain the file tools needed to make that memory path usable
 - **loader fragility**: one malformed agent file tears down the whole catalog instead of degrading to built-ins or surviving definitions
+
+## Test Design
+
+In the observed source, tool-catalog behavior is verified through deterministic assembly regressions, cache-aware integration coverage, and availability-oriented surface checks.
+
+Equivalent coverage should prove:
+
+- discovery, precedence, filtering, and ordering logic preserve the catalog contracts described in this leaf
+- deferred loading, refresh, and contributions from built-ins, agents, plugins, and MCP sources behave correctly with resettable caches and registries
+- visible tool availability and ordering stay stable enough for prompt caching, search, and client expectations to remain consistent across sessions

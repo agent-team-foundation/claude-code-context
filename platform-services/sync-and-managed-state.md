@@ -25,3 +25,13 @@ Reconstruction requirements:
 - Security checks must happen before synchronized content is trusted. Secret scanning and managed-settings validation are part of the product contract, not optional polish.
 
 This domain matters because Claude Code is not just a local CLI with one config file. It behaves like a multi-environment client whose effective behavior depends on what has been synchronized, validated, and allowed for the current user and workspace.
+
+## Test Design
+
+In the observed source, platform-service behavior is verified through sequencing-sensitive integration tests, deterministic state regressions, and CLI-visible service flows.
+
+Equivalent coverage should prove:
+
+- config resolution, policy gates, persistence, and service startup ordering preserve the contracts and failure handling described above
+- provider-backed or OS-bound branches use fixtures, seeded stores, or narrow seams so auth, update, telemetry, and trust behavior stays reproducible
+- users still encounter the expected startup, settings, trust, diagnostics, and account-state behavior through the real CLI surface

@@ -66,3 +66,13 @@ A correct rebuild should keep:
 - **cache churn**: equivalent tool pools reorder themselves and invalidate downstream caching
 - **name collision leakage**: an extension silently shadows a built-in tool with different semantics
 - **special-tool confusion**: internal helper tools leak into the ordinary user-facing tool set
+
+## Test Design
+
+In the observed source, tool-catalog behavior is verified through deterministic assembly regressions, cache-aware integration coverage, and availability-oriented surface checks.
+
+Equivalent coverage should prove:
+
+- discovery, precedence, filtering, and ordering logic preserve the catalog contracts described in this leaf
+- deferred loading, refresh, and contributions from built-ins, agents, plugins, and MCP sources behave correctly with resettable caches and registries
+- visible tool availability and ordering stay stable enough for prompt caching, search, and client expectations to remain consistent across sessions

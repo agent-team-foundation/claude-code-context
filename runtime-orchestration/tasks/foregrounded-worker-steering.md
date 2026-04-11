@@ -64,3 +64,13 @@ Equivalent behavior should preserve:
 - **leader inbox leak**: leader-only pending messages appear inside a teammate transcript view and confuse the worker context
 - **control-message leak**: permission or shutdown protocol payloads are bundled as ordinary model attachments
 - **lost passive cleanup**: shutdown approvals received in non-interactive mode never remove teammates from the roster or return their tasks to the queue
+
+## Test Design
+
+In the observed source, task behavior is verified through lifecycle regressions, registry-backed integration tests, and concurrency-sensitive foreground or background scenarios.
+
+Equivalent coverage should prove:
+
+- state transitions for launch, running, streaming, cancellation, completion, and failure remain deterministic and resettable between cases
+- task registries, monitor families, shared-control events, and persisted output compose correctly across main-session and worker contexts
+- users can still observe, foreground, stop, and inspect task output through the same surfaces they use in normal interactive or automated runs

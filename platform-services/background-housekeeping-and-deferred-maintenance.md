@@ -101,3 +101,13 @@ Equivalent behavior should preserve:
 - **cleanup storm**: recurring version or npm-cache cleanup lacks marker-and-lock throttling and multiple processes all do the same expensive work
 - **immortal timers**: housekeeping timers keep the process alive after useful work is done
 - **service entanglement**: a failure in MagicDocs, skill improvement, auto-update, or cleanup blocks unrelated background services or bubbles up as a startup failure
+
+## Test Design
+
+In the observed source, platform-service behavior is verified through sequencing-sensitive integration tests, deterministic state regressions, and CLI-visible service flows.
+
+Equivalent coverage should prove:
+
+- config resolution, policy gates, persistence, and service startup ordering preserve the contracts and failure handling described above
+- provider-backed or OS-bound branches use fixtures, seeded stores, or narrow seams so auth, update, telemetry, and trust behavior stays reproducible
+- users still encounter the expected startup, settings, trust, diagnostics, and account-state behavior through the real CLI surface

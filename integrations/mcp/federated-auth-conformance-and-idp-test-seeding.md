@@ -49,3 +49,13 @@ Equivalent behavior should preserve:
 - **seed-slot mismatch**: injected test tokens do not land in the same cache identity ordinary auth later reads
 - **wire drift**: token exchange changes method or request shape and quietly stops matching conformance expectations
 - **fake auth success**: tests seed a token into a bypass-only slot and stop exercising the real federated credential path
+
+## Test Design
+
+In the observed source, MCP behavior is verified through contract regressions, seeded or fixture-backed integration flows, and connection-realistic end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- config layering, server lifecycle, permission relay, and resource projection preserve the contracts described in this leaf
+- auth, OAuth step-up, federated identity, and recovery branches can be exercised deterministically without depending on unstable live infrastructure
+- users still see the expected MCP connection, gating, refresh, and failure behavior through the real runtime surfaces

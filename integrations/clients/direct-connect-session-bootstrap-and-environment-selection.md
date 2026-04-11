@@ -83,3 +83,13 @@ This is a product contract, not just an HTTP detail: the wrong client envelope c
 - **bootstrap amnesia**: remote session creation omits repo, branch, model, or permission context and leaves the server to guess
 - **direct-connect trust gap**: an invalid or partial session-creation response is accepted as if the websocket were ready
 - **resume illusion**: bridge resume continues after the server rebounded the worker onto a different environment than the original session
+
+## Test Design
+
+In the observed source, client-integration behavior is verified through adapter regressions, transport-aware integration tests, and public-surface end-to-end flows.
+
+Equivalent coverage should prove:
+
+- message shaping, history or state projection, and surface-specific envelope rules stay stable across the client contracts described here
+- auth proxying, environment selection, reconnect, and remote-session coordination behave correctly at the real process or transport boundary
+- packaged client entrypoints still expose the same visible behavior as direct source invocation, especially for structured I/O and remote viewers

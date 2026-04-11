@@ -76,3 +76,13 @@ Equivalent behavior should preserve:
 - **context loss**: relevance checks no longer receive read-file or shell-command context, reducing precision
 - **override starvation**: long-running contextual hints never take precedence over stale scheduled tips
 - **state leak**: previous tip text remains visible even after no tip qualifies for later turns
+
+## Test Design
+
+In the observed source, feedback and notification behavior is verified through event-to-message regressions, runtime-backed integration tests, and terminal-visible interaction scenarios.
+
+Equivalent coverage should prove:
+
+- message selection, prioritization, suppression, and summarization rules preserve the user-facing semantics documented here
+- status lines, hook feedback, away summaries, and notification stacks stay in sync with real runtime events and reset cleanly between cases
+- the observable terminal text and ordering remain correct for users rather than only the internal event log or analytics stream

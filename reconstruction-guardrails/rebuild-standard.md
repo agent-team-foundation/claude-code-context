@@ -19,3 +19,16 @@ A node is useful when it helps another team answer at least one of these questio
 A node is not yet complete if it only says "there is a folder named X" or "there is a file named Y."
 
 Equivalent implementations may choose different languages, libraries, transport layers, or UI widgets. What must stay aligned is the product capability envelope and the architectural contracts captured in this tree.
+
+## Logic leaves must explain how they are tested
+
+For logic-bearing leaves, "complete enough to rebuild" includes a verification shape, not just a behavior description.
+
+A reconstruction-ready logic leaf should therefore include a `## Test Design` section that explains, in clean-room language:
+
+- which invariants or failure paths deserve fast regression coverage
+- which cross-subsystem interactions need integration coverage
+- which user-visible or transport-sensitive behaviors need end-to-end or compatibility coverage
+- when deterministic fixtures, replay, reset hooks, or test-only seams are part of the observed testing strategy
+
+The goal is not to mirror upstream test files. The goal is to preserve how the source treats the behavior as something that must be proven.

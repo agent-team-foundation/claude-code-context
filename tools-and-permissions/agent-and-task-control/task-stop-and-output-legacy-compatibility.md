@@ -111,3 +111,13 @@ A clean-room rebuild should preserve the observable rule of "exactly one SDK ter
 - **read-only misconception**: `TaskOutput` is rebuilt as a side-effect-free file read and stops marking tasks as notified
 - **permission mismatch**: old saved rules mention legacy tool names that no longer normalize to the canonical task-control tools
 - **double closeout**: shell-stop suppression and direct SDK termination both fire, producing two terminal task events for the same stop
+
+## Test Design
+
+In the observed source, agent and task-control behavior is verified through tool-contract regressions, shared-state integration tests, and interactive or automation control scenarios.
+
+Equivalent coverage should prove:
+
+- input shaping, launch routing, legacy-bridge rules, and control semantics stay aligned across the tool contracts described here
+- shared team or task state, forwarded control, and scheduling boundaries behave correctly across main sessions, workers, and delegated flows
+- users and clients can still spawn, steer, stop, list, and inspect work through the same real control surfaces the product exposes

@@ -44,3 +44,13 @@ A faithful rebuild should preserve:
 - external metadata projection that hides internal-only worker modes from remote or SDK clients
 
 Permission state is session-critical. Temporary modes such as planning or automation can relax or tighten behavior, but the runtime must be able to restore the prior posture cleanly.
+
+## Test Design
+
+In the observed source, permission behavior is verified through decision-matrix regressions, prompt-routing integration coverage, and approval-focused end-to-end flows.
+
+Equivalent coverage should prove:
+
+- mode resolution, rule precedence, and fail-closed safety edges choose the expected permission outcome for each tool request
+- prompt routing, forwarding, sandbox selection, and persisted rule loading behave correctly across foreground, worker, and remote-capable contexts
+- visible ask, grant, deny, cancel, and queue-advance behavior still flows through the real permission shell rather than a test-only shortcut

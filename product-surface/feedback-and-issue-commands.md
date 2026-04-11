@@ -106,3 +106,13 @@ Equivalent behavior should preserve:
 - **report undercapture**: `/feedback` collects only freeform text and drops transcript, subagent, or request context that the product relies on for debugging
 - **auto-run surprise**: the external build starts auto-launching `/issue` even though the observed snapshot keeps that path wired but disabled
 - **retention mismatch**: ZDR or custom-retention refusal is treated like an ordinary transient network error instead of a policy-specific block
+
+## Test Design
+
+In the observed source, product-surface behavior is verified through command-focused integration tests and CLI-visible end-to-end checks.
+
+Equivalent coverage should prove:
+
+- parsing, dispatch, flag composition, and mode selection preserve the public contract for this surface
+- downstream runtime, tool, and session services receive the correct shaping when this surface is used from interactive and headless entrypoints
+- user-visible output, exit behavior, and help or error routing remain correct through the packaged CLI path rather than only direct module calls

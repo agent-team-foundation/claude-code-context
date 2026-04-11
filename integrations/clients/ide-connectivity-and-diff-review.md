@@ -110,3 +110,13 @@ Equivalent behavior should preserve:
 - **edit-loss acceptance**: saved IDE changes are accepted without recomputing the final edit set, so user amendments disappear
 - **launch false positive**: `/ide open` reports success even though the editor CLI never opened the project or worktree
 - **notice spam**: `/ide` hints, install failures, or disconnect messages keep reappearing in contexts where the user cannot act on them
+
+## Test Design
+
+In the observed source, client-integration behavior is verified through adapter regressions, transport-aware integration tests, and public-surface end-to-end flows.
+
+Equivalent coverage should prove:
+
+- message shaping, history or state projection, and surface-specific envelope rules stay stable across the client contracts described here
+- auth proxying, environment selection, reconnect, and remote-session coordination behave correctly at the real process or transport boundary
+- packaged client entrypoints still expose the same visible behavior as direct source invocation, especially for structured I/O and remote viewers

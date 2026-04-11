@@ -41,3 +41,13 @@ Coordination tools need an additional boundary:
 Runtime task-management tools also need a clear boundary: file-backed team task lists are one contract, while live background-task registration, stop dispatch, and lifecycle bookends are the runtime contract captured in [shared-task-control-plane-and-lifecycle-events.md](../runtime-orchestration/tasks/shared-task-control-plane-and-lifecycle-events.md).
 
 This distinction is important for reconstruction because Claude Code is not just a bundle of file and shell tools. It is also a runtime that can reconfigure itself while work is in progress.
+
+## Test Design
+
+In the observed source, agent and task-control behavior is verified through tool-contract regressions, shared-state integration tests, and interactive or automation control scenarios.
+
+Equivalent coverage should prove:
+
+- input shaping, launch routing, legacy-bridge rules, and control semantics stay aligned across the tool contracts described here
+- shared team or task state, forwarded control, and scheduling boundaries behave correctly across main sessions, workers, and delegated flows
+- users and clients can still spawn, steer, stop, list, and inspect work through the same real control surfaces the product exposes

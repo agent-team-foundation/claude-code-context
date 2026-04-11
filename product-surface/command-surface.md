@@ -79,3 +79,13 @@ Equivalent behavior should preserve:
 - **skill/slash conflation**: skill browsing is treated as just another slash-command tab, erasing its separate grouping and export contract
 - **overlay amnesia**: MCP commands are either baked permanently into the local catalog or omitted from live session surfaces that should receive them
 - **bridge overshare**: companion clients learn about local-only commands or local integration wiring that the bridge runtime would later block
+
+## Test Design
+
+In the observed source, product-surface behavior is verified through command-focused integration tests and CLI-visible end-to-end checks.
+
+Equivalent coverage should prove:
+
+- parsing, dispatch, flag composition, and mode selection preserve the public contract for this surface
+- downstream runtime, tool, and session services receive the correct shaping when this surface is used from interactive and headless entrypoints
+- user-visible output, exit behavior, and help or error routing remain correct through the packaged CLI path rather than only direct module calls

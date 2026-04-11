@@ -70,3 +70,13 @@ Equivalent behavior should preserve:
 - **focus confusion**: the visible transcript changes, but input still targets a stale worker or remote session
 - **headless incompatibility leak**: stream-json or no-persistence flags appear to work outside headless mode and silently degrade
 - **overlay deadlock**: local dialog surfaces leave command keybindings or prompt focus active underneath the modal
+
+## Test Design
+
+In the observed source, product-surface behavior is verified through command-focused integration tests and CLI-visible end-to-end checks.
+
+Equivalent coverage should prove:
+
+- parsing, dispatch, flag composition, and mode selection preserve the public contract for this surface
+- downstream runtime, tool, and session services receive the correct shaping when this surface is used from interactive and headless entrypoints
+- user-visible output, exit behavior, and help or error routing remain correct through the packaged CLI path rather than only direct module calls

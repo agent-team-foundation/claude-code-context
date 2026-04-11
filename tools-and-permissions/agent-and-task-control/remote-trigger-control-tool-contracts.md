@@ -42,3 +42,13 @@ Equivalent behavior should preserve:
 - **schema overfitting**: the tool hardcodes one guessed trigger payload shape instead of passing through the backend-owned body contract
 - **unsafe read/write blur**: list and get are permissioned like writes, or writes slip through a read-only classification path
 - **fire-without-id**: update or manual-run operations can proceed without a stable trigger identifier
+
+## Test Design
+
+In the observed source, agent and task-control behavior is verified through tool-contract regressions, shared-state integration tests, and interactive or automation control scenarios.
+
+Equivalent coverage should prove:
+
+- input shaping, launch routing, legacy-bridge rules, and control semantics stay aligned across the tool contracts described here
+- shared team or task state, forwarded control, and scheduling boundaries behave correctly across main sessions, workers, and delegated flows
+- users and clients can still spawn, steer, stop, list, and inspect work through the same real control surfaces the product exposes

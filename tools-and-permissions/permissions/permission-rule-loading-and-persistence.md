@@ -137,3 +137,13 @@ Equivalent behavior should be able to warn foreground users when shell-wide allo
 - **edit corruption**: removing one rule rewrites or discards unrelated settings
 - **auto-mode bypass**: dangerous allow rules survive into auto mode and nullify classifier safety
 - **restoration loss**: stripped rules are not restored when leaving auto mode
+
+## Test Design
+
+In the observed source, permission behavior is verified through decision-matrix regressions, prompt-routing integration coverage, and approval-focused end-to-end flows.
+
+Equivalent coverage should prove:
+
+- mode resolution, rule precedence, and fail-closed safety edges choose the expected permission outcome for each tool request
+- prompt routing, forwarding, sandbox selection, and persisted rule loading behave correctly across foreground, worker, and remote-capable contexts
+- visible ask, grant, deny, cancel, and queue-advance behavior still flows through the real permission shell rather than a test-only shortcut

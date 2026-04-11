@@ -128,3 +128,13 @@ Equivalent behavior should preserve:
 - **attribution leak**: public-repo redaction mode or user attribution settings are ignored, exposing internal wording or unwanted attribution in public PRs or notifications
 - **plugin-double path**: migrated commands both advertise plugin installation and still run the fallback path in the same build context
 - **stub resurrection**: `autofix-pr` becomes visible or active even though the current product intentionally ships only a hidden disabled stub
+
+## Test Design
+
+In the observed source, product-surface behavior is verified through command-focused integration tests and CLI-visible end-to-end checks.
+
+Equivalent coverage should prove:
+
+- parsing, dispatch, flag composition, and mode selection preserve the public contract for this surface
+- downstream runtime, tool, and session services receive the correct shaping when this surface is used from interactive and headless entrypoints
+- user-visible output, exit behavior, and help or error routing remain correct through the packaged CLI path rather than only direct module calls

@@ -95,3 +95,13 @@ Equivalent behavior should preserve:
 - **unsafe speculative mutation**: a mutating bash command or out-of-root write executes during speculation instead of stopping at a boundary
 - **hidden stale suggestion**: a generated suggestion never becomes renderable but remains in state and later appears out of context
 - **speculation dead-end**: incomplete speculative output is injected without trimming, leaving the fallback query path with an invalid assistant-ended transcript
+
+## Test Design
+
+In the observed source, automation behavior is verified through deterministic scheduler regressions, stateful integration coverage, and public-surface workflow scenarios.
+
+Equivalent coverage should prove:
+
+- due-time calculation, jitter, speculation, and recovery logic remain deterministic under test posture and explicit clock control
+- durable task state, ownership locks, prompt injection, and cross-session coordination compose correctly with the task and session subsystems
+- user-visible cron, review, proactive, and remote-planning behavior works through the real automation surfaces instead of a bypass harness

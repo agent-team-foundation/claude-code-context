@@ -127,3 +127,13 @@ Some tools can choose not to hold the turn open and instead hand back a backgrou
 - **global over-cancel**: one tool failure aborts unrelated work that should have continued
 - **progress starvation**: long-running tools execute correctly but provide no mid-flight visibility
 - **interrupt mismatch**: the UI advertises interruptibility even though a blocking tool is still running
+
+## Test Design
+
+In the observed source, execution and hook behavior is verified through explicit state-machine regressions, queue-aware integration coverage, and real tool-invocation scenarios.
+
+Equivalent coverage should prove:
+
+- batching, streaming, hook admission, cancellation, and completion events preserve the sequencing guarantees documented in this leaf
+- runtime context shaping, side-effect control, and hook-triggered follow-up work compose correctly with real registries, timers, and reset hooks
+- the visible progress, notification, and post-tool behavior remains stable when the runtime executes tools through ordinary paths

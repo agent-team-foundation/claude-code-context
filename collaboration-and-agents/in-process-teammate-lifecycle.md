@@ -119,3 +119,13 @@ A faithful rebuild should preserve:
 - **priority inversion**: peer chatter prevents shutdown or leader instructions from being handled promptly
 - **UI memory balloon**: the AppState mirror stores the teammate's full history instead of a capped recent slice
 - **abort conflation**: stopping current work destroys the whole teammate instead of returning it to idle
+
+## Test Design
+
+In the observed source, collaboration behavior is verified through protocol and state-machine regressions, bridge-aware integration coverage, and multi-agent or remote end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- agent lifecycle, routing, mailbox, subscription, and control-state transitions preserve the contracts documented in this leaf
+- bridge transport, projection, permission forwarding, reconnect, and transcript continuity behave correctly with resettable peers and deterministic state seeds
+- observable teamwork behavior remains correct when users drive the product through real teammate, pane, or remote-session surfaces

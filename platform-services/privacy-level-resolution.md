@@ -48,3 +48,13 @@ Equivalent behavior should preserve:
 - **under-enforcement**: essential-traffic mode still allows optional network calls that should have been skipped
 - **settings override leak**: file-backed or remotely managed settings silently override process-level privacy posture
 - **diagnostic mismatch**: the UI says a feature is unavailable for one reason while the runtime suppressed it for another
+
+## Test Design
+
+In the observed source, platform-service behavior is verified through sequencing-sensitive integration tests, deterministic state regressions, and CLI-visible service flows.
+
+Equivalent coverage should prove:
+
+- config resolution, policy gates, persistence, and service startup ordering preserve the contracts and failure handling described above
+- provider-backed or OS-bound branches use fixtures, seeded stores, or narrow seams so auth, update, telemetry, and trust behavior stays reproducible
+- users still encounter the expected startup, settings, trust, diagnostics, and account-state behavior through the real CLI surface

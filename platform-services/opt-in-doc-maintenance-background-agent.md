@@ -123,3 +123,13 @@ Equivalent behavior should preserve:
 - **changelog creep**: the prompt stops emphasizing current-state maintenance and the document accumulates historical notes instead of staying concise and current
 - **background spam**: updates run after every tool-heavy turn or from non-main-thread query sources and consume too much background capacity
 - **zombie tracking**: deleted files, inaccessible files, or docs whose headers were removed stay in the tracked set and generate repeated background failures
+
+## Test Design
+
+In the observed source, platform-service behavior is verified through sequencing-sensitive integration tests, deterministic state regressions, and CLI-visible service flows.
+
+Equivalent coverage should prove:
+
+- config resolution, policy gates, persistence, and service startup ordering preserve the contracts and failure handling described above
+- provider-backed or OS-bound branches use fixtures, seeded stores, or narrow seams so auth, update, telemetry, and trust behavior stays reproducible
+- users still encounter the expected startup, settings, trust, diagnostics, and account-state behavior through the real CLI surface

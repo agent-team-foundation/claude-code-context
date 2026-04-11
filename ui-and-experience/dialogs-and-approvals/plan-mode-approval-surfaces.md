@@ -96,3 +96,13 @@ Equivalent behavior should preserve:
 - **feedback drop**: accept-side feedback or pasted rejection images disappear during submission and never reach the next planning or execution step
 - **wrong option ordering**: bypass, auto, and manual approval choices appear in the wrong priority order and change the execution posture the shortcut keys assume
 - **empty-plan mismatch**: the UI tries to render the long review surface for an empty plan and exposes controls that depend on plan content that is not there
+
+## Test Design
+
+In the observed source, dialog and approval behavior is verified through focused rendering or view-model regressions, store-backed integration tests, and interactive acceptance flows.
+
+Equivalent coverage should prove:
+
+- focus, overlay arbitration, diff navigation, structured rendering, and approval routing preserve the invariants documented in this leaf
+- dialog state remains correctly coupled to permission, plan, session, and transcript stores without timing-dependent leaks
+- users can actually reach, dismiss, accept, deny, export, or navigate these surfaces through the packaged interactive UI

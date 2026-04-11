@@ -101,3 +101,13 @@ Equivalent behavior should preserve:
 - **directory confusion**: consumers that expect file-only rows accidentally expose raw directory entries from the shared index
 - **partial-result stall**: the background build completes, but inline typeahead never re-runs the search and stays stuck on an early partial prefix
 - **ignore mismatch**: tracked and untracked paths obey different ignore filters and flicker in or out as the cache warms
+
+## Test Design
+
+In the observed source, shell-and-input behavior is verified through deterministic key-sequence regressions, store-backed integration coverage, and interactive terminal end-to-end checks.
+
+Equivalent coverage should prove:
+
+- input reducers, keybinding resolution, history state, and prompt composition preserve the invariants documented above
+- queue, history, suggestion, and terminal-runtime coupling behave correctly with real stores, temp files, and reset hooks between cases
+- multiline entry, fullscreen behavior, pickers, and suggestion surfaces work through the packaged interactive shell instead of only through isolated render helpers

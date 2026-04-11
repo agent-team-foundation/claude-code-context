@@ -123,3 +123,13 @@ Equivalent behavior should re-check fresh state at eviction time rather than tru
 - **duplicate completion**: stop paths and shell-exit paths both notify because the task was not atomically marked as already handled
 - **silent prompt deadlock**: a background task waits for interactive input indefinitely with no advisory signal
 - **stale eviction**: a polling pass removes a task that was resumed or replaced after the poll began
+
+## Test Design
+
+In the observed source, task behavior is verified through lifecycle regressions, registry-backed integration tests, and concurrency-sensitive foreground or background scenarios.
+
+Equivalent coverage should prove:
+
+- state transitions for launch, running, streaming, cancellation, completion, and failure remain deterministic and resettable between cases
+- task registries, monitor families, shared-control events, and persisted output compose correctly across main-session and worker contexts
+- users can still observe, foreground, stop, and inspect task output through the same surfaces they use in normal interactive or automated runs

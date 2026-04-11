@@ -78,3 +78,13 @@ Equivalent behavior should preserve:
 - **row-order drift**: keyboard focus, viewed state, and Enter actions disagree about which worker is selected
 - **premature disappearance**: a terminal named agent row vanishes before its linger window or before the user can steer back to the leader
 - **stale steering affordance**: a dismissed or evicted named agent still appears foregrounded in the banner or footer
+
+## Test Design
+
+In the observed source, background and teamwork UI behavior is verified through state-to-view regressions, live-update integration tests, and multi-agent interaction scenarios.
+
+Equivalent coverage should prove:
+
+- row, detail, summary, and status-derivation logic render the same meaning from task and teammate state snapshots
+- polling, mailbox updates, progress streaming, and navigation state stay coherent across live runtime changes and reset hooks between cases
+- users can still follow work, inspect details, and switch teammate context through the real interactive surfaces without stale or duplicated UI state

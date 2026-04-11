@@ -152,3 +152,13 @@ The client wrapper must know not only "which provider," but also whether the cur
 - **wrong SDK branch**: Bedrock, Vertex, or Foundry sessions reuse the first-party client and fail on endpoint, region, or auth format
 - **metadata rejection**: first-party-only headers are sent to third-party providers or custom gateways and break otherwise valid requests
 - **trust leak**: project-sourced provider env vars are applied before trust and redirect traffic to an attacker-controlled backend
+
+## Test Design
+
+In the observed source, platform-service behavior is verified through sequencing-sensitive integration tests, deterministic state regressions, and CLI-visible service flows.
+
+Equivalent coverage should prove:
+
+- config resolution, policy gates, persistence, and service startup ordering preserve the contracts and failure handling described above
+- provider-backed or OS-bound branches use fixtures, seeded stores, or narrow seams so auth, update, telemetry, and trust behavior stays reproducible
+- users still encounter the expected startup, settings, trust, diagnostics, and account-state behavior through the real CLI surface

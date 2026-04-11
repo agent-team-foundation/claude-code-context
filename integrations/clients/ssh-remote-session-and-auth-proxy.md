@@ -68,3 +68,13 @@ Equivalent behavior should preserve:
 - **approval desync**: remote permission asks never become local approval rows or never clear from the queue
 - **reconnect illusion**: the product implies an interrupted turn is still running when only the transport recovered
 - **auth proxy bleed**: the unix-socket override leaks into non-Anthropic requests and misroutes them
+
+## Test Design
+
+In the observed source, client-integration behavior is verified through adapter regressions, transport-aware integration tests, and public-surface end-to-end flows.
+
+Equivalent coverage should prove:
+
+- message shaping, history or state projection, and surface-specific envelope rules stay stable across the client contracts described here
+- auth proxying, environment selection, reconnect, and remote-session coordination behave correctly at the real process or transport boundary
+- packaged client entrypoints still expose the same visible behavior as direct source invocation, especially for structured I/O and remote viewers

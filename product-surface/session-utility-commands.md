@@ -73,3 +73,13 @@ Equivalent behavior should preserve:
 - **artifact leakage**: copy or export expose raw transcript envelopes, tool-only turns, or API-error noise instead of user-facing response text
 - **resume misfire**: slash-argument `/resume` silently expands into fuzzy or cross-project search and resumes the wrong conversation
 - **remote affordance lie**: `/session` leaks into non-remote surfaces or fails hard when the URL exists but QR rendering does not
+
+## Test Design
+
+In the observed source, product-surface behavior is verified through command-focused integration tests and CLI-visible end-to-end checks.
+
+Equivalent coverage should prove:
+
+- parsing, dispatch, flag composition, and mode selection preserve the public contract for this surface
+- downstream runtime, tool, and session services receive the correct shaping when this surface is used from interactive and headless entrypoints
+- user-visible output, exit behavior, and help or error routing remain correct through the packaged CLI path rather than only direct module calls

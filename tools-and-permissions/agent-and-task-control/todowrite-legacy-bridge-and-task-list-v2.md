@@ -156,3 +156,13 @@ The migration is incomplete if teams still coordinate elsewhere while task tools
 - **orphaned task queue**: leader and teammates resolve different task-list IDs and stop coordinating through one shared queue
 - **watcher storm**: every UI surface opens its own filesystem watcher and task visibility becomes flaky or expensive
 - **ghost todos**: finished subagents leave empty TodoWrite keys behind and slowly leak app-state memory
+
+## Test Design
+
+In the observed source, agent and task-control behavior is verified through tool-contract regressions, shared-state integration tests, and interactive or automation control scenarios.
+
+Equivalent coverage should prove:
+
+- input shaping, launch routing, legacy-bridge rules, and control semantics stay aligned across the tool contracts described here
+- shared team or task state, forwarded control, and scheduling boundaries behave correctly across main sessions, workers, and delegated flows
+- users and clients can still spawn, steer, stop, list, and inspect work through the same real control surfaces the product exposes

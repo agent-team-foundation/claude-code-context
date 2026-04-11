@@ -80,3 +80,13 @@ This coupling is what lets remote or headless sessions pick up the right plugin 
 - **ghost hooks**: disabled plugins keep firing callbacks after they were removed from the enabled set
 - **stale settings overlay**: plugin-contributed settings survive in cache after the contributing plugin was removed or blocked
 - **reload thrash**: policy refreshes with no actual plugin-affecting change trigger repeated plugin reloads anyway
+
+## Test Design
+
+In the observed source, plugin behavior is verified through registry regressions, loading-boundary integration tests, and management-surface end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- discovery, precedence, dependency resolution, feature gating, and skill exposure preserve the plugin contracts documented here
+- hot reload, settings coupling, packaged servers, and cache invalidation behave correctly with resettable registries and on-disk plugin state
+- the visible install, list, enablement, and runtime-exposure behavior stays aligned with the public plugin surfaces rather than private helper APIs

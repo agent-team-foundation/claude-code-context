@@ -93,3 +93,13 @@ Equivalent behavior should preserve:
 - **eager preview load**: the picker loads every full transcript just to render the list, destroying the lightweight discovery model
 - **mode leakage**: search or rename keystrokes keep triggering list actions underneath the active submode
 - **cross-project misresume**: selecting a session from another project silently resumes in the wrong checkout instead of forcing an explicit handoff
+
+## Test Design
+
+In the observed source, transcript and history behavior is verified through projection regressions, artifact-backed integration tests, and history-navigation end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- projection, filtering, search, selection, and restore behavior preserve the transcript contracts and cursor semantics documented here
+- session artifacts, previews, exports, and restore paths compose correctly with real message stores and persisted history state
+- users can navigate, resume, export, and restore history through the real product surface without replay duplication or state loss

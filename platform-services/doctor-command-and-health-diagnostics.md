@@ -181,3 +181,13 @@ Equivalent behavior should preserve:
 - **plugin invisibility**: plugin load failures only hit logs and never make it into `AppState.plugins.errors`, so the doctor view looks healthy while capabilities are missing
 - **blocking diagnostics**: optional health checks become hard dependencies and make doctor or startup unusably slow or fragile
 - **section drift**: the screen order or filtering rules change and users see the same problem duplicated, hidden, or reclassified depending on which producer emitted it
+
+## Test Design
+
+In the observed source, platform-service behavior is verified through sequencing-sensitive integration tests, deterministic state regressions, and CLI-visible service flows.
+
+Equivalent coverage should prove:
+
+- config resolution, policy gates, persistence, and service startup ordering preserve the contracts and failure handling described above
+- provider-backed or OS-bound branches use fixtures, seeded stores, or narrow seams so auth, update, telemetry, and trust behavior stays reproducible
+- users still encounter the expected startup, settings, trust, diagnostics, and account-state behavior through the real CLI surface

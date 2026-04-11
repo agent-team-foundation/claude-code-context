@@ -66,3 +66,13 @@ Equivalent behavior should preserve:
 - **flag-order skew**: forms like root-flags-before-subcommand accidentally enter special mode instead of showing usage
 - **mode confusion**: interactive direct connect or SSH falls into a headless runner
 - **double implementation drift**: fallback command actions start behaving differently from the rewrite-first path
+
+## Test Design
+
+In the observed source, product-surface behavior is verified through command-focused integration tests and CLI-visible end-to-end checks.
+
+Equivalent coverage should prove:
+
+- parsing, dispatch, flag composition, and mode selection preserve the public contract for this surface
+- downstream runtime, tool, and session services receive the correct shaping when this surface is used from interactive and headless entrypoints
+- user-visible output, exit behavior, and help or error routing remain correct through the packaged CLI path rather than only direct module calls

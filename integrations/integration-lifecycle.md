@@ -114,3 +114,13 @@ This is why plugin reloads, MCP reconnects, and client reattachments should be t
 - **live-skew blindness**: settings or source changes happen, but caches and registries keep serving the old contribution without surfacing staleness
 - **cross-integration poisoning**: one broken plugin, MCP server, or client attach path prevents unrelated integrations from loading or remaining visible
 - **recovery opacity**: reload, reconnect, or reattach paths run silently, so users and hosts cannot tell whether the live layer still matches current sources
+
+## Test Design
+
+In the observed source, integration behavior is verified through lifecycle regressions, boundary-aware integration coverage, and setup or handshake scenarios exercised through public entrypoints.
+
+Equivalent coverage should prove:
+
+- bootstrap, activation, and teardown rules remain stable at the subsystem boundaries described in this leaf
+- auth, provisioning, deploy, or companion coordination paths behave correctly when multiple product surfaces participate
+- the user-visible setup and handoff behavior is proven through real entrypoints instead of source-only helpers

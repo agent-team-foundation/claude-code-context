@@ -93,3 +93,13 @@ Equivalent behavior should preserve:
 - **recall repetition**: the selector keeps resurfacing the same files within one transcript window
 - **tool-doc noise**: relevance ranking keeps surfacing reference docs for tools the agent is already actively using
 - **snapshot clobber**: project-seeded specialist memory silently overwrites user-owned agent memory instead of becoming an initialize-or-update choice
+
+## Test Design
+
+In the observed source, memory and context behavior is verified through deterministic transformation regressions, persistence-aware integration tests, and continuity-focused conversation scenarios.
+
+Equivalent coverage should prove:
+
+- selection, compaction, extraction, and invalidation rules preserve the invariants and bounded-resource behavior documented above
+- cache state, memory layers, session persistence, and rehydration paths compose correctly across resume, compact, and recovery flows
+- visible context continuity still matches the product contract when deterministic fixtures or replay replace live upstream variability

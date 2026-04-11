@@ -101,3 +101,13 @@ Equivalent behavior should preserve:
 - **unsafe cutoff**: session memory records a summarized boundary after a tool-using assistant turn and later compaction leaves orphaned tool results
 - **file-scope escape**: the upkeep helper can edit arbitrary files instead of only the session-memory artifact
 - **stale summary dependency**: compaction trusts a missing or template-only session-memory file and drops transcript context without a valid working summary
+
+## Test Design
+
+In the observed source, memory and context behavior is verified through deterministic transformation regressions, persistence-aware integration tests, and continuity-focused conversation scenarios.
+
+Equivalent coverage should prove:
+
+- selection, compaction, extraction, and invalidation rules preserve the invariants and bounded-resource behavior documented above
+- cache state, memory layers, session persistence, and rehydration paths compose correctly across resume, compact, and recovery flows
+- visible context continuity still matches the product contract when deterministic fixtures or replay replace live upstream variability

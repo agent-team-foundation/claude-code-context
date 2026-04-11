@@ -94,3 +94,13 @@ Because team memory is synchronized to collaborators, secret protection is part 
 - **conflict clobbering**: a teammate's unrelated server update causes the client to re-upload the whole tree instead of only the still-different keys
 - **repo ambiguity**: team memory is synced without a stable repo identity and crosses project boundaries
 - **oversize deadlock**: the client never learns server-side entry caps and keeps failing on the same oversized or overfull payload
+
+## Test Design
+
+In the observed source, platform-service behavior is verified through sequencing-sensitive integration tests, deterministic state regressions, and CLI-visible service flows.
+
+Equivalent coverage should prove:
+
+- config resolution, policy gates, persistence, and service startup ordering preserve the contracts and failure handling described above
+- provider-backed or OS-bound branches use fixtures, seeded stores, or narrow seams so auth, update, telemetry, and trust behavior stays reproducible
+- users still encounter the expected startup, settings, trust, diagnostics, and account-state behavior through the real CLI surface

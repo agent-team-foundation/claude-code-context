@@ -102,3 +102,13 @@ Equivalent behavior should preserve:
 - **misplaced first session**: worktree mode incorrectly isolates the initial session, breaking the expected "launch here, type here" workflow
 - **orphaned resume breadcrumbs**: multi-session mode writes pointers that do not map to one resumable session and later mislead recovery
 - **interactive-headless drift**: daemon workers stop enforcing the same spawn-mode or worktree prerequisites as the interactive command
+
+## Test Design
+
+In the observed source, collaboration behavior is verified through protocol and state-machine regressions, bridge-aware integration coverage, and multi-agent or remote end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- agent lifecycle, routing, mailbox, subscription, and control-state transitions preserve the contracts documented in this leaf
+- bridge transport, projection, permission forwarding, reconnect, and transcript continuity behave correctly with resettable peers and deterministic state seeds
+- observable teamwork behavior remains correct when users drive the product through real teammate, pane, or remote-session surfaces

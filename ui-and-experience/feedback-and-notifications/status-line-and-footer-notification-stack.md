@@ -71,3 +71,13 @@ This is not just cosmetics. It prevents mutually contradictory hints from appear
 - **notification duplication**: repeated events stack instead of folding or invalidating
 - **mode override loss**: voice capture or similar dominant state fails to suppress the normal footer
 - **stale hint linger**: a superseded hint remains visible after the relevant state changed
+
+## Test Design
+
+In the observed source, feedback and notification behavior is verified through event-to-message regressions, runtime-backed integration tests, and terminal-visible interaction scenarios.
+
+Equivalent coverage should prove:
+
+- message selection, prioritization, suppression, and summarization rules preserve the user-facing semantics documented here
+- status lines, hook feedback, away summaries, and notification stacks stay in sync with real runtime events and reset cleanly between cases
+- the observable terminal text and ordering remain correct for users rather than only the internal event log or analytics stream

@@ -114,3 +114,13 @@ These side effects are part of the product behavior, not optional integrations.
 - **branch collapse**: PDFs, notebooks, images, and binary files all fall through the same text pipeline
 - **line-ending corruption**: full-file writes silently inherit old line endings instead of using the content the model actually sent
 - **notebook data loss**: code-cell edits preserve stale outputs or mutate a shared parsed notebook object
+
+## Test Design
+
+In the observed source, filesystem and shell behavior is verified through deterministic parser regressions, tempdir-backed integration tests, and safety-oriented command scenarios.
+
+Equivalent coverage should prove:
+
+- command parsing, classifier shaping, path resolution, and edit semantics preserve the contracts and fail-closed rules documented above
+- sandbox choice, cwd handling, temporary files, notebooks, and persisted edits behave correctly against real filesystem state rather than mock-only substitutes
+- ambiguous or dangerous inputs surface the expected refusal or approval path instead of being silently approximated into execution

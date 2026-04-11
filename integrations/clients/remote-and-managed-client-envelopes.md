@@ -27,3 +27,13 @@ Reconstruction requirements:
 - Session creation inside these envelopes should carry explicit repo, model, and permission context rather than assuming the remote side can infer them later.
 
 This envelope model matters because many high-value Claude Code experiences are neither purely local nor purely server-side. They are negotiated clients around one shared session model.
+
+## Test Design
+
+In the observed source, client-integration behavior is verified through adapter regressions, transport-aware integration tests, and public-surface end-to-end flows.
+
+Equivalent coverage should prove:
+
+- message shaping, history or state projection, and surface-specific envelope rules stay stable across the client contracts described here
+- auth proxying, environment selection, reconnect, and remote-session coordination behave correctly at the real process or transport boundary
+- packaged client entrypoints still expose the same visible behavior as direct source invocation, especially for structured I/O and remote viewers

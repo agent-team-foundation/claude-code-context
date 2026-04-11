@@ -119,3 +119,13 @@ That means documentation and tooling should distinguish persisted preferences fr
 - **migration mirage**: the runtime assumes the old key must disappear once the new key exists, breaking compatibility with partially migrated config files
 - **preference collapse**: persisted startup desire is treated as proof of live connection, so reconnecting or failed sessions render incorrectly
 - **alias leakage**: legacy bootstrap aliases start being accepted as slash-command names or root flags and muddy the command surface
+
+## Test Design
+
+In the observed source, collaboration behavior is verified through protocol and state-machine regressions, bridge-aware integration coverage, and multi-agent or remote end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- agent lifecycle, routing, mailbox, subscription, and control-state transitions preserve the contracts documented in this leaf
+- bridge transport, projection, permission forwarding, reconnect, and transcript continuity behave correctly with resettable peers and deterministic state seeds
+- observable teamwork behavior remains correct when users drive the product through real teammate, pane, or remote-session surfaces

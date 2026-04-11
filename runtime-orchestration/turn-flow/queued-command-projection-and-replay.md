@@ -102,3 +102,13 @@ No single dedupe pass is sufficient. The runtime expects different producers to 
 - **false rewind target**: queued-command attachment rows become selectable restore anchors and corrupt prompt history or file rewind behavior
 - **premature completion**: queued work is marked finished when it is dequeued, even though the turn later aborts or replays it differently
 - **echo duplication**: reconnect, companion replay, or task notifications reinsert the same queued work because only one dedupe path was preserved
+
+## Test Design
+
+In the observed source, turn-flow behavior is verified through a mix of deterministic module tests, resume-sensitive integration coverage, and CLI-visible end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- pre-query mutation, continuation branches, and typed terminal outcomes stay stable under test posture
+- tool results, compaction, queued-command replay, and transcript persistence still compose correctly inside one logical turn
+- interactive and structured-I/O paths surface the same visible outcome when interruption, permission denial, or recovery branches occur

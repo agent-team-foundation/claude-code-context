@@ -123,3 +123,13 @@ Equivalent behavior should preserve:
 - **memory-scope escape**: the dream worker can edit project files or run mutating shell commands instead of being confined to durable memory maintenance
 - **transcript flood**: the worker reads whole JSONL transcripts or shares its own fork transcript back into the main session, turning consolidation into context pollution
 - **mode collision**: proactive assistant-mode distillation and auto-dream both run against the same memory root and create conflicting consolidation behavior
+
+## Test Design
+
+In the observed source, memory and context behavior is verified through deterministic transformation regressions, persistence-aware integration tests, and continuity-focused conversation scenarios.
+
+Equivalent coverage should prove:
+
+- selection, compaction, extraction, and invalidation rules preserve the invariants and bounded-resource behavior documented above
+- cache state, memory layers, session persistence, and rehydration paths compose correctly across resume, compact, and recovery flows
+- visible context continuity still matches the product contract when deterministic fixtures or replay replace live upstream variability

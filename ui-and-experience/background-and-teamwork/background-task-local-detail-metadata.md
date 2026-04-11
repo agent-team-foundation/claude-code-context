@@ -68,3 +68,13 @@ Equivalent behavior should preserve:
 - **stats drift**: completed workers keep showing stale live counters instead of final result totals
 - **plan-preview duplication**: local background-agent detail shows both a structured plan view and the raw prompt preview for the same prompt
 - **foreground affordance mismatch**: teammate detail loses its foreground action or local background-agent detail incorrectly gains one
+
+## Test Design
+
+In the observed source, background and teamwork UI behavior is verified through state-to-view regressions, live-update integration tests, and multi-agent interaction scenarios.
+
+Equivalent coverage should prove:
+
+- row, detail, summary, and status-derivation logic render the same meaning from task and teammate state snapshots
+- polling, mailbox updates, progress streaming, and navigation state stay coherent across live runtime changes and reset hooks between cases
+- users can still follow work, inspect details, and switch teammate context through the real interactive surfaces without stale or duplicated UI state

@@ -104,3 +104,13 @@ Equivalent behavior should preserve:
 - **wrong audience**: Claude.ai subscriber sessions, logged-out sessions, or non-billing users see a Console API spend dialog they cannot act on
 - **surface disagreement**: the threshold dialog, status line, and query-budget enforcement read different cost totals and disagree about how expensive the session already is
 - **mid-turn interruption**: the dialog appears while a response is still loading instead of waiting for an idle dialog-safe moment
+
+## Test Design
+
+In the observed source, startup and onboarding behavior is verified through state-driven rendering regressions, startup-sequencing integration tests, and first-run acceptance flows.
+
+Equivalent coverage should prove:
+
+- welcome, recommendation, upsell, and acknowledgement surfaces appear only under the conditions documented in this leaf
+- account, usage, settings, and startup-service state compose correctly so onboarding decisions are deterministic and resettable in tests
+- users can move from these surfaces into a live session cleanly through the real packaged startup path

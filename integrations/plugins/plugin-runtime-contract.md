@@ -90,3 +90,13 @@ Equivalent behavior should preserve:
 - **refresh half-swap**: commands come from one plugin snapshot while hooks, MCP servers, LSP config, or settings overlays still come from another
 - **hidden stale intent**: a removed, blocked, or missing plugin vanishes from management surfaces instead of remaining diagnosable
 - **global plugin outage**: one failing plugin or marketplace poisons unrelated plugin loading instead of being isolated as one plugin-scoped error
+
+## Test Design
+
+In the observed source, plugin behavior is verified through registry regressions, loading-boundary integration tests, and management-surface end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- discovery, precedence, dependency resolution, feature gating, and skill exposure preserve the plugin contracts documented here
+- hot reload, settings coupling, packaged servers, and cache invalidation behave correctly with resettable registries and on-disk plugin state
+- the visible install, list, enablement, and runtime-exposure behavior stays aligned with the public plugin surfaces rather than private helper APIs

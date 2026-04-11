@@ -64,3 +64,13 @@ Equivalent behavior should preserve:
 - **late-service drift**: managed settings or post-login refreshes arrive, but downstream capability state never reconciles
 - **abort-afterglow**: startup has already chosen shutdown, but deferred reconciliation keeps mutating live state afterward
 - **non-essential service becoming critical**: telemetry, quota warming, or other support services accidentally gate core interaction
+
+## Test Design
+
+In the observed source, platform-service behavior is verified through sequencing-sensitive integration tests, deterministic state regressions, and CLI-visible service flows.
+
+Equivalent coverage should prove:
+
+- config resolution, policy gates, persistence, and service startup ordering preserve the contracts and failure handling described above
+- provider-backed or OS-bound branches use fixtures, seeded stores, or narrow seams so auth, update, telemetry, and trust behavior stays reproducible
+- users still encounter the expected startup, settings, trust, diagnostics, and account-state behavior through the real CLI surface

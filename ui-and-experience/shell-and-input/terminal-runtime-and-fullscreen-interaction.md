@@ -63,3 +63,13 @@ This is a usability contract as much as a rendering contract.
 - **multiplexer breakage**: synchronized-output markers are emitted through a proxy that destroys their atomicity
 - **SSH blind spot**: integrated-terminal behavior is missed because detection relies only on local environment variables
 - **viewport yank**: cursor-heavy rendering paths trigger terminal-specific scrolling bugs
+
+## Test Design
+
+In the observed source, shell-and-input behavior is verified through deterministic key-sequence regressions, store-backed integration coverage, and interactive terminal end-to-end checks.
+
+Equivalent coverage should prove:
+
+- input reducers, keybinding resolution, history state, and prompt composition preserve the invariants documented above
+- queue, history, suggestion, and terminal-runtime coupling behave correctly with real stores, temp files, and reset hooks between cases
+- multiline entry, fullscreen behavior, pickers, and suggestion surfaces work through the packaged interactive shell instead of only through isolated render helpers

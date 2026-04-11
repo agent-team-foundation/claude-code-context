@@ -41,3 +41,13 @@ MCP integration must support multiple transport styles and still present a singl
 - **auth stale**: the server remains known but shifts into a needs-auth posture
 - **session expired**: the runtime must discard cached connection state and reconnect
 - **transport-specific degradation**: one server is unhealthy without poisoning the rest of the tool pool
+
+## Test Design
+
+In the observed source, MCP behavior is verified through contract regressions, seeded or fixture-backed integration flows, and connection-realistic end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- config layering, server lifecycle, permission relay, and resource projection preserve the contracts described in this leaf
+- auth, OAuth step-up, federated identity, and recovery branches can be exercised deterministically without depending on unstable live infrastructure
+- users still see the expected MCP connection, gating, refresh, and failure behavior through the real runtime surfaces

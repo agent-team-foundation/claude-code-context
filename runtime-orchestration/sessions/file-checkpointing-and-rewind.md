@@ -108,3 +108,13 @@ Without this, resumed sessions can show rewind UI that points at backups the new
 - **rewind mismatch**: dry-run diff and real restore disagree about whether a file would change
 - **resume orphaning**: resumed sessions inherit snapshot metadata without migrating the underlying backup artifacts
 - **new-file leak**: files created after the target snapshot are not deleted because missing-file state was never recorded explicitly
+
+## Test Design
+
+In the observed source, session behavior is verified through persistence-focused integration tests, deterministic state-shaping regressions, and resume-oriented end-to-end flows.
+
+Equivalent coverage should prove:
+
+- identifiers, checkpoints, artifacts, and persisted metadata survive restarts, forks, rewinds, and discovery scans without state drift
+- storage, attachment, and remote-restoration paths compose correctly with the runtime services that read or mutate session state
+- visible continue, resume, fork, restore, and sharing behavior matches the packaged CLI and remote surfaces rather than only direct module calls

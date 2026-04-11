@@ -112,3 +112,13 @@ Equivalent behavior should preserve:
 - **channel hang**: ask-user stays enabled in channel-only contexts and deadlocks waiting for a terminal interaction path that does not exist
 - **annotation loss**: selected preview content and user notes are visible in the UI but never survive into tool results or model-facing tool-result blocks
 - **sidechannel collapse**: attachments are incorrectly stuffed into schema fields instead of traveling as separate approval content blocks
+
+## Test Design
+
+In the observed source, specialized-tool behavior is verified through narrow schema regressions, subsystem integration tests, and surface-realistic end-to-end probes.
+
+Equivalent coverage should prove:
+
+- capability gates, input validation, and refusal rules remain stable for the edge cases that this tool family is expected to handle
+- each tool still works correctly at the real subsystem boundary it touches, including browser, web, interview, or native-control style integrations when applicable
+- ordinary tool-pool invocation preserves the visible success, rejection, contention, and cleanup behavior without relying on bespoke test backdoors

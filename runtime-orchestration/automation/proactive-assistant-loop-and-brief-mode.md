@@ -83,3 +83,13 @@ Equivalent behavior should preserve:
 - **tick spam**: autonomous ticks fire while the queue still has real input or while the runtime is paused on a context error
 - **brief split-brain**: brief-only UI hides plain text while the model was never given BriefTool, or the inverse
 - **leader re-bootstrap**: spawned teammates re-run assistant-only startup and corrupt the session's team or proactive state
+
+## Test Design
+
+In the observed source, automation behavior is verified through deterministic scheduler regressions, stateful integration coverage, and public-surface workflow scenarios.
+
+Equivalent coverage should prove:
+
+- due-time calculation, jitter, speculation, and recovery logic remain deterministic under test posture and explicit clock control
+- durable task state, ownership locks, prompt injection, and cross-session coordination compose correctly with the task and session subsystems
+- user-visible cron, review, proactive, and remote-planning behavior works through the real automation surfaces instead of a bypass harness

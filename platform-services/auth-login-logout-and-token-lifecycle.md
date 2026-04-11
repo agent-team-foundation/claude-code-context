@@ -138,3 +138,13 @@ Equivalent behavior should preserve:
 - **stale auth observers**: MCP, voice, or other auth-sensitive hooks never notice explicit login and keep showing pre-login capabilities until restart
 - **over-clearing logout**: account-switch teardown resets onboarding or first-run state that should only reset on the explicit full logout path
 - **under-clearing logout**: secure storage or auth-related caches survive logout and leak entitlements, schemas, or account metadata into the next session
+
+## Test Design
+
+In the observed source, platform-service behavior is verified through sequencing-sensitive integration tests, deterministic state regressions, and CLI-visible service flows.
+
+Equivalent coverage should prove:
+
+- config resolution, policy gates, persistence, and service startup ordering preserve the contracts and failure handling described above
+- provider-backed or OS-bound branches use fixtures, seeded stores, or narrow seams so auth, update, telemetry, and trust behavior stays reproducible
+- users still encounter the expected startup, settings, trust, diagnostics, and account-state behavior through the real CLI surface

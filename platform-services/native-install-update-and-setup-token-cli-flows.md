@@ -140,3 +140,13 @@ Equivalent behavior should preserve:
   logged-in identity instead of creating limited-scope OAuth material
 - **browser dead-end**: browser launch fails and the CLI never prints the
   fallback URL or pasted-code prompt
+
+## Test Design
+
+In the observed source, platform-service behavior is verified through sequencing-sensitive integration tests, deterministic state regressions, and CLI-visible service flows.
+
+Equivalent coverage should prove:
+
+- config resolution, policy gates, persistence, and service startup ordering preserve the contracts and failure handling described above
+- provider-backed or OS-bound branches use fixtures, seeded stores, or narrow seams so auth, update, telemetry, and trust behavior stays reproducible
+- users still encounter the expected startup, settings, trust, diagnostics, and account-state behavior through the real CLI surface

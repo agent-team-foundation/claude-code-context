@@ -147,3 +147,13 @@ Equivalent behavior should preserve:
 - **focus race leakage**: refocusing the terminal fails to abort an in-flight summary, so a stale recap lands after the user is already back and working
 - **expensive recap path**: away summaries use the full transcript, tools, or a heavyweight model and turn a lightweight recap into a costly background query
 - **action collapse**: `dismiss`, `continue`, and `clear` all converge to the same behavior, removing the deliberate distinction between edit-first, keep-context, and restart-fresh flows
+
+## Test Design
+
+In the observed source, feedback and notification behavior is verified through event-to-message regressions, runtime-backed integration tests, and terminal-visible interaction scenarios.
+
+Equivalent coverage should prove:
+
+- message selection, prioritization, suppression, and summarization rules preserve the user-facing semantics documented here
+- status lines, hook feedback, away summaries, and notification stacks stay in sync with real runtime events and reset cleanly between cases
+- the observable terminal text and ordering remain correct for users rather than only the internal event log or analytics stream

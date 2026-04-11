@@ -118,3 +118,13 @@ That split is important because task memory pressure and task inspectability are
 - **empty-read lie**: a missing output file is reported as empty success instead of as a broken readback
 - **poller explosion**: every task creates its own timer instead of sharing one visibility-driven poller
 - **symlink escape**: insecure output-file creation lets a sandboxed process redirect host writes to arbitrary files
+
+## Test Design
+
+In the observed source, task behavior is verified through lifecycle regressions, registry-backed integration tests, and concurrency-sensitive foreground or background scenarios.
+
+Equivalent coverage should prove:
+
+- state transitions for launch, running, streaming, cancellation, completion, and failure remain deterministic and resettable between cases
+- task registries, monitor families, shared-control events, and persisted output compose correctly across main-session and worker contexts
+- users can still observe, foreground, stop, and inspect task output through the same surfaces they use in normal interactive or automated runs

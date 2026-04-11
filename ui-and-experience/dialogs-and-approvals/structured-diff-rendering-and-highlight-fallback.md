@@ -89,3 +89,13 @@ Equivalent behavior should preserve:
 - **narrow-terminal breakage**: gutter splitting stays enabled when the terminal is too narrow and the content column collapses or becomes uncopyable
 - **dim-mode mismatch**: dimmed historical or de-emphasized diffs still emit bright inline word highlights and break the intended visual hierarchy
 - **native-parity overclaim**: the portable renderer is treated as byte-for-byte identical to the native highlighter, causing rebuilds to encode the wrong guarantee around token coloring or `BAT_THEME`
+
+## Test Design
+
+In the observed source, dialog and approval behavior is verified through focused rendering or view-model regressions, store-backed integration tests, and interactive acceptance flows.
+
+Equivalent coverage should prove:
+
+- focus, overlay arbitration, diff navigation, structured rendering, and approval routing preserve the invariants documented in this leaf
+- dialog state remains correctly coupled to permission, plan, session, and transcript stores without timing-dependent leaks
+- users can actually reach, dismiss, accept, deny, export, or navigate these surfaces through the packaged interactive UI

@@ -100,3 +100,13 @@ When compaction clears instruction-related caches, the next load should be treat
 - **reload misclassification**: compaction or other meaningful reloads are recorded as ordinary cache clears
 - **custom-prompt leakage**: default system context still sneaks in even though a custom prompt was supposed to replace it
 - **recovery skew**: fallback prefix rebuilding includes unstable in-progress content or drops too much state to preserve cache compatibility
+
+## Test Design
+
+In the observed source, memory and context behavior is verified through deterministic transformation regressions, persistence-aware integration tests, and continuity-focused conversation scenarios.
+
+Equivalent coverage should prove:
+
+- selection, compaction, extraction, and invalidation rules preserve the invariants and bounded-resource behavior documented above
+- cache state, memory layers, session persistence, and rehydration paths compose correctly across resume, compact, and recovery flows
+- visible context continuity still matches the product contract when deterministic fixtures or replay replace live upstream variability

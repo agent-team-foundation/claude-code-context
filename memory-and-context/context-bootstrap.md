@@ -77,3 +77,13 @@ Equivalent behavior should preserve explicit cache clears when:
 - **bootstrap flattening**: system context, user context, session memory, and later relevant-memory attachments collapse into one uncached blob
 - **project-identity drift**: worktree or startup cwd changes leave bootstrap reading instructions from the wrong root
 - **stale snapshot illusion**: startup git/runtime facts silently refresh mid-session and stop matching what the model originally saw
+
+## Test Design
+
+In the observed source, memory and context behavior is verified through deterministic transformation regressions, persistence-aware integration tests, and continuity-focused conversation scenarios.
+
+Equivalent coverage should prove:
+
+- selection, compaction, extraction, and invalidation rules preserve the invariants and bounded-resource behavior documented above
+- cache state, memory layers, session persistence, and rehydration paths compose correctly across resume, compact, and recovery flows
+- visible context continuity still matches the product contract when deterministic fixtures or replay replace live upstream variability

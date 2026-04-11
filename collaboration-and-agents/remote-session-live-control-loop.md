@@ -74,3 +74,13 @@ The important contract is that reconnect behavior distinguishes recoverable tran
 - **double rendering**: remote replay and live-mode adaptation both render the same user message
 - **false permanence**: a transient remote-staleness close is treated as a hard terminal failure
 - **infinite reconnect**: the client never gives up after definitive session closure
+
+## Test Design
+
+In the observed source, collaboration behavior is verified through protocol and state-machine regressions, bridge-aware integration coverage, and multi-agent or remote end-to-end scenarios.
+
+Equivalent coverage should prove:
+
+- agent lifecycle, routing, mailbox, subscription, and control-state transitions preserve the contracts documented in this leaf
+- bridge transport, projection, permission forwarding, reconnect, and transcript continuity behave correctly with resettable peers and deterministic state seeds
+- observable teamwork behavior remains correct when users drive the product through real teammate, pane, or remote-session surfaces
