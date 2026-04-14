@@ -3,6 +3,9 @@ title: "E2E Permission Testing Contracts"
 owners: [bingran-you]
 soft_links: [/tools-and-permissions/permissions/permission-decision-pipeline.md, /ui-and-experience/dialogs-and-approvals/permission-prompt-shell-and-worker-states.md, /reconstruction-guardrails/verification-and-native-test-oracles/test-runtime-mode-and-determinism.md, /reconstruction-guardrails/verification-and-native-test-oracles/e2e-harness-reality-boundaries.md]
 native_source: tools/testing/TestingPermissionTool.tsx
+native_ref: tools/testing/TestingPermissionTool.tsx#TestingPermissionTool
+test_asset_origin: source_snapshot_derived
+acceptance_rule: Admit the approval probe only in test posture and require it to drive the ordinary ask/grant/deny queue instead of a fake dialog shortcut.
 verification_status: native_test_derived
 ---
 

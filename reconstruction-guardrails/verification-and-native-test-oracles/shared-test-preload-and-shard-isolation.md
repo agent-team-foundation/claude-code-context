@@ -9,6 +9,9 @@ soft_links:
   - /platform-services/settings-change-detection-and-runtime-reload.md
   - /tools-and-permissions/permissions/e2e-permission-testing-contracts.md
 native_source: test/preload.ts
+native_ref: test/preload.ts#same-process-reset-layer
+test_asset_origin: source_snapshot_derived
+acceptance_rule: Same-process and sharded tests must clear sticky product state through the shared preload path so later cases do not inherit caches, hooks, or timeout debt.
 verification_status: native_test_derived
 ---
 

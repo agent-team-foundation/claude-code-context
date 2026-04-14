@@ -3,6 +3,9 @@ title: "Mock Rate Limit Scenarios and Test Contracts"
 owners: [bingran-you]
 soft_links: [/platform-services/claude-ai-limits-and-extra-usage-state.md, /reconstruction-guardrails/verification-and-native-test-oracles/native-test-derived-asset-provenance-and-acceptance-rules.md, /reconstruction-guardrails/verification-and-native-test-oracles/test-lane-coverage-map.md]
 native_source: services/mockRateLimits.ts
+native_ref: services/mockRateLimits.ts#scenario-surface
+test_asset_origin: source_snapshot_derived
+acceptance_rule: Preserve an internal-only mock surface that deterministically exercises the distinct user-visible quota and overage branches without stale residue between cases.
 verification_status: native_test_derived
 ---
 

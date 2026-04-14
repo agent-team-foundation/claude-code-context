@@ -20,6 +20,8 @@ The current repo already uses domain-owned leaves for native-test-derived assets
 - rate-limit mock scenario contracts
 - sed command validation contracts
 - YOLO classifier contracts
+- end-to-end permission testing contracts
+- shared preload and shard-isolation contracts
 
 This is the right ownership model: the acceptance oracle lives with the subsystem that owns the behavior.
 
@@ -29,8 +31,17 @@ When a leaf is derived primarily from upstream-native tests or testing-oriented 
 
 - the owning concern domain
 - explicit provenance markers such as `native_source` where that is clear and useful
+- a `test_asset_origin` marker that says whether the asset is source-snapshot-derived, released-binary-observed, or a clearly labeled hybrid
+- an optional `native_ref` marker when a finer source pointer than one file path is useful
+- a short `acceptance_rule` marker that states what kind of regression should be treated as failing this asset
 - a verification marker such as `verification_status: native_test_derived` when the leaf is intentionally restating upstream test oracles
 - behavior and acceptance guidance, not copied prompts, copied code, or repo-internal execution trivia
+
+Recommended current values:
+
+- `test_asset_origin: source_snapshot_derived` for assets extracted mainly from the leaked source snapshot
+- `test_asset_origin: released_cli_observed` for assets extracted mainly from black-box CLI exercise
+- `test_asset_origin: mixed_evidence` only when the leaf truly depends on both and says so explicitly
 
 ## What these leaves should contain
 
@@ -41,6 +52,7 @@ A good native-test-derived leaf should usually include:
 - important state or parser edge cases
 - the likely reconstruction mistakes another team would make without this oracle
 - acceptance criteria when the evidence is strong enough to phrase them safely
+- concise frontmatter that lets future agents classify the asset before reading the whole leaf
 
 ## What they should not become
 
