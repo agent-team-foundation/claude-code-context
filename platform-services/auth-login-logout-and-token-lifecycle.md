@@ -14,6 +14,7 @@ This leaf covers:
 
 - interactive `/login` and `/logout` command behavior inside a running session
 - `claude auth login` and `claude auth logout` subcommand behavior
+- the read-only `claude auth status` surface in JSON and human-readable modes
 - the shared OAuth browser and manual-code transport used to acquire auth codes
 - the central token-install path that replaces one authenticated identity with another
 - logout teardown, cache invalidation, and auth-version-driven re-fetch behavior
@@ -45,6 +46,24 @@ Equivalent behavior should preserve:
 - forced login-method settings being treated as hard constraints, so the runtime can preselect Claude subscription auth or Console billing auth instead of always asking
 - forced organization validation happening after token installation and before the flow is considered complete
 - incompatible CLI flags for mutually exclusive login modes failing early instead of silently picking one
+
+## Read-only auth status surfaces are provider-aware and source-aware
+
+The analyzed source snapshot and the reconstruction validation corpus expose a top-level `claude auth status` surface. The local `claude 2.1.19` help output on this machine does not advertise the `auth` command family, so the safest clean-room claim is that this is a **version-sensitive public surface**, not a guaranteed baseline for every installed build.
+
+Equivalent behavior should preserve:
+
+- `claude auth status` staying read-only and inspection-oriented rather than silently refreshing, logging in, or mutating auth state
+- a human-readable `--text` branch and a structured JSON branch instead of one hard-coded presentation format
+- logged-in detection considering every real auth route the runtime can currently use, including third-party provider mode, OAuth-style auth, helper-managed API keys, and direct API-key environments
+- the structured output surfacing at least overall logged-in state, resolved auth method, and active API-provider family
+- JSON output appending source-specific detail only when it is actually meaningful, such as API-key source or Claude-account fields
+- text output suppressing empty or `none` properties instead of printing a wall of meaningless placeholders
+- direct environment-key-only setups still producing a useful text breadcrumb rather than looking entirely unauthenticated
+- explicit "not logged in" guidance appearing when no usable auth path exists
+- process exit status remaining meaningful for scripts, with success when some usable auth path exists and failure when no usable auth path exists
+
+The reconstruction-critical point is that auth status is not only "am I signed into Claude.ai?" It is a provider-aware inspection surface over the effective credential posture.
 
 ## OAuth transport contract
 
@@ -131,6 +150,7 @@ Equivalent behavior should preserve:
 
 ## Failure modes
 
+- **status lie**: `auth status` reports only Anthropic OAuth state and hides a still-working third-party provider path, or vice versa
 - **partial account switch**: new tokens are stored, but transcript safety cleanup, feature refresh, or cache invalidation is skipped and the live session still behaves like the previous account
 - **destructive helper flow**: a limited-scope OAuth helper mistakenly reuses the full install path and wipes the user's real logged-in session
 - **stale signature replay**: old signed transcript blocks survive an in-session login and the next request fails because they were bound to a different key
@@ -146,5 +166,6 @@ In the observed source, platform-service behavior is verified through sequencing
 Equivalent coverage should prove:
 
 - config resolution, policy gates, persistence, and service startup ordering preserve the contracts and failure handling described above
+- `claude auth status` correctly reflects third-party, OAuth, helper-key, direct-key, and logged-out states in both text and JSON modes
 - provider-backed or OS-bound branches use fixtures, seeded stores, or narrow seams so auth, update, telemetry, and trust behavior stays reproducible
 - users still encounter the expected startup, settings, trust, diagnostics, and account-state behavior through the real CLI surface
