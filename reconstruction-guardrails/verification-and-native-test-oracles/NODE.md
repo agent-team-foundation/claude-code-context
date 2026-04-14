@@ -15,6 +15,7 @@ This subdomain captures cross-cutting knowledge about how the observed Claude Co
 
 Relevant leaves:
 
+- **[minimal-end-to-end-verification-chain.md](minimal-end-to-end-verification-chain.md)** — The shortest serious proof ladder a rewrite should clear before broader parity claims are considered credible.
 - **[parity-capability-matrix.md](parity-capability-matrix.md)** — Which capability families are blocking for parity, which are extension-level, and what evidence bar each family must clear before a rebuild can claim success.
 - **[reconstruction-target-and-evidence-boundary.md](reconstruction-target-and-evidence-boundary.md)** — How source-snapshot evidence and later released-binary evidence can both inform the tree without collapsing into one false versionless parity claim.
 - **[test-framework-overview.md](test-framework-overview.md)** — The layered shape of the current test system, including the visible tier model and the boundary between confirmed and inferred runner details.
