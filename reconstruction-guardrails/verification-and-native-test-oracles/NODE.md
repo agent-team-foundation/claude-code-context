@@ -15,6 +15,7 @@ This subdomain captures cross-cutting knowledge about how the observed Claude Co
 
 Relevant leaves:
 
+- **[shared-test-preload-and-shard-isolation.md](shared-test-preload-and-shard-isolation.md)** — How the shared preload layer, reset hooks, and shard-sensitive performance guards keep same-process tests isolated without turning the framework into one-process-per-case only.
 - **[minimal-end-to-end-verification-chain.md](minimal-end-to-end-verification-chain.md)** — The shortest serious proof ladder a rewrite should clear before broader parity claims are considered credible.
 - **[parity-capability-matrix.md](parity-capability-matrix.md)** — Which capability families are blocking for parity, which are extension-level, and what evidence bar each family must clear before a rebuild can claim success.
 - **[reconstruction-target-and-evidence-boundary.md](reconstruction-target-and-evidence-boundary.md)** — How source-snapshot evidence and later released-binary evidence can both inform the tree without collapsing into one false versionless parity claim.
