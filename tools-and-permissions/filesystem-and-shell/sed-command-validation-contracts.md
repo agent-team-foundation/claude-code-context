@@ -3,6 +3,9 @@ title: "Sed Command Validation Contracts"
 owners: [bingran-you]
 soft_links: [/tools-and-permissions/filesystem-and-shell/shell-command-parsing-and-classifier-flow.md, /tools-and-permissions/permissions/permission-decision-pipeline.md, /reconstruction-guardrails/verification-and-native-test-oracles/native-test-derived-asset-provenance-and-acceptance-rules.md]
 native_source: tools/BashTool/sedValidation.ts
+native_ref: tools/BashTool/sedValidation.ts#sedCommandIsAllowedByAllowlist
+test_asset_origin: source_snapshot_derived
+acceptance_rule: Preserve the narrow auto-allow path for clearly safe inspection/stdout-only sed while failing closed on ambiguous, persistent, or execution-capable forms.
 verification_status: native_test_derived
 ---
 

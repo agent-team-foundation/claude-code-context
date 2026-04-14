@@ -3,6 +3,9 @@ title: "YOLO Classifier Contracts"
 owners: [bingran-you]
 soft_links: [/tools-and-permissions/permissions/permission-decision-pipeline.md, /tools-and-permissions/permissions/permission-model.md, /reconstruction-guardrails/verification-and-native-test-oracles/native-test-derived-asset-provenance-and-acceptance-rules.md]
 native_source: utils/permissions/yoloClassifier.ts
+native_ref: utils/permissions/yoloClassifier.ts#structured-verdict-contract
+test_asset_origin: source_snapshot_derived
+acceptance_rule: Keep the auto-approval classifier machine-readable, fail-safe, escalation-capable, and resistant to assistant self-justification.
 verification_status: native_test_derived
 ---
 
