@@ -17,4 +17,5 @@ Relevant leaves:
 - **[sandbox-selection-and-bypass-guards.md](sandbox-selection-and-bypass-guards.md)** — How sandbox selection, excluded commands, policy-gated overrides, and Windows refusal paths interact.
 - **[config-permission-and-sandbox-admin-surfaces.md](config-permission-and-sandbox-admin-surfaces.md)** — Registry-backed config mutation on eligible builds, plus permission browser, denied-command retry, and sandbox admin surfaces.
 - **[yolo-classifier-contracts.md](yolo-classifier-contracts.md)** — Acceptance oracles for automatic-approval transcript shaping, fail-safe classifier verdicts, staged review, and environment-specific deny overlays.
+- **[auto-mode-introspection-cli-surfaces.md](auto-mode-introspection-cli-surfaces.md)** — How version-sensitive `claude auto-mode defaults/config/critique` expose default rules, effective merged rules, and critique-only review without mutating live permission posture.
 - **[e2e-permission-testing-contracts.md](e2e-permission-testing-contracts.md)** — How a test-only approval probe reuses the normal permission dialog path without widening the public tool surface.
