@@ -6,16 +6,19 @@ soft_links: [/product-surface/command-dispatch-and-composition.md, /tools-and-pe
 
 # Agent Management Surface
 
-`/agents` is not just a thin file browser over agent markdown. It is a local management surface over the live agent catalog, with source-aware grouping, override labeling, guided authoring, and source-sensitive editing limits. A faithful rebuild needs to preserve the distinction between "all discovered agent definitions the operator can inspect" and "the smaller active set that currently wins at runtime."
+Claude Code's agent surface is not just one interactive file browser over agent markdown. The observed product family includes a local `/agents` management UI and, in the analyzed source snapshot plus released CLI evidence, a separate top-level `claude agents` listing command. They share one underlying agent catalog, but they do not share the same mutation affordances or presentation contract.
+
+A faithful rebuild needs to preserve the distinction between "all discovered agent definitions the operator can inspect," "the smaller active set that currently wins at runtime," and "which entrypoint is allowed to mutate anything at all."
 
 ## Scope boundary
 
 This leaf covers:
 
 - `/agents` as a local UI surface rather than an ordinary transcript turn
+- the version-sensitive top-level `claude agents` read-only listing surface exposed by the analyzed source snapshot and validation corpus
 - the user-visible list, detail, create, edit, and delete flows for agent definitions
 - which source classes are surfaced, which ones are view-only, and which ones are valid creation targets in the observed UI
-- how structured wizard steps and external-editor handoff divide agent authoring responsibilities
+- how the interactive and non-interactive agent entrypoints share catalog semantics but diverge on presentation and mutation affordances
 
 It intentionally does not re-document:
 
@@ -31,6 +34,23 @@ Equivalent behavior should preserve:
 - the surface receiving its tool inventory from the current permission-context tool set plus the live MCP merge, so tool-related detail views and editors reflect the current session rather than a frozen global registry
 - dismissal returning a local result summary such as "dialog dismissed" or a compact list of agent changes, rather than polluting the transcript with synthetic turns
 
+## The top-level listing command is read-only and version-sensitive
+
+The analyzed source snapshot and the current reconstruction validation corpus expose a top-level `claude agents` command that is distinct from the interactive `/agents` surface. The local `claude 2.1.19` help output on this machine does not advertise that command, so the safest clean-room claim is that this is a **version-sensitive public surface**, not a universal guarantee for every released build.
+
+Equivalent behavior should preserve:
+
+- when present, `claude agents` staying a plain CLI listing command instead of opening the local JSX manager
+- that command remaining read-only: it lists agent state, but does not create, edit, or delete agent definitions
+- the top-level command sharing the same discovered-versus-active catalog semantics as the interactive surface instead of inventing a second narrower agent inventory
+- source grouping and alphabetical ordering staying consistent between the top-level command and the interactive manager
+- the text surface leading with an active-agent count, then printing grouped source sections
+- shadowed entries remaining visible in that text output, annotated by the winning source instead of disappearing from the listing entirely
+- an explicit `No agents found.` empty state instead of a silent success exit
+- source filtering options such as settings-source narrowing affecting this top-level list before it renders, not being ignored just because the output is non-interactive
+
+The key reconstruction lesson is that the product can expose the same agent catalog through both a modal operator UI and a simple text command without collapsing them into one UX.
+
 ## Listing preserves source and override semantics
 
 Equivalent behavior should preserve:
@@ -43,6 +63,8 @@ Equivalent behavior should preserve:
 - list rows surfacing quick behavioral cues such as model and memory status so users can compare competing agent definitions without opening every detail view
 
 The reconstruction-critical point is that `/agents` is an operator view over both active and inactive definitions. It is not just a view over whichever agent currently wins by precedence.
+
+Those same grouping and override semantics should also be the baseline for any top-level `claude agents` listing surface that the targeted version exposes.
 
 ## Detail view exposes definition-shaping fields without flattening sources
 
@@ -81,6 +103,7 @@ Equivalent behavior should preserve:
 
 ## Failure modes
 
+- **surface conflation**: `claude agents` is rebuilt as an alias for the interactive `/agents` manager, or `/agents` loses its richer local mutation UI and collapses into a text dump
 - **source flattening**: rebuilds show only active agents and hide shadowed definitions, erasing the operator-facing distinction between discovered and winning entries
 - **mutation overreach**: built-in, plugin, or CLI-argument agents are treated as ordinary editable records even though the observed surface keeps them view-only
 - **creation drift**: the public wizard offers unsupported creation targets for every source class instead of preserving the narrower project/personal authoring contract
@@ -94,5 +117,6 @@ In the observed source, product-surface behavior is verified through command-foc
 Equivalent coverage should prove:
 
 - parsing, dispatch, flag composition, and mode selection preserve the public contract for this surface
+- the top-level listing command, when the targeted version exposes it, preserves grouped source ordering, active counts, and shadowed-entry labeling without requiring the interactive UI
 - downstream runtime, tool, and session services receive the correct shaping when this surface is used from interactive and headless entrypoints
 - user-visible output, exit behavior, and help or error routing remain correct through the packaged CLI path rather than only direct module calls
