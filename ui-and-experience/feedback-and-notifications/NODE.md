@@ -11,6 +11,7 @@ Relevant leaves:
 
 - **[interaction-feedback.md](interaction-feedback.md)** — How the product communicates progress, risk, and outcomes.
 - **[status-line-and-footer-notification-stack.md](status-line-and-footer-notification-stack.md)** — Priority-driven footer arbitration, persistent indicators, and notification folding rules.
+- **[custom-status-line-setup-and-execution.md](custom-status-line-setup-and-execution.md)** — `/statusline` setup flow, persisted command shape, structured stdin payload, and trust/layout rules for custom status lines.
 - **[out-of-band-terminal-notification-routing.md](out-of-band-terminal-notification-routing.md)** — Terminal-native notification routing outside transcript and footer queues.
 - **[spinner-tips-and-contextual-loading-hints.md](spinner-tips-and-contextual-loading-hints.md)** — Spinner-tip scheduling, cooldown/relevance contracts, and elapsed-time hint overrides.
 - **[system-feedback-lines.md](system-feedback-lines.md)** — How system-generated status rows specialize by subtype, collapse noise, and preserve turn/recovery context.
