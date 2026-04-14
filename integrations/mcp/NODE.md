@@ -11,6 +11,7 @@ This subdomain captures how Claude Code treats Model Context Protocol servers as
 Relevant leaves:
 
 - **[server-contract.md](server-contract.md)** — Umbrella contract from layered MCP server config through admission, connection, live surface exposure, interactive follow-up flows, and recovery.
+- **[claude-code-mcp-serve-surface.md](claude-code-mcp-serve-surface.md)** — How `claude mcp serve` exposes Claude Code itself as a tools-only MCP server over stdio.
 - **[config-layering-policy-and-dedup.md](config-layering-policy-and-dedup.md)** — How layered MCP sources, managed policy, project approval, and cross-source dedup produce the live server set.
 - **[oauth-step-up-and-client-registration.md](oauth-step-up-and-client-registration.md)** — How MCP OAuth discovery, callback handling, step-up scope requests, and secure reauth behave.
 - **[federated-auth-conformance-and-idp-test-seeding.md](federated-auth-conformance-and-idp-test-seeding.md)** — How the federated XAA path, SEP-990 expectations, and mock-IdP token seeding behave as a conformance-oriented auth contract.
