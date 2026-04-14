@@ -15,6 +15,7 @@ This subdomain captures cross-cutting knowledge about how the observed Claude Co
 
 Relevant leaves:
 
+- **[reconstruction-target-and-evidence-boundary.md](reconstruction-target-and-evidence-boundary.md)** — How source-snapshot evidence and later released-binary evidence can both inform the tree without collapsing into one false versionless parity claim.
 - **[test-framework-overview.md](test-framework-overview.md)** — The layered shape of the current test system, including the visible tier model and the boundary between confirmed and inferred runner details.
 - **[real-cli-e2e-scenario-corpus.md](real-cli-e2e-scenario-corpus.md)** — A live-observed black-box scenario set for validating whether a rebuild behaves like a real Claude Code CLI across startup, headless runs, session continuity, structured I/O, and diagnostics.
 - **[test-runtime-mode-and-determinism.md](test-runtime-mode-and-determinism.md)** — How `NODE_ENV=test` behaves as a supported runtime posture, including in-memory config behavior, reduced side effects, and deterministic test-only branches.
